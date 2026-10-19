@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    interpolate-size: allow-keywords;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-family: "Google Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "GRAD" 0;
+}
+
+body {
+    background-color: #070707;
+    color: #e6e6e6;
+}
+
+header {
+    position: sticky;
+    top: 1rem;
+    z-index: 1000;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #161616;
+    height: 5rem;
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+
+    animation-timeline: scroll(root);
+    animation-duration: 1ms;
+    animation-name: headerScroll;
+}
+
+@keyframes headerScroll {
+    0% {
+        margin-top: 0rem;
+        border-radius: 0rem;
+        transform: translateY(-1rem);
+        max-width: 100dvw;
+        margin: 0 auto;
+    }
+
+    100% {
+        margin-top: 1rem;
+        border-radius: 5rem;
+        transform: translateY(0rem);
+        max-width: 85dvw;
+        margin: 0 auto;
+    }
+}
+
+
+.header--logo {
+    margin-left: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header--logo svg {
+    color: white;
+    font-size: 8rem;
+    transform: translateY(5%);
+}
+
+.header--menu {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.header--menu__link {
+    text-decoration: none;
+    color: #e6e6e6;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 5rem;
+
+    &:hover {
+        background-color: #292929;
+    }
+}
+
+main {
+    max-width: 90dvw;
+    margin: 0 auto;
+    min-height: 100vh;
+}
