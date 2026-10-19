@@ -1,0 +1,54 @@
+BITÁCORA - PROYECTO RUEDA LIBRE
+
+PETICIÓN DEL DOCUMENTO PRINCIPAL
+
+URL completa: http://127.0.0.1:5500/index.html
+Protocolo: http
+Host: 127.0.0.1
+Puerto: 5500
+Ruta: /index.html
+Método HTTP: GET
+Código de estado: 200
+
+Significado:
+
+El código de estado 200 significa que la solicitud se realizó correctamente y que el servidor entregó el documento HTML 
+solicitado. Esto indica que el navegador pudo acceder a la página principal de Rueda Libre sin problemas.
+
+PRUEBA DE UNA RUTA INEXISTENTE
+
+URL probada: http://127.0.0.1:5500/promociones.html
+Código de estado: 404
+
+Significado:
+
+El código de estado 404 Not Found significa que el servidor no encontró el recurso solicitado en la ruta indicada. 
+En este caso, la página promociones.html no existe dentro del proyecto, por lo que el servidor no puede mostrar ese documento. 
+Este resultado permite comprobar cómo responde el servidor cuando se solicita una página que no está disponible.
+
+ROL DE HTML, CSS Y JAVASCRIPT
+
+HTML:
+
+HTML define la estructura y el contenido de la página web. Permite organizar títulos, párrafos, imágenes, enlaces y formularios.
+
+CSS:
+
+CSS controla la apariencia visual de la página web. Permite definir colores, tipografías, tamaños, márgenes, 
+distribución de los elementos y adaptación a diferentes pantallas.
+
+JavaScript:
+
+JavaScript permite agregar interactividad y comportamiento dinámico a la página web. Hace posible responder a las acciones de los 
+usuarios y realizar cálculos o validaciones.
+
+CONCLUSIÓN
+
+Durante esta actividad aprendí a crear la estructura inicial de un sitio web utilizando HTML, organizar los archivos 
+del proyecto e inicializar un repositorio Git. También aprendí a conectar el proyecto con GitHub, abrir la página 
+mediante Live Server y utilizar las herramientas de desarrollo del navegador para inspeccionar las peticiones HTTP.
+
+Comprendí que el código de estado 200 indica que una solicitud se atendió correctamente y que el 
+código 404 señala que el recurso solicitado no se encontró. Finalmente, identifiqué la f
+unción de HTML para estructurar el contenido, CSS para diseñar su apariencia y JavaScript para agregar 
+interactividad al sitio web Rueda Libre.
