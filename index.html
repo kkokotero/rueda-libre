@@ -14,6 +14,8 @@
 <body>
   <span id="top-app"></span>
   <header>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menú de navegación">
+
     <section class="header">
       <nav class="header--logo">
         <a href="/#top-app" aria-label="Rueda Libre, ir al inicio">
@@ -25,13 +27,29 @@
           </svg>
         </a>
       </nav>
-      <nav class="header--menu">
+      <nav class="header--menu" aria-label="Navegación principal">
         <a href="#about-us" class="header--menu__link">¿Quiénes somos?</a>
         <a href="#our-services" class="header--menu__link">Nuestros servicios</a>
         <a href="#why" class="header--menu__link">¿Cómo alquilar?</a>
         <a href="#found-us" class="header--menu__link">Encuéntranos</a>
       </nav>
+
+      <label for="nav-toggle" class="header--toggle" aria-hidden="true">
+        <span class="header--toggle__bar"></span>
+        <span class="header--toggle__bar"></span>
+        <span class="header--toggle__bar"></span>
+      </label>
     </section>
+
+    <label for="nav-toggle" class="nav-scrim" aria-hidden="true"></label>
+
+    <nav class="header--drawer" aria-label="Navegación móvil">
+      <p class="header--drawer__eyebrow">Menú</p>
+      <a href="#about-us" class="header--drawer__link">¿Quiénes somos?</a>
+      <a href="#our-services" class="header--drawer__link">Nuestros servicios</a>
+      <a href="#why" class="header--drawer__link">¿Cómo alquilar?</a>
+      <a href="#found-us" class="header--drawer__link">Encuéntranos</a>
+    </nav>
   </header>
 
   <main>
@@ -56,7 +74,8 @@
         </p>
 
         <section class="about-us--content__list">
-          <a class="about-us--content__list--item primary" href="#our-services">Bicicletas en buen estado y revisadas</a>
+          <a class="about-us--content__list--item primary" href="#our-services">Bicicletas en buen estado y
+            revisadas</a>
           <a class="about-us--content__list--item tertiary" href="#our-services">Una alternativa de transporte</a>
           <a class="about-us--content__list--item secondary" href="#our-services">Rutas para descubrir lugares</a>
         </section>
@@ -73,8 +92,8 @@
       <h2>Nuestros servicios</h2>
 
       <article>
-        <img src="./assets/img/bicicleta.png" alt="Bicicleta urbana disponible para alquilar" width="500"
-          loading="lazy" decoding="async">
+        <img src="./assets/img/bicicleta.png" alt="Bicicleta urbana disponible para alquilar" width="500" loading="lazy"
+          decoding="async">
 
         <h3>Alquiler de bicicletas urbanas</h3>
 
@@ -288,6 +307,29 @@
 
     </div>
   </footer>
+
+  <!-- Mejora progresiva: el menú lateral funciona solo con CSS; este script
+       únicamente lo cierra al elegir un enlace o pulsar Escape. -->
+  <script>
+    (() => {
+      const navToggle = document.getElementById("nav-toggle");
+
+      if (!navToggle) return;
+
+      document.querySelectorAll(".header--drawer a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navToggle.checked = false;
+        });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && navToggle.checked) {
+          navToggle.checked = false;
+          navToggle.focus();
+        }
+      });
+    })();
+  </script>
 </body>
 
 </html>

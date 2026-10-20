@@ -211,12 +211,27 @@ header {
     &:hover {
         background-color: color-mix(in oklab, var(--color-primary) 22%, transparent);
         color: var(--color-primary);
-        transform: translateY(-2px);
     }
+}
 
-    &:active {
-        transform: translateY(0) scale(0.97);
-    }
+/* ============================================================
+   Menú lateral móvil (sin JavaScript)
+   El checkbox controla la apertura; la etiqueta es el botón.
+   ============================================================ */
+
+.nav-toggle {
+    display: none;
+}
+
+.header--toggle,
+.nav-scrim,
+.header--drawer {
+    display: none;
+}
+
+.nav-toggle:focus-visible~.header .header--toggle {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
 }
 
 main {
@@ -1223,6 +1238,8 @@ main>section>h2 {
 
 @media (max-width: 720px) {
     .header {
+        position: relative;
+        z-index: 3;
         height: 4.5rem;
         padding: 0 0.5rem 0 0.75rem;
     }
@@ -1236,8 +1253,187 @@ main>section>h2 {
     }
 
     .header--menu {
-        justify-content: flex-start;
-        mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 2.5rem), transparent 100%);
+        display: none;
+    }
+
+    /* Checkbox accesible: invisible pero enfocable con el teclado */
+    .nav-toggle {
+        display: block;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        clip-path: inset(50%);
+    }
+
+    .header--toggle {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.3rem;
+        flex-shrink: 0;
+        width: 3rem;
+        height: 3rem;
+        margin-left: auto;
+        border-radius: 50%;
+        border: 1px solid color-mix(in oklab, var(--color-outline-variant) 70%, transparent);
+        background-color: color-mix(in oklab, var(--color-surface-container-high) 62%, transparent);
+        color: var(--color-on-surface);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .header--toggle:hover {
+        background-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+        border-color: var(--color-primary);
+    }
+
+    .header--toggle:active {
+        transform: scale(0.94);
+    }
+
+    .header--toggle__bar {
+        width: 1.15rem;
+        height: 2px;
+        border-radius: var(--radius-pill);
+        background-color: currentColor;
+    }
+
+    #nav-toggle:checked~.header .header--toggle {
+        background-color: var(--color-primary);
+        border-color: transparent;
+        color: var(--color-on-primary);
+    }
+
+    #nav-toggle:checked~.header .header--toggle__bar:nth-child(1) {
+        transform: translateY(0.4rem) rotate(45deg);
+    }
+
+    #nav-toggle:checked~.header .header--toggle__bar:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0.4);
+    }
+
+    #nav-toggle:checked~.header .header--toggle__bar:nth-child(3) {
+        transform: translateY(-0.4rem) rotate(-45deg);
+    }
+
+    /* Fondo oscurecido: al pulsarlo también cierra el menú */
+    .nav-scrim {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background-color: color-mix(in oklab, var(--color-scrim) 62%, transparent);
+        opacity: 0;
+        visibility: hidden;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    #nav-toggle:checked~.nav-scrim {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Panel lateral deslizante */
+    .header--drawer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        position: fixed;
+        inset: 0 0 0 auto;
+        z-index: 2;
+        width: min(20rem, 84dvw);
+        height: 100vh;
+        height: 100dvh;
+        padding: 6.5rem 1.25rem 2rem;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        color: var(--color-on-surface);
+        background-color: color-mix(in oklab, var(--color-surface-container) 96%, transparent);
+        -webkit-backdrop-filter: blur(1.5rem);
+        backdrop-filter: blur(1.5rem);
+        border-left: 1px solid color-mix(in oklab, var(--color-primary) 28%, transparent);
+        translate: 100% 0;
+        visibility: hidden;
+    }
+
+    #nav-toggle:checked~.header--drawer {
+        translate: 0 0;
+        visibility: visible;
+    }
+
+    .header--drawer__eyebrow {
+        margin: 0 0 0.75rem 1rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--color-primary);
+    }
+
+    .header--drawer__link {
+        display: flex;
+        align-items: center;
+        padding: 0.95rem 1rem;
+        border-radius: var(--radius-sm);
+        color: var(--color-on-surface);
+        font-size: clamp(1.05rem, 4.5vw, 1.2rem);
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            color var(--motion-fast) var(--ease-emphasized);
+
+        &:hover,
+        &:focus-visible {
+            background-color: color-mix(in oklab, var(--color-primary) 16%, transparent);
+            color: var(--color-primary);
+        }
+
+        &:active {
+            background-color: color-mix(in oklab, var(--color-primary) 26%, transparent);
+        }
+    }
+
+    .header--drawer__contact {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        margin-top: auto;
+        padding: 1rem 1.1rem;
+        border: 1px solid color-mix(in oklab, var(--color-primary) 30%, transparent);
+        border-radius: var(--radius-md);
+        background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
+        color: var(--color-on-surface-variant);
+        font-size: 0.85rem;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            border-color var(--motion-fast) var(--ease-emphasized);
+
+        & span {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-primary);
+        }
+
+        &:hover {
+            background-color: color-mix(in oklab, var(--color-primary) 16%, transparent);
+            border-color: var(--color-primary);
+        }
+    }
+
+    /* Evita el desplazamiento del fondo con el menú abierto */
+    html:has(#nav-toggle:checked) {
+        overflow: hidden;
     }
 
     body {
@@ -1278,11 +1474,6 @@ main>section>h2 {
 
     .section--divider {
         margin: 2rem 0;
-    }
-
-    .header--menu__link {
-        padding: 0.7rem 0.85rem;
-        font-size: 0.9rem;
     }
 
     .about-us--content__list {
