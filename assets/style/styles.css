@@ -133,7 +133,6 @@ header {
     margin-bottom: 2rem;
     margin-top: 1rem;
     backdrop-filter: blur(1.25rem);
-    box-shadow: 0 1.5rem 3rem -2.5rem var(--color-shadow);
 
     animation-timeline: scroll(root);
     animation-duration: 1ms;
@@ -268,9 +267,8 @@ main>section>h2 {
     flex: 2 1 0;
     min-width: 0;
     width: 100%;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     object-fit: cover;
-    box-shadow: 0 2rem 4rem -2rem var(--color-shadow);
     transition: border-radius var(--motion-slow) var(--ease-spring);
 }
 
@@ -531,10 +529,18 @@ main>section>h2 {
             color-mix(in oklab, var(--color-on-primary) 8%, transparent);
         transition: transform var(--motion-slow) var(--ease-spring);
         transform: scale(2) translateY(20%);
+
+        @media (width < 768px) {
+            transform: scale(1.25) translateY(15%);
+        }
     }
 
     &:hover::after {
         transform: scale(2) translateY(20%) rotate(20deg);
+
+        @media (width < 768px) {
+            transform: scale(1.25) translateY(15%) rotate(20deg);
+        }
     }
 }
 
@@ -678,7 +684,6 @@ main>section>h2 {
         background-color var(--motion-fast) var(--ease-emphasized),
         color var(--motion-fast) var(--ease-emphasized),
         border-color var(--motion-fast) var(--ease-emphasized),
-        box-shadow var(--motion-medium) var(--ease-emphasized),
         transform var(--motion-medium) var(--ease-spring);
 
     &>span {
@@ -699,7 +704,6 @@ main>section>h2 {
 .found-us--button__primary {
     background-color: var(--color-primary);
     color: var(--color-on-primary);
-    box-shadow: 0 1.25rem 2.5rem -1.5rem color-mix(in oklab, var(--color-primary) 70%, transparent);
 
     &>svg:first-child {
         background-color: color-mix(in oklab, var(--color-on-primary) 14%, transparent);
@@ -708,7 +712,6 @@ main>section>h2 {
     &:hover {
         background-color: var(--color-primary-container);
         color: var(--color-on-primary-container);
-        box-shadow: 0 1.5rem 3rem -1.5rem color-mix(in oklab, var(--color-primary) 60%, transparent);
     }
 }
 
@@ -817,7 +820,6 @@ main>section>h2 {
             color-mix(in oklab, #ffffff 26%, transparent), transparent 55%),
         linear-gradient(140deg, var(--color-primary), var(--color-primary-container));
     border-radius: var(--radius-lg);
-    box-shadow: 0 2rem 4rem -2.5rem color-mix(in oklab, var(--color-primary) 55%, transparent);
 }
 
 
@@ -874,12 +876,10 @@ main>section>h2 {
 .footer__button--filled {
     background-color: var(--color-on-primary);
     color: var(--color-primary);
-    box-shadow: 0 1rem 2rem -1.25rem color-mix(in oklab, var(--color-on-primary) 55%, transparent);
 }
 
 .footer__button--filled:hover {
     color: var(--color-on-primary-container);
-    box-shadow: 0 1.25rem 2.5rem -1.25rem color-mix(in oklab, var(--color-on-primary) 45%, transparent);
 }
 
 .footer__button--outlined {
@@ -973,7 +973,6 @@ main>section>h2 {
     height: 0.45rem;
     border-radius: 50%;
     background-color: currentColor;
-    box-shadow: 0 0 0 0.2rem color-mix(in oklab, var(--color-primary) 18%, transparent);
 }
 
 .footer__location {
@@ -1188,16 +1187,12 @@ main>section>h2 {
         flex-direction: column;
     }
 
-    .about-us--content {
-        border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 6rem;
-    }
-
     .about-us--image {
         flex: none;
         width: 100%;
         max-height: 24rem;
         aspect-ratio: 16 / 10;
-        border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 6rem;
+        border-radius: var(--radius-md);
     }
 
     #found-us {
