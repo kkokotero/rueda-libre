@@ -1208,14 +1208,6 @@ main>section>h2 {
         transform var(--motion-medium) var(--ease-spring);
 }
 
-.tarifas-button:hover {
-    transform: translateY(-2px);
-}
-
-.tarifas-button:active {
-    transform: translateY(0) scale(0.98);
-}
-
 .tarifas-button svg {
     width: 1.25rem;
     height: 1.25rem;
