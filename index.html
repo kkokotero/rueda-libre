@@ -73,10 +73,9 @@
       <h2>Nuestros servicios</h2>
 
       <article>
-        
         <img src="./assets/img/bicicleta.png" alt="Bicicleta urbana disponible para alquilar" width="500"
-        loading="lazy" decoding="async">
-        
+          loading="lazy" decoding="async">
+
         <h3>Alquiler de bicicletas urbanas</h3>
 
         <p>
@@ -88,10 +87,9 @@
       </article>
 
       <article>
-        
         <img src="./assets/img/ruta.png" alt="Ruta en bicicleta entre paisajes de Medellín y Antioquia" width="500"
-        loading="lazy" decoding="async">
-        
+          loading="lazy" decoding="async">
+
         <h3>Rutas turísticas en bicicleta</h3>
 
         <p>
@@ -138,31 +136,157 @@
     <section id="found-us">
       <h2>Encuéntranos</h2>
 
-      <p>
+      <p class="found-us--text">
         Estamos en Medellín, Colombia. Contáctanos para consultar
         nuestra ubicación exacta, los horarios de atención y las
         opciones de alquiler.
       </p>
 
-      <p>
-        Correo electrónico:
-        <a href="mailto:hola@ruedalibre.example">
-          hola@ruedalibre.example
-        </a>
-      </p>
+      <div class="found-us--actions">
+        <p class="found-us--label">Contacto directo</p>
 
-      <p>
-        <a href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia" target="_blank"
-          rel="noopener noreferrer">
-          Ver ubicación en Google Maps
+        <a class="found-us--button found-us--button__primary" href="mailto:hola@ruedalibre.example">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="3" />
+            <path d="m4 7 8 6 8-6" />
+          </svg>
+          <span>hola@ruedalibre.example</span>
+          <svg class="found-us--button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="m13 6 6 6-6 6" />
+          </svg>
         </a>
-      </p>
+
+        <a class="found-us--button found-us--button__secondary"
+          href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia" target="_blank"
+          rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
+            <circle cx="12" cy="10" r="2.5" />
+          </svg>
+          <span>Ver ubicación en Google Maps</span>
+          <svg class="found-us--button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7" />
+            <path d="M9 7h8v8" />
+          </svg>
+        </a>
+      </div>
     </section>
 
   </main>
 
-  <footer>
-    <p>&copy; 2026 Rueda Libre. Todos los derechos reservados.</p>
+  <footer class="site-footer">
+    <div class="footer__inner">
+
+      <section class="footer__cta" aria-labelledby="footer-cta-title">
+        <div class="footer__cta-copy">
+          <p class="footer__eyebrow">Tu próxima ruta empieza aquí</p>
+          <h2 id="footer-cta-title" class="footer__cta-title">¿Listo para rodar por Medellín?</h2>
+        </div>
+
+        <div class="footer__cta-actions">
+          <a class="footer__button footer__button--filled" href="mailto:hola@ruedalibre.example">
+            Reservar una bicicleta
+          </a>
+          <a class="footer__button footer__button--outlined" href="#our-services">
+            Conocer los servicios
+          </a>
+        </div>
+      </section>
+
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a class="footer__logo" href="#top-app" aria-label="Rueda Libre, ir al inicio">
+            <span class="footer__logo-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="5.5" cy="17.5" r="3.5" />
+                <circle cx="18.5" cy="17.5" r="3.5" />
+                <path d="M5.5 17.5 9 10h5.5l4 7.5" />
+                <path d="M9 10 7.5 6H10" />
+                <path d="M14.5 10 13 6h2.5" />
+              </svg>
+            </span>
+            <span class="footer__logo-text">Rueda <em>Libre</em></span>
+          </a>
+
+          <p class="footer__description">
+            Alquiler de bicicletas y rutas para descubrir Medellín a tu
+            propio ritmo, de forma sostenible y segura.
+          </p>
+
+          <p class="footer__badge">
+            <span aria-hidden="true"></span>
+            Movilidad sostenible
+          </p>
+
+          <p class="footer__location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+            Medellín, Colombia
+          </p>
+        </div>
+
+        <nav class="footer__nav" aria-label="Navegación del pie de página">
+          <h3 class="footer__heading">Explora</h3>
+          <a href="#about-us">¿Quiénes somos?</a>
+          <a href="#our-services">Nuestros servicios</a>
+          <a href="#why">¿Cómo alquilar?</a>
+          <a href="#found-us">Encuéntranos</a>
+        </nav>
+
+        <div class="footer__contact">
+          <h3 class="footer__heading">Contacto</h3>
+          <a href="mailto:hola@ruedalibre.example">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="3" />
+              <path d="m4 7 8 6 8-6" />
+            </svg>
+            hola@ruedalibre.example
+          </a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia" target="_blank"
+            rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+            Google Maps
+            <svg class="footer__external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7" />
+              <path d="M9 7h8v8" />
+            </svg>
+          </a>
+
+          <p class="footer__note">
+            Escríbenos para conocer horarios de atención y disponibilidad.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; 2026 Rueda Libre. Todos los derechos reservados.</p>
+        <p class="footer__made">Pedaleando en Medellín</p>
+        <a class="footer__top" href="#top-app">
+          Volver arriba
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 19V5" />
+            <path d="m6 11 6-6 6 6" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
   </footer>
 </body>
 
