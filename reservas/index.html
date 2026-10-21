@@ -2402,38 +2402,46 @@
                     });
                     emptyState.append(emptyMessage, chooseDateButton);
 
-                    const periods = document.createElement("div");
-                    periods.className = "reservas-timepicker__periods";
+                    const wheels = document.createElement("div");
+                    wheels.className = "reservas-timepicker__wheels";
 
-                    const createPeriod = (title, label) => {
+                    const createWheel = (label) => {
                         const section = document.createElement("section");
-                        section.className = "reservas-timepicker__period";
+                        section.className = "reservas-timepicker__wheel";
 
                         const heading = document.createElement("h3");
                         heading.className =
-                            "reservas-timepicker__period-title";
-                        heading.textContent = title;
+                            "reservas-timepicker__wheel-title";
+                        heading.textContent = label;
 
-                        const slots = document.createElement("div");
-                        slots.className = "reservas-timepicker__grid";
-                        slots.setAttribute("role", "group");
-                        slots.setAttribute("aria-label", label);
+                        const list = document.createElement("div");
+                        list.className = "reservas-timepicker__wheel-list";
+                        list.setAttribute("role", "listbox");
+                        list.setAttribute("aria-label", label);
 
-                        section.append(heading, slots);
-                        periods.append(section);
-                        return slots;
+                        section.append(heading, list);
+                        wheels.append(section);
+                        return list;
                     };
 
-                    const morningGrid = createPeriod(
-                        "Mañana",
-                        "Horarios de la mañana",
-                    );
-                    const afternoonGrid = createPeriod(
-                        "Tarde",
-                        "Horarios de la tarde",
-                    );
+                    const hourWheel = createWheel("Hora");
+                    const minuteWheel = createWheel("Minutos");
+                    const confirmTimeButton = document.createElement("button");
+                    confirmTimeButton.type = "button";
+                    confirmTimeButton.className =
+                        "reservas-timepicker__confirm";
+                    confirmTimeButton.textContent = "Listo";
+                    confirmTimeButton.addEventListener("click", () => {
+                        if (native.value) close({ focus: true });
+                    });
 
-                    panel.append(dateSummary, hint, emptyState, periods);
+                    panel.append(
+                        dateSummary,
+                        hint,
+                        emptyState,
+                        wheels,
+                        confirmTimeButton,
+                    );
 
                     const parseTime = (time) => {
                         const [hours, minutes] = time.split(":").map(Number);
@@ -2478,7 +2486,10 @@
                     );
                     const dateNative =
                         wrapper.closest("form")?.elements.namedItem("fecha");
-                    let slotButtons = [];
+                    let availableTimes = [];
+                    let hourOptions = [];
+                    let minuteOptions = [];
+                    const wheelScrollTimers = new WeakMap();
 
                     const parseISODate = (iso) => {
                         if (!iso) return null;
@@ -2567,18 +2578,27 @@
 
                     const updateSlotsForDate = () => {
                         const date = parseISODate(dateNative?.value || "");
-                        slotButtons = [];
-                        morningGrid.replaceChildren();
-                        afternoonGrid.replaceChildren();
+                        availableTimes = [];
+                        hourOptions = [];
+                        minuteOptions = [];
+                        hourWheel.replaceChildren();
+                        minuteWheel.replaceChildren();
 
                         if (!date) {
+                            if (native.value) {
+                                native.value = "";
+                                native.dispatchEvent(
+                                    new Event("change", { bubbles: true }),
+                                );
+                            }
                             dateSummary.hidden = true;
                             dateSummaryText.textContent = "Fecha pendiente";
                             hint.textContent = "";
                             emptyMessage.textContent =
                                 "Primero elige la fecha para ver los horarios disponibles.";
                             emptyState.hidden = false;
-                            periods.hidden = true;
+                            wheels.hidden = true;
+                            confirmTimeButton.hidden = true;
                             return;
                         }
 
@@ -2644,49 +2664,22 @@
                             totalMinutes <= closesAt;
                             totalMinutes += stepMinutes
                         ) {
-                            const time = toTime(totalMinutes);
-                            const slot = document.createElement("button");
-
-                            slot.type = "button";
-                            slot.className = "reservas-timepicker__slot";
-                            slot.dataset.time = time;
-                            slot.setAttribute(
-                                "aria-label",
-                                `Seleccionar ${formatTime(time)}`,
-                            );
-                            const timeLabel = document.createElement("span");
-                            timeLabel.className =
-                                "reservas-timepicker__slot-label";
-                            timeLabel.textContent = formatTime(time);
-                            const indicator = createIcon(
-                                "check_circle",
-                                "reservas-timepicker__slot-indicator",
-                            );
-                            slot.append(timeLabel, indicator);
-                            slot.setAttribute(
-                                "aria-pressed",
-                                String(time === native.value),
-                            );
-                            slot.addEventListener("click", () => {
-                                selectTime(time);
-                            });
-                            slot.addEventListener("keydown", (event) => {
-                                handleSlotKeydown(event);
-                            });
-                            (totalMinutes < 12 * 60
-                                ? morningGrid
-                                : afternoonGrid
-                            ).append(slot);
-                            slotButtons.push(slot);
+                            availableTimes.push(toTime(totalMinutes));
                         }
 
-                        const hasSlots = slotButtons.length > 0;
+                        const hasSlots = availableTimes.length > 0;
                         emptyMessage.textContent = hasSlots
                             ? ""
                             : "Ya no quedan horarios disponibles para esta fecha.";
                         emptyState.hidden = hasSlots;
                         chooseDateButton.hidden = hasSlots;
-                        periods.hidden = !hasSlots;
+                        wheels.hidden = !hasSlots;
+                        confirmTimeButton.hidden = !hasSlots;
+
+                        if (hasSlots) {
+                            if (!native.value) native.value = availableTimes[0];
+                            updateWheels(native.value);
+                        }
                     };
 
                     const updateDisplay = () => {
@@ -2698,77 +2691,216 @@
                             !native.value,
                         );
 
-                        slotButtons.forEach((slot) => {
-                            slot.setAttribute(
-                                "aria-pressed",
-                                String(slot.dataset.time === native.value),
-                            );
+                        updateWheelSelection();
+                    };
+
+                    const updateWheelSelection = (scroll = false) => {
+                        const [hours, minutes] = (native.value || "").split(":");
+                        [hourWheel, minuteWheel].forEach((wheel) => {
+                            wheel
+                                .querySelectorAll("[role='option']")
+                                .forEach((option) => {
+                                    const selected =
+                                        option.dataset.value ===
+                                        (wheel === hourWheel ? hours : minutes);
+                                    option.setAttribute(
+                                        "aria-selected",
+                                        String(selected),
+                                    );
+                                    if (selected && scroll) {
+                                        option.scrollIntoView({
+                                            block: "center",
+                                            behavior: "auto",
+                                        });
+                                    }
+                                });
                         });
                     };
 
-                    const focusSlot = (time) => {
-                        const target =
-                            slotButtons.find(
-                                (slot) => slot.dataset.time === time,
-                            ) ||
-                            slotButtons[0];
-
-                        if (target) {
-                            target.focus({ preventScroll: true });
-                            keepFocusedInPanel(panel);
-                        }
-                    };
-
-                    const selectTime = (time) => {
+                    const selectTime = (
+                        time,
+                        { updateMinutes = false, scroll = false } = {},
+                    ) => {
                         native.value = time;
                         updateDisplay();
                         native.dispatchEvent(
                             new Event("change", { bubbles: true }),
                         );
-                        close({ focus: true });
+                        if (updateMinutes) {
+                            renderMinuteWheel(time.slice(0, 2), time.slice(3));
+                        }
+                        if (scroll) updateWheelSelection(true);
                     };
 
-                    const handleSlotKeydown = (event) => {
-                        const currentIndex = slotButtons.indexOf(
-                            event.currentTarget,
+                    const renderWheel = (
+                        wheel,
+                        values,
+                        selected,
+                        onSelect,
+                    ) => {
+                        wheel.replaceChildren();
+                        values.forEach((item) => {
+                            const option = document.createElement("button");
+                            option.type = "button";
+                            option.className =
+                                "reservas-timepicker__wheel-option";
+                            option.setAttribute("role", "option");
+                            option.dataset.value = item.value;
+                            option.textContent = item.label;
+                            option.setAttribute(
+                                "aria-selected",
+                                String(item.value === selected),
+                            );
+                            option.addEventListener("click", () => {
+                                onSelect(item.value);
+                                option.scrollIntoView({
+                                    block: "center",
+                                    behavior: "smooth",
+                                });
+                            });
+                            option.addEventListener("keydown", (event) => {
+                                if (
+                                    event.key !== "ArrowUp" &&
+                                    event.key !== "ArrowDown" &&
+                                    event.key !== "Home" &&
+                                    event.key !== "End"
+                                ) {
+                                    return;
+                                }
+
+                                event.preventDefault();
+                                const options = [
+                                    ...wheel.querySelectorAll(
+                                        "[role='option']",
+                                    ),
+                                ];
+                                const currentIndex =
+                                    options.indexOf(event.currentTarget);
+                                const nextIndex =
+                                    event.key === "Home"
+                                        ? 0
+                                        : event.key === "End"
+                                          ? options.length - 1
+                                          : Math.max(
+                                                0,
+                                                Math.min(
+                                                    options.length - 1,
+                                                    currentIndex +
+                                                        (event.key ===
+                                                        "ArrowDown"
+                                                            ? 1
+                                                            : -1),
+                                                ),
+                                            );
+                                options[nextIndex]?.focus();
+                                options[nextIndex]?.scrollIntoView({
+                                    block: "center",
+                                });
+                                if (options[nextIndex]) {
+                                    onSelect(
+                                        options[nextIndex].dataset.value,
+                                    );
+                                }
+                            });
+                            wheel.append(option);
+                        });
+
+                        wheel.onscroll = () => {
+                            clearTimeout(wheelScrollTimers.get(wheel));
+                            wheelScrollTimers.set(
+                                wheel,
+                                setTimeout(() => {
+                                    const center =
+                                        wheel.scrollTop + wheel.clientHeight / 2;
+                                    const options = [
+                                        ...wheel.querySelectorAll(
+                                            "[role='option']",
+                                        ),
+                                    ];
+                                    const nearest = options.reduce(
+                                        (best, option) =>
+                                            Math.abs(
+                                                option.offsetTop +
+                                                    option.offsetHeight / 2 -
+                                                    center,
+                                            ) <
+                                            Math.abs(
+                                                best.offsetTop +
+                                                    best.offsetHeight / 2 -
+                                                    center,
+                                            )
+                                                ? option
+                                                : best,
+                                    );
+                                    if (
+                                        nearest.dataset.value !==
+                                        wheel.querySelector(
+                                            "[aria-selected='true']",
+                                        )?.dataset.value
+                                    ) {
+                                        onSelect(nearest.dataset.value);
+                                    }
+                                }, 100),
+                            );
+                        };
+                    };
+
+                    const renderMinuteWheel = (hour, selectedMinute) => {
+                        const minutes = availableTimes
+                            .filter((time) => time.slice(0, 2) === hour)
+                            .map((time) => time.slice(3));
+                        minuteOptions = [...new Set(minutes)];
+                        renderWheel(
+                            minuteWheel,
+                            minuteOptions.map((minute) => ({
+                                value: minute,
+                                label: minute,
+                            })),
+                            selectedMinute,
+                            (minute) => {
+                                selectTime(`${hour}:${minute}`);
+                            },
                         );
+                        updateWheelSelection(true);
+                    };
 
-                        if (currentIndex < 0) return;
-
-                        const columns = Math.max(
-                            1,
-                            getComputedStyle(
-                                event.currentTarget.parentElement,
-                            ).gridTemplateColumns.split(" ").length,
+                    const updateWheels = (time) => {
+                        const [selectedHour, selectedMinute] = time.split(":");
+                        hourOptions = [
+                            ...new Set(
+                                availableTimes.map((available) =>
+                                    available.slice(0, 2),
+                                ),
+                            ),
+                        ];
+                        renderWheel(
+                            hourWheel,
+                            hourOptions.map((hour) => ({
+                                value: hour,
+                                label: hour,
+                            })),
+                            selectedHour,
+                            (hour) => {
+                                const minutes = availableTimes
+                                    .filter((available) =>
+                                        available.startsWith(`${hour}:`),
+                                    )
+                                    .map((available) => available.slice(3));
+                                const nearestMinute = minutes.reduce(
+                                    (nearest, minute) =>
+                                        Math.abs(Number(minute) - Number(selectedMinute)) <
+                                        Math.abs(Number(nearest) - Number(selectedMinute))
+                                            ? minute
+                                            : nearest,
+                                );
+                                selectTime(`${hour}:${nearestMinute}`, {
+                                    updateMinutes: true,
+                                    scroll: true,
+                                });
+                            },
                         );
-                        let nextIndex = null;
-
-                        if (event.key === "ArrowRight") {
-                            nextIndex = currentIndex + 1;
-                        } else if (event.key === "ArrowLeft") {
-                            nextIndex = currentIndex - 1;
-                        } else if (event.key === "ArrowDown") {
-                            nextIndex = currentIndex + columns;
-                        } else if (event.key === "ArrowUp") {
-                            nextIndex = currentIndex - columns;
-                        } else if (event.key === "Home") {
-                            nextIndex = 0;
-                        } else if (event.key === "End") {
-                            nextIndex = slotButtons.length - 1;
-                        } else {
-                            return;
-                        }
-
-                        event.preventDefault();
-
-                        const clamped = Math.max(
-                            0,
-                            Math.min(slotButtons.length - 1, nextIndex),
-                        );
-                        const target = slotButtons[clamped];
-
-                        target.focus({ preventScroll: true });
-                        keepFocusedInPanel(panel);
+                        renderMinuteWheel(selectedHour, selectedMinute);
+                        updateWheelSelection(true);
                     };
 
                     const close = ({ focus = false } = {}) => {
@@ -2815,9 +2947,11 @@
                         }
 
                         updateDisplay();
-                        focusSlot(native.value || slotButtons[0]?.dataset.time);
+                        hourWheel
+                            .querySelector("[aria-selected='true']")
+                            ?.focus({ preventScroll: true });
                         positionPickerPanel(wrapper, button, panel, 360);
-                        if (slotButtons.length) {
+                        if (availableTimes.length) {
                             keepFocusedInPanel(panel);
                         } else {
                             chooseDateButton.focus({ preventScroll: true });
