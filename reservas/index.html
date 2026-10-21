@@ -2356,26 +2356,6 @@
                     panel.setAttribute("aria-label", titleText);
                     panel.hidden = true;
 
-                    const dateSummary = document.createElement("button");
-                    dateSummary.type = "button";
-                    dateSummary.className =
-                        "reservas-timepicker__date-summary";
-                    dateSummary.append(createIcon("calendar_month"));
-                    const dateSummaryText = document.createElement("span");
-                    dateSummaryText.setAttribute("aria-live", "polite");
-                    dateSummary.append(dateSummaryText);
-                    dateSummary.addEventListener("click", () => {
-                        close();
-                        document
-                            .querySelector(
-                                '[data-picker="date"] .reservas-picker__button',
-                            )
-                            ?.click();
-                    });
-
-                    const hint = document.createElement("p");
-                    hint.className = "reservas-timepicker__hint";
-
                     const emptyState = document.createElement("div");
                     emptyState.className =
                         "reservas-timepicker__empty";
@@ -2426,6 +2406,19 @@
 
                     const hourWheel = createWheel("Hora");
                     const minuteWheel = createWheel("Minutos");
+                    [hourWheel, minuteWheel].forEach((wheel) => {
+                        wheel.addEventListener(
+                            "click",
+                            (event) => {
+                                if (!suppressWheelClick.has(wheel)) return;
+
+                                suppressWheelClick.delete(wheel);
+                                event.preventDefault();
+                                event.stopImmediatePropagation();
+                            },
+                            true,
+                        );
+                    });
                     const confirmTimeButton = document.createElement("button");
                     confirmTimeButton.type = "button";
                     confirmTimeButton.className =
@@ -2436,8 +2429,6 @@
                     });
 
                     panel.append(
-                        dateSummary,
-                        hint,
                         emptyState,
                         wheels,
                         confirmTimeButton,
@@ -2462,16 +2453,6 @@
                         minute: "2-digit",
                         hour12: true,
                     });
-                    const longDateFormatter = new Intl.DateTimeFormat(
-                        "es-CO",
-                        {
-                            weekday: "long",
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                        },
-                    );
-
                     const formatTime = (time) => {
                         const [hours, minutes] = time.split(":").map(Number);
 
@@ -2491,6 +2472,8 @@
                     let minuteOptions = [];
                     const wheelScrollTimers = new WeakMap();
                     const userScrollingWheels = new WeakSet();
+                    const suppressWheelClick = new WeakSet();
+                    let activeWheelDrag = null;
 
                     const parseISODate = (iso) => {
                         if (!iso) return null;
@@ -2592,9 +2575,6 @@
                                     new Event("change", { bubbles: true }),
                                 );
                             }
-                            dateSummary.hidden = true;
-                            dateSummaryText.textContent = "Fecha pendiente";
-                            hint.textContent = "";
                             emptyMessage.textContent =
                                 "Primero elige la fecha para ver los horarios disponibles.";
                             emptyState.hidden = false;
@@ -2628,19 +2608,6 @@
 
                         native.min = toTime(opensAt);
                         native.max = toTime(closesAt);
-                        dateSummary.hidden = false;
-                        dateSummaryText.textContent =
-                            longDateFormatter.format(date).replace(
-                                /^./,
-                                (letter) => letter.toLocaleUpperCase("es-CO"),
-                            );
-                        hint.textContent = `Horario ${
-                            weekend || holiday
-                                ? "de fin de semana o festivo"
-                                : "entre semana"
-                        }: ${formatTime(toTime(opensAt))}–${formatTime(
-                            toTime(closesAt),
-                        )}`;
 
                         if (native.value) {
                             const selectedMinutes = parseTime(native.value);
@@ -2852,9 +2819,69 @@
                             userScrollingWheels.add(wheel);
                         wheel.ontouchmove = () =>
                             userScrollingWheels.add(wheel);
-                        wheel.onpointermove = () =>
-                            userScrollingWheels.add(wheel);
+                        wheel.onpointerdown = (event) => {
+                            if (event.pointerType !== "mouse") return;
+
+                            activeWheelDrag = {
+                                wheel,
+                                pointerId: event.pointerId,
+                                startY: event.clientY,
+                                startScrollTop: wheel.scrollTop,
+                                moved: false,
+                            };
+                        };
                     };
+
+                    document.addEventListener("pointermove", (event) => {
+                        if (
+                            !activeWheelDrag ||
+                            event.pointerId !== activeWheelDrag.pointerId ||
+                            event.buttons === 0
+                        ) {
+                            return;
+                        }
+
+                        const distance =
+                            event.clientY - activeWheelDrag.startY;
+                        if (Math.abs(distance) > 3) {
+                            activeWheelDrag.moved = true;
+                            userScrollingWheels.add(activeWheelDrag.wheel);
+                            event.preventDefault();
+                        }
+
+                        if (activeWheelDrag.moved) {
+                            activeWheelDrag.wheel.scrollTop =
+                                activeWheelDrag.startScrollTop - distance;
+                        }
+                    });
+
+                    document.addEventListener("pointerup", (event) => {
+                        if (
+                            activeWheelDrag?.pointerId === event.pointerId
+                        ) {
+                            if (activeWheelDrag.moved) {
+                                const draggedWheel =
+                                    activeWheelDrag.wheel;
+                                suppressWheelClick.add(draggedWheel);
+                                setTimeout(
+                                    () =>
+                                        suppressWheelClick.delete(
+                                            draggedWheel,
+                                        ),
+                                    0,
+                                );
+                            }
+                            activeWheelDrag = null;
+                        }
+                    });
+
+                    document.addEventListener("pointercancel", (event) => {
+                        if (
+                            activeWheelDrag?.pointerId === event.pointerId
+                        ) {
+                            activeWheelDrag = null;
+                        }
+                    });
 
                     const renderMinuteWheel = (hour, selectedMinute) => {
                         const minutes = availableTimes
