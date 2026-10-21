@@ -195,25 +195,27 @@
                 class="reservas-hero section--reveal"
                 aria-labelledby="reservas-title"
             >
+                <p class="reservas-hero__eyebrow">Reservas</p>
 
                 <h1 id="reservas-title" class="reservas-hero__title">
                     Reserva tu bicicleta
                 </h1>
 
                 <p class="reservas-hero__text">
-                    Estamos preparando el formulario de reserva en línea.
-                    Mientras tanto, escríbenos con el tipo de bicicleta, la
-                    fecha y la duración que necesitas. Te confirmamos la
-                    disponibilidad y te acompañamos en cada paso.
+                    Completa el formulario con tus datos y preferencias. Te
+                    contactaremos para confirmar la disponibilidad y los
+                    detalles de tu reserva.
                 </p>
 
                 <div class="reservas-hero__actions">
                     <a
                         class="tarifas-button tarifas-button--primary"
-                        href="mailto:hola@ruedalibre.example"
+                        href="#formulario"
                     >
-                        <span class="icon" aria-hidden="true">mail</span>
-                        Escríbenos para reservar
+                        <span class="icon" aria-hidden="true"
+                            >edit_calendar</span
+                        >
+                        Reservar ahora
                     </a>
                     <a
                         class="tarifas-button tarifas-button--ghost"
@@ -223,6 +225,363 @@
                         Ver tarifas y rutas
                     </a>
                 </div>
+            </section>
+
+            <section
+                id="formulario"
+                class="reservas-form-section section--reveal"
+                aria-labelledby="form-title"
+            >
+                <div class="reservas-form__header">
+                    <span class="reservas-card__icon" aria-hidden="true">
+                        <span class="icon">edit_calendar</span>
+                    </span>
+                    <div>
+                        <p class="reservas-form__eyebrow">Reserva en línea</p>
+                        <h2 id="form-title" class="reservas-form__title">
+                            Solicita tu bicicleta
+                        </h2>
+                        <p class="reservas-form__lead">
+                            Completa tus datos y preferencias. Te contactaremos
+                            para confirmar la disponibilidad y los detalles de
+                            la reserva.
+                        </p>
+                    </div>
+                </div>
+
+                <form
+                    id="reservation-form"
+                    class="reservas-form"
+                    action="mailto:hola@ruedalibre.example"
+                    method="post"
+                    enctype="text/plain"
+                >
+                    <fieldset class="reservas-form__group">
+                        <legend class="reservas-form__legend">Tus datos</legend>
+                        <div class="reservas-form__grid">
+                            <div
+                                class="reservas-form__field reservas-form__field--full"
+                            >
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-nombre"
+                                >
+                                    Nombre completo
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <input
+                                    class="reservas-form__input"
+                                    id="reserva-nombre"
+                                    name="nombre"
+                                    type="text"
+                                    autocomplete="name"
+                                    placeholder="Ej. Ana Pérez"
+                                    required
+                                />
+                            </div>
+
+                            <div class="reservas-form__field">
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-email"
+                                >
+                                    Correo electrónico
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <input
+                                    class="reservas-form__input"
+                                    id="reserva-email"
+                                    name="email"
+                                    type="email"
+                                    autocomplete="email"
+                                    inputmode="email"
+                                    placeholder="tu@correo.com"
+                                    required
+                                />
+                            </div>
+
+                            <div class="reservas-form__field">
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-telefono"
+                                >
+                                    Teléfono / WhatsApp
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <input
+                                    class="reservas-form__input"
+                                    id="reserva-telefono"
+                                    name="telefono"
+                                    type="tel"
+                                    autocomplete="tel"
+                                    inputmode="tel"
+                                    placeholder="+57 300 000 0000"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="reservas-form__group">
+                        <legend class="reservas-form__legend">
+                            Detalles de la reserva
+                        </legend>
+                        <div class="reservas-form__grid">
+                            <div class="reservas-form__field">
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-fecha"
+                                >
+                                    Fecha de inicio
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <input
+                                    class="reservas-form__input"
+                                    id="reserva-fecha"
+                                    name="fecha"
+                                    type="date"
+                                    required
+                                />
+                            </div>
+
+                            <div class="reservas-form__field">
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-hora"
+                                >
+                                    Hora de inicio
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <input
+                                    class="reservas-form__input"
+                                    id="reserva-hora"
+                                    name="hora"
+                                    type="time"
+                                    min="06:00"
+                                    max="19:00"
+                                    step="900"
+                                    aria-describedby="reserva-hora-hint"
+                                    required
+                                />
+                                <p
+                                    class="reservas-form__hint"
+                                    id="reserva-hora-hint"
+                                >
+                                    Lun–vie: 7:00 a. m.–7:00 p. m. · Sáb, dom
+                                    y festivos: 6:00 a. m.–2:00 p. m.
+                                </p>
+                            </div>
+
+                            <div class="reservas-form__field">
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-tipo"
+                                >
+                                    Tipo de bicicleta
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <select
+                                    class="reservas-form__select"
+                                    id="reserva-tipo"
+                                    name="tipo"
+                                    required
+                                >
+                                    <option value="" selected disabled>
+                                        Selecciona una opción
+                                    </option>
+                                    <option value="Urbana">Urbana</option>
+                                    <option value="Montaña">Montaña</option>
+                                    <option value="Eléctrica">Eléctrica</option>
+                                    <option value="No estoy seguro/a">
+                                        No estoy seguro/a
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="reservas-form__field">
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-cantidad"
+                                >
+                                    Cantidad de bicicletas
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <input
+                                    class="reservas-form__input"
+                                    id="reserva-cantidad"
+                                    name="cantidad"
+                                    type="number"
+                                    min="1"
+                                    max="10"
+                                    value="1"
+                                    inputmode="numeric"
+                                    required
+                                />
+                            </div>
+
+                            <div class="reservas-form__field">
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-duracion"
+                                >
+                                    Duración
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <select
+                                    class="reservas-form__select"
+                                    id="reserva-duracion"
+                                    name="duracion"
+                                    required
+                                >
+                                    <option value="" selected disabled>
+                                        Selecciona una opción
+                                    </option>
+                                    <option value="1 hora">1 hora</option>
+                                    <option value="2 horas">2 horas</option>
+                                    <option value="Medio día (4 horas)">
+                                        Medio día (4 horas)
+                                    </option>
+                                    <option value="Día completo (8 horas)">
+                                        Día completo (8 horas)
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="reservas-form__field">
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-recorrido"
+                                >
+                                    Recorrido de interés
+                                    <span class="reservas-form__optional"
+                                        >(opcional)</span
+                                    >
+                                </label>
+                                <select
+                                    class="reservas-form__select"
+                                    id="reserva-recorrido"
+                                    name="recorrido"
+                                >
+                                    <option value="Solo alquiler" selected>
+                                        Solo alquiler
+                                    </option>
+                                    <option value="Río y Parques">
+                                        Río y Parques (12 km, 2 h)
+                                    </option>
+                                    <option value="Sabores de Barrio">
+                                        Sabores de Barrio (18 km, 3 h)
+                                    </option>
+                                    <option value="Reto Las Palmas">
+                                        Reto Las Palmas (25 km, 4 h)
+                                    </option>
+                                    <option value="Aún no lo sé">
+                                        Aún no lo sé
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="reservas-form__group">
+                        <legend class="reservas-form__legend">
+                            Comentarios
+                        </legend>
+                        <div class="reservas-form__field">
+                            <label
+                                class="reservas-form__label"
+                                for="reserva-mensaje"
+                            >
+                                ¿Algo que debamos saber?
+                                <span class="reservas-form__optional"
+                                    >(opcional)</span
+                                >
+                            </label>
+                            <textarea
+                                class="reservas-form__textarea"
+                                id="reserva-mensaje"
+                                name="mensaje"
+                                rows="4"
+                                placeholder="Cuéntanos si necesitas casco, candado, silla para niño o alguna condición especial."
+                            ></textarea>
+                        </div>
+                    </fieldset>
+
+                    <label
+                        class="reservas-form__consent"
+                        for="reserva-consentimiento"
+                    >
+                        <input
+                            id="reserva-consentimiento"
+                            name="consentimiento"
+                            type="checkbox"
+                            required
+                        />
+                        <span>
+                            Acepto que Rueda Libre me contacte por correo o
+                            teléfono para gestionar esta reserva.
+                            <span
+                                class="reservas-form__required"
+                                aria-hidden="true"
+                                >*</span
+                            >
+                        </span>
+                    </label>
+
+                    <div class="reservas-form__actions">
+                        <button
+                            class="tarifas-button tarifas-button--primary reservas-form__submit"
+                            type="submit"
+                        >
+                            <span class="icon" aria-hidden="true">send</span>
+                            Solicitar reserva
+                        </button>
+                        <p class="reservas-form__note">
+                            * Campos obligatorios. Al enviar, prepararemos un
+                            correo con tus datos; la reserva queda confirmada
+                            cuando te respondamos.
+                        </p>
+                    </div>
+
+                    <p
+                        id="reservation-status"
+                        class="reservas-form__status"
+                        role="status"
+                        aria-live="polite"
+                        tabindex="-1"
+                    ></p>
+                </form>
             </section>
 
             <section
@@ -285,20 +644,6 @@
                         </dl>
                     </article>
                 </div>
-
-                <aside
-                    class="reservas-note"
-                    aria-label="Formulario en preparación"
-                >
-                    <span class="reservas-note__icon" aria-hidden="true">
-                        <span class="icon">construction</span>
-                    </span>
-                    <p>
-                        <strong>Formulario en camino.</strong> Estamos
-                        construyendo la reserva en línea; mientras tanto, el
-                        correo es nuestro canal oficial.
-                    </p>
-                </aside>
             </section>
         </main>
 
@@ -518,6 +863,83 @@
                         navToggle.checked = false;
                         navToggle.focus();
                     }
+                });
+            })();
+        </script>
+
+        <!-- Mejora progresiva del formulario: valida los campos, fija la fecha
+       mínima y prepara un correo con la solicitud para que el visitante lo
+       envíe desde su aplicación de correo. -->
+        <script>
+            (() => {
+                const form = document.getElementById("reservation-form");
+                const status = document.getElementById("reservation-status");
+
+                if (!form || !status) return;
+
+                const dateField = form.elements.namedItem("fecha");
+
+                if (dateField) {
+                    const now = new Date();
+                    const localToday = new Date(
+                        now.getTime() - now.getTimezoneOffset() * 60000,
+                    );
+                    dateField.min = localToday.toISOString().slice(0, 10);
+                }
+
+                const clearStatus = () => {
+                    status.classList.remove("is-visible");
+                    status.replaceChildren();
+                };
+
+                form.addEventListener("input", clearStatus);
+
+                form.addEventListener("submit", (event) => {
+                    event.preventDefault();
+
+                    if (!form.reportValidity()) return;
+
+                    const data = new FormData(form);
+                    const value = (name) =>
+                        String(data.get(name) || "").trim();
+                    const name = value("nombre");
+                    const date = value("fecha");
+                    const subject = `Solicitud de reserva - ${name} - ${date}`;
+                    const lines = [
+                        "Hola, quiero reservar una bicicleta.",
+                        "",
+                        `Nombre: ${name}`,
+                        `Correo: ${value("email")}`,
+                        `Teléfono / WhatsApp: ${value("telefono")}`,
+                        `Fecha de inicio: ${date}`,
+                        `Hora de inicio: ${value("hora")}`,
+                        `Tipo de bicicleta: ${value("tipo")}`,
+                        `Cantidad de bicicletas: ${value("cantidad")}`,
+                        `Duración: ${value("duracion")}`,
+                        `Recorrido de interés: ${value("recorrido")}`,
+                        `Comentarios: ${
+                            value("mensaje") || "Sin comentarios"
+                        }`,
+                        `Acepta contacto: ${
+                            data.get("consentimiento") ? "Sí" : "No"
+                        }`,
+                    ];
+                    const mailto = `mailto:hola@ruedalibre.example?subject=${encodeURIComponent(
+                        subject,
+                    )}&body=${encodeURIComponent(lines.join("\n"))}`;
+
+                    const message = document.createElement("span");
+                    message.textContent =
+                        "Tu solicitud está lista. Abre tu aplicación de correo y envíala; te confirmaremos la disponibilidad lo antes posible.";
+
+                    const link = document.createElement("a");
+                    link.className = "reservas-form__status-link";
+                    link.href = mailto;
+                    link.textContent = "Abrir correo con mi solicitud";
+
+                    status.replaceChildren(message, link);
+                    status.classList.add("is-visible");
+                    status.focus();
                 });
             })();
         </script>

@@ -99,3 +99,17 @@ También se comprobó:
 - Una revisión adicional de todos los enlaces, imágenes y hojas de estilo locales devolvió 9 recursos con estado 200.
 
 Resultado: no se encontraron errores 404 ni fallos de red en las páginas del sitio.
+
+FORMULARIO DE RESERVA
+
+Se incorporó un formulario en reservas/index.html, dentro de la sección #formulario.
+Incluye nombre, correo, teléfono, fecha, hora, tipo de bicicleta, cantidad,
+duración, recorrido de interés, comentarios y aceptación del contacto.
+
+El formulario usa validación nativa de HTML, establece la fecha mínima en el
+navegador y, al enviar datos válidos, prepara un correo a hola@ruedalibre.example
+con toda la solicitud. El visitante debe abrir su aplicación de correo y enviarlo.
+Si algún campo obligatorio falta, el navegador lo indica y no se prepara el correo.
+
+Prueba realizada: el envío vacío se bloquea; con datos válidos se muestra el
+mensaje de confirmación y el enlace mailto con la información de la reserva.

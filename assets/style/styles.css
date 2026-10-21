@@ -2227,38 +2227,236 @@ body {
     text-align: right;
 }
 
-.reservas-note {
+.reservas-form-section {
+    margin-top: 1.5rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background-color: var(--color-surface-container-low);
+    border: 1px solid
+        color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg)
+        var(--radius-xl);
+}
+
+.reservas-form__header {
     display: flex;
     align-items: flex-start;
-    gap: 0.9rem;
-    margin-top: 1rem;
-    padding: 1rem 1.25rem;
-    background-color: color-mix(
-        in oklab,
-        var(--color-primary) 8%,
-        transparent
-    );
-    border: 1px dashed
-        color-mix(in oklab, var(--color-primary) 35%, transparent);
-    border-radius: var(--radius-md);
-    color: var(--color-on-surface-variant);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.reservas-note__icon {
-    flex-shrink: 0;
+.reservas-form__header .reservas-card__icon {
+    margin-top: 0.1rem;
+}
+
+.reservas-form__eyebrow {
+    margin-bottom: 0.35rem;
     color: var(--color-primary);
-    font-size: 1.45rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
 }
 
-.reservas-note p {
-    font-size: 0.92rem;
+.reservas-form__title {
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+}
+
+.reservas-form__lead {
+    max-width: 68ch;
+    color: var(--color-on-surface-variant);
+    font-size: 0.98rem;
     line-height: 1.65;
     text-wrap: pretty;
 }
 
-.reservas-note strong {
-    color: var(--color-on-surface);
+.reservas-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.reservas-form__group {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.reservas-form__legend {
+    margin-bottom: 0.75rem;
+    color: var(--color-on-surface-variant);
+    font-size: 0.76rem;
     font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.reservas-form__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.reservas-form__field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.reservas-form__field--full {
+    grid-column: 1 / -1;
+}
+
+.reservas-form__label {
+    color: var(--color-on-surface);
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.reservas-form__required {
+    color: var(--color-primary);
+}
+
+.reservas-form__optional {
+    color: var(--color-on-surface-variant);
+    font-weight: 400;
+}
+
+.reservas-form__input,
+.reservas-form__select,
+.reservas-form__textarea {
+    width: 100%;
+    min-height: 3.1rem;
+    padding: 0.8rem 0.95rem;
+    background-color: color-mix(
+        in oklab,
+        var(--color-surface-container-highest) 70%,
+        transparent
+    );
+    border: 1px solid
+        color-mix(in oklab, var(--color-outline-variant) 65%, transparent);
+    border-radius: 0.85rem;
+    color: var(--color-on-surface);
+    font: inherit;
+    transition:
+        border-color var(--motion-fast) var(--ease-emphasized),
+        background-color var(--motion-fast) var(--ease-emphasized);
+}
+
+.reservas-form__textarea {
+    min-height: 7.5rem;
+    resize: vertical;
+}
+
+.reservas-form__select {
+    cursor: pointer;
+}
+
+.reservas-form__input::placeholder,
+.reservas-form__textarea::placeholder {
+    color: color-mix(
+        in oklab,
+        var(--color-on-surface-variant) 80%,
+        transparent
+    );
+}
+
+.reservas-form__input:hover,
+.reservas-form__select:hover,
+.reservas-form__textarea:hover {
+    border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
+}
+
+.reservas-form__input:focus-visible,
+.reservas-form__select:focus-visible,
+.reservas-form__textarea:focus-visible {
+    border-color: var(--color-primary);
+    outline: 3px solid
+        color-mix(in oklab, var(--color-primary) 45%, transparent);
+    outline-offset: 1px;
+}
+
+.reservas-form__input:user-invalid,
+.reservas-form__select:user-invalid,
+.reservas-form__textarea:user-invalid {
+    border-color: var(--color-error);
+}
+
+.reservas-form__hint {
+    color: var(--color-on-surface-variant);
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.reservas-form__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    color: var(--color-on-surface-variant);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    cursor: pointer;
+}
+
+.reservas-form__consent input {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    accent-color: var(--color-primary);
+}
+
+.reservas-form__actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.reservas-form__submit {
+    border: 0;
+    cursor: pointer;
+}
+
+.reservas-form__note {
+    max-width: 44rem;
+    color: var(--color-on-surface-variant);
+    font-size: 0.8rem;
+    line-height: 1.55;
+}
+
+.reservas-form__status {
+    display: none;
+    padding: 1rem 1.1rem;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 10%,
+        transparent
+    );
+    border: 1px solid
+        color-mix(in oklab, var(--color-primary) 32%, transparent);
+    border-radius: 0.9rem;
+    color: var(--color-on-surface);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.reservas-form__status.is-visible {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.reservas-form__status-link {
+    width: fit-content;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
 }
 
 /* ============================================================
@@ -2962,13 +3160,19 @@ body {
 }
 
 @media (max-width: 720px) {
-    .tarifas-hero {
+    .tarifas-hero,
+    .reservas-hero {
         border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
     }
 
     .tarifas-section,
-    .tarifas-info {
+    .tarifas-info,
+    .reservas-form-section {
         padding: 1.25rem;
+    }
+
+    .reservas-form__grid {
+        grid-template-columns: 1fr;
     }
 
     .tarifas-section__header {
@@ -3020,6 +3224,19 @@ body {
 
     .reservas-hours dd {
         text-align: left;
+    }
+
+    .reservas-form__header {
+        gap: 0.75rem;
+    }
+
+    .reservas-form__actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .reservas-form__submit {
+        width: 100%;
     }
 
     .tarifas-table-cta {
