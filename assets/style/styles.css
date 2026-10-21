@@ -188,17 +188,11 @@ body {
 
 .header--menu {
     display: flex;
+    align-items: center;
     gap: 0.3rem;
     justify-content: flex-start;
     margin-left: auto;
     min-width: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.header--menu::-webkit-scrollbar {
-    display: none;
 }
 
 .header--menu__link {
@@ -225,6 +219,78 @@ body {
     color: var(--color-primary);
 }
 
+.header--menu__item {
+    list-style: none;
+}
+
+.header--menu__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.header--menu__toggle::-webkit-details-marker {
+    display: none;
+}
+
+.header--menu__toggle::after {
+    content: "";
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    rotate: 45deg;
+    flex-shrink: 0;
+    transition: rotate var(--motion-fast) var(--ease-emphasized);
+}
+
+.header--menu__item[open] > .header--menu__toggle {
+    background-color: color-mix(in oklab, var(--color-primary) 14%, transparent);
+    color: var(--color-primary);
+}
+
+.header--menu__item[open] > .header--menu__toggle::after {
+    rotate: -135deg;
+}
+
+.header--menu__submenu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    z-index: 10;
+    display: grid;
+    gap: 0.15rem;
+    min-width: 15rem;
+    padding: 0.5rem;
+    border: 1px solid color-mix(in oklab, var(--color-outline-variant) 60%, transparent);
+    border-radius: var(--radius-md);
+    background-color: color-mix(in oklab, var(--color-surface-container) 96%, transparent);
+    backdrop-filter: blur(1rem);
+}
+
+.header--menu__sublink {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-on-surface);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+        background-color var(--motion-fast) var(--ease-emphasized),
+        color var(--motion-fast) var(--ease-emphasized);
+
+    &:hover,
+    &:focus-visible {
+        background-color: color-mix(in oklab, var(--color-primary) 16%, transparent);
+        color: var(--color-primary);
+    }
+}
 
 .nav-toggle {
     display: none;
@@ -1902,6 +1968,70 @@ body {
     .header--drawer__link[aria-current="page"] {
         background-color: color-mix(in oklab, var(--color-primary) 16%, transparent);
         color: var(--color-primary);
+    }
+
+    .header--drawer__group {
+        display: block;
+    }
+
+    .header--drawer__toggle {
+        width: 100%;
+        justify-content: space-between;
+        list-style: none;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .header--drawer__toggle::-webkit-details-marker {
+        display: none;
+    }
+
+    .header--drawer__toggle::after {
+        content: "";
+        width: 0.5rem;
+        height: 0.5rem;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        rotate: 45deg;
+        flex-shrink: 0;
+        transition: rotate var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .header--drawer__group[open] > .header--drawer__toggle {
+        background-color: color-mix(in oklab, var(--color-primary) 16%, transparent);
+        color: var(--color-primary);
+    }
+
+    .header--drawer__group[open] > .header--drawer__toggle::after {
+        rotate: -135deg;
+    }
+
+    .header--drawer__submenu {
+        display: grid;
+        gap: 0.15rem;
+        margin: 0.3rem 0 0.4rem 0.9rem;
+        padding-left: 0.6rem;
+        border-left: 1px solid color-mix(in oklab, var(--color-primary) 32%, transparent);
+    }
+
+    .header--drawer__sublink {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-sm);
+        color: var(--color-on-surface-variant);
+        font-size: clamp(0.98rem, 4vw, 1.08rem);
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            color var(--motion-fast) var(--ease-emphasized);
+
+        &:hover,
+        &:focus-visible {
+            background-color: color-mix(in oklab, var(--color-primary) 16%, transparent);
+            color: var(--color-primary);
+        }
     }
 
     .header--drawer__contact {

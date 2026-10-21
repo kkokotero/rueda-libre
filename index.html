@@ -52,19 +52,35 @@
                     </a>
                 </nav>
                 <nav class="header--menu" aria-label="Navegación principal">
-                    <a href="#about-us" class="header--menu__link"
-                        >¿Quiénes somos?</a
-                    >
-                    <a href="#our-services" class="header--menu__link"
-                        >Nuestros servicios</a
-                    >
-                    <a href="#why" class="header--menu__link"
-                        >¿Cómo alquilar?</a
+                    <a
+                        href="#top-app"
+                        class="header--menu__link"
+                        aria-current="page"
+                        >Inicio</a
                     >
                     <a href="./tarifas/" class="header--menu__link">Tarifas</a>
-                    <a href="#found-us" class="header--menu__link"
-                        >Encuéntranos</a
-                    >
+                    <details class="header--menu__item" data-nav-dropdown>
+                        <summary
+                            class="header--menu__link header--menu__toggle"
+                            >Nosotros</summary
+                        >
+                        <div class="header--menu__submenu">
+                            <a href="#about-us" class="header--menu__sublink"
+                                >¿Quiénes somos?</a
+                            >
+                            <a
+                                href="#our-services"
+                                class="header--menu__sublink"
+                                >Nuestros servicios</a
+                            >
+                            <a href="#why" class="header--menu__sublink"
+                                >¿Cómo alquilar?</a
+                            >
+                            <a href="#found-us" class="header--menu__sublink"
+                                >Encuéntranos</a
+                            >
+                        </div>
+                    </details>
                 </nav>
 
                 <label
@@ -92,17 +108,33 @@
 
             <nav class="header--drawer" aria-label="Navegación móvil">
                 <p class="header--drawer__eyebrow">Menú</p>
-                <a href="#about-us" class="header--drawer__link"
-                    >¿Quiénes somos?</a
+                <a
+                    href="#top-app"
+                    class="header--drawer__link"
+                    aria-current="page"
+                    >Inicio</a
                 >
-                <a href="#our-services" class="header--drawer__link"
-                    >Nuestros servicios</a
-                >
-                <a href="#why" class="header--drawer__link">¿Cómo alquilar?</a>
                 <a href="./tarifas/" class="header--drawer__link">Tarifas</a>
-                <a href="#found-us" class="header--drawer__link"
-                    >Encuéntranos</a
-                >
+                <details class="header--drawer__group" data-nav-dropdown>
+                    <summary
+                        class="header--drawer__link header--drawer__toggle"
+                        >Nosotros</summary
+                    >
+                    <div class="header--drawer__submenu">
+                        <a href="#about-us" class="header--drawer__sublink"
+                            >¿Quiénes somos?</a
+                        >
+                        <a href="#our-services" class="header--drawer__sublink"
+                            >Nuestros servicios</a
+                        >
+                        <a href="#why" class="header--drawer__sublink"
+                            >¿Cómo alquilar?</a
+                        >
+                        <a href="#found-us" class="header--drawer__sublink"
+                            >Encuéntranos</a
+                        >
+                    </div>
+                </details>
             </nav>
         </header>
 
@@ -570,24 +602,64 @@
             </div>
         </footer>
 
-        <!-- Mejora progresiva: el menú lateral funciona solo con CSS; este script
-       únicamente lo cierra al elegir un enlace o pulsar Escape. -->
+        <!-- Mejora progresiva: los menús funcionan solo con CSS; este script
+       cierra el menú lateral y los desplegables al elegir un enlace, hacer
+       clic fuera o pulsar Escape. -->
         <script>
             (() => {
                 const navToggle = document.getElementById("nav-toggle");
 
                 if (!navToggle) return;
 
+                const dropdowns = document.querySelectorAll(
+                    "[data-nav-dropdown]",
+                );
+
                 document
-                    .querySelectorAll(".header--drawer__link")
+                    .querySelectorAll(".header--drawer a")
                     .forEach((link) => {
                         link.addEventListener("click", () => {
                             navToggle.checked = false;
+                            dropdowns.forEach((dropdown) => {
+                                dropdown.open = false;
+                            });
                         });
                     });
 
+                document
+                    .querySelectorAll("[data-nav-dropdown] a")
+                    .forEach((link) => {
+                        link.addEventListener("click", () => {
+                            const dropdown = link.closest(
+                                "[data-nav-dropdown]",
+                            );
+
+                            if (dropdown) dropdown.open = false;
+                        });
+                    });
+
+                document.addEventListener("click", (event) => {
+                    dropdowns.forEach((dropdown) => {
+                        if (dropdown.open && !dropdown.contains(event.target)) {
+                            dropdown.open = false;
+                        }
+                    });
+                });
+
                 document.addEventListener("keydown", (event) => {
-                    if (event.key === "Escape" && navToggle.checked) {
+                    if (event.key !== "Escape") return;
+
+                    const openDropdown = document.querySelector(
+                        "[data-nav-dropdown][open]",
+                    );
+
+                    if (openDropdown) {
+                        openDropdown.open = false;
+                        openDropdown.querySelector("summary")?.focus();
+                        return;
+                    }
+
+                    if (navToggle.checked) {
                         navToggle.checked = false;
                         navToggle.focus();
                     }
