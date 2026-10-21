@@ -1597,7 +1597,9 @@ body {
 .tarifas-table__cell {
     padding: 1rem 1.25rem;
     white-space: nowrap;
-    color: var(--color-on-surface-variant);
+    color: var(--color-on-surface);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
 }
 
 .tarifas-table__row {
@@ -1621,6 +1623,112 @@ body {
 .tarifas-table__cell--price {
     color: var(--color-primary);
     font-weight: 700;
+}
+
+.tarifas-table__row-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.tarifas-table__row-icon {
+    display: grid;
+    place-items: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    flex-shrink: 0;
+    border-radius: 0.55rem 0.55rem 0.55rem 0.95rem;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 14%,
+        transparent
+    );
+    border: 1px solid color-mix(in oklab, var(--color-primary) 28%, transparent);
+    color: var(--color-primary);
+}
+
+.tarifas-table__row-icon .icon {
+    font-size: 1rem;
+}
+
+.tarifas-table__row:nth-child(2) .tarifas-table__row-icon {
+    background-color: color-mix(
+        in oklab,
+        var(--color-secondary) 14%,
+        transparent
+    );
+    border-color: color-mix(
+        in oklab,
+        var(--color-secondary) 28%,
+        transparent
+    );
+    color: var(--color-secondary);
+}
+
+.tarifas-table__row:nth-child(3) .tarifas-table__row-icon {
+    background-color: color-mix(
+        in oklab,
+        var(--color-tertiary) 14%,
+        transparent
+    );
+    border-color: color-mix(in oklab, var(--color-tertiary) 28%, transparent);
+    color: var(--color-tertiary);
+}
+
+.tarifas-table__price {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.28rem 0.65rem;
+    border: 1px solid
+        color-mix(in oklab, var(--color-primary) 24%, transparent);
+    border-radius: var(--radius-pill);
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 12%,
+        transparent
+    );
+    color: var(--color-primary);
+    font-size: 1rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+.tarifas-table__cell--price .tarifas-table__price {
+    border-color: transparent;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.tarifas-level {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.26rem 0.62rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-size: 0.73rem;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.tarifas-level--easy {
+    border-color: transparent;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.tarifas-level--medium {
+    border-color: transparent;
+    background-color: var(--color-tertiary-container);
+    color: var(--color-on-tertiary-container);
+}
+
+.tarifas-level--hard {
+    border-color: transparent;
+    background-color: var(--color-error);
+    color: var(--color-on-error);
 }
 
 .tarifas-info {
@@ -2538,7 +2646,7 @@ body {
     }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 920px) {
     .tarifas-info__grid {
         grid-template-columns: 1fr;
     }
@@ -2629,7 +2737,7 @@ body {
 
     .tarifas-table .tarifas-table__cell {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         justify-content: space-between;
         gap: 1rem;
         padding: 0.5rem 0;
