@@ -24,7 +24,7 @@ if (form && status) {
             documentNumber.value = documentNumber.value.replace(
                 /[^0-9]/g,
                 "",
-            );
+            ).slice(0, 10);
         });
     }
 
@@ -32,7 +32,7 @@ if (form && status) {
         phoneNumber.addEventListener("input", () => {
             phoneNumber.value = phoneNumber.value
                 .replace(/[^0-9]/g, "")
-                .slice(0, 12);
+                .slice(0, 10);
         });
     }
 

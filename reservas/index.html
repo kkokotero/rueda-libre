@@ -355,6 +355,7 @@
                                         name="nombre"
                                         type="text"
                                         autocomplete="name"
+                                        minlength="3"
                                         placeholder="Ej. Ana Pérez"
                                         aria-describedby="reserva-nombre-error"
                                         required
@@ -457,9 +458,11 @@
                                         name="documento"
                                         type="text"
                                         inputmode="numeric"
-                                        pattern="[0-9]*"
+                                        pattern="[0-9]{6,10}"
+                                        minlength="6"
+                                        maxlength="10"
                                         autocomplete="off"
-                                        placeholder="Escribe tu número"
+                                        placeholder="Entre 6 y 10 dígitos"
                                         aria-describedby="reserva-documento-error"
                                         required
                                     />
@@ -479,7 +482,7 @@
                                     class="reservas-form__label"
                                     for="reserva-telefono"
                                 >
-                                    Teléfono
+                                    Celular
                                     <span
                                         class="reservas-form__required"
                                         aria-hidden="true"
@@ -499,7 +502,9 @@
                                         type="tel"
                                         autocomplete="tel"
                                         inputmode="numeric"
-                                        pattern="(57)?(3[0-9]{9}|60[0-9]{8})"
+                                        pattern="3[0-9]{9}"
+                                        minlength="10"
+                                        maxlength="10"
                                         placeholder="3001234567"
                                         aria-describedby="reserva-telefono-hint reserva-telefono-error"
                                         required
@@ -509,8 +514,8 @@
                                     class="reservas-form__hint"
                                     id="reserva-telefono-hint"
                                 >
-                                    Número colombiano celular o fijo, con o sin
-                                    prefijo 57.
+                                    Celular colombiano de 10 dígitos, debe
+                                    comenzar por 3.
                                 </p>
                                 <p
                                     class="reservas-form__error"

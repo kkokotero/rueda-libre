@@ -86,16 +86,18 @@ export function initializeReservationForm(form, status, clearStatus) {
 
         if (
             control.name === "nombre" &&
-            control.value.trim().length < 1
+            control.value.trim().length < 3
         ) {
-            return "Escribe tu nombre completo.";
+            return "El nombre completo debe tener al menos 3 caracteres.";
         }
 
         if (
             control.name === "documento" &&
-            control.value.trim().length < 1
+            (validity.patternMismatch ||
+                validity.tooShort ||
+                validity.tooLong)
         ) {
-            return "Escribe tu número de documento.";
+            return "El documento debe tener entre 6 y 10 dígitos.";
         }
 
         if (
@@ -107,7 +109,7 @@ export function initializeReservationForm(form, status, clearStatus) {
 
         if (control.name === "telefono") {
             if (validity.patternMismatch) {
-                return "Escribe un número colombiano válido: celular o fijo, con o sin prefijo 57.";
+                return "El celular debe tener 10 dígitos y comenzar por 3.";
             }
         }
 
