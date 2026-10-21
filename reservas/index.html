@@ -1852,15 +1852,42 @@
                     const footer = document.createElement("div");
                     footer.className = "reservas-datepicker__footer";
 
-                    const todayButton = document.createElement("button");
-                    todayButton.type = "button";
-                    todayButton.className = "reservas-datepicker__today";
-                    todayButton.append(
-                        createIcon("today"),
-                        document.createTextNode("Hoy"),
+                    const shortcutDates = [
+                        { label: "Hoy", offset: 0 },
+                        { label: "Mañana", offset: 1 },
+                        { label: "+7 días", offset: 7 },
+                        { label: "+14 días", offset: 14 },
+                    ];
+                    const shortcutButtons = shortcutDates.map(
+                        ({ label, offset }) => {
+                            const shortcut = document.createElement("button");
+                            shortcut.type = "button";
+                            shortcut.className =
+                                "reservas-datepicker__today";
+                            shortcut.textContent = label;
+                            shortcut.setAttribute(
+                                "aria-label",
+                                offset === 0
+                                    ? "Seleccionar hoy"
+                                    : `Seleccionar fecha en ${offset} días`,
+                            );
+                            shortcut.addEventListener("click", () => {
+                                const date = new Date();
+                                date.setDate(date.getDate() + offset);
+                                const iso = toISODate(date);
+
+                                if (
+                                    iso >= minISO &&
+                                    (!maxISO || iso <= maxISO)
+                                ) {
+                                    selectDate(iso);
+                                }
+                            });
+                            footer.append(shortcut);
+                            return { button: shortcut, offset };
+                        },
                     );
 
-                    footer.append(todayButton);
                     panel.append(calendarHeader, weekdays, grid, footer);
 
                     const parseISODate = (iso) => {
@@ -2229,13 +2256,13 @@
                         renderCalendar(toISODate(target));
                     });
 
-                    todayButton.disabled =
-                        todayISO < minISO ||
-                        Boolean(maxISO && todayISO > maxISO);
-                    todayButton.addEventListener("click", () => {
-                        if (!todayButton.disabled) {
-                            selectDate(todayISO);
-                        }
+                    shortcutButtons.forEach(({ button: shortcut, offset }) => {
+                        const date = new Date();
+                        date.setDate(date.getDate() + offset);
+                        const iso = toISODate(date);
+                        shortcut.disabled =
+                            iso < minISO ||
+                            Boolean(maxISO && iso > maxISO);
                     });
 
                     button.addEventListener("click", () => {
@@ -2329,17 +2356,84 @@
                     panel.setAttribute("aria-label", titleText);
                     panel.hidden = true;
 
+                    const dateSummary = document.createElement("button");
+                    dateSummary.type = "button";
+                    dateSummary.className =
+                        "reservas-timepicker__date-summary";
+                    dateSummary.append(createIcon("calendar_month"));
+                    const dateSummaryText = document.createElement("span");
+                    dateSummaryText.setAttribute("aria-live", "polite");
+                    dateSummary.append(dateSummaryText);
+                    dateSummary.addEventListener("click", () => {
+                        close();
+                        document
+                            .querySelector(
+                                '[data-picker="date"] .reservas-picker__button',
+                            )
+                            ?.click();
+                    });
+
                     const hint = document.createElement("p");
                     hint.className = "reservas-timepicker__hint";
-                    hint.textContent =
-                        "Lun–vie: 7:00 a. m.–7:00 p. m. · Sáb, dom y festivos: 6:00 a. m.–2:00 p. m.";
 
-                    const grid = document.createElement("div");
-                    grid.className = "reservas-timepicker__grid";
-                    grid.setAttribute("role", "group");
-                    grid.setAttribute("aria-label", "Horas disponibles");
+                    const emptyState = document.createElement("div");
+                    emptyState.className =
+                        "reservas-timepicker__empty";
 
-                    panel.append(hint, grid);
+                    const emptyMessage = document.createElement("p");
+                    emptyMessage.textContent =
+                        "Primero elige la fecha para ver los horarios disponibles.";
+
+                    const chooseDateButton = document.createElement("button");
+                    chooseDateButton.type = "button";
+                    chooseDateButton.className =
+                        "reservas-timepicker__choose-date";
+                    chooseDateButton.append(
+                        createIcon("calendar_month"),
+                        document.createTextNode("Elegir fecha"),
+                    );
+                    chooseDateButton.addEventListener("click", () => {
+                        close();
+                        document
+                            .querySelector(
+                                '[data-picker="date"] .reservas-picker__button',
+                            )
+                            ?.click();
+                    });
+                    emptyState.append(emptyMessage, chooseDateButton);
+
+                    const periods = document.createElement("div");
+                    periods.className = "reservas-timepicker__periods";
+
+                    const createPeriod = (title, label) => {
+                        const section = document.createElement("section");
+                        section.className = "reservas-timepicker__period";
+
+                        const heading = document.createElement("h3");
+                        heading.className =
+                            "reservas-timepicker__period-title";
+                        heading.textContent = title;
+
+                        const slots = document.createElement("div");
+                        slots.className = "reservas-timepicker__grid";
+                        slots.setAttribute("role", "group");
+                        slots.setAttribute("aria-label", label);
+
+                        section.append(heading, slots);
+                        periods.append(section);
+                        return slots;
+                    };
+
+                    const morningGrid = createPeriod(
+                        "Mañana",
+                        "Horarios de la mañana",
+                    );
+                    const afternoonGrid = createPeriod(
+                        "Tarde",
+                        "Horarios de la tarde",
+                    );
+
+                    panel.append(dateSummary, hint, emptyState, periods);
 
                     const parseTime = (time) => {
                         const [hours, minutes] = time.split(":").map(Number);
@@ -2360,6 +2454,15 @@
                         minute: "2-digit",
                         hour12: true,
                     });
+                    const longDateFormatter = new Intl.DateTimeFormat(
+                        "es-CO",
+                        {
+                            weekday: "long",
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        },
+                    );
 
                     const formatTime = (time) => {
                         const [hours, minutes] = time.split(":").map(Number);
@@ -2369,39 +2472,222 @@
                         );
                     };
 
-                    const minMinutes = parseTime(native.min || "06:00");
-                    const maxMinutes = parseTime(native.max || "19:00");
                     const stepMinutes = Math.max(
                         5,
                         Math.round((Number(native.step) || 900) / 60),
                     );
-                    const slotButtons = [];
+                    const dateNative =
+                        wrapper.closest("form")?.elements.namedItem("fecha");
+                    let slotButtons = [];
 
-                    for (
-                        let totalMinutes = minMinutes;
-                        totalMinutes <= maxMinutes;
-                        totalMinutes += stepMinutes
-                    ) {
-                        const time = toTime(totalMinutes);
-                        const slot = document.createElement("button");
+                    const parseISODate = (iso) => {
+                        if (!iso) return null;
 
-                        slot.type = "button";
-                        slot.className = "reservas-timepicker__slot";
-                        slot.dataset.time = time;
-                        slot.textContent = formatTime(time);
-                        slot.setAttribute(
-                            "aria-pressed",
-                            String(time === native.value),
+                        const [year, month, day] = iso.split("-").map(Number);
+                        if (!year || !month || !day) return null;
+
+                        return new Date(year, month - 1, day);
+                    };
+
+                    const toISODate = (date) =>
+                        [
+                            date.getFullYear(),
+                            String(date.getMonth() + 1).padStart(2, "0"),
+                            String(date.getDate()).padStart(2, "0"),
+                        ].join("-");
+
+                    const getEasterSunday = (year) => {
+                        const a = year % 19;
+                        const b = Math.floor(year / 100);
+                        const c = year % 100;
+                        const d = Math.floor(b / 4);
+                        const e = b % 4;
+                        const f = Math.floor((b + 8) / 25);
+                        const g = Math.floor((b - f + 1) / 3);
+                        const h = (19 * a + b - d - g + 15) % 30;
+                        const i = Math.floor(c / 4);
+                        const k = c % 4;
+                        const l = (32 + 2 * e + 2 * i - h - k) % 7;
+                        const m = Math.floor((a + 11 * h + 22 * l) / 451);
+                        const month = Math.floor((h + l - 7 * m + 114) / 31);
+                        const day = ((h + l - 7 * m + 114) % 31) + 1;
+
+                        return new Date(year, month - 1, day);
+                    };
+
+                    const isColombianHoliday = (date) => {
+                        const year = date.getFullYear();
+                        const iso = toISODate(date);
+                        const fixedHolidays = [
+                            [1, 1],
+                            [5, 1],
+                            [7, 20],
+                            [8, 7],
+                            [12, 8],
+                            [12, 25],
+                        ].map(([month, day]) =>
+                            toISODate(new Date(year, month - 1, day)),
                         );
-                        slot.addEventListener("click", () => {
-                            selectTime(time);
+                        const movedHolidays = [
+                            [1, 6],
+                            [3, 19],
+                            [6, 29],
+                            [8, 15],
+                            [10, 12],
+                            [11, 1],
+                            [11, 11],
+                        ].map(([month, day]) => {
+                            const holiday = new Date(year, month - 1, day);
+                            holiday.setDate(
+                                holiday.getDate() +
+                                    ((8 - holiday.getDay()) % 7),
+                            );
+                            return toISODate(holiday);
                         });
-                        slot.addEventListener("keydown", (event) => {
-                            handleSlotKeydown(event);
-                        });
-                        grid.append(slot);
-                        slotButtons.push(slot);
-                    }
+                        const easter = getEasterSunday(year);
+                        const easterHolidays = [-3, -2, 39, 60, 68].map(
+                            (offset) => {
+                                const holiday = new Date(easter);
+                                holiday.setDate(
+                                    holiday.getDate() + offset,
+                                );
+                                if (offset > 0) {
+                                    holiday.setDate(
+                                        holiday.getDate() +
+                                            ((8 - holiday.getDay()) % 7),
+                                    );
+                                }
+                                return toISODate(holiday);
+                            },
+                        );
+
+                        return [...fixedHolidays, ...movedHolidays, ...easterHolidays]
+                            .includes(iso);
+                    };
+
+                    const updateSlotsForDate = () => {
+                        const date = parseISODate(dateNative?.value || "");
+                        slotButtons = [];
+                        morningGrid.replaceChildren();
+                        afternoonGrid.replaceChildren();
+
+                        if (!date) {
+                            dateSummary.hidden = true;
+                            dateSummaryText.textContent = "Fecha pendiente";
+                            hint.textContent = "";
+                            emptyMessage.textContent =
+                                "Primero elige la fecha para ver los horarios disponibles.";
+                            emptyState.hidden = false;
+                            periods.hidden = true;
+                            return;
+                        }
+
+                        const weekend =
+                            date.getDay() === 0 || date.getDay() === 6;
+                        const holiday = isColombianHoliday(date);
+                        const opensAt = weekend || holiday ? 6 * 60 : 7 * 60;
+                        const closesAt = weekend || holiday ? 14 * 60 : 19 * 60;
+                        const today = new Date();
+                        let firstAvailable = opensAt;
+
+                        if (toISODate(date) === toISODate(today)) {
+                            const currentMinutes =
+                                today.getHours() * 60 + today.getMinutes();
+                            firstAvailable =
+                                opensAt +
+                                Math.max(
+                                    0,
+                                    Math.ceil(
+                                        (currentMinutes + 1 - opensAt) /
+                                            stepMinutes,
+                                    ),
+                                ) *
+                                    stepMinutes;
+                        }
+
+                        native.min = toTime(opensAt);
+                        native.max = toTime(closesAt);
+                        dateSummary.hidden = false;
+                        dateSummaryText.textContent =
+                            longDateFormatter.format(date).replace(
+                                /^./,
+                                (letter) => letter.toLocaleUpperCase("es-CO"),
+                            );
+                        hint.textContent = `Horario ${
+                            weekend || holiday
+                                ? "de fin de semana o festivo"
+                                : "entre semana"
+                        }: ${formatTime(toTime(opensAt))}–${formatTime(
+                            toTime(closesAt),
+                        )}`;
+
+                        if (native.value) {
+                            const selectedMinutes = parseTime(native.value);
+                            const isValid =
+                                selectedMinutes >= firstAvailable &&
+                                selectedMinutes <= closesAt &&
+                                (selectedMinutes - opensAt) % stepMinutes === 0;
+
+                            if (!isValid) {
+                                native.value = "";
+                                native.dispatchEvent(
+                                    new Event("input", { bubbles: true }),
+                                );
+                                native.dispatchEvent(
+                                    new Event("change", { bubbles: true }),
+                                );
+                            }
+                        }
+
+                        for (
+                            let totalMinutes = firstAvailable;
+                            totalMinutes <= closesAt;
+                            totalMinutes += stepMinutes
+                        ) {
+                            const time = toTime(totalMinutes);
+                            const slot = document.createElement("button");
+
+                            slot.type = "button";
+                            slot.className = "reservas-timepicker__slot";
+                            slot.dataset.time = time;
+                            slot.setAttribute(
+                                "aria-label",
+                                `Seleccionar ${formatTime(time)}`,
+                            );
+                            const timeLabel = document.createElement("span");
+                            timeLabel.className =
+                                "reservas-timepicker__slot-label";
+                            timeLabel.textContent = formatTime(time);
+                            const indicator = createIcon(
+                                "check_circle",
+                                "reservas-timepicker__slot-indicator",
+                            );
+                            slot.append(timeLabel, indicator);
+                            slot.setAttribute(
+                                "aria-pressed",
+                                String(time === native.value),
+                            );
+                            slot.addEventListener("click", () => {
+                                selectTime(time);
+                            });
+                            slot.addEventListener("keydown", (event) => {
+                                handleSlotKeydown(event);
+                            });
+                            (totalMinutes < 12 * 60
+                                ? morningGrid
+                                : afternoonGrid
+                            ).append(slot);
+                            slotButtons.push(slot);
+                        }
+
+                        const hasSlots = slotButtons.length > 0;
+                        emptyMessage.textContent = hasSlots
+                            ? ""
+                            : "Ya no quedan horarios disponibles para esta fecha.";
+                        emptyState.hidden = hasSlots;
+                        chooseDateButton.hidden = hasSlots;
+                        periods.hidden = !hasSlots;
+                    };
 
                     const updateDisplay = () => {
                         value.textContent = native.value
@@ -2422,7 +2708,9 @@
 
                     const focusSlot = (time) => {
                         const target =
-                            grid.querySelector(`[data-time="${time}"]`) ||
+                            slotButtons.find(
+                                (slot) => slot.dataset.time === time,
+                            ) ||
                             slotButtons[0];
 
                         if (target) {
@@ -2449,9 +2737,9 @@
 
                         const columns = Math.max(
                             1,
-                            getComputedStyle(grid).gridTemplateColumns.split(
-                                " ",
-                            ).length,
+                            getComputedStyle(
+                                event.currentTarget.parentElement,
+                            ).gridTemplateColumns.split(" ").length,
                         );
                         let nextIndex = null;
 
@@ -2500,9 +2788,12 @@
                         if (focus) button.focus();
                     };
 
+                    dateNative?.addEventListener("change", updateSlotsForDate);
+
                     const open = () => {
                         if (!panel.hidden) return;
 
+                        updateSlotsForDate();
                         activatePicker(close, () => {
                             if (panel.hidden) return;
 
@@ -2526,7 +2817,11 @@
                         updateDisplay();
                         focusSlot(native.value || slotButtons[0]?.dataset.time);
                         positionPickerPanel(wrapper, button, panel, 360);
-                        keepFocusedInPanel(panel);
+                        if (slotButtons.length) {
+                            keepFocusedInPanel(panel);
+                        } else {
+                            chooseDateButton.focus({ preventScroll: true });
+                        }
                     };
 
                     button.addEventListener("click", () => {
@@ -2590,6 +2885,7 @@
                     wrapper.classList.add("is-enhanced");
                     native.tabIndex = -1;
                     native.setAttribute("aria-hidden", "true");
+                    updateSlotsForDate();
                     updateDisplay();
                 };
 
