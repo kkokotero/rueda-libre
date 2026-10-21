@@ -857,7 +857,7 @@ body {
 }
 
 .found-us--title {
-    grid-column: 1 / -1;
+    grid-column: 1;
     align-self: start;
     margin-bottom: 0.5rem;
 }
@@ -877,6 +877,23 @@ body {
     width: 100%;
     max-width: 30rem;
     justify-self: end;
+    grid-row: span 2;
+}
+
+.mobile-only {
+    display: none;
+}
+
+
+@media (width < 768px) {
+
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
+    }
 }
 
 .found-us--label {
