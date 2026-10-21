@@ -1550,13 +1550,6 @@ body {
     outline-offset: 3px;
 }
 
-.tabla-scroll__hint {
-    display: none;
-    margin: -0.75rem 0 0.75rem;
-    font-size: 0.85rem;
-    color: var(--color-on-surface-variant);
-}
-
 .tarifas-table {
     width: 100%;
     min-width: 34rem;
@@ -2559,6 +2552,117 @@ body {
         align-items: start;
         gap: 0.9rem;
     }
+
+    /* Tablas en formato de tarjetas */
+    .tabla-scroll {
+        overflow: visible;
+        border: 0;
+        border-radius: 0;
+        background-color: transparent;
+    }
+
+    .tarifas-table {
+        display: block;
+        min-width: 0;
+        font-size: 0.95rem;
+        border-collapse: separate;
+    }
+
+    .tarifas-table__caption {
+        display: block;
+        padding: 0 0 0.9rem;
+        background-color: transparent;
+        border-bottom: 0;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--color-on-surface-variant);
+    }
+
+    /* Mantiene los encabezados disponibles para lectores de pantalla */
+    .tarifas-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .tarifas-table tbody {
+        display: grid;
+        gap: 0.75rem;
+    }
+
+    .tarifas-table .tarifas-table__row {
+        display: block;
+        padding: 1rem 1.15rem;
+        background-color: var(--color-surface-container);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+        border-radius: var(--radius-md) var(--radius-md) var(--radius-md)
+            2.5rem;
+    }
+
+    .tarifas-table .tarifas-table__row:hover {
+        background-color: var(--color-surface-container);
+    }
+
+    .tarifas-table .tarifas-table__row > * {
+        border-bottom: 0;
+    }
+
+    .tarifas-table .tarifas-table__row-head {
+        display: block;
+        padding: 0 0 0.65rem;
+        margin-bottom: 0.35rem;
+        white-space: normal;
+        font-size: 1.08rem;
+        font-weight: 700;
+        line-height: 1.25;
+        border-bottom: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 35%, transparent);
+    }
+
+    .tarifas-table .tarifas-table__cell {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.5rem 0;
+        white-space: normal;
+        text-align: left;
+        color: var(--color-on-surface);
+        font-size: 0.94rem;
+        font-weight: 600;
+    }
+
+    .tarifas-table .tarifas-table__cell::before {
+        content: attr(data-label);
+        flex-shrink: 0;
+        color: var(--color-on-surface-variant);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        line-height: 1.4;
+        text-transform: uppercase;
+    }
+
+    .tarifas-table .tarifas-table__cell--price {
+        color: var(--color-primary);
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    #recorridos .tarifas-table__cell--price {
+        margin-top: 0.35rem;
+        padding-top: 0.7rem;
+        border-top: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 35%, transparent);
+    }
 }
 
 @media (max-width: 720px) {
@@ -2586,25 +2690,6 @@ body {
         font-size: 1.55rem;
     }
 
-    .tarifas-table {
-        min-width: 32rem;
-        font-size: 0.92rem;
-    }
-
-    .tarifas-table__caption {
-        padding: 1rem;
-    }
-
-    .tarifas-table__head-cell,
-    .tarifas-table__row-head,
-    .tarifas-table__cell {
-        padding: 0.8rem 1rem;
-    }
-
-    .tabla-scroll__hint {
-        display: block;
-    }
-
     .tarifas-cta {
         border-radius: var(--radius-md);
     }
@@ -2625,14 +2710,6 @@ body {
 
     .tarifas-hero__actions .tarifas-button {
         width: 100%;
-    }
-
-    .tarifas-section {
-        padding: 2rem;
-    }
-
-    .tarifas-table {
-        min-width: 31rem;
     }
 }
 
