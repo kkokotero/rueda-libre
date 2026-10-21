@@ -195,7 +195,6 @@
                 class="reservas-hero section--reveal"
                 aria-labelledby="reservas-title"
             >
-                <p class="reservas-hero__eyebrow">Reservas</p>
 
                 <h1 id="reservas-title" class="reservas-hero__title">
                     Reserva tu bicicleta
@@ -228,6 +227,68 @@
             </section>
 
             <section
+                class="reservas-info"
+                aria-label="Datos de contacto y horario de atención"
+            >
+                <div class="reservas-info__grid">
+                    <article id="contacto" class="reservas-card">
+                        <div class="reservas-card__head">
+                            <span class="reservas-card__icon" aria-hidden="true">
+                                <span class="icon">mail</span>
+                            </span>
+                            <h2 class="reservas-card__title">Contacto</h2>
+                        </div>
+
+                        <p class="reservas-card__text">
+                            Escríbenos para reservar tu bicicleta o resolver
+                            cualquier duda sobre alquileres y recorridos.
+                        </p>
+
+                        <a
+                            class="found-us--button found-us--button__primary"
+                            href="mailto:hola@ruedalibre.example"
+                        >
+                            <span
+                                class="icon found-us--button__icon"
+                                aria-hidden="true"
+                                >mail</span
+                            >
+                            <span class="found-us--button__label"
+                                >hola@ruedalibre.example</span
+                            >
+                            <span
+                                class="icon found-us--button__arrow"
+                                aria-hidden="true"
+                                >arrow_forward</span
+                            >
+                        </a>
+                    </article>
+
+                    <article class="reservas-card">
+                        <div class="reservas-card__head">
+                            <span class="reservas-card__icon" aria-hidden="true">
+                                <span class="icon">schedule</span>
+                            </span>
+                            <h2 class="reservas-card__title">
+                                Horario de atención
+                            </h2>
+                        </div>
+
+                        <dl class="reservas-hours">
+                            <div class="reservas-hours__row">
+                                <dt>Lunes a viernes</dt>
+                                <dd>7:00 a. m. a 7:00 p. m.</dd>
+                            </div>
+                            <div class="reservas-hours__row">
+                                <dt>Sábados, domingos y festivos</dt>
+                                <dd>6:00 a. m. a 2:00 p. m.</dd>
+                            </div>
+                        </dl>
+                    </article>
+                </div>
+            </section>
+
+            <section
                 id="formulario"
                 class="reservas-form-section section--reveal"
                 aria-labelledby="form-title"
@@ -248,6 +309,7 @@
                         </p>
                     </div>
                 </div>
+                
 
                 <form
                     id="reservation-form"
@@ -582,68 +644,6 @@
                         tabindex="-1"
                     ></p>
                 </form>
-            </section>
-
-            <section
-                class="reservas-info"
-                aria-label="Datos de contacto y horario de atención"
-            >
-                <div class="reservas-info__grid">
-                    <article id="contacto" class="reservas-card">
-                        <div class="reservas-card__head">
-                            <span class="reservas-card__icon" aria-hidden="true">
-                                <span class="icon">mail</span>
-                            </span>
-                            <h2 class="reservas-card__title">Contacto</h2>
-                        </div>
-
-                        <p class="reservas-card__text">
-                            Escríbenos para reservar tu bicicleta o resolver
-                            cualquier duda sobre alquileres y recorridos.
-                        </p>
-
-                        <a
-                            class="found-us--button found-us--button__primary"
-                            href="mailto:hola@ruedalibre.example"
-                        >
-                            <span
-                                class="icon found-us--button__icon"
-                                aria-hidden="true"
-                                >mail</span
-                            >
-                            <span class="found-us--button__label"
-                                >hola@ruedalibre.example</span
-                            >
-                            <span
-                                class="icon found-us--button__arrow"
-                                aria-hidden="true"
-                                >arrow_forward</span
-                            >
-                        </a>
-                    </article>
-
-                    <article class="reservas-card">
-                        <div class="reservas-card__head">
-                            <span class="reservas-card__icon" aria-hidden="true">
-                                <span class="icon">schedule</span>
-                            </span>
-                            <h2 class="reservas-card__title">
-                                Horario de atención
-                            </h2>
-                        </div>
-
-                        <dl class="reservas-hours">
-                            <div class="reservas-hours__row">
-                                <dt>Lunes a viernes</dt>
-                                <dd>7:00 a. m. a 7:00 p. m.</dd>
-                            </div>
-                            <div class="reservas-hours__row">
-                                <dt>Sábados, domingos y festivos</dt>
-                                <dd>6:00 a. m. a 2:00 p. m.</dd>
-                            </div>
-                        </dl>
-                    </article>
-                </div>
             </section>
         </main>
 
