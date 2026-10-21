@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/suspicious/noShorthandPropertyOverrides: <explanation> */
 @import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
 
 :root {
     --color-primary: #b39bb7;
@@ -99,6 +100,34 @@ html {
 :focus-visible {
     outline: 3px solid var(--color-primary);
     outline-offset: 3px;
+}
+
+/* ============================================================
+   Iconos (Material Symbols de Google Fonts)
+   ============================================================ */
+
+.icon {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    vertical-align: middle;
+    font-family: "Material Symbols Rounded";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: "liga";
+    font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -869,7 +898,7 @@ body {
     width: 2.75rem;
     height: 2.75rem;
     padding: 0.55rem;
-    flex-shrink: 0;
+    font-size: 1.4rem;
     border-radius: 50%;
 }
 
@@ -917,10 +946,8 @@ body {
 }
 
 .found-us--button__arrow {
-    width: 1.35rem;
-    height: 1.35rem;
+    font-size: 1.35rem;
     margin-left: auto;
-    flex-shrink: 0;
     transition: translate var(--motion-medium) var(--ease-spring);
 }
 
@@ -1128,8 +1155,7 @@ body {
 }
 
 .footer__logo-icon {
-    width: 1.8rem;
-    height: 1.8rem;
+    font-size: 1.8rem;
 }
 
 .footer__logo-text {
@@ -1183,8 +1209,7 @@ body {
 }
 
 .footer__location-icon {
-    width: 1.15rem;
-    height: 1.15rem;
+    font-size: 1.15rem;
     color: var(--color-primary);
 }
 
@@ -1231,9 +1256,7 @@ body {
 }
 
 .footer__contact-icon {
-    width: 1.2rem;
-    height: 1.2rem;
-    flex-shrink: 0;
+    font-size: 1.2rem;
     color: var(--color-primary);
 }
 
@@ -1242,8 +1265,7 @@ body {
 }
 
 .footer__external {
-    width: 0.95rem;
-    height: 0.95rem;
+    font-size: 0.95rem;
     color: var(--color-on-surface-variant);
 }
 
@@ -1293,8 +1315,7 @@ body {
 }
 
 .footer__top-icon {
-    width: 1.05rem;
-    height: 1.05rem;
+    font-size: 1.05rem;
 }
 
 .footer__top:hover {
@@ -1402,10 +1423,8 @@ body {
         transform var(--motion-medium) var(--ease-spring);
 }
 
-.tarifas-button svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
+.tarifas-button .icon {
+    font-size: 1.25rem;
 }
 
 .tarifas-button--primary {
@@ -1495,9 +1514,8 @@ body {
     color: var(--color-primary);
 }
 
-.tarifas-section__icon svg {
-    width: 1.9rem;
-    height: 1.9rem;
+.tarifas-section__icon .icon {
+    font-size: 1.9rem;
 }
 
 .tarifas-section__icon--solid {
@@ -1673,9 +1691,8 @@ body {
     color: var(--color-primary);
 }
 
-.tarifas-info__icon svg {
-    width: 1.5rem;
-    height: 1.5rem;
+.tarifas-info__icon .icon {
+    font-size: 1.5rem;
 }
 
 .tarifas-info__chips {
@@ -1697,9 +1714,8 @@ body {
     font-weight: 600;
 }
 
-.tarifas-info__chip svg {
-    width: 1rem;
-    height: 1rem;
+.tarifas-info__chip .icon {
+    font-size: 1rem;
 }
 
 .packing-list {
@@ -1758,9 +1774,8 @@ body {
     color: var(--color-primary);
 }
 
-.packing-list__icon svg {
-    width: 1.1rem;
-    height: 1.1rem;
+.packing-list__icon .icon {
+    font-size: 1.1rem;
 }
 
 .tarifas-info__card--highlight {
@@ -1832,9 +1847,8 @@ body {
     color: var(--color-primary);
 }
 
-.tarifas-cta__icon svg {
-    width: 1.6rem;
-    height: 1.6rem;
+.tarifas-cta__icon .icon {
+    font-size: 1.6rem;
 }
 
 .tarifas-cta__title {
@@ -2465,9 +2479,8 @@ body {
         border-radius: 0.8rem 0.8rem 0.8rem 1.4rem;
     }
 
-    .tarifas-section__icon svg {
-        width: 1.55rem;
-        height: 1.55rem;
+    .tarifas-section__icon .icon {
+        font-size: 1.55rem;
     }
 
     .tarifas-table {
