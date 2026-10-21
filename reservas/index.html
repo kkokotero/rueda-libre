@@ -946,9 +946,17 @@
                                     id="reserva-mensaje"
                                     name="mensaje"
                                     rows="4"
+                                    maxlength="300"
+                                    aria-describedby="reserva-mensaje-counter"
                                     placeholder="Cuéntanos si necesitas casco, candado, silla para niño o alguna condición especial."
                                 ></textarea>
                             </div>
+                            <p
+                                class="reservas-form__hint reservas-form__counter"
+                                id="reserva-mensaje-counter"
+                            >
+                                0/300
+                            </p>
                         </div>
                     </fieldset>
 
@@ -1216,6 +1224,9 @@
         </footer>
         
         <script src="../assets/scripts/navigation.js"></script>
-        <script src="../assets/scripts/reservas.js"></script>
+        <script
+            type="module"
+            src="../assets/scripts/reservas.js"
+        ></script>
     </body>
 </html>

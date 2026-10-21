@@ -2610,6 +2610,12 @@ body {
     line-height: 1.5;
 }
 
+.reservas-form__counter {
+    align-self: flex-end;
+    margin: -0.1rem 0 0;
+    font-variant-numeric: tabular-nums;
+}
+
 /* Selectores y pickers personalizados: conservan los controles nativos para
    el envío y construyen una interfaz accesible cuando JavaScript está
    disponible. */
