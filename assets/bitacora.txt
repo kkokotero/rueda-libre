@@ -154,3 +154,46 @@ Pruebas realizadas:
 - Diseño responsivo: sin desbordamiento horizontal y con el menú del selector
   dentro de la ventana en anchos de escritorio, tableta y móvil.
 - No se produjeron errores 404 ni fallos de red en los recursos del sitio.
+
+FORMULARIO DE RESERVAS: FECHA, HORA Y SELECTORES MÓVILES
+
+Se refinó el formulario de reservas para mejorar la selección de fecha y hora y
+la experiencia en pantallas pequeñas:
+
+- Se retiró la fila de iconos de bicicleta que acompañaba al contador de
+  cantidad. Se conservan el texto "N bicicleta(s)", la entrada numérica y los
+  botones de aumentar y disminuir.
+- La fecha y la hora dejaron de usar los controles nativos visibles. Ahora se
+  abren pickers personalizados accesibles; los <input type="date"> y
+  <input type="time"> permanecen ocultos para el envío y como respaldo sin
+  JavaScript.
+- Calendario de fecha: semana iniciando en lunes, navegación por meses, botón
+  "Hoy", fechas pasadas deshabilitadas, selección con aria-pressed, día actual
+  con aria-current y navegación con flechas, Inicio, Fin, RePág y AvPág.
+- Selector de hora: franjas de 15 minutos entre las 6:00 a. m. y las 7:00 p. m.,
+  con desplazamiento interno y navegación por teclado.
+- En anchos de hasta 720 px, los tres selectores (tipo, duración, recorrido),
+  la fecha y la hora se abren como hojas modales inferiores, con fondo
+  oscurecido, cabecera con botón de cierre, bloqueo del desplazamiento de la
+  página y trampa de foco para los pickers de fecha y hora.
+- En escritorio, los paneles se anclan al campo, se abren hacia arriba cuando
+  falta espacio y respetan la altura del encabezado fijo.
+- La validación ahora lleva el foco a los disparadores personalizados de fecha
+  y hora, mantiene aria-invalid y los mensajes específicos, y el envío sigue
+  generando el enlace mailto con todos los datos.
+
+Pruebas realizadas:
+
+- Apertura, selección, cierre con Escape y clic fuera de los pickers de fecha y
+  hora en escritorio; navegación con flechas y teclas de página.
+- Validación de fecha y hora vacías o fuera de rango; el foco y aria-invalid
+  quedan en los controles personalizados.
+- Envío válido con fecha y hora elegidas mediante los pickers; el mailto incluye
+  los valores y la cantidad de bicicletas.
+- Contador de cantidad sin iconos: solo quedan los iconos de sumar y restar y el
+  texto se actualiza correctamente.
+- Hojas modales en 500, 720, 721 y 1366 px; también se verificó el diseño a
+  320 px dentro de un iframe. Sin desbordamiento horizontal, con fondo, cierre,
+  bloqueo de scroll y paneles dentro de la ventana.
+- Navegación, footer, recursos e imágenes del sitio sin errores; no se
+  registraron errores de JavaScript.
