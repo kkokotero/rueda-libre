@@ -3484,6 +3484,7 @@ body.has-picker-modal {
     cursor: pointer;
     width: auto;
     min-width: 15rem;
+    width: 100%;
 }
 
 .reservas-form__note {
