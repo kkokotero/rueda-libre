@@ -530,7 +530,7 @@
                                             type="time"
                                             min="06:00"
                                             max="19:00"
-                                            step="900"
+                                            step="300"
                                             aria-describedby="reserva-hora-hint reserva-hora-error"
                                             required
                                         />
@@ -2490,6 +2490,7 @@
                     let hourOptions = [];
                     let minuteOptions = [];
                     const wheelScrollTimers = new WeakMap();
+                    const userScrollingWheels = new WeakSet();
 
                     const parseISODate = (iso) => {
                         if (!iso) return null;
@@ -2738,6 +2739,7 @@
                         selected,
                         onSelect,
                     ) => {
+                        clearTimeout(wheelScrollTimers.get(wheel));
                         wheel.replaceChildren();
                         values.forEach((item) => {
                             const option = document.createElement("button");
@@ -2806,6 +2808,8 @@
                         });
 
                         wheel.onscroll = () => {
+                            if (!userScrollingWheels.has(wheel)) return;
+
                             clearTimeout(wheelScrollTimers.get(wheel));
                             wheelScrollTimers.set(
                                 wheel,
@@ -2840,9 +2844,16 @@
                                     ) {
                                         onSelect(nearest.dataset.value);
                                     }
+                                    userScrollingWheels.delete(wheel);
                                 }, 100),
                             );
                         };
+                        wheel.onwheel = () =>
+                            userScrollingWheels.add(wheel);
+                        wheel.ontouchmove = () =>
+                            userScrollingWheels.add(wheel);
+                        wheel.onpointermove = () =>
+                            userScrollingWheels.add(wheel);
                     };
 
                     const renderMinuteWheel = (hour, selectedMinute) => {
@@ -2881,6 +2892,10 @@
                             })),
                             selectedHour,
                             (hour) => {
+                                const currentMinute = (
+                                    native.value ||
+                                    `${selectedHour}:${selectedMinute}`
+                                ).slice(3);
                                 const minutes = availableTimes
                                     .filter((available) =>
                                         available.startsWith(`${hour}:`),
@@ -2888,8 +2903,8 @@
                                     .map((available) => available.slice(3));
                                 const nearestMinute = minutes.reduce(
                                     (nearest, minute) =>
-                                        Math.abs(Number(minute) - Number(selectedMinute)) <
-                                        Math.abs(Number(nearest) - Number(selectedMinute))
+                                        Math.abs(Number(minute) - Number(currentMinute)) <
+                                        Math.abs(Number(nearest) - Number(currentMinute))
                                             ? minute
                                             : nearest,
                                 );
@@ -2924,6 +2939,17 @@
 
                     const open = () => {
                         if (!panel.hidden) return;
+
+                        if (dateNative && !dateNative.value) {
+                            const today = toISODate(new Date());
+
+                            if (!dateNative.min || today >= dateNative.min) {
+                                dateNative.value = today;
+                                dateNative.dispatchEvent(
+                                    new Event("change", { bubbles: true }),
+                                );
+                            }
+                        }
 
                         updateSlotsForDate();
                         activatePicker(close, () => {
@@ -3233,7 +3259,7 @@
                         control.name === "hora" &&
                         validity.stepMismatch
                     ) {
-                        return "Elige una hora en intervalos de 15 minutos.";
+                        return "Elige una hora en intervalos de 5 minutos.";
                     }
 
                     if (
