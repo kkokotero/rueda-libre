@@ -46,45 +46,28 @@
                 </nav>
 
                 <nav class="header--menu" aria-label="Navegación principal">
-                    <a
-                        href="../index.html#top-app"
-                        class="header--menu__link"
-                        >Inicio</a
-                    >
-                    <a
-                        href="#top-app"
-                        class="header--menu__link"
-                        aria-current="page"
-                        >Tarifas</a
-                    >
-                    <details class="header--menu__item" data-nav-dropdown>
-                        <summary
-                            class="header--menu__link header--menu__toggle"
-                            >Nosotros</summary
-                        >
-                        <div class="header--menu__submenu">
-                            <a
-                                href="../index.html#about-us"
-                                class="header--menu__sublink"
-                                >¿Quiénes somos?</a
-                            >
-                            <a
-                                href="../index.html#our-services"
-                                class="header--menu__sublink"
-                                >Nuestros servicios</a
-                            >
-                            <a
-                                href="../index.html#why"
-                                class="header--menu__sublink"
-                                >¿Cómo alquilar?</a
-                            >
-                            <a
-                                href="../index.html#found-us"
-                                class="header--menu__sublink"
-                                >Encuéntranos</a
-                            >
-                        </div>
-                    </details>
+                    <ul class="header--menu__list">
+                        <li>
+                            <a href="../index.html#top-app" class="header--menu__link">Inicio</a>
+                        </li>
+                        <li>
+                            <a href="./index.html#top-app" class="header--menu__link" aria-current="page">Tarifas y rutas</a>
+                        </li>
+                        <li>
+                            <a href="../reservas/index.html" class="header--menu__link">Reservas</a>
+                        </li>
+                        <li>
+                            <details class="header--menu__item" data-nav-dropdown>
+                                <summary class="header--menu__link header--menu__toggle">Nosotros</summary>
+                                <div class="header--menu__submenu">
+                                    <a href="../index.html#about-us" class="header--menu__sublink">¿Quiénes somos?</a>
+                                    <a href="../index.html#our-services" class="header--menu__sublink">Nuestros servicios</a>
+                                    <a href="../index.html#why" class="header--menu__sublink">¿Cómo alquilar?</a>
+                                    <a href="../index.html#found-us" class="header--menu__sublink">Encuéntranos</a>
+                                </div>
+                            </details>
+                        </li>
+                    </ul>
                 </nav>
 
                 <label
@@ -112,45 +95,28 @@
 
             <nav class="header--drawer" aria-label="Navegación móvil">
                 <p class="header--drawer__eyebrow">Menú</p>
-                <a
-                    href="../index.html#top-app"
-                    class="header--drawer__link"
-                    >Inicio</a
-                >
-                <a
-                    href="#top-app"
-                    class="header--drawer__link"
-                    aria-current="page"
-                    >Tarifas</a
-                >
-                <details class="header--drawer__group" data-nav-dropdown>
-                    <summary
-                        class="header--drawer__link header--drawer__toggle"
-                        >Nosotros</summary
-                    >
-                    <div class="header--drawer__submenu">
-                        <a
-                            href="../index.html#about-us"
-                            class="header--drawer__sublink"
-                            >¿Quiénes somos?</a
-                        >
-                        <a
-                            href="../index.html#our-services"
-                            class="header--drawer__sublink"
-                            >Nuestros servicios</a
-                        >
-                        <a
-                            href="../index.html#why"
-                            class="header--drawer__sublink"
-                            >¿Cómo alquilar?</a
-                        >
-                        <a
-                            href="../index.html#found-us"
-                            class="header--drawer__sublink"
-                            >Encuéntranos</a
-                        >
-                    </div>
-                </details>
+                <ul class="header--drawer__list">
+                    <li>
+                        <a href="../index.html#top-app" class="header--drawer__link">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="./index.html#top-app" class="header--drawer__link" aria-current="page">Tarifas y rutas</a>
+                    </li>
+                    <li>
+                        <a href="../reservas/index.html" class="header--drawer__link">Reservas</a>
+                    </li>
+                    <li>
+                        <details class="header--drawer__group" data-nav-dropdown>
+                            <summary class="header--drawer__link header--drawer__toggle">Nosotros</summary>
+                            <div class="header--drawer__submenu">
+                                <a href="../index.html#about-us" class="header--drawer__sublink">¿Quiénes somos?</a>
+                                <a href="../index.html#our-services" class="header--drawer__sublink">Nuestros servicios</a>
+                                <a href="../index.html#why" class="header--drawer__sublink">¿Cómo alquilar?</a>
+                                <a href="../index.html#found-us" class="header--drawer__sublink">Encuéntranos</a>
+                            </div>
+                        </details>
+                    </li>
+                </ul>
             </nav>
         </header>
 
@@ -529,6 +495,21 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="tarifas-table-cta">
+                    <p class="tarifas-table-cta__text">
+                        ¿Quieres pedalear alguno de estos recorridos?
+                    </p>
+                    <a
+                        class="tarifas-button tarifas-button--primary"
+                        href="../reservas/index.html"
+                    >
+                        <span class="icon" aria-hidden="true"
+                            >event_available</span
+                        >
+                        Reservar ahora
+                    </a>
+                </div>
             </section>
 
             <!-- Información adicional -->
@@ -742,7 +723,7 @@
                     <div class="footer__cta-actions">
                         <a
                             class="footer__button footer__button--filled"
-                            href="mailto:hola@ruedalibre.example"
+                            href="../reservas/index.html"
                         >
                             Reservar una bicicleta
                         </a>
@@ -811,6 +792,11 @@
                         >
                         <a class="footer__nav-link" href="#recorridos"
                             >Recorridos</a
+                        >
+                        <a
+                            class="footer__nav-link"
+                            href="../reservas/index.html"
+                            >Reservas</a
                         >
                         <a
                             class="footer__nav-link"

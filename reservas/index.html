@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#151215" />
+        <meta
+            name="description"
+            content="Reserva tu bicicleta con Rueda Libre en Medellín. Escríbenos y consulta nuestro horario de atención."
+        />
+        <title>Reservas | Rueda Libre</title>
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="../assets/img/favicon.svg"
+        />
+        <link rel="stylesheet" href="../assets/style/styles.css" />
+    </head>
+
+    <body>
+        <span id="top-app"></span>
+        <header class="site-header">
+            <input
+                type="checkbox"
+                id="nav-toggle"
+                class="nav-toggle"
+                aria-label="Menú de navegación"
+            />
+
+            <div class="header">
+                <nav class="header--logo">
+                    <a
+                        class="header--logo__link"
+                        href="../index.html#top-app"
+                        aria-label="Rueda Libre, volver al inicio"
+                    >
+                        <img
+                            class="header--logo__image"
+                            src="../assets/img/logo.svg"
+                            alt="Rueda Libre"
+                            width="128"
+                            height="103"
+                        />
+                    </a>
+                </nav>
+
+                <nav class="header--menu" aria-label="Navegación principal">
+                    <ul class="header--menu__list">
+                        <li>
+                            <a
+                                href="../index.html#top-app"
+                                class="header--menu__link"
+                                >Inicio</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="../tarifas/index.html"
+                                class="header--menu__link"
+                                >Tarifas y rutas</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="./index.html#top-app"
+                                class="header--menu__link"
+                                aria-current="page"
+                                >Reservas</a
+                            >
+                        </li>
+                        <li>
+                            <details
+                                class="header--menu__item"
+                                data-nav-dropdown
+                            >
+                                <summary
+                                    class="header--menu__link header--menu__toggle"
+                                    >Nosotros</summary
+                                >
+                                <div class="header--menu__submenu">
+                                    <a
+                                        href="../index.html#about-us"
+                                        class="header--menu__sublink"
+                                        >¿Quiénes somos?</a
+                                    >
+                                    <a
+                                        href="../index.html#our-services"
+                                        class="header--menu__sublink"
+                                        >Nuestros servicios</a
+                                    >
+                                    <a
+                                        href="../index.html#why"
+                                        class="header--menu__sublink"
+                                        >¿Cómo alquilar?</a
+                                    >
+                                    <a
+                                        href="../index.html#found-us"
+                                        class="header--menu__sublink"
+                                        >Encuéntranos</a
+                                    >
+                                </div>
+                            </details>
+                        </li>
+                    </ul>
+                </nav>
+
+                <label
+                    for="nav-toggle"
+                    class="header--toggle"
+                    aria-hidden="true"
+                >
+                    <span
+                        class="header--toggle__bar header--toggle__bar--top"
+                    ></span>
+                    <span
+                        class="header--toggle__bar header--toggle__bar--middle"
+                    ></span>
+                    <span
+                        class="header--toggle__bar header--toggle__bar--bottom"
+                    ></span>
+                </label>
+            </div>
+
+            <label
+                for="nav-toggle"
+                class="nav-scrim"
+                aria-hidden="true"
+            ></label>
+
+            <nav class="header--drawer" aria-label="Navegación móvil">
+                <p class="header--drawer__eyebrow">Menú</p>
+                <ul class="header--drawer__list">
+                    <li>
+                        <a
+                            href="../index.html#top-app"
+                            class="header--drawer__link"
+                            >Inicio</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="../tarifas/index.html"
+                            class="header--drawer__link"
+                            >Tarifas y rutas</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="./index.html#top-app"
+                            class="header--drawer__link"
+                            aria-current="page"
+                            >Reservas</a
+                        >
+                    </li>
+                    <li>
+                        <details
+                            class="header--drawer__group"
+                            data-nav-dropdown
+                        >
+                            <summary
+                                class="header--drawer__link header--drawer__toggle"
+                                >Nosotros</summary
+                            >
+                            <div class="header--drawer__submenu">
+                                <a
+                                    href="../index.html#about-us"
+                                    class="header--drawer__sublink"
+                                    >¿Quiénes somos?</a
+                                >
+                                <a
+                                    href="../index.html#our-services"
+                                    class="header--drawer__sublink"
+                                    >Nuestros servicios</a
+                                >
+                                <a
+                                    href="../index.html#why"
+                                    class="header--drawer__sublink"
+                                    >¿Cómo alquilar?</a
+                                >
+                                <a
+                                    href="../index.html#found-us"
+                                    class="header--drawer__sublink"
+                                    >Encuéntranos</a
+                                >
+                            </div>
+                        </details>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="site-main">
+            <section
+                class="reservas-hero section--reveal"
+                aria-labelledby="reservas-title"
+            >
+
+                <h1 id="reservas-title" class="reservas-hero__title">
+                    Reserva tu bicicleta
+                </h1>
+
+                <p class="reservas-hero__text">
+                    Estamos preparando el formulario de reserva en línea.
+                    Mientras tanto, escríbenos con el tipo de bicicleta, la
+                    fecha y la duración que necesitas. Te confirmamos la
+                    disponibilidad y te acompañamos en cada paso.
+                </p>
+
+                <div class="reservas-hero__actions">
+                    <a
+                        class="tarifas-button tarifas-button--primary"
+                        href="mailto:hola@ruedalibre.example"
+                    >
+                        <span class="icon" aria-hidden="true">mail</span>
+                        Escríbenos para reservar
+                    </a>
+                    <a
+                        class="tarifas-button tarifas-button--ghost"
+                        href="../tarifas/index.html"
+                    >
+                        <span class="icon" aria-hidden="true">sell</span>
+                        Ver tarifas y rutas
+                    </a>
+                </div>
+            </section>
+
+            <section
+                class="reservas-info"
+                aria-label="Datos de contacto y horario de atención"
+            >
+                <div class="reservas-info__grid">
+                    <article id="contacto" class="reservas-card">
+                        <div class="reservas-card__head">
+                            <span class="reservas-card__icon" aria-hidden="true">
+                                <span class="icon">mail</span>
+                            </span>
+                            <h2 class="reservas-card__title">Contacto</h2>
+                        </div>
+
+                        <p class="reservas-card__text">
+                            Escríbenos para reservar tu bicicleta o resolver
+                            cualquier duda sobre alquileres y recorridos.
+                        </p>
+
+                        <a
+                            class="found-us--button found-us--button__primary"
+                            href="mailto:hola@ruedalibre.example"
+                        >
+                            <span
+                                class="icon found-us--button__icon"
+                                aria-hidden="true"
+                                >mail</span
+                            >
+                            <span class="found-us--button__label"
+                                >hola@ruedalibre.example</span
+                            >
+                            <span
+                                class="icon found-us--button__arrow"
+                                aria-hidden="true"
+                                >arrow_forward</span
+                            >
+                        </a>
+                    </article>
+
+                    <article class="reservas-card">
+                        <div class="reservas-card__head">
+                            <span class="reservas-card__icon" aria-hidden="true">
+                                <span class="icon">schedule</span>
+                            </span>
+                            <h2 class="reservas-card__title">
+                                Horario de atención
+                            </h2>
+                        </div>
+
+                        <dl class="reservas-hours">
+                            <div class="reservas-hours__row">
+                                <dt>Lunes a viernes</dt>
+                                <dd>7:00 a. m. a 7:00 p. m.</dd>
+                            </div>
+                            <div class="reservas-hours__row">
+                                <dt>Sábados, domingos y festivos</dt>
+                                <dd>6:00 a. m. a 2:00 p. m.</dd>
+                            </div>
+                        </dl>
+                    </article>
+                </div>
+
+                <aside
+                    class="reservas-note"
+                    aria-label="Formulario en preparación"
+                >
+                    <span class="reservas-note__icon" aria-hidden="true">
+                        <span class="icon">construction</span>
+                    </span>
+                    <p>
+                        <strong>Formulario en camino.</strong> Estamos
+                        construyendo la reserva en línea; mientras tanto, el
+                        correo es nuestro canal oficial.
+                    </p>
+                </aside>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer__inner">
+                <section class="footer__cta" aria-labelledby="footer-cta-title">
+                    <div class="footer__cta-copy">
+                        <p class="footer__eyebrow">
+                            Tu próxima ruta empieza aquí
+                        </p>
+                        <h2 id="footer-cta-title" class="footer__cta-title">
+                            ¿Listo para rodar por Medellín?
+                        </h2>
+                    </div>
+
+                    <div class="footer__cta-actions">
+                        <a
+                            class="footer__button footer__button--filled"
+                            href="#contacto"
+                        >
+                            Reservar una bicicleta
+                        </a>
+                        <a
+                            class="footer__button footer__button--outlined"
+                            href="../tarifas/index.html"
+                        >
+                            Ver tarifas y rutas
+                        </a>
+                    </div>
+                </section>
+
+                <div class="footer__grid">
+                    <div class="footer__brand">
+                        <a
+                            class="footer__logo"
+                            href="../index.html#top-app"
+                            aria-label="Rueda Libre, volver al inicio"
+                        >
+                            <span class="footer__logo-mark" aria-hidden="true">
+                                <span
+                                    class="icon footer__logo-icon"
+                                    >pedal_bike</span
+                                >
+                            </span>
+                            <span class="footer__logo-text"
+                                >Rueda
+                                <em class="footer__logo-accent">Libre</em></span
+                            >
+                        </a>
+
+                        <p class="footer__description">
+                            Alquiler de bicicletas y rutas para descubrir
+                            Medellín a tu propio ritmo, de forma sostenible y
+                            segura.
+                        </p>
+
+                        <p class="footer__badge">
+                            <span
+                                class="footer__badge-dot"
+                                aria-hidden="true"
+                            ></span>
+                            Movilidad sostenible
+                        </p>
+
+                        <p class="footer__location">
+                            <span
+                                class="icon footer__location-icon"
+                                aria-hidden="true"
+                                >location_on</span
+                            >
+                            Medellín, Colombia
+                        </p>
+                    </div>
+
+                    <nav
+                        class="footer__nav"
+                        aria-label="Navegación del pie de página"
+                    >
+                        <h3 class="footer__heading">Explora</h3>
+                        <a
+                            class="footer__nav-link"
+                            href="../index.html#top-app"
+                            >Inicio</a
+                        >
+                        <a
+                            class="footer__nav-link"
+                            href="../tarifas/index.html"
+                            >Tarifas y rutas</a
+                        >
+                        <a
+                            class="footer__nav-link"
+                            href="./index.html#top-app"
+                            aria-current="page"
+                            >Reservas</a
+                        >
+                        <a
+                            class="footer__nav-link"
+                            href="../index.html#found-us"
+                            >Encuéntranos</a
+                        >
+                    </nav>
+
+                    <div class="footer__contact">
+                        <h3 class="footer__heading">Contacto</h3>
+                        <a
+                            class="footer__contact-link"
+                            href="mailto:hola@ruedalibre.example"
+                        >
+                            <span
+                                class="icon footer__contact-icon"
+                                aria-hidden="true"
+                                >mail</span
+                            >
+                            hola@ruedalibre.example
+                        </a>
+                        <a
+                            class="footer__contact-link"
+                            href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <span
+                                class="icon footer__contact-icon"
+                                aria-hidden="true"
+                                >location_on</span
+                            >
+                            Google Maps
+                            <span
+                                class="icon footer__external"
+                                aria-hidden="true"
+                                >open_in_new</span
+                            >
+                        </a>
+
+                        <p class="footer__note">
+                            Escríbenos para conocer horarios de atención y
+                            disponibilidad.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer__bottom">
+                    <p>
+                        &copy; 2026 Rueda Libre. Todos los derechos reservados.
+                    </p>
+                    <p class="footer__made">Pedaleando en Medellín</p>
+                    <a class="footer__top" href="#top-app">
+                        Volver arriba
+                        <span
+                            class="icon footer__top-icon"
+                            aria-hidden="true"
+                            >arrow_upward</span
+                        >
+                    </a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Mejora progresiva: los menús funcionan solo con CSS; este script
+       cierra el menú lateral y los desplegables al elegir un enlace, hacer
+       clic fuera o pulsar Escape. -->
+        <script>
+            (() => {
+                const navToggle = document.getElementById("nav-toggle");
+
+                if (!navToggle) return;
+
+                const dropdowns = document.querySelectorAll(
+                    "[data-nav-dropdown]",
+                );
+
+                document
+                    .querySelectorAll(".header--drawer a")
+                    .forEach((link) => {
+                        link.addEventListener("click", () => {
+                            navToggle.checked = false;
+                            dropdowns.forEach((dropdown) => {
+                                dropdown.open = false;
+                            });
+                        });
+                    });
+
+                document
+                    .querySelectorAll("[data-nav-dropdown] a")
+                    .forEach((link) => {
+                        link.addEventListener("click", () => {
+                            const dropdown = link.closest(
+                                "[data-nav-dropdown]",
+                            );
+
+                            if (dropdown) dropdown.open = false;
+                        });
+                    });
+
+                document.addEventListener("click", (event) => {
+                    dropdowns.forEach((dropdown) => {
+                        if (dropdown.open && !dropdown.contains(event.target)) {
+                            dropdown.open = false;
+                        }
+                    });
+                });
+
+                document.addEventListener("keydown", (event) => {
+                    if (event.key !== "Escape") return;
+
+                    const openDropdown = document.querySelector(
+                        "[data-nav-dropdown][open]",
+                    );
+
+                    if (openDropdown) {
+                        openDropdown.open = false;
+                        openDropdown.querySelector("summary")?.focus();
+                        return;
+                    }
+
+                    if (navToggle.checked) {
+                        navToggle.checked = false;
+                        navToggle.focus();
+                    }
+                });
+            })();
+        </script>
+    </body>
+</html>

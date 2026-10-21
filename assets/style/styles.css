@@ -231,6 +231,24 @@ body {
     min-width: 0;
 }
 
+.header--menu__list {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.header--drawer__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .header--menu__link {
     text-decoration: none;
     color: var(--color-on-surface);
@@ -1331,7 +1349,8 @@ body {
    Tarifas y recorridos
    ============================================================ */
 
-.tarifas-hero {
+.tarifas-hero,
+.reservas-hero {
     isolation: isolate;
     overflow: clip;
     display: grid;
@@ -1355,7 +1374,8 @@ body {
         var(--radius-xl);
 }
 
-.tarifas-hero__eyebrow {
+.tarifas-hero__eyebrow,
+.reservas-hero__eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -1374,7 +1394,8 @@ body {
     text-transform: uppercase;
 }
 
-.tarifas-hero__eyebrow::before {
+.tarifas-hero__eyebrow::before,
+.reservas-hero__eyebrow::before {
     content: "";
     width: 0.45rem;
     height: 0.45rem;
@@ -1382,7 +1403,8 @@ body {
     background-color: currentColor;
 }
 
-.tarifas-hero__title {
+.tarifas-hero__title,
+.reservas-hero__title {
     max-width: 22ch;
     font-size: clamp(2.4rem, 6.5vw, 5rem);
     font-weight: 800;
@@ -1391,7 +1413,8 @@ body {
     text-wrap: balance;
 }
 
-.tarifas-hero__text {
+.tarifas-hero__text,
+.reservas-hero__text {
     max-width: 62ch;
     font-size: clamp(1rem, 1.4vw, 1.15rem);
     line-height: 1.7;
@@ -1399,7 +1422,8 @@ body {
     text-wrap: pretty;
 }
 
-.tarifas-hero__actions {
+.tarifas-hero__actions,
+.reservas-hero__actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.65rem;
@@ -1729,6 +1753,28 @@ body {
     border-color: transparent;
     background-color: var(--color-error);
     color: var(--color-on-error);
+}
+
+.tarifas-table-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 8%,
+        transparent
+    );
+    border: 1px solid color-mix(in oklab, var(--color-primary) 30%, transparent);
+    border-radius: var(--radius-md);
+}
+
+.tarifas-table-cta__text {
+    color: var(--color-on-surface-variant);
+    font-weight: 600;
 }
 
 .tarifas-info {
@@ -2075,6 +2121,144 @@ body {
 
 .service-link:hover {
     color: var(--color-on-surface);
+}
+
+/* ============================================================
+   Reservas
+   ============================================================ */
+
+.reservas-info {
+    margin-top: 1.5rem;
+}
+
+.reservas-info__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 1rem;
+}
+
+.reservas-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    background-color: var(--color-surface-container);
+    border: 1px solid
+        color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+    border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
+}
+
+.reservas-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.reservas-card__icon {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    border-radius: 0.8rem 0.8rem 0.8rem 1.35rem;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 14%,
+        transparent
+    );
+    border: 1px solid color-mix(in oklab, var(--color-primary) 26%, transparent);
+    color: var(--color-primary);
+}
+
+.reservas-card__icon .icon {
+    font-size: 1.45rem;
+}
+
+.reservas-card__title {
+    margin-bottom: 0;
+    font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+.reservas-card__text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-on-surface-variant);
+    text-wrap: pretty;
+}
+
+.reservas-card .found-us--button {
+    margin-top: auto;
+}
+
+.reservas-hours {
+    display: grid;
+    margin-top: 0.15rem;
+}
+
+.reservas-hours__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid
+        color-mix(in oklab, var(--color-outline-variant) 35%, transparent);
+}
+
+.reservas-hours__row:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.reservas-hours dt {
+    color: var(--color-on-surface-variant);
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.reservas-hours dd {
+    color: var(--color-on-surface);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: right;
+}
+
+.reservas-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 8%,
+        transparent
+    );
+    border: 1px dashed
+        color-mix(in oklab, var(--color-primary) 35%, transparent);
+    border-radius: var(--radius-md);
+    color: var(--color-on-surface-variant);
+}
+
+.reservas-note__icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    font-size: 1.45rem;
+}
+
+.reservas-note p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    text-wrap: pretty;
+}
+
+.reservas-note strong {
+    color: var(--color-on-surface);
+    font-weight: 700;
 }
 
 /* ============================================================
@@ -2651,6 +2835,10 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .reservas-info__grid {
+        grid-template-columns: 1fr;
+    }
+
     .tarifas-info__card {
         border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 3rem;
     }
@@ -2817,6 +3005,28 @@ body {
     }
 
     .tarifas-hero__actions .tarifas-button {
+        width: 100%;
+    }
+
+    .reservas-hero__actions .tarifas-button {
+        width: 100%;
+    }
+
+    .reservas-hours__row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .reservas-hours dd {
+        text-align: left;
+    }
+
+    .tarifas-table-cta {
+        align-items: stretch;
+    }
+
+    .tarifas-table-cta .tarifas-button {
         width: 100%;
     }
 }

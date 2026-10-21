@@ -52,3 +52,50 @@ Comprendí que el código de estado 200 indica que una solicitud se atendió cor
 código 404 señala que el recurso solicitado no se encontró. Finalmente, identifiqué la f
 unción de HTML para estructurar el contenido, CSS para diseñar su apariencia y JavaScript para agregar 
 interactividad al sitio web Rueda Libre.
+
+TABLA DE RUTAS RELATIVAS - V0.1
+
+Archivo de origen       Destino                 Ruta escrita
+index.html              Inicio                  ./index.html#top-app
+index.html              Tarifas y rutas         ./tarifas/index.html
+index.html              Reservas                ./reservas/index.html
+tarifas/index.html      Inicio                  ../index.html#top-app
+tarifas/index.html      Tarifas y rutas         ./index.html#top-app
+tarifas/index.html      Reservas                ../reservas/index.html
+reservas/index.html     Inicio                  ../index.html#top-app
+reservas/index.html     Tarifas y rutas         ../tarifas/index.html
+reservas/index.html     Reservas                ./index.html#top-app
+
+Enlaces "Reservar ahora":
+
+index.html (sección Encuéntranos)          -> reservas/index.html   ./reservas/index.html
+tarifas/index.html (bajo la tabla)          -> reservas/index.html   ../reservas/index.html
+
+Recursos comunes:
+
+index.html              Hoja de estilos          ./assets/style/styles.css
+index.html              Logo                     ./assets/img/logo.svg
+tarifas/index.html      Hoja de estilos          ../assets/style/styles.css
+tarifas/index.html      Logo                     ../assets/img/logo.svg
+reservas/index.html     Hoja de estilos          ../assets/style/styles.css
+reservas/index.html     Logo                     ../assets/img/logo.svg
+
+PRUEBA DE NAVEGACIÓN Y RED - V0.1
+
+Servidor local: http://127.0.0.1:8000
+Navegador: Firefox en modo headless, con registro de las peticiones HTTP del servidor.
+Se recorrió el sitio usando únicamente los enlaces del menú, desde cada página hacia las tres páginas.
+
+Desde \ Hacia          Inicio      Tarifas y rutas      Reservas
+Inicio                 200         200                  200
+Tarifas y rutas        200         200                  200
+Reservas               200         200                  200
+
+También se comprobó:
+- Los enlaces "Reservar ahora" de index.html y de la tabla de tarifas/index.html llevan a reservas/index.html.
+- El correo de reservas usa el enlace mailto:hola@ruedalibre.example.
+- El horario se presenta con una lista de definiciones: lunes a viernes de 7:00 a. m. a 7:00 p. m.; sábados, domingos y festivos de 6:00 a. m. a 2:00 p. m.
+- Las tres páginas tienen títulos distintos: "Rueda Libre | Alquiler de bicicletas en Medellín", "Tarifas y recorridos | Rueda Libre" y "Reservas | Rueda Libre".
+- Una revisión adicional de todos los enlaces, imágenes y hojas de estilo locales devolvió 9 recursos con estado 200.
+
+Resultado: no se encontraron errores 404 ni fallos de red en las páginas del sitio.
