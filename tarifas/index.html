@@ -487,20 +487,31 @@
                     </h2>
                 </div>
 
+                <p class="tarifas-section__lead tarifas-info__lead">
+                    Un repaso rápido antes de pedalear: lo que ya está
+                    incluido, cuándo salen los recorridos y qué te conviene
+                    llevar.
+                </p>
+
                 <div class="tarifas-info__grid">
                     <article
                         class="tarifas-info__card tarifas-info__card--highlight"
                     >
-                        <span class="tarifas-info__icon" aria-hidden="true">
-                            <span class="icon">verified_user</span>
-                        </span>
-                        <h3 class="tarifas-info__card-title">
-                            Incluido en todas las tarifas
-                        </h3>
+                        <div class="tarifas-info__card-head">
+                            <span class="tarifas-info__icon" aria-hidden="true">
+                                <span class="icon">verified_user</span>
+                            </span>
+                            <h3 class="tarifas-info__card-title">
+                                Incluido en todas las tarifas
+                            </h3>
+                        </div>
+
                         <p class="tarifas-info__card-text">
                             Todas las tarifas incluyen
-                            <strong>casco y candado</strong>.
+                            <strong>casco y candado</strong>. Así solo te
+                            preocupas por pedalear.
                         </p>
+
                         <div class="tarifas-info__chips">
                             <span class="tarifas-info__chip">
                                 <span
@@ -521,26 +532,61 @@
                         </div>
                     </article>
 
-                    <article class="tarifas-info__card">
-                        <span class="tarifas-info__icon" aria-hidden="true">
-                            <span class="icon">calendar_month</span>
-                        </span>
-                        <h3 class="tarifas-info__card-title">
-                            Salidas de los recorridos
-                        </h3>
-                        <p class="tarifas-info__card-text">
-                            Los recorridos salen
-                            <strong>sábados y domingos a las 7:00 a. m.</strong>
+                    <article
+                        class="tarifas-info__card tarifas-info__card--schedule"
+                    >
+                        <div class="tarifas-info__card-head">
+                            <span class="tarifas-info__icon" aria-hidden="true">
+                                <span class="icon">calendar_month</span>
+                            </span>
+                            <h3 class="tarifas-info__card-title">
+                                Salidas de los recorridos
+                            </h3>
+                        </div>
+
+                        <div
+                            class="tarifas-info__week"
+                            role="img"
+                            aria-label="Los recorridos salen los sábados y domingos"
+                        >
+                            <span class="tarifas-info__weekday">Lun</span>
+                            <span class="tarifas-info__weekday">Mar</span>
+                            <span class="tarifas-info__weekday">Mié</span>
+                            <span class="tarifas-info__weekday">Jue</span>
+                            <span class="tarifas-info__weekday">Vie</span>
+                            <span
+                                class="tarifas-info__weekday tarifas-info__weekday--active"
+                                >Sáb</span
+                            >
+                            <span
+                                class="tarifas-info__weekday tarifas-info__weekday--active"
+                                >Dom</span
+                            >
+                        </div>
+
+                        <p class="tarifas-info__time">
+                            <span class="tarifas-info__time-label"
+                                >Las salidas comienzan a las</span
+                            >
+                            <span class="tarifas-info__time-value">
+                                <span class="icon" aria-hidden="true"
+                                    >schedule</span
+                                >
+                                7:00 a. m.
+                            </span>
                         </p>
                     </article>
 
                     <article
                         class="tarifas-info__card tarifas-info__card--packing"
                     >
-                        <span class="tarifas-info__icon" aria-hidden="true">
-                            <span class="icon">backpack</span>
-                        </span>
-                        <h3 class="tarifas-info__card-title">Qué llevar</h3>
+                        <div class="tarifas-info__card-head">
+                            <span class="tarifas-info__icon" aria-hidden="true">
+                                <span class="icon">backpack</span>
+                            </span>
+                            <h3 class="tarifas-info__card-title">Qué llevar</h3>
+                        </div>
+
                         <ul class="packing-list">
                             <li class="packing-list__item">
                                 <span
