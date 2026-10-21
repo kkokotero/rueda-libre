@@ -15,12 +15,12 @@
 
 <body>
   <span id="top-app"></span>
-  <header>
+  <header class="site-header">
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menú de navegación">
 
-    <section class="header">
+    <div class="header">
       <nav class="header--logo">
-        <a href="../index.html#top-app" aria-label="Rueda Libre, volver al inicio">
+        <a class="header--logo__link" href="../index.html#top-app" aria-label="Rueda Libre, volver al inicio">
           <img class="header--logo__image" src="../assets/img/logo.svg" alt="Rueda Libre" width="128" height="103">
         </a>
       </nav>
@@ -34,11 +34,11 @@
       </nav>
 
       <label for="nav-toggle" class="header--toggle" aria-hidden="true">
-        <span class="header--toggle__bar"></span>
-        <span class="header--toggle__bar"></span>
-        <span class="header--toggle__bar"></span>
+        <span class="header--toggle__bar header--toggle__bar--top"></span>
+        <span class="header--toggle__bar header--toggle__bar--middle"></span>
+        <span class="header--toggle__bar header--toggle__bar--bottom"></span>
       </label>
-    </section>
+    </div>
 
     <label for="nav-toggle" class="nav-scrim" aria-hidden="true"></label>
 
@@ -52,10 +52,10 @@
     </nav>
   </header>
 
-  <main>
+  <main class="site-main">
 
-    <section class="tarifas-hero" aria-labelledby="tarifas-title">
-      <h1 id="tarifas-title">Todo lo que cuesta rodar por Medellín, en un solo lugar</h1>
+    <section class="tarifas-hero section--reveal" aria-labelledby="tarifas-title">
+      <h1 id="tarifas-title" class="tarifas-hero__title">Todo lo que cuesta rodar por Medellín, en un solo lugar</h1>
 
       <p class="tarifas-hero__text">
         Compara las tarifas de alquiler y los recorridos guiados de Rueda Libre.
@@ -85,7 +85,7 @@
     </section>
 
     <!-- Tarifas de alquiler -->
-    <section id="tarifas-alquiler" class="tarifas-section" aria-labelledby="alquiler-title">
+    <section id="tarifas-alquiler" class="tarifas-section section--reveal" aria-labelledby="alquiler-title">
       <div class="tarifas-section__header">
         <span class="tarifas-section__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -97,7 +97,7 @@
             <path d="M14.5 10 13 6h2.5" />
           </svg>
         </span>
-        <h2 id="alquiler-title">Alquiler de bicicletas</h2>
+        <h2 id="alquiler-title" class="tarifas-section__title">Alquiler de bicicletas</h2>
       </div>
 
       <p class="tarifas-section__lead">
@@ -109,35 +109,35 @@
 
       <div class="tabla-scroll" role="region" aria-labelledby="alquiler-title" tabindex="0">
         <table class="tarifas-table">
-          <caption>Tarifas de alquiler por tipo de bicicleta y duración</caption>
+          <caption class="tarifas-table__caption">Tarifas de alquiler por tipo de bicicleta y duración</caption>
 
           <thead>
-            <tr>
-              <th scope="col">Tipo de bicicleta</th>
-              <th scope="col">1 hora</th>
-              <th scope="col">Medio día (4 h)</th>
-              <th scope="col">Día completo</th>
+            <tr class="tarifas-table__row">
+              <th class="tarifas-table__head-cell" scope="col">Tipo de bicicleta</th>
+              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">1 hora</th>
+              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Medio día (4 h)</th>
+              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Día completo</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr>
-              <th scope="row">Urbana</th>
-              <td>$10.000</td>
-              <td>$30.000</td>
-              <td>$50.000</td>
+            <tr class="tarifas-table__row">
+              <th class="tarifas-table__row-head" scope="row">Urbana</th>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">$10.000</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">$30.000</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$50.000</td>
             </tr>
-            <tr>
-              <th scope="row">Montaña</th>
-              <td>$15.000</td>
-              <td>$45.000</td>
-              <td>$70.000</td>
+            <tr class="tarifas-table__row">
+              <th class="tarifas-table__row-head" scope="row">Montaña</th>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">$15.000</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">$45.000</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$70.000</td>
             </tr>
-            <tr>
-              <th scope="row">Eléctrica</th>
-              <td>$25.000</td>
-              <td>$70.000</td>
-              <td>$110.000</td>
+            <tr class="tarifas-table__row">
+              <th class="tarifas-table__row-head" scope="row">Eléctrica</th>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">$25.000</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">$70.000</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$110.000</td>
             </tr>
           </tbody>
         </table>
@@ -145,7 +145,7 @@
     </section>
 
     <!-- Recorridos guiados -->
-    <section id="recorridos" class="tarifas-section" aria-labelledby="recorridos-title">
+    <section id="recorridos" class="tarifas-section section--reveal" aria-labelledby="recorridos-title">
       <div class="tarifas-section__header">
         <span class="tarifas-section__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -155,7 +155,7 @@
             <path d="M15 4v13" />
           </svg>
         </span>
-        <h2 id="recorridos-title">Recorridos guiados</h2>
+        <h2 id="recorridos-title" class="tarifas-section__title">Recorridos guiados</h2>
       </div>
 
       <p class="tarifas-section__lead">
@@ -167,39 +167,40 @@
 
       <div class="tabla-scroll" role="region" aria-labelledby="recorridos-title" tabindex="0">
         <table class="tarifas-table">
-          <caption>Recorridos guiados: distancia, duración, nivel y precio por persona</caption>
+          <caption class="tarifas-table__caption">Recorridos guiados: distancia, duración, nivel y precio por persona
+          </caption>
 
           <thead>
-            <tr>
-              <th scope="col">Recorrido</th>
-              <th scope="col">Distancia</th>
-              <th scope="col">Duración</th>
-              <th scope="col">Nivel</th>
-              <th scope="col">Precio por persona</th>
+            <tr class="tarifas-table__row">
+              <th class="tarifas-table__head-cell" scope="col">Recorrido</th>
+              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Distancia</th>
+              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Duración</th>
+              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Nivel</th>
+              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Precio por persona</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr>
-              <th scope="row">Río y Parques</th>
-              <td>12 km</td>
-              <td>2 h</td>
-              <td>Fácil</td>
-              <td>$45.000</td>
+            <tr class="tarifas-table__row">
+              <th class="tarifas-table__row-head" scope="row">Río y Parques</th>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">12 km</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">2 h</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">Fácil</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$45.000</td>
             </tr>
-            <tr>
-              <th scope="row">Sabores de Barrio</th>
-              <td>18 km</td>
-              <td>3 h</td>
-              <td>Medio</td>
-              <td>$60.000</td>
+            <tr class="tarifas-table__row">
+              <th class="tarifas-table__row-head" scope="row">Sabores de Barrio</th>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">18 km</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">3 h</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">Medio</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$60.000</td>
             </tr>
-            <tr>
-              <th scope="row">Reto Las Palmas</th>
-              <td>25 km</td>
-              <td>4 h</td>
-              <td>Difícil</td>
-              <td>$85.000</td>
+            <tr class="tarifas-table__row">
+              <th class="tarifas-table__row-head" scope="row">Reto Las Palmas</th>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">25 km</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">4 h</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric">Difícil</td>
+              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$85.000</td>
             </tr>
           </tbody>
         </table>
@@ -207,7 +208,7 @@
     </section>
 
     <!-- Información adicional -->
-    <section class="tarifas-info" aria-labelledby="info-title">
+    <section class="tarifas-info section--reveal" aria-labelledby="info-title">
       <div class="tarifas-section__header">
         <span class="tarifas-section__icon tarifas-section__icon--solid" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -218,7 +219,7 @@
             <path d="M14 16h3" />
           </svg>
         </span>
-        <h2 id="info-title">Antes de salir</h2>
+        <h2 id="info-title" class="tarifas-section__title">Antes de salir</h2>
       </div>
 
       <div class="tarifas-info__grid">
@@ -230,8 +231,8 @@
               <path d="m8.5 12 2.5 2.5 4.5-4.5" />
             </svg>
           </span>
-          <h3>Incluido en todas las tarifas</h3>
-          <p>Todas las tarifas incluyen <strong>casco y candado</strong>.</p>
+          <h3 class="tarifas-info__card-title">Incluido en todas las tarifas</h3>
+          <p class="tarifas-info__card-text">Todas las tarifas incluyen <strong>casco y candado</strong>.</p>
           <div class="tarifas-info__chips">
             <span class="tarifas-info__chip">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -263,8 +264,8 @@
               <path d="M8 14h3M13 14h3M8 17h3" />
             </svg>
           </span>
-          <h3>Salidas de los recorridos</h3>
-          <p>
+          <h3 class="tarifas-info__card-title">Salidas de los recorridos</h3>
+          <p class="tarifas-info__card-text">
             Los recorridos salen <strong>sábados y domingos a las 7:00 a. m.</strong>
           </p>
         </article>
@@ -278,9 +279,9 @@
               <path d="M9 13h6" />
             </svg>
           </span>
-          <h3>Qué llevar</h3>
+          <h3 class="tarifas-info__card-title">Qué llevar</h3>
           <ul class="packing-list">
-            <li>
+            <li class="packing-list__item">
               <span class="packing-list__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                   stroke-linejoin="round">
@@ -289,7 +290,7 @@
               </span>
               <span>Ropa cómoda</span>
             </li>
-            <li>
+            <li class="packing-list__item">
               <span class="packing-list__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                   stroke-linejoin="round">
@@ -299,7 +300,7 @@
               </span>
               <span>Agua</span>
             </li>
-            <li>
+            <li class="packing-list__item">
               <span class="packing-list__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                   stroke-linejoin="round">
@@ -310,7 +311,7 @@
               </span>
               <span>Protector solar</span>
             </li>
-            <li>
+            <li class="packing-list__item">
               <span class="packing-list__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                   stroke-linejoin="round">
@@ -328,7 +329,7 @@
     </section>
 
     <!-- Llamada a la acción -->
-    <section class="tarifas-cta" aria-labelledby="reserva-title">
+    <section class="tarifas-cta section--reveal" aria-labelledby="reserva-title">
       <div class="tarifas-cta__copy">
         <span class="tarifas-cta__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -338,8 +339,8 @@
             <path d="m8 15 2.5 2.5L16 12" />
           </svg>
         </span>
-        <h2 id="reserva-title">¿Reservamos tu bicicleta?</h2>
-        <p>
+        <h2 id="reserva-title" class="tarifas-cta__title">¿Reservamos tu bicicleta?</h2>
+        <p class="tarifas-cta__text">
           Escríbenos y te confirmamos la disponibilidad, el punto de encuentro
           y todo lo que necesitas para tu recorrido.
         </p>
@@ -390,8 +391,8 @@
         <div class="footer__brand">
           <a class="footer__logo" href="../index.html#top-app" aria-label="Rueda Libre, volver al inicio">
             <span class="footer__logo-mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                stroke-linejoin="round">
+              <svg class="footer__logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="5.5" cy="17.5" r="3.5" />
                 <circle cx="18.5" cy="17.5" r="3.5" />
                 <path d="M5.5 17.5 9 10h5.5l4 7.5" />
@@ -399,7 +400,7 @@
                 <path d="M14.5 10 13 6h2.5" />
               </svg>
             </span>
-            <span class="footer__logo-text">Rueda <em>Libre</em></span>
+            <span class="footer__logo-text">Rueda <em class="footer__logo-accent">Libre</em></span>
           </a>
 
           <p class="footer__description">
@@ -408,13 +409,13 @@
           </p>
 
           <p class="footer__badge">
-            <span aria-hidden="true"></span>
+            <span class="footer__badge-dot" aria-hidden="true"></span>
             Movilidad sostenible
           </p>
 
           <p class="footer__location">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
+            <svg class="footer__location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
               <circle cx="12" cy="10" r="2.5" />
             </svg>
@@ -424,26 +425,26 @@
 
         <nav class="footer__nav" aria-label="Navegación del pie de página">
           <h3 class="footer__heading">Explora</h3>
-          <a href="../index.html">Inicio</a>
-          <a href="#tarifas-alquiler">Alquiler</a>
-          <a href="#recorridos">Recorridos</a>
-          <a href="../index.html#found-us">Encuéntranos</a>
+          <a class="footer__nav-link" href="../index.html">Inicio</a>
+          <a class="footer__nav-link" href="#tarifas-alquiler">Alquiler</a>
+          <a class="footer__nav-link" href="#recorridos">Recorridos</a>
+          <a class="footer__nav-link" href="../index.html#found-us">Encuéntranos</a>
         </nav>
 
         <div class="footer__contact">
           <h3 class="footer__heading">Contacto</h3>
-          <a href="mailto:hola@ruedalibre.example">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
+          <a class="footer__contact-link" href="mailto:hola@ruedalibre.example">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="3" y="5" width="18" height="14" rx="3" />
               <path d="m4 7 8 6 8-6" />
             </svg>
             hola@ruedalibre.example
           </a>
-          <a href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia" target="_blank"
-            rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
+          <a class="footer__contact-link" href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia"
+            target="_blank" rel="noopener noreferrer">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
               <circle cx="12" cy="10" r="2.5" />
             </svg>
@@ -466,8 +467,8 @@
         <p class="footer__made">Pedaleando en Medellín</p>
         <a class="footer__top" href="#top-app">
           Volver arriba
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
+          <svg class="footer__top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 19V5" />
             <path d="m6 11 6-6 6 6" />
           </svg>
@@ -485,7 +486,7 @@
 
       if (!navToggle) return;
 
-      document.querySelectorAll(".header--drawer a").forEach((link) => {
+      document.querySelectorAll(".header--drawer__link").forEach((link) => {
         link.addEventListener("click", () => {
           navToggle.checked = false;
         });

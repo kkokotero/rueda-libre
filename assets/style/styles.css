@@ -115,7 +115,7 @@ body {
     line-height: 1.5;
 }
 
-header {
+.site-header {
     position: sticky;
     top: 1rem;
     z-index: 1000;
@@ -167,7 +167,7 @@ header {
     flex-shrink: 0;
 }
 
-.header--logo svg {
+.header--logo__icon {
     color: var(--color-on-surface);
     font-size: 8rem;
     transform: translateY(5%);
@@ -175,7 +175,7 @@ header {
         transform var(--motion-medium) var(--ease-spring);
 }
 
-.header--logo a:hover svg {
+.header--logo__link:hover .header--logo__icon {
     color: var(--color-primary);
     transform: translateY(5%) rotate(-8deg) scale(1.06);
 }
@@ -188,7 +188,7 @@ header {
     transition: transform var(--motion-medium) var(--ease-spring);
 }
 
-.header--logo a:hover .header--logo__image {
+.header--logo__link:hover .header--logo__image {
     transform: rotate(-8deg) scale(1.06);
 }
 
@@ -242,12 +242,12 @@ header {
     display: none;
 }
 
-.nav-toggle:focus-visible~.header .header--toggle {
+:root:has(.nav-toggle:focus-visible) .header--toggle {
     outline: 3px solid var(--color-primary);
     outline-offset: 3px;
 }
 
-main {
+.site-main {
     max-width: clamp(20rem, 90dvw, 1424px);
     margin: 0 auto;
     min-height: 100vh;
@@ -255,7 +255,7 @@ main {
     padding-bottom: 5rem;
 }
 
-main>section>h2 {
+.section--title {
     font-size: clamp(2.1rem, 5vw, 3.75rem);
     font-weight: 800;
     line-height: 1;
@@ -364,7 +364,7 @@ main>section>h2 {
         color var(--motion-fast) var(--ease-emphasized);
 
 
-    &.primary {
+    &.about-us--content__list--item--primary {
         background-color: var(--color-primary);
         color: var(--color-on-primary);
 
@@ -374,7 +374,7 @@ main>section>h2 {
         }
     }
 
-    &.secondary {
+    &.about-us--content__list--item--secondary {
         background-color: var(--color-secondary);
         color: var(--color-on-secondary);
 
@@ -384,7 +384,7 @@ main>section>h2 {
         }
     }
 
-    &.tertiary {
+    &.about-us--content__list--item--tertiary {
         background-color: var(--color-tertiary);
         color: var(--color-on-tertiary);
 
@@ -412,19 +412,19 @@ main>section>h2 {
    Nuestros servicios
    ============================================================ */
 
-#our-services {
+.our-services {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
     counter-reset: service;
 }
 
-#our-services>h2 {
+.our-services--title {
     grid-column: 1 / -1;
     margin-bottom: 0.5rem;
 }
 
-#our-services>article {
+.our-services--card {
     counter-increment: service;
     display: flex;
     flex-direction: column;
@@ -465,7 +465,7 @@ main>section>h2 {
     }
 }
 
-#our-services>article h3 {
+.our-services--card__title {
     font-size: clamp(1.3rem, 2vw, 1.65rem);
     font-weight: 700;
     line-height: 1.15;
@@ -474,7 +474,7 @@ main>section>h2 {
     padding-right: 4.5rem;
 }
 
-#our-services>article img {
+.our-services--card__image {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
@@ -483,7 +483,7 @@ main>section>h2 {
         transform var(--motion-slow) var(--ease-spring);
 }
 
-#our-services>article p {
+.our-services--card__text {
     margin-top: auto;
     font-size: 0.98rem;
     line-height: 1.65;
@@ -491,16 +491,16 @@ main>section>h2 {
     text-wrap: pretty;
 }
 
-#our-services>article :is(strong, em) {
+.our-services--card__text :is(strong, em) {
     color: var(--color-on-surface);
 }
 
-#our-services>article strong {
+.our-services--card__text strong {
     font-weight: 700;
 }
 
 /* Tarjeta sin imagen: pieza destacada con color tonal */
-#our-services>article:not(:has(img)) {
+.our-services--card--featured {
     justify-content: flex-end;
     isolation: isolate;
     color: var(--color-on-primary);
@@ -518,11 +518,12 @@ main>section>h2 {
         color: var(--color-on-primary);
     }
 
-    & p {
+    & .our-services--card__text {
         color: color-mix(in oklab, var(--color-on-primary) 82%, transparent);
+        order: 2;
     }
 
-    & :is(strong, em) {
+    & .our-services--card__text :is(strong, em) {
         color: var(--color-on-primary);
     }
 
@@ -532,12 +533,8 @@ main>section>h2 {
     }
 
     /* Reloj abstracto: refuerza la idea de alquiler por horas */
-    & h3 {
+    & .our-services--card__title {
         order: 0;
-    }
-
-    & p {
-        order: 2;
     }
 
     &::after {
@@ -573,7 +570,7 @@ main>section>h2 {
 }
 
 
-#why {
+.how-to {
     margin-top: 1rem;
     padding: clamp(1.5rem, 4vw, 3.5rem);
     background-color: var(--color-surface-container-low);
@@ -581,7 +578,7 @@ main>section>h2 {
     border-radius: var(--radius-lg) var(--radius-lg) var(--radius-xl) var(--radius-lg);
 }
 
-#why>p {
+.how-to--lead {
     max-width: 60ch;
     margin-bottom: 2.5rem;
     font-size: clamp(1rem, 1.4vw, 1.1rem);
@@ -590,7 +587,7 @@ main>section>h2 {
     text-wrap: pretty;
 }
 
-#why ol {
+.how-to--steps {
     list-style: none;
     counter-reset: step;
     display: grid;
@@ -599,7 +596,7 @@ main>section>h2 {
     padding-bottom: 1.75rem;
 }
 
-#why li {
+.how-to--step {
     counter-increment: step;
     display: flex;
     flex-direction: column;
@@ -625,15 +622,15 @@ main>section>h2 {
         color: var(--color-primary);
     }
 
-    &:nth-child(2)::before {
+    &.how-to--step--secondary::before {
         color: var(--color-secondary);
     }
 
-    &:nth-child(3)::before {
+    &.how-to--step--tertiary::before {
         color: var(--color-tertiary);
     }
 
-    &:nth-child(even) {
+    &.how-to--step--raised {
         transform: translateY(1.5rem);
     }
 
@@ -647,7 +644,7 @@ main>section>h2 {
    Encuéntranos — bloque de contacto
    ============================================================ */
 
-#found-us {
+.found-us {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     align-items: center;
@@ -664,7 +661,7 @@ main>section>h2 {
     border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 10rem;
 }
 
-#found-us>h2 {
+.found-us--title {
     grid-column: 1 / -1;
     align-self: start;
     margin-bottom: 0.5rem;
@@ -713,27 +710,27 @@ main>section>h2 {
         color var(--motion-fast) var(--ease-emphasized),
         border-color var(--motion-fast) var(--ease-emphasized),
         transform var(--motion-medium) var(--ease-spring);
+}
 
-    &>span {
-        min-width: 0;
-        overflow-wrap: anywhere;
-    }
+.found-us--button__label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
 
-    /* Chip del icono */
-    &>svg:first-child {
-        width: 2.75rem;
-        height: 2.75rem;
-        padding: 0.55rem;
-        flex-shrink: 0;
-        border-radius: 50%;
-    }
+/* Chip del icono */
+.found-us--button__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.55rem;
+    flex-shrink: 0;
+    border-radius: 50%;
 }
 
 .found-us--button__primary {
     background-color: var(--color-primary);
     color: var(--color-on-primary);
 
-    &>svg:first-child {
+    & .found-us--button__icon {
         background-color: color-mix(in oklab, var(--color-on-primary) 14%, transparent);
     }
 
@@ -748,7 +745,7 @@ main>section>h2 {
     color: var(--color-on-surface);
     border: 1px solid var(--color-outline-variant);
 
-    &>svg:first-child {
+    & .found-us--button__icon {
         color: var(--color-primary);
         background-color: color-mix(in oklab, var(--color-primary) 14%, transparent);
     }
@@ -956,7 +953,7 @@ main>section>h2 {
     transition: transform var(--motion-medium) var(--ease-spring);
 }
 
-.footer__logo-mark svg {
+.footer__logo-icon {
     width: 1.8rem;
     height: 1.8rem;
 }
@@ -967,7 +964,7 @@ main>section>h2 {
     letter-spacing: -0.04em;
 }
 
-.footer__logo-text em {
+.footer__logo-accent {
     color: var(--color-primary);
     font-style: italic;
 }
@@ -992,7 +989,7 @@ main>section>h2 {
     font-weight: 600;
 }
 
-.footer__badge span {
+.footer__badge-dot {
     width: 0.45rem;
     height: 0.45rem;
     border-radius: 50%;
@@ -1007,7 +1004,7 @@ main>section>h2 {
     color: var(--color-on-surface-variant);
 }
 
-.footer__location svg {
+.footer__location-icon {
     width: 1.15rem;
     height: 1.15rem;
     color: var(--color-primary);
@@ -1030,7 +1027,7 @@ main>section>h2 {
     gap: 0.55rem;
 }
 
-.footer__nav a {
+.footer__nav-link {
     padding: 0.2rem 0;
     color: var(--color-on-surface-variant);
     font-size: 0.98rem;
@@ -1040,12 +1037,12 @@ main>section>h2 {
         transform var(--motion-medium) var(--ease-spring);
 }
 
-.footer__nav a:hover {
+.footer__nav-link:hover {
     color: var(--color-primary);
     transform: translateX(4px);
 }
 
-.footer__contact a {
+.footer__contact-link {
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
@@ -1055,14 +1052,14 @@ main>section>h2 {
     transition: color var(--motion-fast) var(--ease-emphasized);
 }
 
-.footer__contact a>svg:first-child {
+.footer__contact-icon {
     width: 1.2rem;
     height: 1.2rem;
     flex-shrink: 0;
     color: var(--color-primary);
 }
 
-.footer__contact a:hover {
+.footer__contact-link:hover {
     color: var(--color-primary);
 }
 
@@ -1112,7 +1109,7 @@ main>section>h2 {
         transform var(--motion-medium) var(--ease-spring);
 }
 
-.footer__top svg {
+.footer__top-icon {
     width: 1.05rem;
     height: 1.05rem;
 }
@@ -1166,7 +1163,7 @@ main>section>h2 {
     background-color: currentColor;
 }
 
-.tarifas-hero h1 {
+.tarifas-hero__title {
     max-width: 22ch;
     font-size: clamp(2.4rem, 6.5vw, 5rem);
     font-weight: 800;
@@ -1270,7 +1267,7 @@ main>section>h2 {
     margin-bottom: 1rem;
 }
 
-.tarifas-section__header h2 {
+.tarifas-section__title {
     margin-bottom: 0;
     font-size: clamp(2.1rem, 5vw, 3.75rem);
     font-weight: 800;
@@ -1340,7 +1337,7 @@ main>section>h2 {
     font-size: 0.98rem;
 }
 
-.tarifas-table caption {
+.tarifas-table__caption {
     padding: 1.1rem 1.25rem;
     text-align: left;
     font-size: 0.95rem;
@@ -1350,7 +1347,7 @@ main>section>h2 {
     border-bottom: 1px solid color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
 }
 
-.tarifas-table thead th {
+.tarifas-table__head-cell {
     padding: 0.9rem 1.25rem;
     text-align: left;
     white-space: nowrap;
@@ -1363,7 +1360,7 @@ main>section>h2 {
     border-bottom: 1px solid color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
 }
 
-.tarifas-table tbody th {
+.tarifas-table__row-head {
     padding: 1rem 1.25rem;
     text-align: left;
     white-space: nowrap;
@@ -1371,29 +1368,30 @@ main>section>h2 {
     font-weight: 700;
 }
 
-.tarifas-table tbody td {
+.tarifas-table__cell {
     padding: 1rem 1.25rem;
     white-space: nowrap;
     color: var(--color-on-surface-variant);
 }
 
-.tarifas-table tbody tr {
+.tarifas-table__row {
     transition: background-color var(--motion-fast) var(--ease-emphasized);
 }
 
-.tarifas-table tbody tr:hover {
+.tarifas-table__row:hover {
     background-color: color-mix(in oklab, var(--color-primary) 8%, transparent);
 }
 
-.tarifas-table tbody tr:not(:last-child)>* {
+.tarifas-table__row:not(:last-child)>* {
     border-bottom: 1px solid color-mix(in oklab, var(--color-outline-variant) 35%, transparent);
 }
 
-.tarifas-table :is(thead th, tbody td):not(:first-child) {
+.tarifas-table__head-cell--numeric,
+.tarifas-table__cell--numeric {
     text-align: right;
 }
 
-.tarifas-table tbody td:last-child {
+.tarifas-table__cell--price {
     color: var(--color-primary);
     font-weight: 700;
 }
@@ -1421,7 +1419,7 @@ main>section>h2 {
     border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
 }
 
-.tarifas-info__card h3 {
+.tarifas-info__card-title {
     margin-bottom: 0.65rem;
     font-size: 1.2rem;
     font-weight: 700;
@@ -1430,14 +1428,14 @@ main>section>h2 {
     text-wrap: balance;
 }
 
-.tarifas-info__card p {
+.tarifas-info__card-text {
     font-size: 0.95rem;
     line-height: 1.65;
     color: var(--color-on-surface-variant);
     text-wrap: pretty;
 }
 
-.tarifas-info__card strong {
+.tarifas-info__card-text strong {
     color: var(--color-on-surface);
 }
 
@@ -1490,7 +1488,7 @@ main>section>h2 {
     list-style: none;
 }
 
-.packing-list li {
+.packing-list__item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1510,7 +1508,7 @@ main>section>h2 {
         border-color var(--motion-fast) var(--ease-emphasized);
 }
 
-.packing-list li:hover {
+.packing-list__item:hover {
     background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
     border-color: color-mix(in oklab, var(--color-primary) 45%, transparent);
 }
@@ -1539,12 +1537,12 @@ main>section>h2 {
     border-color: transparent;
 }
 
-.tarifas-info__card--highlight h3,
-.tarifas-info__card--highlight strong {
+.tarifas-info__card--highlight .tarifas-info__card-title,
+.tarifas-info__card--highlight .tarifas-info__card-text strong {
     color: var(--color-on-primary);
 }
 
-.tarifas-info__card--highlight p {
+.tarifas-info__card--highlight .tarifas-info__card-text {
     color: color-mix(in oklab, var(--color-on-primary) 85%, transparent);
 }
 
@@ -1590,7 +1588,7 @@ main>section>h2 {
     height: 1.6rem;
 }
 
-.tarifas-cta h2 {
+.tarifas-cta__title {
     margin-bottom: 0.5rem;
     color: var(--color-on-primary);
     font-size: clamp(1.8rem, 4vw, 3rem);
@@ -1600,7 +1598,7 @@ main>section>h2 {
     text-wrap: balance;
 }
 
-.tarifas-cta p {
+.tarifas-cta__text {
     font-size: 1rem;
     line-height: 1.65;
     color: color-mix(in oklab, var(--color-on-primary) 82%, transparent);
@@ -1646,7 +1644,7 @@ main>section>h2 {
 
 @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-        main>section:not(#about-us) {
+        .section--reveal {
             animation: sectionReveal linear both;
             animation-timeline: view();
             animation-range: entry 0% entry 35%;
@@ -1680,23 +1678,23 @@ main>section>h2 {
         font-size: 0.9rem;
     }
 
-    #our-services {
+    .our-services {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    #our-services>article:not(:has(img)) {
+    .our-services--card--featured {
         grid-column: 1 / -1;
     }
 
-    #why ol {
+    .how-to--steps {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    #why li:nth-child(even) {
+    .how-to--step--raised {
         transform: none;
     }
 
-    #why li:nth-child(even):hover {
+    .how-to--step--raised:hover {
         transform: translateY(-0.4rem);
     }
 
@@ -1723,13 +1721,13 @@ main>section>h2 {
         border-radius: var(--radius-md);
     }
 
-    #found-us {
+    .found-us {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 6rem;
     }
 
-    #found-us>h2,
+    .found-us--title,
     .found-us--text,
     .found-us--actions {
         grid-column: 1;
@@ -1820,22 +1818,22 @@ main>section>h2 {
         background-color: currentColor;
     }
 
-    #nav-toggle:checked~.header .header--toggle {
+    :root:has(.nav-toggle:checked) .header--toggle {
         background-color: var(--color-primary);
         border-color: transparent;
         color: var(--color-on-primary);
     }
 
-    #nav-toggle:checked~.header .header--toggle__bar:nth-child(1) {
+    :root:has(.nav-toggle:checked) .header--toggle__bar--top {
         transform: translateY(0.4rem) rotate(45deg);
     }
 
-    #nav-toggle:checked~.header .header--toggle__bar:nth-child(2) {
+    :root:has(.nav-toggle:checked) .header--toggle__bar--middle {
         opacity: 0;
         transform: scaleX(0.4);
     }
 
-    #nav-toggle:checked~.header .header--toggle__bar:nth-child(3) {
+    :root:has(.nav-toggle:checked) .header--toggle__bar--bottom {
         transform: translateY(-0.4rem) rotate(-45deg);
     }
 
@@ -1852,7 +1850,7 @@ main>section>h2 {
         -webkit-tap-highlight-color: transparent;
     }
 
-    #nav-toggle:checked~.nav-scrim {
+    :root:has(.nav-toggle:checked) .nav-scrim {
         opacity: 1;
         visibility: visible;
     }
@@ -1880,7 +1878,7 @@ main>section>h2 {
         visibility: hidden;
     }
 
-    #nav-toggle:checked~.header--drawer {
+    :root:has(.nav-toggle:checked) .header--drawer {
         translate: 0 0;
         visibility: visible;
     }
@@ -1955,7 +1953,7 @@ main>section>h2 {
     }
 
     /* Evita el desplazamiento del fondo con el menú abierto */
-    html:has(#nav-toggle:checked) {
+    :root:has(.nav-toggle:checked) {
         overflow: hidden;
     }
 
@@ -1965,11 +1963,11 @@ main>section>h2 {
 }
 
 @media (max-width: 720px) {
-    #our-services {
+    .our-services {
         grid-template-columns: 1fr;
     }
 
-    #our-services>article:not(:has(img)) {
+    .our-services--card--featured {
         grid-column: auto;
     }
 
@@ -1992,7 +1990,7 @@ main>section>h2 {
 }
 
 @media (max-width: 520px) {
-    main {
+    .site-main {
         max-width: 92dvw;
         margin-top: 1rem;
     }
@@ -2009,15 +2007,15 @@ main>section>h2 {
         padding: 0.8rem 1.1rem;
     }
 
-    #why ol {
+    .how-to--steps {
         grid-template-columns: 1fr;
     }
 
-    #why li {
+    .how-to--step {
         border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 3rem;
     }
 
-    #found-us {
+    .found-us {
         border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
     }
 
@@ -2027,7 +2025,7 @@ main>section>h2 {
         gap: 0.75rem;
     }
 
-    .found-us--button>svg:first-child {
+    .found-us--button__icon {
         width: 2.5rem;
         height: 2.5rem;
     }
@@ -2101,13 +2099,13 @@ main>section>h2 {
         font-size: 0.92rem;
     }
 
-    .tarifas-table caption {
+    .tarifas-table__caption {
         padding: 1rem;
     }
 
-    .tarifas-table thead th,
-    .tarifas-table tbody th,
-    .tarifas-table tbody td {
+    .tarifas-table__head-cell,
+    .tarifas-table__row-head,
+    .tarifas-table__cell {
         padding: 0.8rem 1rem;
     }
 
