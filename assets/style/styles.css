@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noShorthandPropertyOverrides: <explanation> */
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
 
 :root {
@@ -171,13 +172,6 @@ body {
     color: var(--color-on-surface);
     font-size: 8rem;
     transform: translateY(5%);
-    transition: color var(--motion-fast) var(--ease-emphasized),
-        transform var(--motion-medium) var(--ease-spring);
-}
-
-.header--logo__link:hover .header--logo__icon {
-    color: var(--color-primary);
-    transform: translateY(5%) rotate(-8deg) scale(1.06);
 }
 
 .header--logo__image {
@@ -281,7 +275,7 @@ body {
 }
 
 .about-us--content {
-    flex: 4 1 0;
+    flex: 4;
     min-width: 0;
     background: linear-gradient(160deg,
             var(--color-surface-container-high),
@@ -292,7 +286,7 @@ body {
 }
 
 .about-us--image {
-    flex: 2 1 0;
+    flex: 2;
     min-width: 0;
     width: 100%;
     border-radius: var(--radius-lg);
@@ -765,14 +759,6 @@ body {
     transition: translate var(--motion-medium) var(--ease-spring);
 }
 
-.found-us--button:hover .found-us--button__arrow {
-    translate: 4px 0;
-}
-
-.found-us--button__secondary:hover .found-us--button__arrow {
-    translate: 3px -3px;
-}
-
 /* ============================================================
    Pie de página
    ============================================================ */
@@ -802,7 +788,6 @@ body {
 
 /* Marca de agua tipográfica */
 .site-footer::after {
-    content: "Rueda Libre";
     content: "Rueda Libre" / "";
     position: absolute;
     z-index: 0;
@@ -1116,7 +1101,6 @@ body {
 
 .footer__top:hover {
     background-color: color-mix(in oklab, var(--color-primary) 18%, transparent);
-    transform: translateY(-2px);
 }
 
 /* ============================================================
@@ -1864,7 +1848,6 @@ body {
         inset: 0 0 0 auto;
         z-index: 2;
         width: min(20rem, 84dvw);
-        height: 100vh;
         height: 100dvh;
         padding: 6.5rem 1.25rem 2rem;
         overflow-y: auto;

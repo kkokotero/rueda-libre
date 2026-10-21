@@ -1,505 +1,1028 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#151215" />
+        <meta
+            name="description"
+            content="Tarifas de alquiler de bicicletas y precios de los recorridos guiados de Rueda Libre en Medellín."
+        />
+        <title>Tarifas y recorridos | Rueda Libre</title>
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="../assets/img/favicon.svg"
+        />
+        <link rel="stylesheet" href="../assets/style/styles.css" />
+    </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#151215">
-  <meta name="description"
-    content="Tarifas de alquiler de bicicletas y precios de los recorridos guiados de Rueda Libre en Medellín.">
-  <title>Tarifas y recorridos | Rueda Libre</title>
-  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
-  <link rel="stylesheet" href="../assets/style/styles.css">
-</head>
+    <body>
+        <span id="top-app"></span>
+        <header class="site-header">
+            <input
+                type="checkbox"
+                id="nav-toggle"
+                class="nav-toggle"
+                aria-label="Menú de navegación"
+            />
 
-<body>
-  <span id="top-app"></span>
-  <header class="site-header">
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menú de navegación">
+            <div class="header">
+                <nav class="header--logo">
+                    <a
+                        class="header--logo__link"
+                        href="../index.html#top-app"
+                        aria-label="Rueda Libre, volver al inicio"
+                    >
+                        <img
+                            class="header--logo__image"
+                            src="../assets/img/logo.svg"
+                            alt="Rueda Libre"
+                            width="128"
+                            height="103"
+                        />
+                    </a>
+                </nav>
 
-    <div class="header">
-      <nav class="header--logo">
-        <a class="header--logo__link" href="../index.html#top-app" aria-label="Rueda Libre, volver al inicio">
-          <img class="header--logo__image" src="../assets/img/logo.svg" alt="Rueda Libre" width="128" height="103">
-        </a>
-      </nav>
+                <nav class="header--menu" aria-label="Navegación principal">
+                    <a href="../" class="header--menu__link">Inicio</a>
+                    <a href="../#about-us" class="header--menu__link"
+                        >¿Quiénes somos?</a
+                    >
+                    <a href="../#our-services" class="header--menu__link"
+                        >Nuestros servicios</a
+                    >
+                    <a
+                        href="#top-app"
+                        class="header--menu__link"
+                        aria-current="page"
+                        >Tarifas</a
+                    >
+                    <a href="../#found-us" class="header--menu__link"
+                        >Encuéntranos</a
+                    >
+                </nav>
 
-      <nav class="header--menu" aria-label="Navegación principal">
-        <a href="../" class="header--menu__link">Inicio</a>
-        <a href="../#about-us" class="header--menu__link">¿Quiénes somos?</a>
-        <a href="../#our-services" class="header--menu__link">Nuestros servicios</a>
-        <a href="#top-app" class="header--menu__link" aria-current="page">Tarifas</a>
-        <a href="../#found-us" class="header--menu__link">Encuéntranos</a>
-      </nav>
+                <label
+                    for="nav-toggle"
+                    class="header--toggle"
+                    aria-hidden="true"
+                >
+                    <span
+                        class="header--toggle__bar header--toggle__bar--top"
+                    ></span>
+                    <span
+                        class="header--toggle__bar header--toggle__bar--middle"
+                    ></span>
+                    <span
+                        class="header--toggle__bar header--toggle__bar--bottom"
+                    ></span>
+                </label>
+            </div>
 
-      <label for="nav-toggle" class="header--toggle" aria-hidden="true">
-        <span class="header--toggle__bar header--toggle__bar--top"></span>
-        <span class="header--toggle__bar header--toggle__bar--middle"></span>
-        <span class="header--toggle__bar header--toggle__bar--bottom"></span>
-      </label>
-    </div>
+            <label
+                for="nav-toggle"
+                class="nav-scrim"
+                aria-hidden="true"
+            ></label>
 
-    <label for="nav-toggle" class="nav-scrim" aria-hidden="true"></label>
+            <nav class="header--drawer" aria-label="Navegación móvil">
+                <p class="header--drawer__eyebrow">Menú</p>
+                <a href="../" class="header--drawer__link">Inicio</a>
+                <a href="../#about-us" class="header--drawer__link"
+                    >¿Quiénes somos?</a
+                >
+                <a href="../#our-services" class="header--drawer__link"
+                    >Nuestros servicios</a
+                >
+                <a
+                    href="#top-app"
+                    class="header--drawer__link"
+                    aria-current="page"
+                    >Tarifas</a
+                >
+                <a href="../#found-us" class="header--drawer__link"
+                    >Encuéntranos</a
+                >
+            </nav>
+        </header>
 
-    <nav class="header--drawer" aria-label="Navegación móvil">
-      <p class="header--drawer__eyebrow">Menú</p>
-      <a href="../" class="header--drawer__link">Inicio</a>
-      <a href="../#about-us" class="header--drawer__link">¿Quiénes somos?</a>
-      <a href="../#our-services" class="header--drawer__link">Nuestros servicios</a>
-      <a href="#top-app" class="header--drawer__link" aria-current="page">Tarifas</a>
-      <a href="../#found-us" class="header--drawer__link">Encuéntranos</a>
-    </nav>
-  </header>
+        <main class="site-main">
+            <section
+                class="tarifas-hero section--reveal"
+                aria-labelledby="tarifas-title"
+            >
+                <h1 id="tarifas-title" class="tarifas-hero__title">
+                    Todo lo que cuesta rodar por Medellín, en un solo lugar
+                </h1>
 
-  <main class="site-main">
+                <p class="tarifas-hero__text">
+                    Compara las tarifas de alquiler y los recorridos guiados de
+                    Rueda Libre. Precios claros, sin sorpresas, para que solo te
+                    preocupes por disfrutar el paseo.
+                </p>
 
-    <section class="tarifas-hero section--reveal" aria-labelledby="tarifas-title">
-      <h1 id="tarifas-title" class="tarifas-hero__title">Todo lo que cuesta rodar por Medellín, en un solo lugar</h1>
+                <div class="tarifas-hero__actions">
+                    <a
+                        class="tarifas-button tarifas-button--primary"
+                        href="#tarifas-alquiler"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M20.6 13.4 11 3.8H4v7l9.6 9.6a2 2 0 0 0 2.8 0l4.2-4.2a2 2 0 0 0 0-2.8Z"
+                            />
+                            <circle cx="7.5" cy="7.5" r="1.5" />
+                        </svg>
+                        Ver tarifas de alquiler
+                    </a>
+                    <a
+                        class="tarifas-button tarifas-button--ghost"
+                        href="#recorridos"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3Z" />
+                            <path d="M9 7v13" />
+                            <path d="M15 4v13" />
+                        </svg>
+                        Ver recorridos guiados
+                    </a>
+                </div>
+            </section>
 
-      <p class="tarifas-hero__text">
-        Compara las tarifas de alquiler y los recorridos guiados de Rueda Libre.
-        Precios claros, sin sorpresas, para que solo te preocupes por disfrutar
-        el paseo.
-      </p>
+            <!-- Tarifas de alquiler -->
+            <section
+                id="tarifas-alquiler"
+                class="tarifas-section section--reveal"
+                aria-labelledby="alquiler-title"
+            >
+                <div class="tarifas-section__header">
+                    <span class="tarifas-section__icon" aria-hidden="true">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <circle cx="5.5" cy="17.5" r="3.5" />
+                            <circle cx="18.5" cy="17.5" r="3.5" />
+                            <path d="M5.5 17.5 9 10h5.5l4 7.5" />
+                            <path d="M9 10 7.5 6H10" />
+                            <path d="M14.5 10 13 6h2.5" />
+                        </svg>
+                    </span>
+                    <h2 id="alquiler-title" class="tarifas-section__title">
+                        Alquiler de bicicletas
+                    </h2>
+                </div>
 
-      <div class="tarifas-hero__actions">
-        <a class="tarifas-button tarifas-button--primary" href="#tarifas-alquiler">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M20.6 13.4 11 3.8H4v7l9.6 9.6a2 2 0 0 0 2.8 0l4.2-4.2a2 2 0 0 0 0-2.8Z" />
-            <circle cx="7.5" cy="7.5" r="1.5" />
-          </svg>
-          Ver tarifas de alquiler
-        </a>
-        <a class="tarifas-button tarifas-button--ghost" href="#recorridos">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3Z" />
-            <path d="M9 7v13" />
-            <path d="M15 4v13" />
-          </svg>
-          Ver recorridos guiados
-        </a>
-      </div>
-    </section>
+                <p class="tarifas-section__lead">
+                    Elige la bicicleta y el tiempo que necesitas. Todos los
+                    valores están en pesos colombianos (COP) e incluyen casco y
+                    candado.
+                </p>
 
-    <!-- Tarifas de alquiler -->
-    <section id="tarifas-alquiler" class="tarifas-section section--reveal" aria-labelledby="alquiler-title">
-      <div class="tarifas-section__header">
-        <span class="tarifas-section__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round">
-            <circle cx="5.5" cy="17.5" r="3.5" />
-            <circle cx="18.5" cy="17.5" r="3.5" />
-            <path d="M5.5 17.5 9 10h5.5l4 7.5" />
-            <path d="M9 10 7.5 6H10" />
-            <path d="M14.5 10 13 6h2.5" />
-          </svg>
-        </span>
-        <h2 id="alquiler-title" class="tarifas-section__title">Alquiler de bicicletas</h2>
-      </div>
+                <p class="tabla-scroll__hint">
+                    Desliza horizontalmente para ver todos los precios.
+                </p>
 
-      <p class="tarifas-section__lead">
-        Elige la bicicleta y el tiempo que necesitas. Todos los valores están
-        en pesos colombianos (COP) e incluyen casco y candado.
-      </p>
+                <div
+                    class="tabla-scroll"
+                    role="region"
+                    aria-labelledby="alquiler-title"
+                    tabindex="0"
+                >
+                    <table class="tarifas-table">
+                        <caption class="tarifas-table__caption">
+                            Tarifas de alquiler por tipo de bicicleta y duración
+                        </caption>
 
-      <p class="tabla-scroll__hint">Desliza horizontalmente para ver todos los precios.</p>
+                        <thead>
+                            <tr class="tarifas-table__row">
+                                <th
+                                    class="tarifas-table__head-cell"
+                                    scope="col"
+                                >
+                                    Tipo de bicicleta
+                                </th>
+                                <th
+                                    class="tarifas-table__head-cell tarifas-table__head-cell--numeric"
+                                    scope="col"
+                                >
+                                    1 hora
+                                </th>
+                                <th
+                                    class="tarifas-table__head-cell tarifas-table__head-cell--numeric"
+                                    scope="col"
+                                >
+                                    Medio día (4 h)
+                                </th>
+                                <th
+                                    class="tarifas-table__head-cell tarifas-table__head-cell--numeric"
+                                    scope="col"
+                                >
+                                    Día completo
+                                </th>
+                            </tr>
+                        </thead>
 
-      <div class="tabla-scroll" role="region" aria-labelledby="alquiler-title" tabindex="0">
-        <table class="tarifas-table">
-          <caption class="tarifas-table__caption">Tarifas de alquiler por tipo de bicicleta y duración</caption>
+                        <tbody>
+                            <tr class="tarifas-table__row">
+                                <th class="tarifas-table__row-head" scope="row">
+                                    Urbana
+                                </th>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    $10.000
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    $30.000
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price"
+                                >
+                                    $50.000
+                                </td>
+                            </tr>
+                            <tr class="tarifas-table__row">
+                                <th class="tarifas-table__row-head" scope="row">
+                                    Montaña
+                                </th>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    $15.000
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    $45.000
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price"
+                                >
+                                    $70.000
+                                </td>
+                            </tr>
+                            <tr class="tarifas-table__row">
+                                <th class="tarifas-table__row-head" scope="row">
+                                    Eléctrica
+                                </th>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    $25.000
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    $70.000
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price"
+                                >
+                                    $110.000
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-          <thead>
-            <tr class="tarifas-table__row">
-              <th class="tarifas-table__head-cell" scope="col">Tipo de bicicleta</th>
-              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">1 hora</th>
-              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Medio día (4 h)</th>
-              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Día completo</th>
-            </tr>
-          </thead>
+            <!-- Recorridos guiados -->
+            <section
+                id="recorridos"
+                class="tarifas-section section--reveal"
+                aria-labelledby="recorridos-title"
+            >
+                <div class="tarifas-section__header">
+                    <span class="tarifas-section__icon" aria-hidden="true">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3Z" />
+                            <path d="M9 7v13" />
+                            <path d="M15 4v13" />
+                        </svg>
+                    </span>
+                    <h2 id="recorridos-title" class="tarifas-section__title">
+                        Recorridos guiados
+                    </h2>
+                </div>
 
-          <tbody>
-            <tr class="tarifas-table__row">
-              <th class="tarifas-table__row-head" scope="row">Urbana</th>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">$10.000</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">$30.000</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$50.000</td>
-            </tr>
-            <tr class="tarifas-table__row">
-              <th class="tarifas-table__row-head" scope="row">Montaña</th>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">$15.000</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">$45.000</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$70.000</td>
-            </tr>
-            <tr class="tarifas-table__row">
-              <th class="tarifas-table__row-head" scope="row">Eléctrica</th>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">$25.000</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">$70.000</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$110.000</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+                <p class="tarifas-section__lead">
+                    Recorridos pensados para conocer Medellín a otro ritmo. El
+                    precio es por persona e incluye casco y candado.
+                </p>
 
-    <!-- Recorridos guiados -->
-    <section id="recorridos" class="tarifas-section section--reveal" aria-labelledby="recorridos-title">
-      <div class="tarifas-section__header">
-        <span class="tarifas-section__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3Z" />
-            <path d="M9 7v13" />
-            <path d="M15 4v13" />
-          </svg>
-        </span>
-        <h2 id="recorridos-title" class="tarifas-section__title">Recorridos guiados</h2>
-      </div>
+                <p class="tabla-scroll__hint">
+                    Desliza horizontalmente para ver todos los datos.
+                </p>
 
-      <p class="tarifas-section__lead">
-        Recorridos pensados para conocer Medellín a otro ritmo. El precio es
-        por persona e incluye casco y candado.
-      </p>
+                <div
+                    class="tabla-scroll"
+                    role="region"
+                    aria-labelledby="recorridos-title"
+                    tabindex="0"
+                >
+                    <table class="tarifas-table">
+                        <caption class="tarifas-table__caption">
+                            Recorridos guiados: distancia, duración, nivel y
+                            precio por persona
+                        </caption>
 
-      <p class="tabla-scroll__hint">Desliza horizontalmente para ver todos los datos.</p>
+                        <thead>
+                            <tr class="tarifas-table__row">
+                                <th
+                                    class="tarifas-table__head-cell"
+                                    scope="col"
+                                >
+                                    Recorrido
+                                </th>
+                                <th
+                                    class="tarifas-table__head-cell tarifas-table__head-cell--numeric"
+                                    scope="col"
+                                >
+                                    Distancia
+                                </th>
+                                <th
+                                    class="tarifas-table__head-cell tarifas-table__head-cell--numeric"
+                                    scope="col"
+                                >
+                                    Duración
+                                </th>
+                                <th
+                                    class="tarifas-table__head-cell tarifas-table__head-cell--numeric"
+                                    scope="col"
+                                >
+                                    Nivel
+                                </th>
+                                <th
+                                    class="tarifas-table__head-cell tarifas-table__head-cell--numeric"
+                                    scope="col"
+                                >
+                                    Precio por persona
+                                </th>
+                            </tr>
+                        </thead>
 
-      <div class="tabla-scroll" role="region" aria-labelledby="recorridos-title" tabindex="0">
-        <table class="tarifas-table">
-          <caption class="tarifas-table__caption">Recorridos guiados: distancia, duración, nivel y precio por persona
-          </caption>
+                        <tbody>
+                            <tr class="tarifas-table__row">
+                                <th class="tarifas-table__row-head" scope="row">
+                                    Río y Parques
+                                </th>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    12 km
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    2 h
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    Fácil
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price"
+                                >
+                                    $45.000
+                                </td>
+                            </tr>
+                            <tr class="tarifas-table__row">
+                                <th class="tarifas-table__row-head" scope="row">
+                                    Sabores de Barrio
+                                </th>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    18 km
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    3 h
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    Medio
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price"
+                                >
+                                    $60.000
+                                </td>
+                            </tr>
+                            <tr class="tarifas-table__row">
+                                <th class="tarifas-table__row-head" scope="row">
+                                    Reto Las Palmas
+                                </th>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    25 km
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    4 h
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric"
+                                >
+                                    Difícil
+                                </td>
+                                <td
+                                    class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price"
+                                >
+                                    $85.000
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-          <thead>
-            <tr class="tarifas-table__row">
-              <th class="tarifas-table__head-cell" scope="col">Recorrido</th>
-              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Distancia</th>
-              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Duración</th>
-              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Nivel</th>
-              <th class="tarifas-table__head-cell tarifas-table__head-cell--numeric" scope="col">Precio por persona</th>
-            </tr>
-          </thead>
+            <!-- Información adicional -->
+            <section
+                class="tarifas-info section--reveal"
+                aria-labelledby="info-title"
+            >
+                <div class="tarifas-section__header">
+                    <span
+                        class="tarifas-section__icon tarifas-section__icon--solid"
+                        aria-hidden="true"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="5" y="4" width="14" height="17" rx="3" />
+                            <path d="M9 4.5V3h6v1.5" />
+                            <path d="m8 12 2 2 4-4" />
+                            <path d="M14 16h3" />
+                        </svg>
+                    </span>
+                    <h2 id="info-title" class="tarifas-section__title">
+                        Antes de salir
+                    </h2>
+                </div>
 
-          <tbody>
-            <tr class="tarifas-table__row">
-              <th class="tarifas-table__row-head" scope="row">Río y Parques</th>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">12 km</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">2 h</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">Fácil</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$45.000</td>
-            </tr>
-            <tr class="tarifas-table__row">
-              <th class="tarifas-table__row-head" scope="row">Sabores de Barrio</th>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">18 km</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">3 h</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">Medio</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$60.000</td>
-            </tr>
-            <tr class="tarifas-table__row">
-              <th class="tarifas-table__row-head" scope="row">Reto Las Palmas</th>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">25 km</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">4 h</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric">Difícil</td>
-              <td class="tarifas-table__cell tarifas-table__cell--numeric tarifas-table__cell--price">$85.000</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+                <div class="tarifas-info__grid">
+                    <article
+                        class="tarifas-info__card tarifas-info__card--highlight"
+                    >
+                        <span class="tarifas-info__icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M12 3 4.5 6v5.5c0 4.5 3.2 7.8 7.5 9.5 4.3-1.7 7.5-5 7.5-9.5V6L12 3Z"
+                                />
+                                <path d="m8.5 12 2.5 2.5 4.5-4.5" />
+                            </svg>
+                        </span>
+                        <h3 class="tarifas-info__card-title">
+                            Incluido en todas las tarifas
+                        </h3>
+                        <p class="tarifas-info__card-text">
+                            Todas las tarifas incluyen
+                            <strong>casco y candado</strong>.
+                        </p>
+                        <div class="tarifas-info__chips">
+                            <span class="tarifas-info__chip">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M4 14a8 8 0 0 1 16 0" />
+                                    <path
+                                        d="M3.5 14h17a1.5 1.5 0 0 1 0 3h-17a1.5 1.5 0 0 1 0-3Z"
+                                    />
+                                    <path d="M12 6v8" />
+                                </svg>
+                                Casco
+                            </span>
+                            <span class="tarifas-info__chip">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <rect
+                                        x="5"
+                                        y="10"
+                                        width="14"
+                                        height="10"
+                                        rx="3"
+                                    />
+                                    <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                                    <path d="M12 14v2" />
+                                </svg>
+                                Candado
+                            </span>
+                        </div>
+                    </article>
 
-    <!-- Información adicional -->
-    <section class="tarifas-info section--reveal" aria-labelledby="info-title">
-      <div class="tarifas-section__header">
-        <span class="tarifas-section__icon tarifas-section__icon--solid" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round">
-            <rect x="5" y="4" width="14" height="17" rx="3" />
-            <path d="M9 4.5V3h6v1.5" />
-            <path d="m8 12 2 2 4-4" />
-            <path d="M14 16h3" />
-          </svg>
-        </span>
-        <h2 id="info-title" class="tarifas-section__title">Antes de salir</h2>
-      </div>
+                    <article class="tarifas-info__card">
+                        <span class="tarifas-info__icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect
+                                    x="3"
+                                    y="5"
+                                    width="18"
+                                    height="16"
+                                    rx="3"
+                                />
+                                <path d="M8 3v4M16 3v4M3 10h18" />
+                                <path d="M8 14h3M13 14h3M8 17h3" />
+                            </svg>
+                        </span>
+                        <h3 class="tarifas-info__card-title">
+                            Salidas de los recorridos
+                        </h3>
+                        <p class="tarifas-info__card-text">
+                            Los recorridos salen
+                            <strong>sábados y domingos a las 7:00 a. m.</strong>
+                        </p>
+                    </article>
 
-      <div class="tarifas-info__grid">
-        <article class="tarifas-info__card tarifas-info__card--highlight">
-          <span class="tarifas-info__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M12 3 4.5 6v5.5c0 4.5 3.2 7.8 7.5 9.5 4.3-1.7 7.5-5 7.5-9.5V6L12 3Z" />
-              <path d="m8.5 12 2.5 2.5 4.5-4.5" />
-            </svg>
-          </span>
-          <h3 class="tarifas-info__card-title">Incluido en todas las tarifas</h3>
-          <p class="tarifas-info__card-text">Todas las tarifas incluyen <strong>casco y candado</strong>.</p>
-          <div class="tarifas-info__chips">
-            <span class="tarifas-info__chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 14a8 8 0 0 1 16 0" />
-                <path d="M3.5 14h17a1.5 1.5 0 0 1 0 3h-17a1.5 1.5 0 0 1 0-3Z" />
-                <path d="M12 6v8" />
-              </svg>
-              Casco
-            </span>
-            <span class="tarifas-info__chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                stroke-linejoin="round" aria-hidden="true">
-                <rect x="5" y="10" width="14" height="10" rx="3" />
-                <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-                <path d="M12 14v2" />
-              </svg>
-              Candado
-            </span>
-          </div>
-        </article>
+                    <article
+                        class="tarifas-info__card tarifas-info__card--packing"
+                    >
+                        <span class="tarifas-info__icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M6 8a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V8Z"
+                                />
+                                <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+                                <path d="M9 13h6" />
+                            </svg>
+                        </span>
+                        <h3 class="tarifas-info__card-title">Qué llevar</h3>
+                        <ul class="packing-list">
+                            <li class="packing-list__item">
+                                <span
+                                    class="packing-list__icon"
+                                    aria-hidden="true"
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path
+                                            d="M8 5 4 7l1.5 4L8 10v10h8V10l2.5 1L20 7l-4-2a4 4 0 0 1-8 0Z"
+                                        />
+                                    </svg>
+                                </span>
+                                <span>Ropa cómoda</span>
+                            </li>
+                            <li class="packing-list__item">
+                                <span
+                                    class="packing-list__icon"
+                                    aria-hidden="true"
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path
+                                            d="M12 3s6 6.4 6 10.5a6 6 0 0 1-12 0C6 9.4 12 3 12 3Z"
+                                        />
+                                        <path
+                                            d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"
+                                        />
+                                    </svg>
+                                </span>
+                                <span>Agua</span>
+                            </li>
+                            <li class="packing-list__item">
+                                <span
+                                    class="packing-list__icon"
+                                    aria-hidden="true"
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <circle cx="12" cy="12" r="4" />
+                                        <path
+                                            d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+                                        />
+                                    </svg>
+                                </span>
+                                <span>Protector solar</span>
+                            </li>
+                            <li class="packing-list__item">
+                                <span
+                                    class="packing-list__icon"
+                                    aria-hidden="true"
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <rect
+                                            x="3"
+                                            y="5"
+                                            width="18"
+                                            height="14"
+                                            rx="3"
+                                        />
+                                        <circle cx="8.5" cy="10.5" r="2" />
+                                        <path d="M5.5 16a3 3 0 0 1 6 0" />
+                                        <path d="M14 9h4M14 12h4M14 15h2.5" />
+                                    </svg>
+                                </span>
+                                <span>Documento de identidad</span>
+                            </li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
 
-        <article class="tarifas-info__card">
-          <span class="tarifas-info__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="16" rx="3" />
-              <path d="M8 3v4M16 3v4M3 10h18" />
-              <path d="M8 14h3M13 14h3M8 17h3" />
-            </svg>
-          </span>
-          <h3 class="tarifas-info__card-title">Salidas de los recorridos</h3>
-          <p class="tarifas-info__card-text">
-            Los recorridos salen <strong>sábados y domingos a las 7:00 a. m.</strong>
-          </p>
-        </article>
+            <!-- Llamada a la acción -->
+            <section
+                class="tarifas-cta section--reveal"
+                aria-labelledby="reserva-title"
+            >
+                <div class="tarifas-cta__copy">
+                    <span class="tarifas-cta__icon" aria-hidden="true">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="3" y="5" width="18" height="16" rx="3" />
+                            <path d="M8 3v4M16 3v4M3 10h18" />
+                            <path d="m8 15 2.5 2.5L16 12" />
+                        </svg>
+                    </span>
+                    <h2 id="reserva-title" class="tarifas-cta__title">
+                        ¿Reservamos tu bicicleta?
+                    </h2>
+                    <p class="tarifas-cta__text">
+                        Escríbenos y te confirmamos la disponibilidad, el punto
+                        de encuentro y todo lo que necesitas para tu recorrido.
+                    </p>
+                </div>
 
-        <article class="tarifas-info__card tarifas-info__card--packing">
-          <span class="tarifas-info__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M6 8a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V8Z" />
-              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-              <path d="M9 13h6" />
-            </svg>
-          </span>
-          <h3 class="tarifas-info__card-title">Qué llevar</h3>
-          <ul class="packing-list">
-            <li class="packing-list__item">
-              <span class="packing-list__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M8 5 4 7l1.5 4L8 10v10h8V10l2.5 1L20 7l-4-2a4 4 0 0 1-8 0Z" />
-                </svg>
-              </span>
-              <span>Ropa cómoda</span>
-            </li>
-            <li class="packing-list__item">
-              <span class="packing-list__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M12 3s6 6.4 6 10.5a6 6 0 0 1-12 0C6 9.4 12 3 12 3Z" />
-                  <path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5" />
-                </svg>
-              </span>
-              <span>Agua</span>
-            </li>
-            <li class="packing-list__item">
-              <span class="packing-list__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="4" />
-                  <path
-                    d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
-                </svg>
-              </span>
-              <span>Protector solar</span>
-            </li>
-            <li class="packing-list__item">
-              <span class="packing-list__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <rect x="3" y="5" width="18" height="14" rx="3" />
-                  <circle cx="8.5" cy="10.5" r="2" />
-                  <path d="M5.5 16a3 3 0 0 1 6 0" />
-                  <path d="M14 9h4M14 12h4M14 15h2.5" />
-                </svg>
-              </span>
-              <span>Documento de identidad</span>
-            </li>
-          </ul>
-        </article>
-      </div>
-    </section>
+                <div class="tarifas-cta__actions">
+                    <a
+                        class="tarifas-button tarifas-button--light"
+                        href="mailto:hola@ruedalibre.example"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <rect x="3" y="5" width="18" height="14" rx="3" />
+                            <path d="m4 7 8 6 8-6" />
+                        </svg>
+                        Reservar por correo
+                    </a>
+                    <a
+                        class="tarifas-button tarifas-button--outline"
+                        href="../index.html#found-us"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z"
+                            />
+                            <circle cx="12" cy="10" r="2.5" />
+                        </svg>
+                        Cómo llegar
+                    </a>
+                </div>
+            </section>
+        </main>
 
-    <!-- Llamada a la acción -->
-    <section class="tarifas-cta section--reveal" aria-labelledby="reserva-title">
-      <div class="tarifas-cta__copy">
-        <span class="tarifas-cta__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round">
-            <rect x="3" y="5" width="18" height="16" rx="3" />
-            <path d="M8 3v4M16 3v4M3 10h18" />
-            <path d="m8 15 2.5 2.5L16 12" />
-          </svg>
-        </span>
-        <h2 id="reserva-title" class="tarifas-cta__title">¿Reservamos tu bicicleta?</h2>
-        <p class="tarifas-cta__text">
-          Escríbenos y te confirmamos la disponibilidad, el punto de encuentro
-          y todo lo que necesitas para tu recorrido.
-        </p>
-      </div>
+        <footer class="site-footer">
+            <div class="footer__inner">
+                <section class="footer__cta" aria-labelledby="footer-cta-title">
+                    <div class="footer__cta-copy">
+                        <p class="footer__eyebrow">
+                            Tu próxima ruta empieza aquí
+                        </p>
+                        <h2 id="footer-cta-title" class="footer__cta-title">
+                            ¿Listo para rodar por Medellín?
+                        </h2>
+                    </div>
 
-      <div class="tarifas-cta__actions">
-        <a class="tarifas-button tarifas-button--light" href="mailto:hola@ruedalibre.example">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="5" width="18" height="14" rx="3" />
-            <path d="m4 7 8 6 8-6" />
-          </svg>
-          Reservar por correo
-        </a>
-        <a class="tarifas-button tarifas-button--outline" href="../index.html#found-us">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
-            <circle cx="12" cy="10" r="2.5" />
-          </svg>
-          Cómo llegar
-        </a>
-      </div>
-    </section>
+                    <div class="footer__cta-actions">
+                        <a
+                            class="footer__button footer__button--filled"
+                            href="mailto:hola@ruedalibre.example"
+                        >
+                            Reservar una bicicleta
+                        </a>
+                        <a
+                            class="footer__button footer__button--outlined"
+                            href="#recorridos"
+                        >
+                            Ver recorridos
+                        </a>
+                    </div>
+                </section>
 
-  </main>
+                <div class="footer__grid">
+                    <div class="footer__brand">
+                        <a
+                            class="footer__logo"
+                            href="../index.html#top-app"
+                            aria-label="Rueda Libre, volver al inicio"
+                        >
+                            <span class="footer__logo-mark" aria-hidden="true">
+                                <svg
+                                    class="footer__logo-icon"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <circle cx="5.5" cy="17.5" r="3.5" />
+                                    <circle cx="18.5" cy="17.5" r="3.5" />
+                                    <path d="M5.5 17.5 9 10h5.5l4 7.5" />
+                                    <path d="M9 10 7.5 6H10" />
+                                    <path d="M14.5 10 13 6h2.5" />
+                                </svg>
+                            </span>
+                            <span class="footer__logo-text"
+                                >Rueda
+                                <em class="footer__logo-accent">Libre</em></span
+                            >
+                        </a>
 
-  <footer class="site-footer">
-    <div class="footer__inner">
+                        <p class="footer__description">
+                            Alquiler de bicicletas y rutas para descubrir
+                            Medellín a tu propio ritmo, de forma sostenible y
+                            segura.
+                        </p>
 
-      <section class="footer__cta" aria-labelledby="footer-cta-title">
-        <div class="footer__cta-copy">
-          <p class="footer__eyebrow">Tu próxima ruta empieza aquí</p>
-          <h2 id="footer-cta-title" class="footer__cta-title">¿Listo para rodar por Medellín?</h2>
-        </div>
+                        <p class="footer__badge">
+                            <span
+                                class="footer__badge-dot"
+                                aria-hidden="true"
+                            ></span>
+                            Movilidad sostenible
+                        </p>
 
-        <div class="footer__cta-actions">
-          <a class="footer__button footer__button--filled" href="mailto:hola@ruedalibre.example">
-            Reservar una bicicleta
-          </a>
-          <a class="footer__button footer__button--outlined" href="#recorridos">
-            Ver recorridos
-          </a>
-        </div>
-      </section>
+                        <p class="footer__location">
+                            <svg
+                                class="footer__location-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z"
+                                />
+                                <circle cx="12" cy="10" r="2.5" />
+                            </svg>
+                            Medellín, Colombia
+                        </p>
+                    </div>
 
-      <div class="footer__grid">
-        <div class="footer__brand">
-          <a class="footer__logo" href="../index.html#top-app" aria-label="Rueda Libre, volver al inicio">
-            <span class="footer__logo-mark" aria-hidden="true">
-              <svg class="footer__logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="5.5" cy="17.5" r="3.5" />
-                <circle cx="18.5" cy="17.5" r="3.5" />
-                <path d="M5.5 17.5 9 10h5.5l4 7.5" />
-                <path d="M9 10 7.5 6H10" />
-                <path d="M14.5 10 13 6h2.5" />
-              </svg>
-            </span>
-            <span class="footer__logo-text">Rueda <em class="footer__logo-accent">Libre</em></span>
-          </a>
+                    <nav
+                        class="footer__nav"
+                        aria-label="Navegación del pie de página"
+                    >
+                        <h3 class="footer__heading">Explora</h3>
+                        <a class="footer__nav-link" href="../index.html"
+                            >Inicio</a
+                        >
+                        <a class="footer__nav-link" href="#tarifas-alquiler"
+                            >Alquiler</a
+                        >
+                        <a class="footer__nav-link" href="#recorridos"
+                            >Recorridos</a
+                        >
+                        <a
+                            class="footer__nav-link"
+                            href="../index.html#found-us"
+                            >Encuéntranos</a
+                        >
+                    </nav>
 
-          <p class="footer__description">
-            Alquiler de bicicletas y rutas para descubrir Medellín a tu
-            propio ritmo, de forma sostenible y segura.
-          </p>
+                    <div class="footer__contact">
+                        <h3 class="footer__heading">Contacto</h3>
+                        <a
+                            class="footer__contact-link"
+                            href="mailto:hola@ruedalibre.example"
+                        >
+                            <svg
+                                class="footer__contact-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <rect
+                                    x="3"
+                                    y="5"
+                                    width="18"
+                                    height="14"
+                                    rx="3"
+                                />
+                                <path d="m4 7 8 6 8-6" />
+                            </svg>
+                            hola@ruedalibre.example
+                        </a>
+                        <a
+                            class="footer__contact-link"
+                            href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="footer__contact-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z"
+                                />
+                                <circle cx="12" cy="10" r="2.5" />
+                            </svg>
+                            Google Maps
+                            <svg
+                                class="footer__external"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M7 17 17 7" />
+                                <path d="M9 7h8v8" />
+                            </svg>
+                        </a>
 
-          <p class="footer__badge">
-            <span class="footer__badge-dot" aria-hidden="true"></span>
-            Movilidad sostenible
-          </p>
+                        <p class="footer__note">
+                            Escríbenos para conocer horarios de atención y
+                            disponibilidad.
+                        </p>
+                    </div>
+                </div>
 
-          <p class="footer__location">
-            <svg class="footer__location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
-              <circle cx="12" cy="10" r="2.5" />
-            </svg>
-            Medellín, Colombia
-          </p>
-        </div>
+                <div class="footer__bottom">
+                    <p>
+                        &copy; 2026 Rueda Libre. Todos los derechos reservados.
+                    </p>
+                    <p class="footer__made">Pedaleando en Medellín</p>
+                    <a class="footer__top" href="#top-app">
+                        Volver arriba
+                        <svg
+                            class="footer__top-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M12 19V5" />
+                            <path d="m6 11 6-6 6 6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
 
-        <nav class="footer__nav" aria-label="Navegación del pie de página">
-          <h3 class="footer__heading">Explora</h3>
-          <a class="footer__nav-link" href="../index.html">Inicio</a>
-          <a class="footer__nav-link" href="#tarifas-alquiler">Alquiler</a>
-          <a class="footer__nav-link" href="#recorridos">Recorridos</a>
-          <a class="footer__nav-link" href="../index.html#found-us">Encuéntranos</a>
-        </nav>
-
-        <div class="footer__contact">
-          <h3 class="footer__heading">Contacto</h3>
-          <a class="footer__contact-link" href="mailto:hola@ruedalibre.example">
-            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="3" />
-              <path d="m4 7 8 6 8-6" />
-            </svg>
-            hola@ruedalibre.example
-          </a>
-          <a class="footer__contact-link" href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia"
-            target="_blank" rel="noopener noreferrer">
-            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
-              <circle cx="12" cy="10" r="2.5" />
-            </svg>
-            Google Maps
-            <svg class="footer__external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M7 17 17 7" />
-              <path d="M9 7h8v8" />
-            </svg>
-          </a>
-
-          <p class="footer__note">
-            Escríbenos para conocer horarios de atención y disponibilidad.
-          </p>
-        </div>
-      </div>
-
-      <div class="footer__bottom">
-        <p>&copy; 2026 Rueda Libre. Todos los derechos reservados.</p>
-        <p class="footer__made">Pedaleando en Medellín</p>
-        <a class="footer__top" href="#top-app">
-          Volver arriba
-          <svg class="footer__top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 19V5" />
-            <path d="m6 11 6-6 6 6" />
-          </svg>
-        </a>
-      </div>
-
-    </div>
-  </footer>
-
-  <!-- Mejora progresiva: el menú lateral funciona solo con CSS; este script
+        <!-- Mejora progresiva: el menú lateral funciona solo con CSS; este script
        únicamente lo cierra al elegir un enlace o pulsar Escape. -->
-  <script>
-    (() => {
-      const navToggle = document.getElementById("nav-toggle");
+        <script>
+            (() => {
+                const navToggle = document.getElementById("nav-toggle");
 
-      if (!navToggle) return;
+                if (!navToggle) return;
 
-      document.querySelectorAll(".header--drawer__link").forEach((link) => {
-        link.addEventListener("click", () => {
-          navToggle.checked = false;
-        });
-      });
+                document
+                    .querySelectorAll(".header--drawer__link")
+                    .forEach((link) => {
+                        link.addEventListener("click", () => {
+                            navToggle.checked = false;
+                        });
+                    });
 
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && navToggle.checked) {
-          navToggle.checked = false;
-          navToggle.focus();
-        }
-      });
-    })();
-  </script>
-</body>
-
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape" && navToggle.checked) {
+                        navToggle.checked = false;
+                        navToggle.focus();
+                    }
+                });
+            })();
+        </script>
+    </body>
 </html>
