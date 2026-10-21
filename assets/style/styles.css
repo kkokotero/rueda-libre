@@ -193,10 +193,6 @@ body {
     transition: transform var(--motion-medium) var(--ease-spring);
 }
 
-.header--logo__link:hover .header--logo__image {
-    transform: rotate(-8deg) scale(1.06);
-}
-
 .header--menu {
     display: flex;
     align-items: center;
@@ -1818,7 +1814,7 @@ body {
             var(--color-primary),
             var(--color-primary-container)
         );
-    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 9rem;
+    border-radius: var(--radius-lg);
 }
 
 .tarifas-cta__copy {
@@ -2494,7 +2490,7 @@ body {
     }
 
     .tarifas-cta {
-        border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
+        border-radius: var(--radius-md);
     }
 
     .tarifas-cta__actions {
