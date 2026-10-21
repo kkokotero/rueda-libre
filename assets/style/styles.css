@@ -419,6 +419,7 @@ body {
     width: 100%;
     border-radius: var(--radius-lg);
     object-fit: cover;
+    aspect-ratio: 2 / 3;
     transition: border-radius var(--motion-slow) var(--ease-spring);
 }
 
