@@ -530,7 +530,7 @@
                                             type="time"
                                             min="06:00"
                                             max="19:00"
-                                            step="300"
+                                            step="60"
                                             aria-describedby="reserva-hora-hint reserva-hora-error"
                                             required
                                         />
@@ -2913,10 +2913,17 @@
                         ];
                         renderWheel(
                             hourWheel,
-                            hourOptions.map((hour) => ({
-                                value: hour,
-                                label: hour,
-                            })),
+                                hourOptions.map((hour) => {
+                                    const hourNumber = Number(hour);
+                                    const hour12 = hourNumber % 12 || 12;
+                                    const meridiem =
+                                        hourNumber < 12 ? "AM" : "PM";
+
+                                    return {
+                                        value: hour,
+                                        label: `${hour12} ${meridiem}`,
+                                    };
+                                }),
                             selectedHour,
                             (hour) => {
                                 const currentMinute = (
@@ -3286,7 +3293,7 @@
                         control.name === "hora" &&
                         validity.stepMismatch
                     ) {
-                        return "Elige una hora en intervalos de 5 minutos.";
+                        return "Elige una hora en intervalos de un minuto.";
                     }
 
                     if (
