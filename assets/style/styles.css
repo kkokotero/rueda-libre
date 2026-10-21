@@ -2438,6 +2438,7 @@ body {
 .reservas-form__submit {
     border: 0;
     cursor: pointer;
+    width: 100%;
 }
 
 .reservas-form__note {
@@ -3183,8 +3184,7 @@ body {
     }
 
     .tarifas-section,
-    .tarifas-info,
-    .reservas-form-section {
+    .tarifas-info {
         padding: 1.25rem;
     }
 
