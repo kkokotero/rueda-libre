@@ -4344,7 +4344,6 @@ body.has-picker-modal {
 .tarifas-info__times {
     display: grid;
     gap: 1rem;
-    padding: 0.75rem 1rem;
     grid-template-columns: auto auto;
 }
 
