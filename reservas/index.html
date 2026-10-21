@@ -319,10 +319,18 @@
                     enctype="text/plain"
                 >
                     <fieldset class="reservas-form__group">
-                        <legend class="reservas-form__legend">Tus datos</legend>
+                        <legend class="reservas-form__legend">
+                            <span
+                                class="icon reservas-form__legend-icon"
+                                aria-hidden="true"
+                                >person</span
+                            >
+                            Tus datos
+                        </legend>
                         <div class="reservas-form__grid">
                             <div
                                 class="reservas-form__field reservas-form__field--full"
+                                data-field="nombre"
                             >
                                 <label
                                     class="reservas-form__label"
@@ -335,18 +343,34 @@
                                         >*</span
                                     >
                                 </label>
-                                <input
-                                    class="reservas-form__input"
-                                    id="reserva-nombre"
-                                    name="nombre"
-                                    type="text"
-                                    autocomplete="name"
-                                    placeholder="Ej. Ana Pérez"
-                                    required
-                                />
+                                <div class="reservas-form__control">
+                                    <span
+                                        class="icon reservas-form__control-icon"
+                                        aria-hidden="true"
+                                        >person</span
+                                    >
+                                    <input
+                                        class="reservas-form__input"
+                                        id="reserva-nombre"
+                                        name="nombre"
+                                        type="text"
+                                        autocomplete="name"
+                                        placeholder="Ej. Ana Pérez"
+                                        aria-describedby="reserva-nombre-error"
+                                        required
+                                    />
+                                </div>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-nombre-error"
+                                    aria-live="polite"
+                                ></p>
                             </div>
 
-                            <div class="reservas-form__field">
+                            <div
+                                class="reservas-form__field"
+                                data-field="email"
+                            >
                                 <label
                                     class="reservas-form__label"
                                     for="reserva-email"
@@ -358,19 +382,35 @@
                                         >*</span
                                     >
                                 </label>
-                                <input
-                                    class="reservas-form__input"
-                                    id="reserva-email"
-                                    name="email"
-                                    type="email"
-                                    autocomplete="email"
-                                    inputmode="email"
-                                    placeholder="tu@correo.com"
-                                    required
-                                />
+                                <div class="reservas-form__control">
+                                    <span
+                                        class="icon reservas-form__control-icon"
+                                        aria-hidden="true"
+                                        >alternate_email</span
+                                    >
+                                    <input
+                                        class="reservas-form__input"
+                                        id="reserva-email"
+                                        name="email"
+                                        type="email"
+                                        autocomplete="email"
+                                        inputmode="email"
+                                        placeholder="tu@correo.com"
+                                        aria-describedby="reserva-email-error"
+                                        required
+                                    />
+                                </div>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-email-error"
+                                    aria-live="polite"
+                                ></p>
                             </div>
 
-                            <div class="reservas-form__field">
+                            <div
+                                class="reservas-form__field"
+                                data-field="telefono"
+                            >
                                 <label
                                     class="reservas-form__label"
                                     for="reserva-telefono"
@@ -382,26 +422,47 @@
                                         >*</span
                                     >
                                 </label>
-                                <input
-                                    class="reservas-form__input"
-                                    id="reserva-telefono"
-                                    name="telefono"
-                                    type="tel"
-                                    autocomplete="tel"
-                                    inputmode="tel"
-                                    placeholder="+57 300 000 0000"
-                                    required
-                                />
+                                <div class="reservas-form__control">
+                                    <span
+                                        class="icon reservas-form__control-icon"
+                                        aria-hidden="true"
+                                        >call</span
+                                    >
+                                    <input
+                                        class="reservas-form__input"
+                                        id="reserva-telefono"
+                                        name="telefono"
+                                        type="tel"
+                                        autocomplete="tel"
+                                        inputmode="tel"
+                                        placeholder="+57 300 000 0000"
+                                        aria-describedby="reserva-telefono-error"
+                                        required
+                                    />
+                                </div>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-telefono-error"
+                                    aria-live="polite"
+                                ></p>
                             </div>
                         </div>
                     </fieldset>
 
                     <fieldset class="reservas-form__group">
                         <legend class="reservas-form__legend">
+                            <span
+                                class="icon reservas-form__legend-icon"
+                                aria-hidden="true"
+                                >event_available</span
+                            >
                             Detalles de la reserva
                         </legend>
                         <div class="reservas-form__grid">
-                            <div class="reservas-form__field">
+                            <div
+                                class="reservas-form__field"
+                                data-field="fecha"
+                            >
                                 <label
                                     class="reservas-form__label"
                                     for="reserva-fecha"
@@ -413,16 +474,29 @@
                                         >*</span
                                     >
                                 </label>
-                                <input
-                                    class="reservas-form__input"
-                                    id="reserva-fecha"
-                                    name="fecha"
-                                    type="date"
-                                    required
-                                />
+                                <div class="reservas-form__control">
+                                    <span
+                                        class="icon reservas-form__control-icon"
+                                        aria-hidden="true"
+                                        >calendar_month</span
+                                    >
+                                    <input
+                                        class="reservas-form__input"
+                                        id="reserva-fecha"
+                                        name="fecha"
+                                        type="date"
+                                        aria-describedby="reserva-fecha-error"
+                                        required
+                                    />
+                                </div>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-fecha-error"
+                                    aria-live="polite"
+                                ></p>
                             </div>
 
-                            <div class="reservas-form__field">
+                            <div class="reservas-form__field" data-field="hora">
                                 <label
                                     class="reservas-form__label"
                                     for="reserva-hora"
@@ -434,17 +508,24 @@
                                         >*</span
                                     >
                                 </label>
-                                <input
-                                    class="reservas-form__input"
-                                    id="reserva-hora"
-                                    name="hora"
-                                    type="time"
-                                    min="06:00"
-                                    max="19:00"
-                                    step="900"
-                                    aria-describedby="reserva-hora-hint"
-                                    required
-                                />
+                                <div class="reservas-form__control">
+                                    <span
+                                        class="icon reservas-form__control-icon"
+                                        aria-hidden="true"
+                                        >schedule</span
+                                    >
+                                    <input
+                                        class="reservas-form__input"
+                                        id="reserva-hora"
+                                        name="hora"
+                                        type="time"
+                                        min="06:00"
+                                        max="19:00"
+                                        step="900"
+                                        aria-describedby="reserva-hora-hint reserva-hora-error"
+                                        required
+                                    />
+                                </div>
                                 <p
                                     class="reservas-form__hint"
                                     id="reserva-hora-hint"
@@ -452,11 +533,17 @@
                                     Lun–vie: 7:00 a. m.–7:00 p. m. · Sáb, dom
                                     y festivos: 6:00 a. m.–2:00 p. m.
                                 </p>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-hora-error"
+                                    aria-live="polite"
+                                ></p>
                             </div>
 
-                            <div class="reservas-form__field">
+                            <div class="reservas-form__field" data-field="tipo">
                                 <label
                                     class="reservas-form__label"
+                                    id="reserva-tipo-label"
                                     for="reserva-tipo"
                                 >
                                     Tipo de bicicleta
@@ -466,25 +553,59 @@
                                         >*</span
                                     >
                                 </label>
-                                <select
-                                    class="reservas-form__select"
-                                    id="reserva-tipo"
-                                    name="tipo"
-                                    required
-                                >
-                                    <option value="" selected disabled>
-                                        Selecciona una opción
-                                    </option>
-                                    <option value="Urbana">Urbana</option>
-                                    <option value="Montaña">Montaña</option>
-                                    <option value="Eléctrica">Eléctrica</option>
-                                    <option value="No estoy seguro/a">
-                                        No estoy seguro/a
-                                    </option>
-                                </select>
+                                <div class="reservas-select" data-select>
+                                    <select
+                                        class="reservas-form__select reservas-select__native"
+                                        id="reserva-tipo"
+                                        name="tipo"
+                                        aria-describedby="reserva-tipo-error"
+                                        required
+                                    >
+                                        <option
+                                            value=""
+                                            selected
+                                            disabled
+                                            data-icon="pedal_bike"
+                                        >
+                                            Selecciona una opción
+                                        </option>
+                                        <option
+                                            value="Urbana"
+                                            data-icon="pedal_bike"
+                                        >
+                                            Urbana
+                                        </option>
+                                        <option
+                                            value="Montaña"
+                                            data-icon="terrain"
+                                        >
+                                            Montaña
+                                        </option>
+                                        <option
+                                            value="Eléctrica"
+                                            data-icon="electric_bike"
+                                        >
+                                            Eléctrica
+                                        </option>
+                                        <option
+                                            value="No estoy seguro/a"
+                                            data-icon="help"
+                                        >
+                                            No estoy seguro/a
+                                        </option>
+                                    </select>
+                                </div>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-tipo-error"
+                                    aria-live="polite"
+                                ></p>
                             </div>
 
-                            <div class="reservas-form__field">
+                            <div
+                                class="reservas-form__field"
+                                data-field="cantidad"
+                            >
                                 <label
                                     class="reservas-form__label"
                                     for="reserva-cantidad"
@@ -496,22 +617,79 @@
                                         >*</span
                                     >
                                 </label>
-                                <input
-                                    class="reservas-form__input"
-                                    id="reserva-cantidad"
-                                    name="cantidad"
-                                    type="number"
-                                    min="1"
-                                    max="10"
-                                    value="1"
-                                    inputmode="numeric"
-                                    required
-                                />
+                                <div class="reservas-quantity" data-quantity>
+                                    <div class="reservas-quantity__stepper">
+                                        <button
+                                            class="reservas-quantity__button"
+                                            type="button"
+                                            data-quantity-decrease
+                                            aria-label="Quitar una bicicleta"
+                                            disabled
+                                        >
+                                            <span
+                                                class="icon"
+                                                aria-hidden="true"
+                                                >remove</span
+                                            >
+                                        </button>
+                                        <input
+                                            class="reservas-quantity__input"
+                                            id="reserva-cantidad"
+                                            name="cantidad"
+                                            type="number"
+                                            min="1"
+                                            max="10"
+                                            value="1"
+                                            inputmode="numeric"
+                                            aria-describedby="reserva-cantidad-error"
+                                            required
+                                        />
+                                        <button
+                                            class="reservas-quantity__button"
+                                            type="button"
+                                            data-quantity-increase
+                                            aria-label="Agregar una bicicleta"
+                                        >
+                                            <span
+                                                class="icon"
+                                                aria-hidden="true"
+                                                >add</span
+                                            >
+                                        </button>
+                                    </div>
+                                    <p
+                                        class="reservas-quantity__count"
+                                        aria-live="polite"
+                                    >
+                                        <span data-quantity-label
+                                            >1 bicicleta</span
+                                        >
+                                    </p>
+                                    <div
+                                        class="reservas-quantity__visual"
+                                        data-quantity-visual
+                                        aria-hidden="true"
+                                    >
+                                        <span
+                                            class="icon reservas-quantity__bike"
+                                            >pedal_bike</span
+                                        >
+                                    </div>
+                                </div>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-cantidad-error"
+                                    aria-live="polite"
+                                ></p>
                             </div>
 
-                            <div class="reservas-form__field">
+                            <div
+                                class="reservas-form__field"
+                                data-field="duracion"
+                            >
                                 <label
                                     class="reservas-form__label"
+                                    id="reserva-duracion-label"
                                     for="reserva-duracion"
                                 >
                                     Duración
@@ -521,29 +699,59 @@
                                         >*</span
                                     >
                                 </label>
-                                <select
-                                    class="reservas-form__select"
-                                    id="reserva-duracion"
-                                    name="duracion"
-                                    required
-                                >
-                                    <option value="" selected disabled>
-                                        Selecciona una opción
-                                    </option>
-                                    <option value="1 hora">1 hora</option>
-                                    <option value="2 horas">2 horas</option>
-                                    <option value="Medio día (4 horas)">
-                                        Medio día (4 horas)
-                                    </option>
-                                    <option value="Día completo (8 horas)">
-                                        Día completo (8 horas)
-                                    </option>
-                                </select>
+                                <div class="reservas-select" data-select>
+                                    <select
+                                        class="reservas-form__select reservas-select__native"
+                                        id="reserva-duracion"
+                                        name="duracion"
+                                        aria-describedby="reserva-duracion-error"
+                                        required
+                                    >
+                                        <option
+                                            value=""
+                                            selected
+                                            disabled
+                                            data-icon="timer"
+                                        >
+                                            Selecciona una opción
+                                        </option>
+                                        <option value="1 hora" data-icon="timer">
+                                            1 hora
+                                        </option>
+                                        <option
+                                            value="2 horas"
+                                            data-icon="timer"
+                                        >
+                                            2 horas
+                                        </option>
+                                        <option
+                                            value="Medio día (4 horas)"
+                                            data-icon="schedule"
+                                        >
+                                            Medio día (4 horas)
+                                        </option>
+                                        <option
+                                            value="Día completo (8 horas)"
+                                            data-icon="wb_sunny"
+                                        >
+                                            Día completo (8 horas)
+                                        </option>
+                                    </select>
+                                </div>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-duracion-error"
+                                    aria-live="polite"
+                                ></p>
                             </div>
 
-                            <div class="reservas-form__field">
+                            <div
+                                class="reservas-form__field"
+                                data-field="recorrido"
+                            >
                                 <label
                                     class="reservas-form__label"
+                                    id="reserva-recorrido-label"
                                     for="reserva-recorrido"
                                 >
                                     Recorrido de interés
@@ -551,36 +759,59 @@
                                         >(opcional)</span
                                     >
                                 </label>
-                                <select
-                                    class="reservas-form__select"
-                                    id="reserva-recorrido"
-                                    name="recorrido"
-                                >
-                                    <option value="Solo alquiler" selected>
-                                        Solo alquiler
-                                    </option>
-                                    <option value="Río y Parques">
-                                        Río y Parques (12 km, 2 h)
-                                    </option>
-                                    <option value="Sabores de Barrio">
-                                        Sabores de Barrio (18 km, 3 h)
-                                    </option>
-                                    <option value="Reto Las Palmas">
-                                        Reto Las Palmas (25 km, 4 h)
-                                    </option>
-                                    <option value="Aún no lo sé">
-                                        Aún no lo sé
-                                    </option>
-                                </select>
+                                <div class="reservas-select" data-select>
+                                    <select
+                                        class="reservas-form__select reservas-select__native"
+                                        id="reserva-recorrido"
+                                        name="recorrido"
+                                    >
+                                        <option
+                                            value="Solo alquiler"
+                                            selected
+                                            data-icon="pedal_bike"
+                                        >
+                                            Solo alquiler
+                                        </option>
+                                        <option
+                                            value="Río y Parques"
+                                            data-icon="park"
+                                        >
+                                            Río y Parques (12 km, 2 h)
+                                        </option>
+                                        <option
+                                            value="Sabores de Barrio"
+                                            data-icon="restaurant"
+                                        >
+                                            Sabores de Barrio (18 km, 3 h)
+                                        </option>
+                                        <option
+                                            value="Reto Las Palmas"
+                                            data-icon="landscape"
+                                        >
+                                            Reto Las Palmas (25 km, 4 h)
+                                        </option>
+                                        <option
+                                            value="Aún no lo sé"
+                                            data-icon="help"
+                                        >
+                                            Aún no lo sé
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
 
                     <fieldset class="reservas-form__group">
                         <legend class="reservas-form__legend">
+                            <span
+                                class="icon reservas-form__legend-icon"
+                                aria-hidden="true"
+                                >chat</span
+                            >
                             Comentarios
                         </legend>
-                        <div class="reservas-form__field">
+                        <div class="reservas-form__field" data-field="mensaje">
                             <label
                                 class="reservas-form__label"
                                 for="reserva-mensaje"
@@ -590,36 +821,61 @@
                                     >(opcional)</span
                                 >
                             </label>
-                            <textarea
-                                class="reservas-form__textarea"
-                                id="reserva-mensaje"
-                                name="mensaje"
-                                rows="4"
-                                placeholder="Cuéntanos si necesitas casco, candado, silla para niño o alguna condición especial."
-                            ></textarea>
+                            <div
+                                class="reservas-form__control reservas-form__control--textarea"
+                            >
+                                <span
+                                    class="icon reservas-form__control-icon"
+                                    aria-hidden="true"
+                                    >chat</span
+                                >
+                                <textarea
+                                    class="reservas-form__textarea"
+                                    id="reserva-mensaje"
+                                    name="mensaje"
+                                    rows="4"
+                                    placeholder="Cuéntanos si necesitas casco, candado, silla para niño o alguna condición especial."
+                                ></textarea>
+                            </div>
                         </div>
                     </fieldset>
 
-                    <label
-                        class="reservas-form__consent"
-                        for="reserva-consentimiento"
+                    <div
+                        class="reservas-form__field reservas-form__field--full"
+                        data-field="consentimiento"
                     >
-                        <input
-                            id="reserva-consentimiento"
-                            name="consentimiento"
-                            type="checkbox"
-                            required
-                        />
-                        <span>
-                            Acepto que Rueda Libre me contacte por correo o
-                            teléfono para gestionar esta reserva.
+                        <label
+                            class="reservas-form__consent"
+                            for="reserva-consentimiento"
+                        >
+                            <input
+                                id="reserva-consentimiento"
+                                name="consentimiento"
+                                type="checkbox"
+                                aria-describedby="reserva-consentimiento-error"
+                                required
+                            />
                             <span
-                                class="reservas-form__required"
+                                class="icon reservas-form__consent-icon"
                                 aria-hidden="true"
-                                >*</span
+                                >verified_user</span
                             >
-                        </span>
-                    </label>
+                            <span>
+                                Acepto que Rueda Libre me contacte por correo o
+                                teléfono para gestionar esta reserva.
+                                <span
+                                    class="reservas-form__required"
+                                    aria-hidden="true"
+                                    >*</span
+                                >
+                            </span>
+                        </label>
+                        <p
+                            class="reservas-form__error"
+                            id="reserva-consentimiento-error"
+                            aria-live="polite"
+                        ></p>
+                    </div>
 
                     <div class="reservas-form__actions">
                         <button
@@ -887,17 +1143,684 @@
                     dateField.min = localToday.toISOString().slice(0, 10);
                 }
 
+                const REQUIRED_MESSAGES = {
+                    nombre: "Escribe tu nombre completo.",
+                    email: "Escribe tu correo electrónico.",
+                    telefono: "Escribe tu teléfono o WhatsApp.",
+                    fecha: "Elige la fecha de inicio.",
+                    hora: "Elige la hora de inicio.",
+                    tipo: "Selecciona el tipo de bicicleta.",
+                    cantidad: "Indica cuántas bicicletas necesitas.",
+                    duracion: "Selecciona la duración.",
+                    consentimiento: "Acepta el contacto para continuar.",
+                };
+
                 const clearStatus = () => {
                     status.classList.remove("is-visible");
                     status.replaceChildren();
                 };
 
-                form.addEventListener("input", clearStatus);
+                let closeOpenSelect = null;
+
+                const enhanceSelect = (wrapper) => {
+                    const native = wrapper.querySelector("select");
+
+                    if (!native || wrapper.classList.contains("is-enhanced")) {
+                        return;
+                    }
+
+                    const label = native.labels?.[0] || null;
+                    const error = document.getElementById(
+                        `${native.id}-error`,
+                    );
+                    const describedBy = [
+                        native.getAttribute("aria-describedby"),
+                        error?.id,
+                    ]
+                        .filter(Boolean)
+                        .filter(
+                            (id, index, ids) => ids.indexOf(id) === index,
+                        )
+                        .join(" ");
+                    const valueId = `${native.id}-value`;
+                    const buttonId = `${native.id}-button`;
+                    const menuId = `${native.id}-listbox`;
+
+                    const button = document.createElement("button");
+                    button.type = "button";
+                    button.id = buttonId;
+                    button.className = "reservas-select__button";
+                    button.setAttribute("role", "combobox");
+                    button.setAttribute("aria-haspopup", "listbox");
+                    button.setAttribute("aria-expanded", "false");
+                    button.setAttribute("aria-controls", menuId);
+
+                    if (native.required) {
+                        button.setAttribute("aria-required", "true");
+                    }
+
+                    if (describedBy) {
+                        button.setAttribute("aria-describedby", describedBy);
+                    }
+
+                    if (label) {
+                        if (!label.id) label.id = `${native.id}-label`;
+
+                        button.setAttribute(
+                            "aria-labelledby",
+                            `${label.id} ${valueId}`,
+                        );
+                    }
+
+                    const icon = document.createElement("span");
+                    icon.className = "icon reservas-select__icon";
+                    icon.setAttribute("aria-hidden", "true");
+
+                    const value = document.createElement("span");
+                    value.className = "reservas-select__value";
+                    value.id = valueId;
+
+                    const chevron = document.createElement("span");
+                    chevron.className = "icon reservas-select__chevron";
+                    chevron.setAttribute("aria-hidden", "true");
+                    chevron.textContent = "expand_more";
+
+                    button.append(icon, value, chevron);
+
+                    const menu = document.createElement("div");
+                    menu.className = "reservas-select__menu";
+                    menu.id = menuId;
+                    menu.setAttribute("role", "listbox");
+                    menu.hidden = true;
+
+                    if (label) {
+                        menu.setAttribute("aria-labelledby", label.id);
+                    }
+
+                    const optionEls = [];
+
+                    Array.from(native.options).forEach((option) => {
+                        if (option.disabled) return;
+
+                        const item = document.createElement("div");
+                        item.className = "reservas-select__option";
+                        item.id = `${native.id}-option-${optionEls.length}`;
+                        item.setAttribute("role", "option");
+                        item.dataset.value = option.value;
+                        item.tabIndex = -1;
+
+                        const optionIcon = document.createElement("span");
+                        optionIcon.className =
+                            "icon reservas-select__option-icon";
+                        optionIcon.setAttribute("aria-hidden", "true");
+                        optionIcon.textContent =
+                            option.dataset.icon || "circle";
+
+                        const optionLabel = document.createElement("span");
+                        optionLabel.className =
+                            "reservas-select__option-label";
+                        optionLabel.textContent = option.textContent.trim();
+
+                        const check = document.createElement("span");
+                        check.className = "icon reservas-select__check";
+                        check.setAttribute("aria-hidden", "true");
+                        check.textContent = "check";
+
+                        item.append(optionIcon, optionLabel, check);
+                        menu.append(item);
+                        optionEls.push(item);
+                    });
+
+                    let activeIndex = -1;
+
+                    const updateDisplay = () => {
+                        const selected = native.options[native.selectedIndex];
+                        const selectedValue = selected
+                            ? selected.value
+                            : "";
+
+                        value.textContent = selected
+                            ? selected.textContent.trim()
+                            : "Selecciona una opción";
+                        value.classList.toggle(
+                            "is-placeholder",
+                            selectedValue === "",
+                        );
+                        icon.textContent =
+                            (selected && selected.dataset.icon) || "circle";
+
+                        optionEls.forEach((option) => {
+                            option.setAttribute(
+                                "aria-selected",
+                                String(
+                                    option.dataset.value === selectedValue,
+                                ),
+                            );
+                        });
+                    };
+
+                    const setActive = (index) => {
+                        if (!optionEls.length) return;
+
+                        activeIndex =
+                            (index + optionEls.length) % optionEls.length;
+
+                        optionEls.forEach((option, optionIndex) => {
+                            option.classList.toggle(
+                                "is-active",
+                                optionIndex === activeIndex,
+                            );
+                        });
+
+                        const active = optionEls[activeIndex];
+                        button.setAttribute(
+                            "aria-activedescendant",
+                            active.id,
+                        );
+
+                        if (
+                            active.offsetTop < menu.scrollTop ||
+                            active.offsetTop + active.offsetHeight >
+                                menu.scrollTop + menu.clientHeight
+                        ) {
+                            menu.scrollTop =
+                                active.offsetTop -
+                                menu.clientHeight / 2 +
+                                active.offsetHeight / 2;
+                        }
+                    };
+
+                    const close = ({ focus = false } = {}) => {
+                        if (menu.hidden) return;
+
+                        menu.hidden = true;
+                        menu.style.maxHeight = "";
+                        wrapper.classList.remove("is-open", "is-up");
+                        button.setAttribute("aria-expanded", "false");
+                        button.removeAttribute("aria-activedescendant");
+                        optionEls.forEach((option) => {
+                            option.classList.remove("is-active");
+                        });
+                        activeIndex = -1;
+
+                        if (closeOpenSelect === close) {
+                            closeOpenSelect = null;
+                        }
+
+                        if (focus) button.focus();
+                    };
+
+                    const open = () => {
+                        if (!menu.hidden) return;
+
+                        if (closeOpenSelect && closeOpenSelect !== close) {
+                            closeOpenSelect();
+                        }
+
+                        closeOpenSelect = close;
+                        menu.hidden = false;
+                        menu.style.maxHeight = "";
+                        wrapper.classList.add("is-open");
+                        button.setAttribute("aria-expanded", "true");
+
+                        const buttonRect = button.getBoundingClientRect();
+                        const menuHeight = menu.offsetHeight;
+                        const spaceBelow =
+                            window.innerHeight - buttonRect.bottom - 16;
+                        const spaceAbove = buttonRect.top - 16;
+                        const openUp =
+                            spaceBelow < menuHeight &&
+                            spaceAbove > spaceBelow;
+
+                        wrapper.classList.toggle("is-up", openUp);
+                        menu.style.maxHeight = `${Math.max(
+                            120,
+                            Math.min(
+                                256,
+                                openUp ? spaceAbove : spaceBelow,
+                            ),
+                        )}px`;
+
+                        const selectedIndex = optionEls.findIndex(
+                            (option) =>
+                                option.dataset.value === native.value,
+                        );
+
+                        setActive(selectedIndex >= 0 ? selectedIndex : 0);
+                    };
+
+                    const selectOption = (index) => {
+                        const option = optionEls[index];
+
+                        if (!option) return;
+
+                        native.value = option.dataset.value;
+                        native.dispatchEvent(
+                            new Event("change", { bubbles: true }),
+                        );
+                        close({ focus: true });
+                    };
+
+                    button.addEventListener("click", () => {
+                        if (menu.hidden) {
+                            open();
+                        } else {
+                            close();
+                        }
+                    });
+
+                    button.addEventListener("keydown", (event) => {
+                        if (event.key === "ArrowDown") {
+                            event.preventDefault();
+                            if (menu.hidden) {
+                                open();
+                            } else {
+                                setActive(activeIndex + 1);
+                            }
+                        } else if (event.key === "ArrowUp") {
+                            event.preventDefault();
+                            if (menu.hidden) {
+                                open();
+                            } else {
+                                setActive(activeIndex - 1);
+                            }
+                        } else if (event.key === "Home") {
+                            if (!menu.hidden) {
+                                event.preventDefault();
+                                setActive(0);
+                            }
+                        } else if (event.key === "End") {
+                            if (!menu.hidden) {
+                                event.preventDefault();
+                                setActive(optionEls.length - 1);
+                            }
+                        } else if (
+                            event.key === "Enter" ||
+                            event.key === " "
+                        ) {
+                            event.preventDefault();
+                            if (menu.hidden) {
+                                open();
+                            } else {
+                                selectOption(activeIndex);
+                            }
+                        } else if (event.key === "Escape") {
+                            if (!menu.hidden) {
+                                event.preventDefault();
+                                close({ focus: true });
+                            }
+                        } else if (event.key === "Tab") {
+                            close();
+                        }
+                    });
+
+                    optionEls.forEach((option, index) => {
+                        option.addEventListener("mouseenter", () => {
+                            setActive(index);
+                        });
+                        option.addEventListener("mousedown", (event) => {
+                            event.preventDefault();
+                        });
+                        option.addEventListener("click", () => {
+                            selectOption(index);
+                        });
+                    });
+
+                    menu.addEventListener("keydown", (event) => {
+                        if (event.key === "Escape") {
+                            event.preventDefault();
+                            close({ focus: true });
+                        }
+                    });
+
+                    document.addEventListener("pointerdown", (event) => {
+                        if (
+                            !menu.hidden &&
+                            !wrapper.contains(event.target)
+                        ) {
+                            close();
+                        }
+                    });
+
+                    if (label) {
+                        label.addEventListener("click", (event) => {
+                            if (!wrapper.classList.contains("is-enhanced")) {
+                                return;
+                            }
+
+                            event.preventDefault();
+                            button.focus();
+                        });
+                    }
+
+                    native.addEventListener("change", updateDisplay);
+
+                    wrapper.append(button, menu);
+                    wrapper.classList.add("is-enhanced");
+                    native.tabIndex = -1;
+                    native.setAttribute("aria-hidden", "true");
+                    updateDisplay();
+                };
+
+                document
+                    .querySelectorAll("[data-select]")
+                    .forEach(enhanceSelect);
+
+                const quantity = form.querySelector("[data-quantity]");
+
+                if (quantity) {
+                    const input = quantity.querySelector("input");
+                    const decrease = quantity.querySelector(
+                        "[data-quantity-decrease]",
+                    );
+                    const increase = quantity.querySelector(
+                        "[data-quantity-increase]",
+                    );
+                    const visual = quantity.querySelector(
+                        "[data-quantity-visual]",
+                    );
+                    const label = quantity.querySelector(
+                        "[data-quantity-label]",
+                    );
+
+                    if (input && decrease && increase && visual && label) {
+                        const min = Number(input.min) || 1;
+                        const max = Number(input.max) || 10;
+
+                        const render = (count) => {
+                            const total = Math.min(
+                                max,
+                                Math.max(min, Math.round(count)),
+                            );
+
+                            visual.replaceChildren();
+
+                            for (let index = 0; index < total; index += 1) {
+                                const bike = document.createElement("span");
+                                bike.className =
+                                    "icon reservas-quantity__bike";
+                                bike.setAttribute("aria-hidden", "true");
+                                bike.textContent = "pedal_bike";
+                                visual.append(bike);
+                            }
+
+                            label.textContent = `${total} ${
+                                total === 1 ? "bicicleta" : "bicicletas"
+                            }`;
+                            decrease.disabled = total <= min;
+                            increase.disabled = total >= max;
+                        };
+
+                        const setCount = (value, dispatch = false) => {
+                            const count = Math.min(
+                                max,
+                                Math.max(
+                                    min,
+                                    Math.round(Number(value) || min),
+                                ),
+                            );
+
+                            input.value = String(count);
+                            render(count);
+
+                            if (dispatch) {
+                                input.dispatchEvent(
+                                    new Event("input", { bubbles: true }),
+                                );
+                            }
+                        };
+
+                        decrease.addEventListener("click", () => {
+                            setCount(Number(input.value) - 1, true);
+                        });
+
+                        increase.addEventListener("click", () => {
+                            setCount(Number(input.value) + 1, true);
+                        });
+
+                        input.addEventListener("focus", () => {
+                            input.select();
+                        });
+
+                        input.addEventListener("input", () => {
+                            const value = Number(input.value);
+
+                            if (
+                                Number.isFinite(value) &&
+                                value >= min &&
+                                value <= max
+                            ) {
+                                render(value);
+                            }
+                        });
+
+                        input.addEventListener("change", () => {
+                            setCount(input.value, true);
+                        });
+
+                        input.addEventListener("blur", () => {
+                            setCount(input.value);
+                        });
+
+                        setCount(input.value);
+                    }
+                }
+
+                const isFieldControl = (element) =>
+                    element instanceof Element &&
+                    element.matches("input, select, textarea");
+
+                const getField = (control) => control.closest("[data-field]");
+
+                const getDisplayControl = (control) => {
+                    const field = getField(control);
+
+                    if (!field) return control;
+
+                    if (control.matches("select")) {
+                        return (
+                            field.querySelector(".reservas-select__button") ||
+                            control
+                        );
+                    }
+
+                    return control;
+                };
+
+                const showError = (control, message) => {
+                    const field = getField(control);
+
+                    if (!field) return;
+
+                    const error = field.querySelector(
+                        ".reservas-form__error",
+                    );
+
+                    if (!error) return;
+
+                    const display = getDisplayControl(control);
+
+                    if (!message) {
+                        field.classList.remove("is-invalid");
+                        error.replaceChildren();
+                        display.removeAttribute("aria-invalid");
+                        return;
+                    }
+
+                    field.classList.add("is-invalid");
+
+                    const icon = document.createElement("span");
+                    icon.className = "icon reservas-form__error-icon";
+                    icon.setAttribute("aria-hidden", "true");
+                    icon.textContent = "error";
+
+                    const text = document.createElement("span");
+                    text.textContent = message;
+
+                    error.replaceChildren(icon, text);
+                    display.setAttribute("aria-invalid", "true");
+                };
+
+                const getErrorMessage = (control) => {
+                    const validity = control.validity;
+
+                    if (validity.valueMissing) {
+                        return (
+                            REQUIRED_MESSAGES[control.name] ||
+                            "Completa este campo."
+                        );
+                    }
+
+                    if (
+                        control.name === "nombre" &&
+                        control.value.trim().length < 1
+                    ) {
+                        return "Escribe tu nombre completo.";
+                    }
+
+                    if (
+                        control.name === "email" &&
+                        validity.typeMismatch
+                    ) {
+                        return "Escribe un correo electrónico válido.";
+                    }
+
+                    if (control.name === "telefono") {
+                        const digits = control.value.replace(/\D/g, "");
+                        const phoneFormat = /^[+\d\s().-]+$/;
+
+                        if (
+                            digits.length < 7 ||
+                            digits.length > 15 ||
+                            !phoneFormat.test(control.value.trim())
+                        ) {
+                            return "Escribe un teléfono válido (entre 7 y 15 dígitos).";
+                        }
+                    }
+
+                    if (
+                        control.name === "fecha" &&
+                        (validity.rangeUnderflow || validity.badInput)
+                    ) {
+                        return "Elige una fecha de hoy en adelante.";
+                    }
+
+                    if (
+                        control.name === "hora" &&
+                        (validity.rangeUnderflow ||
+                            validity.rangeOverflow ||
+                            validity.badInput)
+                    ) {
+                        return "Elige una hora dentro del horario de atención.";
+                    }
+
+                    if (
+                        control.name === "hora" &&
+                        validity.stepMismatch
+                    ) {
+                        return "Elige una hora en intervalos de 15 minutos.";
+                    }
+
+                    if (
+                        control.name === "cantidad" &&
+                        (validity.rangeUnderflow ||
+                            validity.rangeOverflow ||
+                            validity.stepMismatch ||
+                            validity.badInput)
+                    ) {
+                        return "Elige entre 1 y 10 bicicletas.";
+                    }
+
+                    if (validity.customError) {
+                        return control.validationMessage;
+                    }
+
+                    return "";
+                };
+
+                const validateControl = (control) => {
+                    const message = getErrorMessage(control);
+                    showError(control, message);
+                    return message === "";
+                };
+
+                const validateAll = () => {
+                    let firstInvalid = null;
+
+                    form.querySelectorAll("[data-field]").forEach((field) => {
+                        const control = field.querySelector(
+                            "input, select, textarea",
+                        );
+
+                        if (!control) return;
+
+                        if (!validateControl(control) && !firstInvalid) {
+                            firstInvalid = getDisplayControl(control);
+                        }
+                    });
+
+                    return firstInvalid;
+                };
+
+                form.noValidate = true;
+
+                form.addEventListener("input", (event) => {
+                    clearStatus();
+
+                    if (!isFieldControl(event.target)) return;
+
+                    const field = getField(event.target);
+
+                    if (
+                        field &&
+                        field.classList.contains("is-invalid")
+                    ) {
+                        validateControl(event.target);
+                    }
+                });
+
+                form.addEventListener("change", (event) => {
+                    clearStatus();
+
+                    if (!isFieldControl(event.target)) return;
+
+                    const field = getField(event.target);
+
+                    if (
+                        field &&
+                        field.querySelector(".reservas-form__error")
+                    ) {
+                        validateControl(event.target);
+                    }
+                });
+
+                form.addEventListener("focusout", (event) => {
+                    if (!isFieldControl(event.target)) return;
+
+                    const field = getField(event.target);
+
+                    if (
+                        field &&
+                        field.querySelector(".reservas-form__error")
+                    ) {
+                        validateControl(event.target);
+                    }
+                });
 
                 form.addEventListener("submit", (event) => {
                     event.preventDefault();
+                    clearStatus();
 
-                    if (!form.reportValidity()) return;
+                    const firstInvalid = validateAll();
+
+                    if (firstInvalid) {
+                        firstInvalid.focus({ preventScroll: true });
+                        firstInvalid.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center",
+                        });
+                        return;
+                    }
 
                     const data = new FormData(form);
                     const value = (name) =>
@@ -928,18 +1851,36 @@
                         subject,
                     )}&body=${encodeURIComponent(lines.join("\n"))}`;
 
+                    const copy = document.createElement("span");
+                    copy.className = "reservas-form__status-copy";
+
+                    const icon = document.createElement("span");
+                    icon.className = "icon reservas-form__status-icon";
+                    icon.setAttribute("aria-hidden", "true");
+                    icon.textContent = "mark_email_read";
+
                     const message = document.createElement("span");
                     message.textContent =
                         "Tu solicitud está lista. Abre tu aplicación de correo y envíala; te confirmaremos la disponibilidad lo antes posible.";
 
+                    copy.append(icon, message);
+
                     const link = document.createElement("a");
                     link.className = "reservas-form__status-link";
                     link.href = mailto;
-                    link.textContent = "Abrir correo con mi solicitud";
 
-                    status.replaceChildren(message, link);
+                    const linkIcon = document.createElement("span");
+                    linkIcon.className = "icon";
+                    linkIcon.setAttribute("aria-hidden", "true");
+                    linkIcon.textContent = "mail";
+
+                    const linkText = document.createElement("span");
+                    linkText.textContent = "Abrir correo con mi solicitud";
+
+                    link.append(linkIcon, linkText);
+                    status.replaceChildren(copy, link);
                     status.classList.add("is-visible");
-                    status.focus();
+                    status.focus({ preventScroll: true });
                 });
             })();
         </script>

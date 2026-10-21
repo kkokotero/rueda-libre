@@ -106,10 +106,51 @@ Se incorporó un formulario en reservas/index.html, dentro de la sección #formu
 Incluye nombre, correo, teléfono, fecha, hora, tipo de bicicleta, cantidad,
 duración, recorrido de interés, comentarios y aceptación del contacto.
 
-El formulario usa validación nativa de HTML, establece la fecha mínima en el
-navegador y, al enviar datos válidos, prepara un correo a hola@ruedalibre.example
-con toda la solicitud. El visitante debe abrir su aplicación de correo y enviarlo.
-Si algún campo obligatorio falta, el navegador lo indica y no se prepara el correo.
+El formulario conserva la validación nativa de HTML como respaldo y, cuando
+JavaScript está disponible, muestra mensajes de error propios junto a cada campo.
+También establece la fecha mínima en el navegador y, al enviar datos válidos,
+prepara un correo a hola@ruedalibre.example con toda la solicitud. El visitante
+debe abrir su aplicación de correo y enviarlo. Si algún campo obligatorio falta,
+no se prepara el correo.
 
 Prueba realizada: el envío vacío se bloquea; con datos válidos se muestra el
 mensaje de confirmación y el enlace mailto con la información de la reserva.
+
+MEJORA DE INTERFAZ Y VALIDACIÓN DEL FORMULARIO
+
+Se actualizó el formulario de reservas con una interfaz más clara y accesible:
+
+- Iconos en las leyendas de sección, en los campos, en las opciones de los
+  selectores y en los botones de acción.
+- Selectores personalizados para tipo de bicicleta, duración y recorrido. La
+  lista se puede abrir con el ratón o el teclado, recorre las opciones con las
+  flechas, selecciona con Enter o Espacio y se cierra con Escape o al hacer clic
+  fuera. Conserva el <select> nativo oculto para el envío del formulario y como
+  respaldo cuando JavaScript no está disponible.
+- Cantidad de bicicletas dinámica: botones con iconos para aumentar o disminuir,
+  entrada numérica editable y una fila de iconos de bicicleta que representa la
+  cantidad elegida (de 1 a 10).
+- Mensajes de error específicos debajo de cada campo, con icono, borde de error,
+  aria-invalid y asociación mediante aria-describedby. Se validan nombre, correo,
+  teléfono, fecha, hora, tipo, cantidad, duración y aceptación del contacto.
+- La fecha mínima se calcula con la fecha local del navegador. La hora se valida
+  dentro de las 6:00 a. m. y las 7:00 p. m. y en intervalos de 15 minutos.
+- Validación al salir de cada campo, al cambiar una opción y al enviar. Si hay
+  errores, el foco se lleva al primer campo inválido y se evita preparar el correo.
+- El select personalizado se abre hacia arriba cuando no hay espacio suficiente
+  debajo, y su altura se limita al espacio disponible en la ventana.
+
+Pruebas realizadas:
+
+- Envío vacío: se muestran los ocho errores de campos obligatorios y el foco
+  queda en el nombre; no se genera el correo.
+- Correo y teléfono inválidos: se muestran mensajes específicos.
+- Selector de tipo: apertura, navegación con flechas, selección con Enter, cierre
+  con Escape y con clic fuera; el valor se sincroniza con el <select> nativo.
+- Cantidad: los botones y la entrada numérica actualizan el número de iconos y el
+  texto "N bicicleta(s)"; los límites de 1 y 10 deshabilitan el botón respectivo.
+- Envío válido: se muestra el estado de confirmación y el enlace mailto incluye
+  todos los datos de la reserva.
+- Diseño responsivo: sin desbordamiento horizontal y con el menú del selector
+  dentro de la ventana en anchos de escritorio, tableta y móvil.
+- No se produjeron errores 404 ni fallos de red en los recursos del sitio.
