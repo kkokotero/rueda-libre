@@ -5,6 +5,25 @@
     if (!form || !status) return;
 
     const dateField = form.elements.namedItem("fecha");
+    const documentNumber = form.elements.namedItem("documento");
+    const phoneNumber = form.elements.namedItem("telefono");
+
+    if (documentNumber instanceof HTMLInputElement) {
+        documentNumber.addEventListener("input", () => {
+            documentNumber.value = documentNumber.value.replace(
+                /[^0-9]/g,
+                "",
+            );
+        });
+    }
+
+    if (phoneNumber instanceof HTMLInputElement) {
+        phoneNumber.addEventListener("input", () => {
+            phoneNumber.value = phoneNumber.value
+                .replace(/[^0-9]/g, "")
+                .slice(0, 12);
+        });
+    }
 
     if (dateField) {
         const now = new Date();
@@ -16,8 +35,11 @@
 
     const REQUIRED_MESSAGES = {
         nombre: "Escribe tu nombre completo.",
+        tipo_documento: "Selecciona el tipo de documento.",
+        documento: "Escribe tu número de documento.",
+        metodo_contacto: "Elige cómo prefieres que te contactemos.",
         email: "Escribe tu correo electrónico.",
-        telefono: "Escribe tu teléfono o WhatsApp.",
+        telefono: "Escribe tu teléfono.",
         fecha: "Elige la fecha de inicio.",
         hora: "Elige la hora de inicio.",
         tipo: "Selecciona el tipo de bicicleta.",
@@ -1977,7 +1999,7 @@
 
         if (input && decrease && increase && label) {
             const min = Number(input.min) || 1;
-            const max = Number(input.max) || 10;
+            const max = Number(input.max) || 6;
 
             const render = (count) => {
                 const total = Math.min(
@@ -2125,6 +2147,13 @@
         }
 
         if (
+            control.name === "documento" &&
+            control.value.trim().length < 1
+        ) {
+            return "Escribe tu número de documento.";
+        }
+
+        if (
             control.name === "email" &&
             validity.typeMismatch
         ) {
@@ -2132,15 +2161,8 @@
         }
 
         if (control.name === "telefono") {
-            const digits = control.value.replace(/\D/g, "");
-            const phoneFormat = /^[+\d\s().-]+$/;
-
-            if (
-                digits.length < 7 ||
-                digits.length > 15 ||
-                !phoneFormat.test(control.value.trim())
-            ) {
-                return "Escribe un teléfono válido (entre 7 y 15 dígitos).";
+            if (validity.patternMismatch) {
+                return "Escribe un número colombiano válido: celular o fijo, con o sin prefijo 57.";
             }
         }
 
@@ -2174,7 +2196,7 @@
                 validity.stepMismatch ||
                 validity.badInput)
         ) {
-            return "Elige entre 1 y 10 bicicletas.";
+            return "Elige entre 1 y 6 bicicletas.";
         }
 
         if (validity.customError) {
@@ -2273,13 +2295,22 @@
             String(data.get(name) || "").trim();
         const name = value("nombre");
         const date = value("fecha");
+        const preferredContact = value("metodo_contacto");
+        const preferredContactLabel = {
+            cualquiera: "Cualquier medio",
+            email: "Correo",
+            telefono: "Teléfono",
+        }[preferredContact];
         const subject = `Solicitud de reserva - ${name} - ${date}`;
         const lines = [
             "Hola, quiero reservar una bicicleta.",
             "",
             `Nombre: ${name}`,
+            `Tipo de documento: ${value("tipo_documento")}`,
+            `Número de documento: ${value("documento")}`,
+            `Método de contacto preferido: ${preferredContactLabel}`,
             `Correo: ${value("email")}`,
-            `Teléfono / WhatsApp: ${value("telefono")}`,
+            `Teléfono: ${value("telefono")}`,
             `Fecha de inicio: ${date}`,
             `Hora de inicio: ${value("hora")}`,
             `Tipo de bicicleta: ${value("tipo")}`,

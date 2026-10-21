@@ -2398,7 +2398,7 @@ body {
 
 .reservas-form {
     display: grid;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .reservas-form__group {
@@ -2410,14 +2410,18 @@ body {
 
 .reservas-form__legend {
     display: flex;
+    width: 100%;
     align-items: center;
     gap: 0.45rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.95rem;
+    padding-bottom: 0.75rem;
     color: var(--color-on-surface-variant);
     font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    border-bottom: 1px solid
+        color-mix(in oklab, var(--color-outline-variant) 35%, transparent);
 }
 
 .reservas-form__legend-icon {
@@ -2429,7 +2433,7 @@ body {
 .reservas-form__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 1rem 1.1rem;
 }
 
 .reservas-form__field {
@@ -2437,6 +2441,10 @@ body {
     min-width: 0;
     flex-direction: column;
     gap: 0.4rem;
+}
+
+.reservas-form__field[hidden] {
+    display: none;
 }
 
 .reservas-form__field--full {
@@ -3426,6 +3434,15 @@ body.has-picker-modal {
     display: flex;
     align-items: flex-start;
     gap: 0.65rem;
+    padding: 1rem;
+    background-color: color-mix(
+        in oklab,
+        var(--color-surface-container-highest) 38%,
+        transparent
+    );
+    border: 1px solid
+        color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+    border-radius: 0.9rem;
     color: var(--color-on-surface-variant);
     font-size: 0.88rem;
     line-height: 1.55;
@@ -3452,20 +3469,29 @@ body.has-picker-modal {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.25rem;
+    padding-top: 0.35rem;
 }
 
 .reservas-form__submit {
     border: 0;
     cursor: pointer;
-    width: 100%;
+    width: auto;
+    min-width: 15rem;
 }
 
 .reservas-form__note {
     max-width: 44rem;
+    margin: 0;
     color: var(--color-on-surface-variant);
     font-size: 0.8rem;
     line-height: 1.55;
+}
+
+.reservas-form__footer {
+    display: grid;
+    gap: 0.9rem;
+    padding-top: 0.2rem;
 }
 
 .reservas-form__status {
@@ -4290,6 +4316,7 @@ body.has-picker-modal {
 
     .reservas-form__submit {
         width: 100%;
+        min-width: 0;
     }
 
     .tarifas-table-cta {

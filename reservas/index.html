@@ -369,6 +369,158 @@
 
                             <div
                                 class="reservas-form__field"
+                                data-field="tipo_documento"
+                            >
+                                <label
+                                    class="reservas-form__label"
+                                    id="reserva-tipo-documento-label"
+                                    for="reserva-tipo-documento"
+                                >
+                                    Tipo de documento
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <div class="reservas-select" data-select>
+                                    <select
+                                        class="reservas-form__select reservas-select__native"
+                                        id="reserva-tipo-documento"
+                                        name="tipo_documento"
+                                        aria-describedby="reserva-tipo-documento-error"
+                                        required
+                                    >
+                                        <option value="" disabled selected>
+                                            Selecciona el tipo de documento
+                                        </option>
+                                        <option
+                                            value="Cédula de ciudadanía"
+                                            data-icon="badge"
+                                        >
+                                            Cédula de ciudadanía
+                                        </option>
+                                        <option
+                                            value="Cédula de extranjería"
+                                            data-icon="badge"
+                                        >
+                                            Cédula de extranjería
+                                        </option>
+                                        <option
+                                            value="Tarjeta de Identidad"
+                                            data-icon="id_card"
+                                        >
+                                            Tarjeta de Identidad
+                                        </option>
+                                        <option
+                                            value="Pasaporte"
+                                            data-icon="passport"
+                                        >
+                                            Pasaporte
+                                        </option>
+                                        <option value="Otro" data-icon="id_card">
+                                            Otro
+                                        </option>
+                                    </select>
+                                </div>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-tipo-documento-error"
+                                    aria-live="polite"
+                                ></p>
+                            </div>
+
+                            <div
+                                class="reservas-form__field"
+                                data-field="documento"
+                            >
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-documento"
+                                >
+                                    Número de documento
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <div class="reservas-form__control">
+                                    <span
+                                        class="icon reservas-form__control-icon"
+                                        aria-hidden="true"
+                                        >badge</span
+                                    >
+                                    <input
+                                        class="reservas-form__input"
+                                        id="reserva-documento"
+                                        name="documento"
+                                        type="text"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
+                                        autocomplete="off"
+                                        placeholder="Escribe tu número"
+                                        aria-describedby="reserva-documento-error"
+                                        required
+                                    />
+                                </div>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-documento-error"
+                                    aria-live="polite"
+                                ></p>
+                            </div>
+
+                            <div
+                                class="reservas-form__field"
+                                data-field="telefono"
+                            >
+                                <label
+                                    class="reservas-form__label"
+                                    for="reserva-telefono"
+                                >
+                                    Teléfono
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </label>
+                                <div class="reservas-form__control">
+                                    <span
+                                        class="icon reservas-form__control-icon"
+                                        aria-hidden="true"
+                                        >call</span
+                                    >
+                                    <input
+                                        class="reservas-form__input"
+                                        id="reserva-telefono"
+                                        name="telefono"
+                                        type="tel"
+                                        autocomplete="tel"
+                                        inputmode="numeric"
+                                        pattern="(57)?(3[0-9]{9}|60[0-9]{8})"
+                                        placeholder="3001234567"
+                                        aria-describedby="reserva-telefono-hint reserva-telefono-error"
+                                        required
+                                    />
+                                </div>
+                                <p
+                                    class="reservas-form__hint"
+                                    id="reserva-telefono-hint"
+                                >
+                                    Número colombiano celular o fijo, con o sin
+                                    prefijo 57.
+                                </p>
+                                <p
+                                    class="reservas-form__error"
+                                    id="reserva-telefono-error"
+                                    aria-live="polite"
+                                ></p>
+                            </div>
+
+                            <div
+                                class="reservas-form__field"
                                 data-field="email"
                             >
                                 <label
@@ -403,46 +555,6 @@
                                 <p
                                     class="reservas-form__error"
                                     id="reserva-email-error"
-                                    aria-live="polite"
-                                ></p>
-                            </div>
-
-                            <div
-                                class="reservas-form__field"
-                                data-field="telefono"
-                            >
-                                <label
-                                    class="reservas-form__label"
-                                    for="reserva-telefono"
-                                >
-                                    Teléfono / WhatsApp
-                                    <span
-                                        class="reservas-form__required"
-                                        aria-hidden="true"
-                                        >*</span
-                                    >
-                                </label>
-                                <div class="reservas-form__control">
-                                    <span
-                                        class="icon reservas-form__control-icon"
-                                        aria-hidden="true"
-                                        >call</span
-                                    >
-                                    <input
-                                        class="reservas-form__input"
-                                        id="reserva-telefono"
-                                        name="telefono"
-                                        type="tel"
-                                        autocomplete="tel"
-                                        inputmode="tel"
-                                        placeholder="+57 300 000 0000"
-                                        aria-describedby="reserva-telefono-error"
-                                        required
-                                    />
-                                </div>
-                                <p
-                                    class="reservas-form__error"
-                                    id="reserva-telefono-error"
                                     aria-live="polite"
                                 ></p>
                             </div>
@@ -648,6 +760,7 @@
                                             name="cantidad"
                                             type="number"
                                             min="1"
+                                            max="6"
                                             value="1"
                                             inputmode="numeric"
                                             aria-describedby="reserva-cantidad-error"
@@ -839,56 +952,101 @@
                         </div>
                     </fieldset>
 
-                    <div
-                        class="reservas-form__field reservas-form__field--full"
-                        data-field="consentimiento"
-                    >
-                        <label
-                            class="reservas-form__consent"
-                            for="reserva-consentimiento"
+                    <div class="reservas-form__footer">
+                        <div
+                            class="reservas-form__field reservas-form__field--full"
+                            data-field="metodo_contacto"
                         >
-                            <input
-                                id="reserva-consentimiento"
-                                name="consentimiento"
-                                type="checkbox"
-                                aria-describedby="reserva-consentimiento-error"
-                                required
-                            />
-                            <span
-                                class="icon reservas-form__consent-icon"
-                                aria-hidden="true"
-                                >verified_user</span
+                            <label
+                                class="reservas-form__label"
+                                for="reserva-metodo-contacto"
                             >
-                            <span>
-                                Acepto que Rueda Libre me contacte por correo o
-                                teléfono para gestionar esta reserva.
-                                <span
-                                    class="reservas-form__required"
-                                    aria-hidden="true"
-                                    >*</span
+                                ¿Cómo prefieres que te contactemos?
+                            </label>
+                            <div class="reservas-select" data-select>
+                                <select
+                                    class="reservas-form__select reservas-select__native"
+                                    id="reserva-metodo-contacto"
+                                    name="metodo_contacto"
+                                    aria-describedby="reserva-metodo-contacto-error"
+                                    required
                                 >
-                            </span>
-                        </label>
-                        <p
-                            class="reservas-form__error"
-                            id="reserva-consentimiento-error"
-                            aria-live="polite"
-                        ></p>
-                    </div>
+                                    <option
+                                        value="cualquiera"
+                                        selected
+                                        data-icon="swap_horiz"
+                                    >
+                                        Cualquier medio
+                                    </option>
+                                    <option value="telefono" data-icon="call">
+                                        Teléfono
+                                    </option>
+                                    <option
+                                        value="email"
+                                        data-icon="alternate_email"
+                                    >
+                                        Correo
+                                    </option>
+                                </select>
+                            </div>
+                            <p
+                                class="reservas-form__error"
+                                id="reserva-metodo-contacto-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
 
-                    <div class="reservas-form__actions">
-                        <button
-                            class="tarifas-button tarifas-button--primary reservas-form__submit"
-                            type="submit"
+                        <div
+                            class="reservas-form__field reservas-form__field--full"
+                            data-field="consentimiento"
                         >
-                            <span class="icon" aria-hidden="true">send</span>
-                            Solicitar reserva
-                        </button>
-                        <p class="reservas-form__note">
-                            * Campos obligatorios. Al enviar, prepararemos un
-                            correo con tus datos; la reserva queda confirmada
-                            cuando te respondamos.
-                        </p>
+                            <label
+                                class="reservas-form__consent"
+                                for="reserva-consentimiento"
+                            >
+                                <input
+                                    id="reserva-consentimiento"
+                                    name="consentimiento"
+                                    type="checkbox"
+                                    aria-describedby="reserva-consentimiento-error"
+                                    required
+                                />
+                                <span
+                                    class="icon reservas-form__consent-icon"
+                                    aria-hidden="true"
+                                    >verified_user</span
+                                >
+                                <span>
+                                    Acepto que Rueda Libre me contacte por correo o
+                                    teléfono para gestionar esta reserva.
+                                    <span
+                                        class="reservas-form__required"
+                                        aria-hidden="true"
+                                        >*</span
+                                    >
+                                </span>
+                            </label>
+                            <p
+                                class="reservas-form__error"
+                                id="reserva-consentimiento-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <div class="reservas-form__actions">
+                            <button
+                                class="tarifas-button tarifas-button--primary reservas-form__submit"
+                                type="submit"
+                            >
+                                <span class="icon" aria-hidden="true">send</span>
+                                Solicitar reserva
+                            </button>
+                            <p class="reservas-form__note">
+                                * Campos obligatorios. Al enviar, prepararemos
+                                un correo con tus datos; la reserva queda
+                                confirmada cuando te respondamos.
+                            </p>
+                        </div>
                     </div>
 
                     <p
