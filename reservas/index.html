@@ -231,38 +231,6 @@
                 aria-label="Datos de contacto y horario de atención"
             >
                 <div class="reservas-info__grid">
-                    <article id="contacto" class="reservas-card">
-                        <div class="reservas-card__head">
-                            <span class="reservas-card__icon" aria-hidden="true">
-                                <span class="icon">mail</span>
-                            </span>
-                            <h2 class="reservas-card__title">Contacto</h2>
-                        </div>
-
-                        <p class="reservas-card__text">
-                            Escríbenos para reservar tu bicicleta o resolver
-                            cualquier duda sobre alquileres y recorridos.
-                        </p>
-
-                        <a
-                            class="found-us--button found-us--button__primary"
-                            href="mailto:hola@ruedalibre.example"
-                        >
-                            <span
-                                class="icon found-us--button__icon"
-                                aria-hidden="true"
-                                >mail</span
-                            >
-                            <span class="found-us--button__label"
-                                >hola@ruedalibre.example</span
-                            >
-                            <span
-                                class="icon found-us--button__arrow"
-                                aria-hidden="true"
-                                >arrow_forward</span
-                            >
-                        </a>
-                    </article>
 
                     <article class="reservas-card">
                         <div class="reservas-card__head">
@@ -274,16 +242,108 @@
                             </h2>
                         </div>
 
-                        <dl class="reservas-hours">
-                            <div class="reservas-hours__row">
-                                <dt>Lunes a viernes</dt>
-                                <dd>7:00 a. m. a 7:00 p. m.</dd>
-                            </div>
-                            <div class="reservas-hours__row">
-                                <dt>Sábados, domingos y festivos</dt>
-                                <dd>6:00 a. m. a 2:00 p. m.</dd>
-                            </div>
-                        </dl>
+                        <div class="tarifas-info__times">
+                        <article
+                        class="tarifas-info__card tarifas-info__card--schedule"
+                    >
+
+                        <div
+                            class="tarifas-info__week"
+                            role="img"
+                            aria-label="Los recorridos salen los sábados y domingos"
+                        >
+                            <span class="tarifas-info__weekday tarifas-info__weekday--active">Lun</span>
+                            <span class="tarifas-info__weekday tarifas-info__weekday--active">Mar</span>
+                            <span class="tarifas-info__weekday tarifas-info__weekday--active">Mié</span>
+                            <span class="tarifas-info__weekday tarifas-info__weekday--active">Jue</span>
+                            <span class="tarifas-info__weekday tarifas-info__weekday--active">Vie</span>
+                            <span
+                                class="tarifas-info__weekday"
+                                >Sáb</span
+                            >
+                            <span
+                                class="tarifas-info__weekday"
+                                >Dom</span
+                            >
+                        </div>
+
+                        <div class="tarifas-info__times">
+                            <p class="tarifas-info__time">
+                            <span class="tarifas-info__time-label"
+                                >Las salidas comienzan a las</span
+                            >
+                            <span class="tarifas-info__time-value">
+                                <span class="icon" aria-hidden="true"
+                                    >schedule</span
+                                >
+                                7:00 a. m.
+                            </span>
+                        </p>
+
+                        <p class="tarifas-info__time">
+                            <span class="tarifas-info__time-label"
+                                >Y terminan a las</span
+                            >
+                            <span class="tarifas-info__time-value">
+                                <span class="icon" aria-hidden="true"
+                                    >schedule</span
+                                >
+                                7:00 p. m.
+                            </span>
+                        </p>
+                        </div>
+                    </article>
+
+                     <article
+                        class="tarifas-info__card tarifas-info__card--schedule"
+                    >
+
+                        <div
+                            class="tarifas-info__week"
+                            role="img"
+                            aria-label="Los recorridos salen los sábados y domingos"
+                        >
+                            <span class="tarifas-info__weekday">Lun</span>
+                            <span class="tarifas-info__weekday">Mar</span>
+                            <span class="tarifas-info__weekday">Mié</span>
+                            <span class="tarifas-info__weekday">Jue</span>
+                            <span class="tarifas-info__weekday">Vie</span>
+                            <span
+                                class="tarifas-info__weekday tarifas-info__weekday--active"
+                                >Sáb</span
+                            >
+                            <span
+                                class="tarifas-info__weekday tarifas-info__weekday--active"
+                                >Dom</span
+                            >
+                        </div>
+
+                        <div class="tarifas-info__times">
+                            <p class="tarifas-info__time">
+                            <span class="tarifas-info__time-label"
+                                >Las salidas comienzan a las</span
+                            >
+                            <span class="tarifas-info__time-value">
+                                <span class="icon" aria-hidden="true"
+                                    >schedule</span
+                                >
+                                6:00 a. m.
+                            </span>
+                        </p>
+
+                        <p class="tarifas-info__time">
+                            <span class="tarifas-info__time-label"
+                                >Y terminan a las</span
+                            >
+                            <span class="tarifas-info__time-value">
+                                <span class="icon" aria-hidden="true"
+                                    >schedule</span
+                                >
+                                2:00 p. m.
+                            </span>
+                        </p>
+                        </div>
+                    </article>
                     </article>
                 </div>
             </section>
@@ -1058,6 +1118,67 @@
                         tabindex="-1"
                     ></p>
                 </form>
+            </section>
+            <section
+                class="reservas-info"
+                aria-label="Datos de contacto y horario de atención"
+            >
+                <div class="reservas-info__grid">
+                    <article id="contacto" class="reservas-card">
+                        <div class="reservas-card__head">
+                            <span class="reservas-card__icon" aria-hidden="true">
+                                <span class="icon">mail</span>
+                            </span>
+                            <h2 class="reservas-card__title">Contacto</h2>
+                        </div>
+
+                        <p class="reservas-card__text">
+                            Escríbenos para reservar tu bicicleta o resolver
+                            cualquier duda sobre alquileres y recorridos.
+                        </p>
+
+                        <div class="found-us--buttons">
+                        <a
+                            class="found-us--button found-us--button__primary"
+                            href="mailto:hola@ruedalibre.example"
+                        >
+                            <span
+                                class="icon found-us--button__icon"
+                                aria-hidden="true"
+                                >mail</span
+                            >
+                            <span class="found-us--button__label"
+                                >hola@ruedalibre.example</span
+                            >
+                            <span
+                                class="icon found-us--button__arrow"
+                                aria-hidden="true"
+                                >arrow_forward</span
+                            >
+                        </a>
+                                            <a
+                        class="found-us--button found-us--button__secondary"
+                        href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span
+                            class="icon found-us--button__icon"
+                            aria-hidden="true"
+                            >location_on</span
+                        >
+                        <span class="found-us--button__label"
+                            >Ver ubicación en Google Maps</span
+                        >
+                        <span
+                            class="icon found-us--button__arrow"
+                            aria-hidden="true"
+                            >open_in_new</span
+                        >
+                    </a>
+                    </div>
+                    </article>
+                </div>
             </section>
         </main>
 

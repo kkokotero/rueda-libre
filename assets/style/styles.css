@@ -2150,7 +2150,7 @@ body {
 
 .reservas-info__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
 }
 
@@ -4337,6 +4337,25 @@ body.has-picker-modal {
 
 @media (max-width: 380px) {
     .packing-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tarifas-info__times {
+    display: grid;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    grid-template-columns: auto auto;
+}
+
+.found-us--buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+@media (max-width: 720px) {
+    .tarifas-info__times {
         grid-template-columns: 1fr;
     }
 }
