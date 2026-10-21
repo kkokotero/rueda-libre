@@ -2635,8 +2635,10 @@ body {
 .reservas-picker-backdrop {
     position: fixed;
     z-index: 1000;
+    inset: 0;
     background-color: rgb(0 0 0 / 55%);
-    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     animation: reservasBackdropIn var(--motion-fast) var(--ease-emphasized);
 }
 
@@ -3010,10 +3012,16 @@ body.has-picker-modal {
     .reservas-picker__title {
         font-size: 1.2rem;
     }
-    
+
+    body.has-picker-modal .reservas-form-section {
+        animation: none;
+        translate: none;
+        scale: none;
+    }
+
     .reservas-picker.is-mobile-modal .reservas-picker__shell {
         position: fixed;
-        z-index: 100;
+        z-index: 1001;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
