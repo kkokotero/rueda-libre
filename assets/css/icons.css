@@ -1,0 +1,31 @@
+/* ============================================================
+   ICONOS — icons.css
+   Material Symbols: clase base .icon y variantes.
+   Capa: base
+   ============================================================ */
+
+@layer base {
+    .icon {
+        display: inline-grid;
+        place-items: center;
+        flex-shrink: 0;
+        vertical-align: middle;
+        font-family: "Material Symbols Rounded";
+        font-size: 1.25rem;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        font-feature-settings: "liga";
+        font-variation-settings:
+            "FILL" 0,
+            "wght" 400,
+            "GRAD" 0,
+            "opsz" 24;
+        -webkit-font-smoothing: antialiased;
+    }
+}

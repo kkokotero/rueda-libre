@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
+
+@layer base, layout, components, pages;
+
+/* ============================================================
+   BASE — base.css
+   Tokens, reset global, tipografía raíz y estilos de página completa.
+   Capa: base
+   ============================================================ */
+
+@layer base {
+    :root {
+        --color-primary: #b39bb7;
+        --color-primary-dim: #a68eaa;
+        --color-on-primary: #301f35;
+        --color-primary-container: #836d88;
+        --color-on-primary-container: #ffffff;
+        --color-primary-fixed: #836d88;
+        --color-primary-fixed-dim: #76617b;
+        --color-on-primary-fixed: #ffffff;
+        --color-on-primary-fixed-variant: #fffbff;
+        --color-secondary: #ad9eae;
+        --color-secondary-dim: #a091a0;
+        --color-on-secondary: #2c222e;
+        --color-secondary-container: #372d39;
+        --color-on-secondary-container: #bbacbb;
+        --color-secondary-fixed: #eeddee;
+        --color-secondary-fixed-dim: #e0cfe0;
+        --color-on-secondary-fixed: #473c49;
+        --color-on-secondary-fixed-variant: #645865;
+        --color-tertiary: #b79bac;
+        --color-tertiary-dim: #a98e9f;
+        --color-on-tertiary: #321f2c;
+        --color-tertiary-container: #866d7d;
+        --color-on-tertiary-container: #ffffff;
+        --color-tertiary-fixed: #866d7d;
+        --color-tertiary-fixed-dim: #796171;
+        --color-on-tertiary-fixed: #ffffff;
+        --color-on-tertiary-fixed-variant: #fffbff;
+        --color-error: #fe7e8f;
+        --color-error-dim: #ed7283;
+        --color-on-error: #570019;
+        --color-error-container: #5f011c;
+        --color-on-error-container: #ff8796;
+        --color-background: #151215;
+        --color-on-background: #fbfbfb;
+        --color-surface: #151215;
+        --color-surface-dim: #0e0e0e;
+        --color-surface-bright: #393939;
+        --color-surface-container-lowest: #000000;
+        --color-surface-container-low: #1b1b1b;
+        --color-surface-container: #1f1f1f;
+        --color-surface-container-high: #2a2a2a;
+        --color-surface-container-highest: #353535;
+        --color-surface-variant: #353535;
+        --color-on-surface: #fbfbfb;
+        --color-on-surface-variant: #bcbcbc;
+        --color-outline: #838383;
+        --color-outline-variant: #545454;
+        --color-shadow: #000000;
+        --color-scrim: #000000;
+        --color-surface-tint: #b39bb7;
+        --color-inverse-surface: #f9f9f9;
+        --color-inverse-on-surface: #585457;
+        --color-inverse-primary: #6d5871;
+
+        /* Curvas y tiempos de Material 3 Expressive */
+        --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+        --motion-fast: 180ms;
+        --motion-medium: 420ms;
+        --motion-slow: 700ms;
+        --radius-xs: 0.75rem;
+        --radius-sm: 1.25rem;
+        --radius-md: 2rem;
+        --radius-lg: 3rem;
+        --radius-xl: 4.5rem;
+        --radius-pill: 999px;
+    }
+
+    *,
+    *::after,
+    *::before {
+        box-sizing: border-box;
+        interpolate-size: allow-keywords;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        font-family: "Google Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        font-variation-settings: "GRAD" 0;
+
+        scroll-behavior: smooth;
+    }
+
+    html {
+        scroll-padding-top: 7rem;
+    }
+
+    ::selection {
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--color-primary);
+        outline-offset: 3px;
+    }
+
+    body {
+        background-color: var(--color-background);
+        background-image:
+            radial-gradient(
+                60rem 40rem at 85% -10%,
+                color-mix(in oklab, var(--color-primary) 12%, transparent),
+                transparent 70%
+            ),
+            radial-gradient(
+                50rem 35rem at 0% 45%,
+                color-mix(in oklab, var(--color-tertiary) 8%, transparent),
+                transparent 70%
+            );
+        background-attachment: fixed;
+        color: var(--color-on-background);
+        min-height: 100dvh;
+        overflow-x: hidden;
+        line-height: 1.5;
+
+        @media (width <= 860px) {
+            background-attachment: scroll;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}

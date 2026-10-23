@@ -1,3 +1,37 @@
+/**
+ * Selector de fecha con calendario accesible.
+ *
+ * Reemplaza un `input[type="date"]` por un botón que abre un panel con
+ * rejilla de días, navegación por mes y atajos (hoy, mañana, +7 y +14 días).
+ * El input nativo se conserva oculto como fuente de verdad y sigue emitiendo
+ * sus eventos `change` para que el resto del formulario reaccione igual.
+ */
+
+import {
+    parseISODate,
+    toISODate,
+    formatDate,
+    formatDateLong,
+    formatMonth,
+} from "../shared/dates.js";
+
+const WEEKDAYS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+
+const SHORTCUT_DATES = [
+    { label: "Hoy", offset: 0 },
+    { label: "Mañana", offset: 1 },
+    { label: "+7 días", offset: 7 },
+    { label: "+14 días", offset: 14 },
+];
+
+/** Fecha de hoy desplazada `offset` días, en formato ISO. */
+const isoAfter = (offset) => {
+    const date = new Date();
+    date.setDate(date.getDate() + offset);
+
+    return toISODate(date);
+};
+
 export function initializeReservationDatePicker(pickerCore) {
     const {
         isMobilePicker,
@@ -60,23 +94,17 @@ export function initializeReservationDatePicker(pickerCore) {
         nextMonth.setAttribute("aria-label", "Mes siguiente");
         nextMonth.append(createIcon("chevron_right"));
 
-        calendarHeader.append(
-            previousMonth,
-            monthLabel,
-            nextMonth,
-        );
+        calendarHeader.append(previousMonth, monthLabel, nextMonth);
 
         const weekdays = document.createElement("div");
         weekdays.className = "reservas-datepicker__weekdays";
         weekdays.setAttribute("aria-hidden", "true");
 
-        ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].forEach(
-            (day) => {
-                const weekday = document.createElement("span");
-                weekday.textContent = day;
-                weekdays.append(weekday);
-            },
-        );
+        for (const day of WEEKDAYS) {
+            const weekday = document.createElement("span");
+            weekday.textContent = day;
+            weekdays.append(weekday);
+        }
 
         const grid = document.createElement("div");
         grid.className = "reservas-datepicker__grid";
@@ -86,60 +114,30 @@ export function initializeReservationDatePicker(pickerCore) {
         const footer = document.createElement("div");
         footer.className = "reservas-datepicker__footer";
 
-        const shortcutDates = [
-            { label: "Hoy", offset: 0 },
-            { label: "Mañana", offset: 1 },
-            { label: "+7 días", offset: 7 },
-            { label: "+14 días", offset: 14 },
-        ];
-        const shortcutButtons = shortcutDates.map(
-            ({ label, offset }) => {
-                const shortcut = document.createElement("button");
-                shortcut.type = "button";
-                shortcut.className =
-                    "reservas-datepicker__today";
-                shortcut.textContent = label;
-                shortcut.setAttribute(
-                    "aria-label",
-                    offset === 0
-                        ? "Seleccionar hoy"
-                        : `Seleccionar fecha en ${offset} días`,
-                );
-                shortcut.addEventListener("click", () => {
-                    const date = new Date();
-                    date.setDate(date.getDate() + offset);
-                    const iso = toISODate(date);
+        const shortcutButtons = SHORTCUT_DATES.map(({ label, offset }) => {
+            const shortcut = document.createElement("button");
+            shortcut.type = "button";
+            shortcut.className = "reservas-datepicker__today";
+            shortcut.textContent = label;
+            shortcut.setAttribute(
+                "aria-label",
+                offset === 0
+                    ? "Seleccionar hoy"
+                    : `Seleccionar fecha en ${offset} días`,
+            );
+            shortcut.addEventListener("click", () => {
+                const iso = isoAfter(offset);
 
-                    if (
-                        iso >= minISO &&
-                        (!maxISO || iso <= maxISO)
-                    ) {
-                        selectDate(iso);
-                    }
-                });
-                footer.append(shortcut);
-                return { button: shortcut, offset };
-            },
-        );
+                if (iso >= minISO && (!maxISO || iso <= maxISO)) {
+                    selectDate(iso);
+                }
+            });
+            footer.append(shortcut);
+
+            return { button: shortcut, offset };
+        });
 
         panel.append(calendarHeader, weekdays, grid, footer);
-
-        const parseISODate = (iso) => {
-            if (!iso) return null;
-
-            const [year, month, day] = iso.split("-").map(Number);
-
-            if (!year || !month || !day) return null;
-
-            return new Date(year, month - 1, day);
-        };
-
-        const toISODate = (date) =>
-            [
-                date.getFullYear(),
-                String(date.getMonth() + 1).padStart(2, "0"),
-                String(date.getDate()).padStart(2, "0"),
-            ].join("-");
 
         const todayISO = toISODate(new Date());
         const minISO = native.min || todayISO;
@@ -154,40 +152,6 @@ export function initializeReservationDatePicker(pickerCore) {
         const maxMonthStart = maxDate
             ? new Date(maxDate.getFullYear(), maxDate.getMonth(), 1)
             : null;
-
-        const dateFormatter = new Intl.DateTimeFormat("es-CO", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-        });
-
-        const longDateFormatter = new Intl.DateTimeFormat(
-            "es-CO",
-            {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-            },
-        );
-
-        const monthFormatter = new Intl.DateTimeFormat("es-CO", {
-            month: "long",
-            year: "numeric",
-        });
-
-        const formatDate = (date) => dateFormatter.format(date);
-
-        const formatDateLong = (date) =>
-            longDateFormatter.format(date);
-
-        const formatMonth = (year, month) => {
-            const text = monthFormatter.format(
-                new Date(year, month, 1),
-            );
-
-            return text.charAt(0).toUpperCase() + text.slice(1);
-        };
 
         let selectedISO = native.value;
         let viewYear = minDate.getFullYear();
@@ -205,37 +169,23 @@ export function initializeReservationDatePicker(pickerCore) {
         const selectDate = (iso) => {
             native.value = iso;
             updateDisplay();
-            native.dispatchEvent(
-                new Event("change", { bubbles: true }),
-            );
+            native.dispatchEvent(new Event("change", { bubbles: true }));
             close({ focus: true });
         };
 
         const renderCalendar = (focusISO = "") => {
-            monthLabel.textContent = formatMonth(
-                viewYear,
-                viewMonth,
-            );
+            monthLabel.textContent = formatMonth(viewYear, viewMonth);
 
-            const currentMonth = new Date(
-                viewYear,
-                viewMonth,
-                1,
-            );
+            const currentMonth = new Date(viewYear, viewMonth, 1);
 
-            previousMonth.disabled =
-                currentMonth <= minMonthStart;
+            previousMonth.disabled = currentMonth <= minMonthStart;
             nextMonth.disabled = maxMonthStart
                 ? currentMonth >= maxMonthStart
                 : false;
 
             grid.replaceChildren();
 
-            const firstWeekday = new Date(
-                viewYear,
-                viewMonth,
-                1,
-            ).getDay();
+            const firstWeekday = new Date(viewYear, viewMonth, 1).getDay();
             const leadingBlanks = (firstWeekday + 6) % 7;
             const daysInMonth = new Date(
                 viewYear,
@@ -243,66 +193,40 @@ export function initializeReservationDatePicker(pickerCore) {
                 0,
             ).getDate();
 
-            for (
-                let index = 0;
-                index < leadingBlanks;
-                index += 1
-            ) {
+            for (let index = 0; index < leadingBlanks; index += 1) {
                 const blank = document.createElement("span");
                 blank.className = "reservas-datepicker__blank";
                 blank.setAttribute("aria-hidden", "true");
                 grid.append(blank);
             }
 
-            for (
-                let day = 1;
-                day <= daysInMonth;
-                day += 1
-            ) {
-                const date = new Date(
-                    viewYear,
-                    viewMonth,
-                    day,
-                );
+            for (let day = 1; day <= daysInMonth; day += 1) {
+                const date = new Date(viewYear, viewMonth, day);
                 const iso = toISODate(date);
-                const dayButton =
-                    document.createElement("button");
+                const dayButton = document.createElement("button");
 
                 dayButton.type = "button";
-                dayButton.className =
-                    "reservas-datepicker__day";
+                dayButton.className = "reservas-datepicker__day";
                 dayButton.dataset.date = iso;
                 dayButton.textContent = String(day);
-                dayButton.setAttribute(
-                    "aria-label",
-                    formatDateLong(date),
-                );
+                dayButton.setAttribute("aria-label", formatDateLong(date));
                 dayButton.setAttribute(
                     "aria-pressed",
                     String(iso === selectedISO),
                 );
 
                 if (iso === todayISO) {
-                    dayButton.setAttribute(
-                        "aria-current",
-                        "date",
-                    );
+                    dayButton.setAttribute("aria-current", "date");
                 }
 
-                if (
-                    iso < minISO ||
-                    (maxISO && iso > maxISO)
-                ) {
+                if (iso < minISO || (maxISO && iso > maxISO)) {
                     dayButton.disabled = true;
                 }
 
                 dayButton.addEventListener("click", () => {
                     selectDate(iso);
                 });
-                dayButton.addEventListener(
-                    "keydown",
-                    handleDayKeydown,
-                );
+                dayButton.addEventListener("keydown", handleDayKeydown);
                 grid.append(dayButton);
             }
 
@@ -311,9 +235,7 @@ export function initializeReservationDatePicker(pickerCore) {
                       `[data-date="${focusISO}"]:not(:disabled)`,
                   )
                 : null;
-            const fallback = grid.querySelector(
-                "button:not(:disabled)",
-            );
+            const fallback = grid.querySelector("button:not(:disabled)");
             const target = preferred || fallback;
 
             if (target) {
@@ -330,8 +252,7 @@ export function initializeReservationDatePicker(pickerCore) {
             if (!currentDate) return;
 
             const currentDay = currentDate.getDate();
-            const currentWeekday =
-                (currentDate.getDay() + 6) % 7;
+            const currentWeekday = (currentDate.getDay() + 6) % 7;
             let nextDate = null;
 
             if (event.key === "ArrowLeft") {
@@ -370,12 +291,8 @@ export function initializeReservationDatePicker(pickerCore) {
                     currentDate.getMonth(),
                     currentDay + (6 - currentWeekday),
                 );
-            } else if (
-                event.key === "PageUp" ||
-                event.key === "PageDown"
-            ) {
-                const monthDelta =
-                    event.key === "PageUp" ? -1 : 1;
+            } else if (event.key === "PageUp" || event.key === "PageDown") {
+                const monthDelta = event.key === "PageUp" ? -1 : 1;
                 const targetMonth = new Date(
                     currentDate.getFullYear(),
                     currentDate.getMonth() + monthDelta,
@@ -400,10 +317,7 @@ export function initializeReservationDatePicker(pickerCore) {
 
             const nextISO = toISODate(nextDate);
 
-            if (
-                nextISO < minISO ||
-                (maxISO && nextISO > maxISO)
-            ) {
+            if (nextISO < minISO || (maxISO && nextISO > maxISO)) {
                 return;
             }
 
@@ -444,12 +358,7 @@ export function initializeReservationDatePicker(pickerCore) {
             activatePicker(close, () => {
                 if (panel.hidden) return;
 
-                positionPickerPanel(
-                    wrapper,
-                    button,
-                    panel,
-                    420,
-                );
+                positionPickerPanel(wrapper, button, panel, 420);
                 keepFocusedInPanel(panel);
             });
             panel.hidden = false;
@@ -467,11 +376,7 @@ export function initializeReservationDatePicker(pickerCore) {
         };
 
         previousMonth.addEventListener("click", () => {
-            const target = new Date(
-                viewYear,
-                viewMonth - 1,
-                1,
-            );
+            const target = new Date(viewYear, viewMonth - 1, 1);
 
             viewYear = target.getFullYear();
             viewMonth = target.getMonth();
@@ -479,25 +384,19 @@ export function initializeReservationDatePicker(pickerCore) {
         });
 
         nextMonth.addEventListener("click", () => {
-            const target = new Date(
-                viewYear,
-                viewMonth + 1,
-                1,
-            );
+            const target = new Date(viewYear, viewMonth + 1, 1);
 
             viewYear = target.getFullYear();
             viewMonth = target.getMonth();
             renderCalendar(toISODate(target));
         });
 
-        shortcutButtons.forEach(({ button: shortcut, offset }) => {
-            const date = new Date();
-            date.setDate(date.getDate() + offset);
-            const iso = toISODate(date);
+        for (const { button: shortcut, offset } of shortcutButtons) {
+            const iso = isoAfter(offset);
+
             shortcut.disabled =
-                iso < minISO ||
-                Boolean(maxISO && iso > maxISO);
-        });
+                iso < minISO || Boolean(maxISO && iso > maxISO);
+        }
 
         button.addEventListener("click", () => {
             if (panel.hidden) {
@@ -510,15 +409,11 @@ export function initializeReservationDatePicker(pickerCore) {
         button.addEventListener("keydown", (event) => {
             if (
                 panel.hidden &&
-                (event.key === "ArrowDown" ||
-                    event.key === "ArrowUp")
+                (event.key === "ArrowDown" || event.key === "ArrowUp")
             ) {
                 event.preventDefault();
                 open();
-            } else if (
-                event.key === "Escape" &&
-                !panel.hidden
-            ) {
+            } else if (event.key === "Escape" && !panel.hidden) {
                 event.preventDefault();
                 close({ focus: true });
             }
@@ -532,10 +427,7 @@ export function initializeReservationDatePicker(pickerCore) {
         });
 
         document.addEventListener("pointerdown", (event) => {
-            if (
-                !panel.hidden &&
-                !wrapper.contains(event.target)
-            ) {
+            if (!panel.hidden && !wrapper.contains(event.target)) {
                 close();
             }
         });
@@ -549,10 +441,8 @@ export function initializeReservationDatePicker(pickerCore) {
 
         native.addEventListener("change", updateDisplay);
 
-        const { shell } = createPickerShell(
-            panel,
-            titleText,
-            () => close({ focus: true }),
+        const { shell } = createPickerShell(panel, titleText, () =>
+            close({ focus: true }),
         );
 
         trapMobilePickerFocus(shell);
@@ -563,7 +453,5 @@ export function initializeReservationDatePicker(pickerCore) {
         updateDisplay();
     };
 
-    document
-        .querySelectorAll('[data-picker="date"]')
-        .forEach(enhanceDatePicker);
+    document.querySelectorAll('[data-picker="date"]').forEach(enhanceDatePicker);
 }
