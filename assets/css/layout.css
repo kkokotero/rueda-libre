@@ -257,7 +257,9 @@
 
         @media (width <= 860px) {
             display: block;
-            position: absolute;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 1px;
             height: 1px;
             overflow: hidden;
