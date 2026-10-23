@@ -512,7 +512,7 @@
     .reservas-timepicker__clock-time {
         display: flex;
         align-items: center;
-        gap: 0.45rem;
+        gap: 0.5rem;
     }
 
     .reservas-timepicker__clock-field {
@@ -595,6 +595,7 @@
         font-size: 0.9rem;
         font-weight: 500;
         cursor: pointer;
+        background-color: var(--color-surface-container);
     }
 
     .reservas-timepicker__clock-period-option.is-active {
