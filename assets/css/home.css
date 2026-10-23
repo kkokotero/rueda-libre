@@ -1,0 +1,684 @@
+/* ============================================================
+   INICIO — home.css
+   Secciones de la página de inicio: quiénes somos, servicios, cómo alquilar y contacto.
+   Capa: pages
+   ============================================================ */
+
+@layer pages {
+    .about-us {
+        display: flex;
+        gap: 1rem;
+        align-items: stretch;
+
+        @media (width <= 860px) {
+            flex-direction: column;
+        }
+    }
+
+    .about-us--content {
+        flex: 4;
+        min-width: 0;
+        background: linear-gradient(
+            160deg,
+            var(--color-surface-container-high),
+            var(--color-surface-container-low)
+        );
+        padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.25rem, 5vw, 4rem);
+        border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg)
+            var(--radius-xl);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+
+        @media (width <= 720px) {
+            padding: 3rem;
+        }
+    }
+
+    .about-us--image {
+        flex: 2;
+        min-width: 0;
+        width: 100%;
+        border-radius: var(--radius-lg);
+        object-fit: cover;
+        aspect-ratio: 2 / 3;
+        transition: border-radius var(--motion-slow) var(--ease-spring);
+
+        @media (width <= 860px) {
+            flex: none;
+            display: none;
+        }
+    }
+
+    .about-us--content__title {
+        font-size: clamp(2.8rem, 8vw, 6rem);
+        line-height: 0.95;
+        letter-spacing: -0.045em;
+        margin-bottom: 0.75rem;
+        font-weight: 800;
+        text-wrap: balance;
+    }
+
+    .about-us--content__sub-title {
+        font-size: clamp(1.6rem, 4.2vw, 3.5rem);
+        line-height: 1;
+        letter-spacing: -0.025em;
+        font-style: italic;
+        font-weight: 700;
+        color: var(--color-primary);
+        margin-bottom: 1.25rem;
+    }
+
+    .about-us--content__link {
+        color: inherit;
+        font-style: italic;
+        text-decoration-color: color-mix(
+            in oklab,
+            var(--color-primary) 60%,
+            transparent
+        );
+        text-underline-offset: 0.2em;
+        transition: color var(--motion-fast) var(--ease-emphasized);
+
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
+
+    .about-us--content__text {
+        margin-bottom: 1rem;
+        max-width: 60ch;
+        font-size: clamp(1rem, 1.4vw, 1.15rem);
+        line-height: 1.7;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+    }
+
+    .about-us--content__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        margin-top: 1.75rem;
+
+        @media (width <= 520px) {
+            gap: 0.5rem;
+        }
+    }
+
+    .about-us--content__list--item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        color: inherit;
+        text-decoration: none;
+        background-color: var(--color-surface-container-lowest);
+        padding: 2rem 2rem;
+        border-radius: var(--radius-pill);
+        font-size: clamp(0.9rem, 1.2vw, 2rem);
+        font-weight: 600;
+        line-height: 1.2;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            color var(--motion-fast) var(--ease-emphasized);
+
+        &.about-us--content__list--item--primary {
+            background-color: var(--color-primary);
+            color: var(--color-on-primary);
+
+            &:hover {
+                background-color: var(--color-primary-container);
+                color: var(--color-on-primary-container);
+            }
+        }
+
+        &.about-us--content__list--item--secondary {
+            background-color: var(--color-secondary);
+            color: var(--color-on-secondary);
+
+            &:hover {
+                background-color: var(--color-secondary-container);
+                color: var(--color-on-secondary-container);
+            }
+        }
+
+        &.about-us--content__list--item--tertiary {
+            background-color: var(--color-tertiary);
+            color: var(--color-on-tertiary);
+
+            &:hover {
+                background-color: var(--color-tertiary-container);
+                color: var(--color-on-tertiary-container);
+            }
+        }
+
+        @media (width <= 520px) {
+            padding: 0.8rem 1.1rem;
+        }
+    }
+
+    .our-services {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        counter-reset: service;
+
+        @media (width <= 1024px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (width <= 720px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .our-services--title {
+        grid-column: 1 / -1;
+        margin-bottom: 0.5rem;
+    }
+
+    .our-services--card {
+        counter-increment: service;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        min-width: 0;
+        background-color: var(--color-surface-container);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-md);
+        padding: 1.25rem;
+        overflow: clip;
+        transition:
+            background-color var(--motion-medium) var(--ease-emphasized),
+            border-color var(--motion-medium) var(--ease-emphasized),
+            transform var(--motion-slow) var(--ease-spring);
+
+        /* Distintivo numérico expresivo */
+        &::before {
+            content: counter(service, decimal-leading-zero);
+            position: absolute;
+            top: 1.85rem;
+            right: 1.85rem;
+            z-index: 2;
+            padding: 0.35rem 0.7rem;
+            border-radius: var(--radius-pill);
+            background-color: color-mix(
+                in oklab,
+                var(--color-surface-container-lowest) 78%,
+                transparent
+            );
+            border: 1px solid
+                color-mix(in oklab, var(--color-primary) 25%, transparent);
+            color: var(--color-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1;
+            backdrop-filter: blur(0.5rem);
+        }
+
+        &:hover {
+            background-color: var(--color-surface-container-high);
+            border-color: color-mix(
+                in oklab,
+                var(--color-primary) 35%,
+                transparent
+            );
+        }
+
+        @media (width <= 860px) {
+            padding: 2rem;
+        }
+    }
+
+    .our-services--card__title {
+        font-size: clamp(1.3rem, 2vw, 1.65rem);
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        text-wrap: balance;
+        padding-right: 4.5rem;
+    }
+
+    .our-services--card__image {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: var(--radius-sm) var(--radius-sm) var(--radius-md)
+            var(--radius-sm);
+        transition:
+            border-radius var(--motion-slow) var(--ease-spring),
+            transform var(--motion-slow) var(--ease-spring);
+    }
+
+    .our-services--card__text {
+        margin-top: auto;
+        font-size: 0.98rem;
+        line-height: 1.65;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+    }
+
+    .our-services--card__text :is(strong, em) {
+        color: var(--color-on-surface);
+    }
+
+    .our-services--card__text strong {
+        font-weight: 700;
+    }
+
+    .our-services--card--featured {
+        justify-content: flex-end;
+        isolation: isolate;
+        color: var(--color-on-primary);
+        border-color: transparent;
+        background-image:
+            radial-gradient(
+                circle at 110% 125%,
+                color-mix(in oklab, #ffffff 30%, transparent),
+                transparent 55%
+            ),
+            radial-gradient(
+                circle at -10% -20%,
+                color-mix(in oklab, #ffffff 18%, transparent),
+                transparent 50%
+            ),
+            linear-gradient(
+                155deg,
+                var(--color-primary),
+                var(--color-primary-container)
+            );
+
+        &::before {
+            background-color: color-mix(
+                in oklab,
+                var(--color-on-primary) 14%,
+                transparent
+            );
+            border-color: color-mix(
+                in oklab,
+                var(--color-on-primary) 22%,
+                transparent
+            );
+            color: var(--color-on-primary);
+        }
+
+        & .our-services--card__text {
+            color: color-mix(in oklab, var(--color-on-primary) 82%, transparent);
+            order: 2;
+        }
+
+        & .our-services--card__text :is(strong, em) {
+            color: var(--color-on-primary);
+        }
+
+        &:hover {
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        /* Reloj abstracto: refuerza la idea de alquiler por horas */
+        & .our-services--card__title {
+            order: 0;
+        }
+
+        &::after {
+            content: "";
+            order: 1;
+            align-self: center;
+            flex-shrink: 0;
+            width: clamp(6rem, 45%, 8rem);
+            aspect-ratio: 1;
+            margin: clamp(1rem, 8%, 3rem) 0;
+            border-radius: 50%;
+            border: 0.5rem solid
+                color-mix(in oklab, var(--color-on-primary) 22%, transparent);
+            background:
+                linear-gradient(var(--color-on-primary) 0 0) 50% 22% / 0.25rem 35%
+                    no-repeat,
+                linear-gradient(var(--color-on-primary) 0 0) 50% 50% / 30% 0.25rem
+                    no-repeat,
+                radial-gradient(
+                    circle at 50% 50%,
+                    var(--color-on-primary) 0 7%,
+                    transparent 8%
+                ),
+                color-mix(in oklab, var(--color-on-primary) 8%, transparent);
+            transition: transform var(--motion-slow) var(--ease-spring);
+            transform: scale(2) translateY(20%);
+
+            @media (width < 768px) {
+                transform: scale(1.25) translateY(15%);
+            }
+        }
+
+        &:hover::after {
+            transform: scale(2) translateY(20%) rotate(20deg);
+
+            @media (width < 768px) {
+                transform: scale(1.25) translateY(15%) rotate(20deg);
+            }
+        }
+
+        @media (width <= 1024px) {
+            grid-column: 1 / -1;
+        }
+
+        @media (width <= 720px) {
+            grid-column: auto;
+        }
+    }
+
+    .how-to {
+        margin-top: 1rem;
+        padding: clamp(1.5rem, 4vw, 3.5rem);
+        background-color: var(--color-surface-container-low);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-lg) var(--radius-lg) var(--radius-xl)
+            var(--radius-lg);
+    }
+
+    .how-to--lead {
+        max-width: 60ch;
+        margin-bottom: 2.5rem;
+        font-size: clamp(1rem, 1.4vw, 1.1rem);
+        line-height: 1.7;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+    }
+
+    .how-to--steps {
+        list-style: none;
+        counter-reset: step;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+        padding-bottom: 1.75rem;
+
+        @media (width <= 1024px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (width <= 520px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .how-to--step {
+        counter-increment: step;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        padding: 1.5rem 1.35rem;
+        font-size: 0.98rem;
+        line-height: 1.55;
+        color: var(--color-on-surface-variant);
+        background-color: var(--color-surface-container);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+        border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
+        transition:
+            background-color var(--motion-medium) var(--ease-emphasized),
+            border-color var(--motion-medium) var(--ease-emphasized),
+            transform var(--motion-slow) var(--ease-spring);
+
+        &::before {
+            content: counter(step, decimal-leading-zero);
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            color: var(--color-primary);
+        }
+
+        &.how-to--step--secondary::before {
+            color: var(--color-secondary);
+        }
+
+        &.how-to--step--tertiary::before {
+            color: var(--color-tertiary);
+        }
+
+        &.how-to--step--raised {
+            transform: translateY(1.5rem);
+        }
+
+        &:hover {
+            background-color: var(--color-surface-container-high);
+            border-color: color-mix(
+                in oklab,
+                var(--color-primary) 35%,
+                transparent
+            );
+        }
+
+        @media (width <= 860px) {
+            &.how-to--step--raised {
+                transform: translateY(0);
+            }
+        }
+
+        @media (width <= 520px) {
+            border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 3rem;
+        }
+    }
+
+    .found-us {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        align-items: center;
+        gap: 1.5rem 3rem;
+        margin-top: 1rem;
+        padding: clamp(1.5rem, 4vw, 3.5rem);
+        background-image:
+            radial-gradient(
+                30rem 24rem at 105% -15%,
+                color-mix(in oklab, var(--color-primary) 22%, transparent),
+                transparent 70%
+            ),
+            linear-gradient(
+                150deg,
+                var(--color-surface-container-high),
+                var(--color-surface-container-low)
+            );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 10rem;
+
+        @media (width <= 860px) {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 6rem;
+        }
+
+        @media (width <= 520px) {
+            border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
+        }
+    }
+
+    .found-us--title {
+        grid-column: 1;
+        align-self: start;
+        margin-bottom: 0.5rem;
+    }
+
+    .found-us--text {
+        max-width: 50ch;
+        font-size: clamp(1rem, 1.4vw, 1.1rem);
+        line-height: 1.7;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+    }
+
+    .found-us--actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        width: 100%;
+        max-width: 30rem;
+        justify-self: end;
+        grid-row: span 2;
+
+        @media (width <= 860px) {
+            justify-self: stretch;
+            max-width: none;
+        }
+    }
+
+    .mobile-only {
+        display: none;
+
+        @media (width < 768px) {
+            display: block;
+        }
+    }
+
+    @media (width < 768px) {
+        .desktop-only {
+            display: none;
+        }
+    }
+
+    .found-us--label {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-on-surface-variant);
+        margin-bottom: 0.1rem;
+    }
+
+    .found-us--button {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        width: 100%;
+        min-width: 0;
+        min-height: 4.25rem;
+        padding: 1.1rem 1.4rem;
+        border-radius: var(--radius-pill);
+        font-size: clamp(0.98rem, 1.3vw, 1.08rem);
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            color var(--motion-fast) var(--ease-emphasized),
+            border-color var(--motion-fast) var(--ease-emphasized),
+            transform var(--motion-medium) var(--ease-spring);
+
+        @media (width <= 520px) {
+            min-height: 4rem;
+            padding: 1rem 1.15rem;
+            gap: 0.75rem;
+        }
+    }
+
+    .found-us--button__label {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .found-us--button__icon {
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0.55rem;
+        font-size: 1.4rem;
+        border-radius: 50%;
+
+        @media (width <= 520px) {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+    }
+
+    .found-us--button__primary {
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+
+        & .found-us--button__icon {
+            background-color: color-mix(
+                in oklab,
+                var(--color-on-primary) 14%,
+                transparent
+            );
+        }
+
+        &:hover {
+            background-color: var(--color-primary-container);
+            color: var(--color-on-primary-container);
+        }
+    }
+
+    .found-us--button__secondary {
+        background-color: color-mix(
+            in oklab,
+            var(--color-surface-container-highest) 72%,
+            transparent
+        );
+        color: var(--color-on-surface);
+        border: 1px solid var(--color-outline-variant);
+
+        & .found-us--button__icon {
+            color: var(--color-primary);
+            background-color: color-mix(
+                in oklab,
+                var(--color-primary) 14%,
+                transparent
+            );
+        }
+
+        &:hover {
+            background-color: var(--color-surface-container-highest);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+    }
+
+    .found-us--button__arrow {
+        font-size: 1.35rem;
+        margin-left: auto;
+        transition: translate var(--motion-medium) var(--ease-spring);
+    }
+
+    .service-link {
+        color: var(--color-primary);
+        font-weight: 600;
+        text-underline-offset: 0.2em;
+        text-decoration-color: color-mix(
+            in oklab,
+            var(--color-primary) 55%,
+            transparent
+        );
+        transition: color var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .service-link:hover {
+        color: var(--color-on-surface);
+    }
+
+    @media (width <= 1024px) {
+        .how-to--step--raised {
+            transform: none;
+        }
+    }
+
+    @media (width <= 1024px) {
+        .how-to--step--raised:hover {
+            transform: translateY(-0.4rem);
+        }
+    }
+
+    @media (width <= 860px) {
+        .found-us--title,
+            .found-us--text,
+            .found-us--actions {
+            grid-column: 1;
+        }
+    }
+
+    .found-us--buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+}
