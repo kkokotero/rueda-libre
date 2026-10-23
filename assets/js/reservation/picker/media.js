@@ -17,7 +17,7 @@ export const isMobilePicker = () => mobilePickerMedia.matches;
  * Ejecuta `handler` al cruzar el punto de corte móvil.
  *
  * @param {(event: MediaQueryListEvent) => void} handler
- * @param {AbortSignal} [signal] para poder dar de baja el listener
+ * @param {AddEventListenerOptions} [options] para configurar o dar de baja el listener
  */
-export const onMobilePickerChange = (handler, signal) =>
-    mobilePickerMedia.addEventListener("change", handler, { signal });
+export const onMobilePickerChange = (handler, options) =>
+    mobilePickerMedia.addEventListener("change", handler, options);
