@@ -114,7 +114,7 @@
         max-height: 20rem;
         overflow-y: auto;
         padding: 0.75rem;
-        background-color: var(--timepicker-face);
+        background-color: var(--color-surface-container-high);
         border: 1px solid
             color-mix(in oklab, var(--color-outline-variant) 70%, transparent);
         border-radius: 0.9rem;
@@ -469,7 +469,8 @@
 
     .reservas-timepicker__empty[hidden],
     .reservas-timepicker__clock[hidden],
-    .reservas-timepicker__confirm[hidden] {
+    .reservas-timepicker__actions[hidden],
+    .reservas-timepicker__clock-face[hidden] {
         display: none;
     }
 
@@ -511,7 +512,20 @@
     .reservas-timepicker__clock-time {
         display: flex;
         align-items: center;
-        gap: 0.125rem;
+        gap: 0.45rem;
+    }
+
+    .reservas-timepicker__clock-field {
+        display: grid;
+        justify-items: start;
+        gap: 0.25rem;
+    }
+
+    .reservas-timepicker__clock-label {
+        color: var(--color-on-surface-variant);
+        font-size: 0.75rem;
+        font-weight: 600;
+        line-height: 1.2;
     }
 
     .reservas-timepicker__hint {
@@ -526,7 +540,8 @@
 
     .reservas-timepicker__clock-value {
         width: clamp(3.5rem, 24vw, 6rem);
-        min-height: 4.5rem;
+        height: 4.9375rem;
+        min-height: 0;
         padding: 0.25rem;
         background-color: var(--timepicker-field);
         border: 1px solid transparent;
@@ -556,6 +571,9 @@
 
     .reservas-timepicker__clock-period {
         display: grid;
+        align-self: stretch;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        height: 4.9375rem;
         gap: 0;
         padding: 0;
         background-color: var(--timepicker-field);
@@ -566,7 +584,8 @@
 
     .reservas-timepicker__clock-period-option {
         min-width: 3.25rem;
-        min-height: 2.4rem;
+        min-height: 0;
+        height: 100%;
         padding: 0.25rem 0.4rem;
         background: transparent;
         border: 0;
@@ -621,12 +640,13 @@
         }
 
         .reservas-timepicker__clock-face {
-            width: min(12rem, 60vw);
+            width: min(14rem, 60vw);
         }
 
         .reservas-timepicker__clock-value {
             width: 3.5rem;
-            min-height: 3rem;
+            height: 3.4375rem;
+            min-height: 0;
             font-size: 2.25rem;
         }
 
@@ -638,7 +658,11 @@
             min-height: 2rem;
         }
 
-        .reservas-timepicker__confirm {
+        .reservas-timepicker__clock-period {
+            height: 3.4375rem;
+        }
+
+        .reservas-timepicker__actions {
             margin-top: 0.35rem;
         }
     }
@@ -718,9 +742,10 @@
     }
 
     .reservas-timepicker__confirm {
-        width: 100%;
+        flex: 1;
+        width: auto;
         min-height: 2.75rem;
-        margin-top: 0.65rem;
+        margin: 0;
         background-color: var(--color-primary);
         border: 1px solid var(--color-primary);
         border-radius: var(--radius-pill);
@@ -742,6 +767,45 @@
         outline: 3px solid
             color-mix(in oklab, var(--color-primary) 45%, transparent);
         outline-offset: 2px;
+    }
+
+    .reservas-timepicker__actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.65rem;
+    }
+
+    .reservas-timepicker__toggle {
+        display: grid;
+        flex: 0 0 2.75rem;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        place-items: center;
+        padding: 0;
+        background-color: var(--color-surface-container-highest);
+        border: 1px solid var(--color-outline-variant);
+        border-radius: 50%;
+        color: var(--color-on-surface);
+        cursor: pointer;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            color var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .reservas-timepicker__toggle:hover {
+        background-color: var(--color-primary-container);
+        color: var(--color-on-primary-container);
+    }
+
+    .reservas-timepicker__toggle:focus-visible {
+        outline: 3px solid
+            color-mix(in oklab, var(--color-primary) 45%, transparent);
+        outline-offset: 2px;
+    }
+
+    .reservas-timepicker__toggle .icon {
+        font-size: 1.35rem;
     }
 
     .reservas-timepicker__empty {
@@ -819,7 +883,7 @@
             .reservas-picker__shell {
             width: min(98vw, 42rem);
             max-height: 96dvh;
-            padding: 0.25rem;
+            padding: 1rem;
         }
     }
 

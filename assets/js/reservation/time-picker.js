@@ -84,8 +84,12 @@ export function initializeReservationTimePicker(pickerCore) {
         const clockTime = document.createElement("div");
         clockTime.className = "reservas-timepicker__clock-time";
 
+        const clockHourField = document.createElement("div");
+        clockHourField.className = "reservas-timepicker__clock-field";
+
         const clockHourInput = document.createElement("input");
         clockHourInput.type = "text";
+        clockHourInput.id = `${panelId}-hour`;
         clockHourInput.inputMode = "numeric";
         clockHourInput.maxLength = 2;
         clockHourInput.autocomplete = "off";
@@ -105,6 +109,12 @@ export function initializeReservationTimePicker(pickerCore) {
         });
         clockHourInput.addEventListener("change", commitTypedTime);
 
+        const clockHourLabel = document.createElement("label");
+        clockHourLabel.className = "reservas-timepicker__clock-label";
+        clockHourLabel.htmlFor = clockHourInput.id;
+        clockHourLabel.textContent = "Hora";
+        clockHourField.append(clockHourInput, clockHourLabel);
+
         const clockHint = document.createElement("span");
         clockHint.id = `${panelId}-hint`;
         clockHint.className = "reservas-timepicker__hint";
@@ -113,6 +123,7 @@ export function initializeReservationTimePicker(pickerCore) {
 
         const clockMinuteInput = document.createElement("input");
         clockMinuteInput.type = "text";
+        clockMinuteInput.id = `${panelId}-minute`;
         clockMinuteInput.inputMode = "numeric";
         clockMinuteInput.maxLength = 2;
         clockMinuteInput.autocomplete = "off";
@@ -132,15 +143,24 @@ export function initializeReservationTimePicker(pickerCore) {
         });
         clockMinuteInput.addEventListener("change", commitTypedTime);
 
+        const clockMinuteField = document.createElement("div");
+        clockMinuteField.className = "reservas-timepicker__clock-field";
+
+        const clockMinuteLabel = document.createElement("label");
+        clockMinuteLabel.className = "reservas-timepicker__clock-label";
+        clockMinuteLabel.htmlFor = clockMinuteInput.id;
+        clockMinuteLabel.textContent = "Minuto";
+        clockMinuteField.append(clockMinuteInput, clockMinuteLabel);
+
         const clockSeparator = document.createElement("span");
         clockSeparator.className = "reservas-timepicker__clock-separator";
         clockSeparator.textContent = ":";
         clockSeparator.setAttribute("aria-hidden", "true");
 
         clockTime.append(
-            clockHourInput,
+            clockHourField,
             clockSeparator,
-            clockMinuteInput,
+            clockMinuteField,
             clockHint,
         );
 
@@ -168,11 +188,23 @@ export function initializeReservationTimePicker(pickerCore) {
 
         const clockFace = document.createElement("div");
         clockFace.className = "reservas-timepicker__clock-face";
+        clockFace.id = `${panelId}-clock`;
         clockFace.setAttribute("role", "group");
         clockFace.setAttribute("aria-label", "Selecciona la hora en el reloj");
 
         clockHeader.append(clockTime, clockPeriod);
         clock.append(clockHeader, clockFace);
+
+        const timePickerActions = document.createElement("div");
+        timePickerActions.className = "reservas-timepicker__actions";
+
+        const toggleClockButton = document.createElement("button");
+        toggleClockButton.type = "button";
+        toggleClockButton.className = "reservas-timepicker__toggle";
+        toggleClockButton.setAttribute("aria-controls", clockFace.id);
+        toggleClockButton.setAttribute("aria-expanded", "true");
+        toggleClockButton.setAttribute("aria-label", "Ocultar reloj visual");
+        toggleClockButton.append(createIcon("keyboard"));
 
         const confirmTimeButton = document.createElement("button");
         confirmTimeButton.type = "button";
@@ -181,8 +213,26 @@ export function initializeReservationTimePicker(pickerCore) {
         confirmTimeButton.addEventListener("click", () => {
             if (native.value) close({ focus: true });
         });
+        toggleClockButton.addEventListener("click", () => {
+            const isClockVisible = !clockFace.hidden;
+            clockFace.hidden = isClockVisible;
+            toggleClockButton.setAttribute(
+                "aria-expanded",
+                String(!isClockVisible),
+            );
+            toggleClockButton.setAttribute(
+                "aria-label",
+                isClockVisible
+                    ? "Mostrar reloj visual"
+                    : "Ocultar reloj visual",
+            );
+            toggleClockButton.replaceChildren(
+                createIcon(isClockVisible ? "schedule" : "keyboard"),
+            );
+        });
+        timePickerActions.append(toggleClockButton, confirmTimeButton);
 
-        panel.append(emptyState, clock, confirmTimeButton);
+        panel.append(emptyState, clock, timePickerActions);
 
         // El atributo `step` del input fija el intervalo entre horarios.
         const stepMinutes = Math.max(
@@ -522,7 +572,7 @@ export function initializeReservationTimePicker(pickerCore) {
                 emptyMessage.textContent =
                     "Primero elige la fecha para ver los horarios disponibles.";
                 emptyState.hidden = false;
-                confirmTimeButton.hidden = true;
+                timePickerActions.hidden = true;
                 renderClock();
                 return;
             }
@@ -557,7 +607,7 @@ export function initializeReservationTimePicker(pickerCore) {
                 : "Ya no quedan horarios disponibles para esta fecha.";
             emptyState.hidden = hasSlots;
             chooseDateButton.hidden = hasSlots;
-            confirmTimeButton.hidden = !hasSlots;
+            timePickerActions.hidden = !hasSlots;
             clock.hidden = !hasSlots;
 
             if (hasSlots) {
