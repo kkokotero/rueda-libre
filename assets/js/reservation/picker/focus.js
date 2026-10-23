@@ -37,7 +37,9 @@ export const trapMobilePickerFocus = (shell) => {
         if (event.key !== "Tab" || !isMobilePicker()) return;
 
         const focusables = [
-            ...shell.querySelectorAll("button:not(:disabled)"),
+            ...shell.querySelectorAll(
+                "button:not(:disabled), input:not(:disabled)",
+            ),
         ].filter((element) => element.offsetParent !== null);
 
         if (!focusables.length) return;
