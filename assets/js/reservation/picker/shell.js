@@ -1,0 +1,127 @@
+/**
+ * Construcción y posicionamiento del panel flotante de un picker.
+ *
+ * En escritorio el panel se coloca junto al disparador (arriba o abajo según
+ * el espacio disponible); en móvil la hoja lo ocupa todo y no necesita cálculo.
+ */
+
+import { createIcon } from "./icons.js";
+import { isMobilePicker } from "./media.js";
+import { getFieldLabelId } from "./labels.js";
+
+const createPickerHeader = (titleText, onClose) => {
+    const header = document.createElement("div");
+    header.className = "reservas-picker__header";
+
+    const title = document.createElement("p");
+    title.className = "reservas-picker__title";
+    title.textContent = titleText;
+
+    const closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "reservas-picker__close";
+    closeButton.setAttribute("aria-label", "Cerrar");
+    closeButton.append(createIcon("close"));
+    closeButton.addEventListener("click", onClose);
+
+    header.append(title, closeButton);
+
+    return { header, closeButton };
+};
+
+export const createPickerShell = (panel, titleText, onClose) => {
+    const shell = document.createElement("div");
+    shell.className = "reservas-picker__shell";
+
+    const { header, closeButton } = createPickerHeader(titleText, onClose);
+
+    shell.append(header, panel);
+
+    return { shell, closeButton };
+};
+
+export const createPickerTrigger = (
+    native,
+    label,
+    describedBy,
+    titleText,
+) => {
+    const valueId = `${native.id}-value`;
+    const panelId = `${native.id}-panel`;
+    const labelId = getFieldLabelId(label, native);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.id = `${native.id}-button`;
+    button.className = "reservas-form__input reservas-picker__button";
+    button.setAttribute("aria-haspopup", "dialog");
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-controls", panelId);
+
+    if (native.required) {
+        button.setAttribute("aria-required", "true");
+    }
+
+    if (describedBy) {
+        button.setAttribute("aria-describedby", describedBy);
+    }
+
+    if (labelId) {
+        button.setAttribute("aria-labelledby", `${labelId} ${valueId}`);
+    } else {
+        button.setAttribute("aria-label", titleText);
+    }
+
+    const value = document.createElement("span");
+    value.className = "reservas-picker__value";
+    value.id = valueId;
+
+    const chevron = createIcon(
+        "expand_more",
+        "reservas-picker__chevron",
+    );
+
+    button.append(value, chevron);
+
+    return { button, value, panelId };
+};
+
+/**
+ * Coloca el panel junto al disparador: hacia abajo si cabe, hacia arriba si no.
+ *
+ * @param {HTMLElement} wrapper contenedor del disparador y del panel
+ * @param {HTMLElement} trigger disparador que dispara el panel
+ * @param {HTMLElement} panel panel a posicionar
+ * @param {number} [maxHeight] alto máximo del panel en escritorio
+ */
+export const positionPickerPanel = (
+    wrapper,
+    trigger,
+    panel,
+    maxHeight = 256,
+) => {
+    if (isMobilePicker()) {
+        wrapper.classList.remove("is-up");
+        panel.style.maxHeight = "";
+        return;
+    }
+
+    panel.style.maxHeight = "";
+
+    const triggerRect = trigger.getBoundingClientRect();
+    const panelHeight = panel.offsetHeight;
+    const safeMargin = 24;
+    const gap = 8;
+    const header = document.querySelector(".site-header");
+    const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+    const topLimit = Math.max(16, headerBottom + 12);
+    const spaceBelow = window.innerHeight - triggerRect.bottom - safeMargin - gap;
+    const spaceAbove = triggerRect.top - topLimit - gap;
+    const openUp = spaceBelow < panelHeight && spaceAbove > spaceBelow;
+
+    wrapper.classList.toggle("is-up", openUp);
+    panel.style.maxHeight = `${Math.max(
+        140,
+        Math.min(maxHeight, openUp ? spaceAbove : spaceBelow),
+    )}px`;
+};
