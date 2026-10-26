@@ -374,7 +374,7 @@
         font-size: 1rem;
     }
 
-    .tarifas-table__row:nth-child(2) .tarifas-table__row-icon {
+    .tarifas-table__row:nth-child(3n + 2) .tarifas-table__row-icon {
         background-color: color-mix(
             in oklab,
             var(--color-secondary) 14%,
@@ -388,7 +388,7 @@
         color: var(--color-secondary);
     }
 
-    .tarifas-table__row:nth-child(3) .tarifas-table__row-icon {
+    .tarifas-table__row:nth-child(3n + 3) .tarifas-table__row-icon {
         background-color: color-mix(
             in oklab,
             var(--color-tertiary) 14%,

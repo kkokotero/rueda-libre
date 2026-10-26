@@ -197,3 +197,144 @@ Pruebas realizadas:
   bloqueo de scroll y paneles dentro de la ventana.
 - Navegación, footer, recursos e imágenes del sitio sin errores; no se
   registraron errores de JavaScript.
+
+SECCIÓN "NUESTRA FLOTA" EN LA PÁGINA DE INICIO
+
+El cliente amplió su flota y quiere mostrarla en inicio. Cada modelo se presenta
+como un artículo con foto, nombre, descripción corta, precio por hora y un
+enlace "Reservar" que lleva al formulario de reservas.
+
+Modelos publicados (los seis del brief más el séptimo agregado al final):
+
+- Urbana Clásica — Cómoda y liviana para las ciclorrutas. $10.000
+- Urbana Plegable — Se dobla en segundos; ideal para combinar con el metro.
+  $12.000
+- Montaña Trail — Suspensión delantera y 21 cambios para las subidas. $15.000
+- Gravel Aventura — Para rutas mixtas de asfalto y destapado. $18.000
+- Eléctrica Urbana — Asistencia eléctrica con 45 km de autonomía. $25.000
+- Infantil — Para niños de 6 a 10 años. $8.000
+- Tándem — Para dos personas; perfecta para pasear en pareja. $20.000
+
+Cómo está construida la cuadrícula:
+
+- Cuadrícula tipo bento con display: grid y
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr)).
+  El número de columnas lo decide el navegador según el espacio disponible: no
+  hay ninguna media query que lo fije, así que la sección se adapta sola cuando
+  se agregan o quitan modelos.
+- Separación uniforme con gap: 1rem y grid-auto-flow: dense, que rellena los
+  huecos que dejan las tarjetas que ocupan más de una celda.
+- Los tamaños del bento se activan con container queries sobre el propio ancho
+  del grid (no con media queries) y solo en horizontal: desde dos columnas la
+  tarjeta destacada ocupa dos. Las demás van a una columna porque sus fotos son
+  4:3, cuadradas o 2:1 y se ven mejor así. No hay spans de fila, para que una
+  tarjeta ancha no arrastre la altura de las demás.
+- Cada tarjeta organiza su contenido en columna con Flexbox
+  (flex-direction: column + justify-content: flex-start). El enlace "Reservar"
+  lleva margin-top: auto, por lo que queda siempre al pie: todas las tarjetas
+  de una fila miden lo mismo aunque las descripciones tengan longitudes
+  distintas.
+- Las tarjetas conservan el box model del resto de la página: relleno de
+  0.9rem 1rem 1rem, borde de 1px con color de contorno y esquinas redondeadas
+  con los tokens --radius.
+- Los huecos de imagen (.our-fleet--card__media) reservan una proporción 16:10
+  mientras no hay foto y muestran un marcador con el icono "photo". Al insertar
+  <img class="our-fleet--card__image" src="..." alt="...">, la proporción pasa
+  a ser la natural de la foto: cada imagen define la altura de su hueco y se
+  muestra completa, sin recortes, y el marcador desaparece gracias a :has().
+
+Columnas observadas con el modo dispositivo de DevTools (ancho del contenido de
+.site-main, que es clamp(20rem, 90dvw, 1424px), y 92dvw por debajo de 520 px):
+
+- 1280 px de ancho: contenido de 1152 px y 4 columnas. El bento queda en dos
+  filas exactas: la destacada ocupa 2 columnas y las seis restantes una cada
+  una (2 + 6 = 8 celdas), sin huecos.
+- 900 px de ancho: contenido de 810 px y 3 columnas; 3 filas.
+- 500 px de ancho: contenido de 460 px y 1 columna.
+
+Ajuste de altura del bento:
+
+- Primera versión: las tarjetas "wide" duplicaban el ancho pero conservaban la
+  imagen en 4:3, así que duplicaban también el alto; además la destacada tenía
+  grid-row: span 2 y se estiraba a la suma de dos filas (más de 1000 px). La
+  sección se veía muy alta y desbordaba.
+- Corrección: se eliminó el span de fila y se limitó la imagen con max-height.
+  Todas las filas quedan en unos 315 px y la cuadrícula mide ~978 px tanto a
+  1280 como a 900 px.
+
+Cálculo de comprobación: columnas = floor((ancho + gap) / (mínimo + gap)), con
+mínimo de 248 px (15.5rem) y gap de 16 px (1rem), asumiendo 1rem = 16px.
+- 1280 px: floor((1152 + 16) / (248 + 16)) = floor(4.42) = 4
+- 900 px:  floor((810 + 16) / (248 + 16)) = floor(3.12) = 3
+- 500 px:  floor((460 + 16) / (248 + 16)) = floor(1.80) = 1
+
+Actualización de otros módulos y del formulario:
+
+- Se agregó "Nuestra flota" al desplegable "Nosotros" (menú de escritorio y
+  cajón móvil) y al nav del pie en las tres páginas, para que la sección sea
+  accesible desde cualquier punto del sitio.
+- El selector "Tipo de bicicleta" del formulario de reservas ahora ofrece los
+  siete modelos reales (Urbana Clásica, Urbana Plegable, Montaña Trail, Gravel
+  Aventura, Eléctrica Urbana, Infantil y Tándem) más la opción "No estoy
+  seguro/a".
+
+Verificación de requisitos:
+
+- La cuadrícula cambia la cantidad de columnas según el ancho sin media queries.
+- Las tarjetas de una misma fila tienen la misma altura y sus enlaces
+  "Reservar" quedan alineados al final.
+- El séptimo modelo (Tándem) se acomodó agregando solo el <article> en el HTML;
+  no se modificó el CSS.
+- Las tarjetas conservan relleno, borde y esquinas redondeadas.
+- La bitácora registra las columnas observadas en los tres anchos.
+
+CORRECCIÓN DE RESERVAS Y ACTUALIZACIÓN DE TARIFAS
+
+- reservas/index.html: la sección de horario tenía abierto
+  <div class="reservas-info__grid"> sin su </div>, así que el </section>
+  cerraba mientras el div seguía abierto. Se agregó el cierre que faltaba
+  antes de </section> y la página quedó con la estructura balanceada.
+- tarifas/index.html: la tabla de alquiler pasó de 3 categorías (Urbana,
+  Montaña, Eléctrica) a los 7 modelos de la flota: Urbana Clásica, Urbana
+  Plegable, Montaña Trail, Gravel Aventura, Eléctrica Urbana, Infantil y
+  Tándem.
+- Los precios por hora son los de la flota. En los tres modelos que ya
+  existían se conservaron tal cual los valores de medio día y día completo;
+  en los cuatro nuevos se derivaron con la misma proporción de la Urbana
+  (medio día = 3 × hora, día completo = 5 × hora).
+- En tarifas.css el color de los iconos de fila pasa de :nth-child(2) y
+  :nth-child(3) a :nth-child(3n + 2) y :nth-child(3n + 3), para que el ciclo
+  de colores siga funcionando con cualquier cantidad de filas.
+
+HUECO A LA DERECHA DEL BENTO EN PANTALLAS GRANDES
+
+- A partir de 81.5rem de contenedor (unos 1304 px, es decir, pantallas de
+  ~1450 px o más) auto-fit abría una quinta columna. Con 7 tarjetas y spans
+  de 1 o 2 columnas el máximo es 14 celdas, así que en 5 columnas (15 celdas
+  por cada 3 filas) siempre sobraba una columna a la derecha.
+- Corrección: se movió container-type/container-name de .our-fleet--grid a
+  .our-fleet (un grid no puede responder a sus propias container queries) y
+  se añadió un tope de 4 columnas desde 81.5rem:
+  grid-template-columns: repeat(4, minmax(0, 1fr)).
+- Por debajo de 81.5rem no cambia nada: auto-fit ya daba 4 columnas, así que
+  la transición es continua. En 1280/900/500 px se mantienen 4/3/1 columnas y
+  el bento sigue llenando 12/12 celdas en 3 × 4.
+
+FOTOS DE LA FLOTA Y AJUSTE A SUS PROPORCIONES
+
+- Se vincularon las siete fotos de assets/img/flota/ en sus tarjetas con
+  <img class="our-fleet--card__image">, atributos width/height intrínsecos,
+  loading="lazy" y decoding="async".
+- Las fotos tienen proporciones distintas: urbana_clasica 1.78, urbana_plegable
+  1.33, montaña_trail 1.46, gravel_aventura 1.78, electrica_urbana 1.33,
+  infantil 1.00 y tandem 1.95.
+- Para no recortarlas se quitó el max-height y el object-fit: cover. Ahora la
+  imagen fluye con width: 100% y height: auto, y el hueco toma la proporción
+  natural de cada foto. El aspect-ratio 16:10 queda solo como reserva para
+  tarjetas que todavía no tengan foto.
+- Como solo la tarjeta destacada ocupa dos columnas, a cuatro columnas las
+  siete tarjetas llenan dos filas exactas (2 + 6 = 8 celdas). El tope de cuatro
+  columnas desde 81.5rem sigue evitando que auto-fit abra una quinta y deje
+  huecos a la derecha.
+- A 900 px el bento usa tres columnas y queda un hueco en la última fila (8
+  celdas de 9); es el único ancho con un hueco.
