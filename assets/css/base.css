@@ -7,6 +7,12 @@
    BASE — base.css
    Tokens, reset global, tipografía raíz y estilos de página completa.
    Capa: base
+
+   Estrategia: mobile-first. Todo lo que no está dentro de un
+   @media es el estado móvil (el más pequeño); los @media usan
+   min-width y solo añaden mejoras para pantallas mayores.
+   Breakpoints del proyecto: 381px · 501px · 521px · 721px ·
+   769px · 861px · 921px · 1025px · 1101px.
    ============================================================ */
 
 @layer base {
@@ -98,6 +104,9 @@
 
     html {
         scroll-padding-top: 7rem;
+        /* Evita el ajuste automático de tamaño de texto en iOS */
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
     }
 
     ::selection {
@@ -123,14 +132,16 @@
                 color-mix(in oklab, var(--color-tertiary) 8%, transparent),
                 transparent 70%
             );
-        background-attachment: fixed;
+        background-attachment: scroll;
         color: var(--color-on-background);
+        /* Fallback para navegadores sin unidades dinámicas */
+        min-height: 100vh;
         min-height: 100dvh;
         overflow-x: hidden;
         line-height: 1.5;
 
-        @media (width <= 860px) {
-            background-attachment: scroll;
+        @media (min-width: 861px) {
+            background-attachment: fixed;
         }
     }
 

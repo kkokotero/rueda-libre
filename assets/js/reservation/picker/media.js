@@ -1,12 +1,13 @@
 /**
  * Punto de corte móvil de los pickers.
  *
- * Debe coincidir con el breakpoint de `pickers.css` (`@media (width <= 720px)`)
+ * Debe coincidir con el breakpoint de `pickers.css` (`min-width: 721px`)
  * para que el panel pase de popover a hoja modal en el mismo instante en que
- * cambia el layout.
+ * cambia el layout. Usamos sintaxis clásica (`max-width`) para que la consulta
+ * funcione también en navegadores que no soportan el rango `(width <= …)`.
  */
 
-export const MOBILE_PICKER_QUERY = "(width <= 720px)";
+export const MOBILE_PICKER_QUERY = "(max-width: 720px)";
 
 const mobilePickerMedia = window.matchMedia(MOBILE_PICKER_QUERY);
 

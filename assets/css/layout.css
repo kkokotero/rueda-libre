@@ -2,6 +2,10 @@
    LAYOUT — layout.css
    Header, menú lateral (drawer), footer, contenedores de sección y movimiento.
    Capa: layout
+
+   Mobile-first: la base describe el móvil; los @media (min-width)
+   añaden la versión de tablet y escritorio sin cambiar el resultado
+   visual de cada ancho.
    ============================================================ */
 
 @layer layout {
@@ -22,10 +26,12 @@
             transparent
         );
         color: var(--color-on-secondary-container);
-        height: 5rem;
-        padding: 0 1rem;
+        height: 4.5rem;
+        padding: 0 0.5rem 0 0.75rem;
+        z-index: 3;
         margin-bottom: 2rem;
         margin-top: 1rem;
+        -webkit-backdrop-filter: blur(1.25rem);
         backdrop-filter: blur(1.25rem);
 
         animation-timeline: scroll(root);
@@ -36,11 +42,10 @@
             animation: none;
         }
 
-        @media (width <= 860px) {
-            position: relative;
-            z-index: 3;
-            height: 4.5rem;
-            padding: 0 0.5rem 0 0.75rem;
+        @media (min-width: 861px) {
+            z-index: auto;
+            height: 5rem;
+            padding: 0 1rem;
         }
     }
 
@@ -49,6 +54,7 @@
             margin-top: 0rem;
             border-radius: 0rem;
             transform: translateY(-1rem);
+            max-width: 100vw;
             max-width: 100dvw;
             margin: 0 auto;
         }
@@ -59,6 +65,7 @@
             margin-top: 1rem;
             border-radius: var(--radius-pill);
             transform: translateY(0rem);
+            max-width: clamp(20rem, 85vw, 1424px);
             max-width: clamp(20rem, 85dvw, 1424px);
             margin: 0 auto;
             border: 1px solid
@@ -67,14 +74,14 @@
     }
 
     .header--logo {
-        margin-left: 1rem;
+        margin-left: 0.25rem;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-shrink: 0;
 
-        @media (width <= 860px) {
-            margin-left: 0.25rem;
+        @media (min-width: 861px) {
+            margin-left: 1rem;
         }
     }
 
@@ -86,27 +93,27 @@
 
     .header--logo__image {
         display: block;
-        width: 8rem;
-        height: 6.4rem;
+        width: 5.5rem;
+        height: 4.4rem;
         object-fit: contain;
         transition: transform var(--motion-medium) var(--ease-spring);
 
-        @media (width <= 860px) {
-            width: 5.5rem;
-            height: 4.4rem;
+        @media (min-width: 861px) {
+            width: 8rem;
+            height: 6.4rem;
         }
     }
 
     .header--menu {
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-        justify-content: flex-start;
-        margin-left: auto;
-        min-width: 0;
+        display: none;
 
-        @media (width <= 860px) {
-            display: none;
+        @media (min-width: 861px) {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            justify-content: flex-start;
+            margin-left: auto;
+            min-width: 0;
         }
     }
 
@@ -131,10 +138,10 @@
     .header--menu__link {
         text-decoration: none;
         color: var(--color-on-surface);
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 500;
         white-space: nowrap;
-        padding: 0.85rem 1.35rem;
+        padding: 0.7rem 0.85rem;
         border-radius: var(--radius-pill);
         transition:
             background-color var(--motion-fast) var(--ease-emphasized),
@@ -150,9 +157,9 @@
             color: var(--color-primary);
         }
 
-        @media (width <= 1024px) {
-            padding: 0.7rem 0.85rem;
-            font-size: 0.9rem;
+        @media (min-width: 1025px) {
+            padding: 0.85rem 1.35rem;
+            font-size: 1rem;
         }
     }
 
@@ -224,6 +231,7 @@
             var(--color-surface-container) 96%,
             transparent
         );
+        -webkit-backdrop-filter: blur(1rem);
         backdrop-filter: blur(1rem);
     }
 
@@ -253,26 +261,20 @@
     }
 
     .nav-toggle {
-        display: none;
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        clip-path: inset(50%);
 
-        @media (width <= 860px) {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            opacity: 0;
-            pointer-events: none;
-            clip-path: inset(50%);
+        @media (min-width: 861px) {
+            display: none;
         }
-    }
-
-    .header--toggle,
-    .nav-scrim,
-    .header--drawer {
-        display: none;
     }
 
     :root:has(.nav-toggle:focus-visible) .header--toggle {
@@ -281,19 +283,17 @@
     }
 
     .site-main {
-        max-width: clamp(20rem, 90dvw, 1424px);
+        max-width: 92vw;
+        max-width: 92dvw;
         margin: 0 auto;
         min-height: 100vh;
-        margin-top: 2rem;
+        margin-top: 1rem;
         padding-bottom: 5rem;
 
-        @media (width <= 860px) {
-            margin-bottom: 0rem;
-        }
-
-        @media (width <= 520px) {
-            max-width: 92dvw;
-            margin-top: 1rem;
+        @media (min-width: 521px) {
+            max-width: clamp(20rem, 90vw, 1424px);
+            max-width: clamp(20rem, 90dvw, 1424px);
+            margin-top: 2rem;
         }
     }
 
@@ -317,7 +317,7 @@
     }
 
     .section--divider {
-        margin: 3rem 0;
+        margin: 2rem 0;
         border: 0;
         height: 0.55rem;
         background-image: radial-gradient(
@@ -330,8 +330,8 @@
         opacity: 0.7;
         transform: rotate(-0.5deg) scale(1.1);
 
-        @media (width <= 520px) {
-            margin: 2rem 0;
+        @media (min-width: 521px) {
+            margin: 3rem 0;
         }
     }
 
@@ -396,11 +396,13 @@
         position: relative;
         z-index: 1;
         width: 100%;
-        max-width: clamp(20rem, 90dvw, 1424px);
+        max-width: 92vw;
+        max-width: 92dvw;
         margin-inline: auto;
 
-        @media (width <= 520px) {
-            max-width: 92dvw;
+        @media (min-width: 521px) {
+            max-width: clamp(20rem, 90vw, 1424px);
+            max-width: clamp(20rem, 90dvw, 1424px);
         }
     }
 
@@ -410,11 +412,11 @@
         overflow: clip;
         display: flex;
         flex-wrap: wrap;
-        align-items: flex-end;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 1.5rem 2rem;
         margin-bottom: clamp(2.5rem, 5vw, 4rem);
-        padding: clamp(1.5rem, 4vw, 3rem);
+        padding: 1.5rem 1.25rem;
         color: var(--color-on-primary);
         background-image:
             radial-gradient(
@@ -427,15 +429,15 @@
                 var(--color-primary),
                 var(--color-primary-container)
             );
-        border-radius: var(--radius-lg);
+        border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
 
-        @media (width <= 860px) {
-            align-items: flex-start;
+        @media (min-width: 521px) {
+            padding: clamp(1.5rem, 4vw, 3rem);
+            border-radius: var(--radius-lg);
         }
 
-        @media (width <= 520px) {
-            padding: 1.5rem 1.25rem;
-            border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
+        @media (min-width: 861px) {
+            align-items: flex-end;
         }
     }
 
@@ -469,14 +471,16 @@
         z-index: 1;
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
         gap: 0.75rem;
+        width: 100%;
 
-        @media (width <= 860px) {
-            width: 100%;
+        @media (min-width: 521px) {
+            flex-direction: row;
         }
 
-        @media (width <= 520px) {
-            flex-direction: column;
+        @media (min-width: 861px) {
+            width: auto;
         }
     }
 
@@ -484,6 +488,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        flex: 0 0 auto;
+        width: 100%;
         min-height: 3.75rem;
         padding: 1rem 1.6rem;
         border-radius: var(--radius-pill);
@@ -496,13 +502,13 @@
             border-color var(--motion-fast) var(--ease-emphasized),
             transform var(--motion-medium) var(--ease-spring);
 
-        @media (width <= 720px) {
+        @media (min-width: 521px) {
             flex: 1 1 12rem;
+            width: auto;
         }
 
-        @media (width <= 520px) {
-            flex: 0 0 auto;
-            width: 100%;
+        @media (min-width: 721px) {
+            flex: 0 1 auto;
         }
     }
 
@@ -529,17 +535,17 @@
 
     .footer__grid {
         display: grid;
-        grid-template-columns: 1.6fr 0.7fr 1fr;
-        gap: 2.5rem clamp(1.5rem, 4vw, 4rem);
+        grid-template-columns: 1fr;
+        gap: 2rem;
         padding-bottom: clamp(2.5rem, 5vw, 4rem);
 
-        @media (width <= 1024px) {
+        @media (min-width: 721px) {
             grid-template-columns: 1.4fr 1fr;
+            gap: 2.5rem clamp(1.5rem, 4vw, 4rem);
         }
 
-        @media (width <= 720px) {
-            grid-template-columns: 1fr;
-            gap: 2rem;
+        @media (min-width: 1025px) {
+            grid-template-columns: 1.6fr 0.7fr 1fr;
         }
     }
 
@@ -548,14 +554,15 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
+        max-width: 48ch;
 
-        @media (width <= 1024px) {
+        @media (min-width: 721px) {
             grid-column: 1 / -1;
-            max-width: 48ch;
         }
 
-        @media (width <= 720px) {
+        @media (min-width: 1025px) {
             grid-column: auto;
+            max-width: none;
         }
     }
 
@@ -706,7 +713,8 @@
     .footer__bottom {
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 0.75rem 1.5rem;
         padding: 1.5rem 0 2rem;
@@ -715,9 +723,9 @@
         font-size: 0.86rem;
         color: var(--color-on-surface-variant);
 
-        @media (width <= 520px) {
-            flex-direction: column;
-            align-items: flex-start;
+        @media (min-width: 521px) {
+            flex-direction: row;
+            align-items: center;
         }
     }
 
@@ -780,348 +788,308 @@
         }
     }
 
-    @media (width <= 860px) {
-        .header--logo svg {
-            font-size: 5.5rem;
-        }
+    /* ---------- Menú móvil (drawer) ----------
+       Todo este bloque es la base móvil. En escritorio los tres
+       contenedores se ocultan (ver el @media de min-width 861px). */
+
+    .header--toggle {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.3rem;
+        flex-shrink: 0;
+        width: 3rem;
+        height: 3rem;
+        margin-left: auto;
+        margin-right: 0.5rem;
+        border-radius: 50%;
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 70%, transparent);
+        background-color: color-mix(
+            in oklab,
+            var(--color-surface-container-high) 62%,
+            transparent
+        );
+        color: var(--color-on-surface);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
     }
 
-    @media (width <= 860px) {
-        .header--toggle {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-            flex-shrink: 0;
-            width: 3rem;
-            height: 3rem;
-            margin-left: auto;
-            margin-right: 0.5rem;
-            border-radius: 50%;
-            border: 1px solid
-                color-mix(in oklab, var(--color-outline-variant) 70%, transparent);
+    .header--toggle:hover {
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 20%,
+            transparent
+        );
+        border-color: var(--color-primary);
+    }
+
+    .header--toggle:active {
+        transform: scale(0.94);
+    }
+
+    .header--toggle__bar {
+        width: 1.15rem;
+        height: 2px;
+        border-radius: var(--radius-pill);
+        background-color: currentColor;
+    }
+
+    :root:has(.nav-toggle:checked) .header--toggle {
+        background-color: var(--color-primary);
+        border-color: transparent;
+        color: var(--color-on-primary);
+    }
+
+    :root:has(.nav-toggle:checked) .header--toggle__bar--top {
+        transform: translateY(0.4rem) rotate(45deg);
+    }
+
+    :root:has(.nav-toggle:checked) .header--toggle__bar--middle {
+        opacity: 0;
+        transform: scaleX(0.4);
+    }
+
+    :root:has(.nav-toggle:checked) .header--toggle__bar--bottom {
+        transform: translateY(-0.4rem) rotate(-45deg);
+    }
+
+    /* Fondo oscurecido: al pulsarlo también cierra el menú */
+    .nav-scrim {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background-color: color-mix(
+            in oklab,
+            var(--color-scrim) 62%,
+            transparent
+        );
+        opacity: 0;
+        visibility: hidden;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    :root:has(.nav-toggle:checked) .nav-scrim {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Panel lateral deslizante */
+    .header--drawer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        position: fixed;
+        inset: 0 0 0 auto;
+        z-index: 2;
+        width: min(20rem, 84vw);
+        width: min(20rem, 84dvw);
+        height: 100vh;
+        height: 100dvh;
+        padding: 6.5rem 1.25rem 2rem;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        color: var(--color-on-surface);
+        background-color: color-mix(
+            in oklab,
+            var(--color-surface-container) 96%,
+            transparent
+        );
+        -webkit-backdrop-filter: blur(1.5rem);
+        backdrop-filter: blur(1.5rem);
+        border-left: 1px solid
+            color-mix(in oklab, var(--color-primary) 28%, transparent);
+        translate: 100% 0;
+        visibility: hidden;
+    }
+
+    :root:has(.nav-toggle:checked) .header--drawer {
+        translate: 0 0;
+        visibility: visible;
+    }
+
+    .header--drawer__eyebrow {
+        margin: 0 0 0.75rem 1rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--color-primary);
+    }
+
+    .header--drawer__link {
+        display: flex;
+        align-items: center;
+        padding: 0.95rem 1rem;
+        border-radius: var(--radius-sm);
+        color: var(--color-on-surface);
+        font-size: clamp(1.05rem, 4.5vw, 1.2rem);
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            color var(--motion-fast) var(--ease-emphasized);
+
+        &:hover,
+        &:focus-visible {
             background-color: color-mix(
                 in oklab,
-                var(--color-surface-container-high) 62%,
+                var(--color-primary) 16%,
                 transparent
             );
-            color: var(--color-on-surface);
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
+            color: var(--color-primary);
+        }
+
+        &:active {
+            background-color: color-mix(
+                in oklab,
+                var(--color-primary) 26%,
+                transparent
+            );
         }
     }
 
-    @media (width <= 860px) {
-        .header--toggle:hover {
+    .header--drawer__link[aria-current="page"] {
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 16%,
+            transparent
+        );
+        color: var(--color-primary);
+    }
+
+    .header--drawer__group {
+        display: block;
+    }
+
+    .header--drawer__toggle {
+        width: 100%;
+        justify-content: space-between;
+        list-style: none;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .header--drawer__toggle::-webkit-details-marker {
+        display: none;
+    }
+
+    .header--drawer__toggle::after {
+        content: "";
+        width: 0.5rem;
+        height: 0.5rem;
+        right: 0.5rem;
+        top: 50%;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: rotate(45deg);
+        flex-shrink: 0;
+    }
+
+    .header--drawer__group[open] > .header--drawer__toggle {
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 16%,
+            transparent
+        );
+        color: var(--color-primary);
+    }
+
+    .header--drawer__group[open] > .header--drawer__toggle::after {
+        transform: rotate(-135deg) translateY(-50%) translateX(-20%);
+    }
+
+    .header--drawer__submenu {
+        display: grid;
+        gap: 0.15rem;
+        margin: 0.3rem 0 0.4rem 0.9rem;
+        padding-left: 0.6rem;
+        border-left: 1px solid
+            color-mix(in oklab, var(--color-primary) 32%, transparent);
+    }
+
+    .header--drawer__sublink {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-sm);
+        color: var(--color-on-surface-variant);
+        font-size: clamp(0.98rem, 4vw, 1.08rem);
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            color var(--motion-fast) var(--ease-emphasized);
+
+        &:hover,
+        &:focus-visible {
             background-color: color-mix(
                 in oklab,
-                var(--color-primary) 20%,
+                var(--color-primary) 16%,
+                transparent
+            );
+            color: var(--color-primary);
+        }
+    }
+
+    .header--drawer__contact {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        margin-top: auto;
+        padding: 1rem 1.1rem;
+        border: 1px solid
+            color-mix(in oklab, var(--color-primary) 30%, transparent);
+        border-radius: var(--radius-md);
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 10%,
+            transparent
+        );
+        color: var(--color-on-surface-variant);
+        font-size: 0.85rem;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            border-color var(--motion-fast) var(--ease-emphasized);
+
+        & span {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-primary);
+        }
+
+        &:hover {
+            background-color: color-mix(
+                in oklab,
+                var(--color-primary) 16%,
                 transparent
             );
             border-color: var(--color-primary);
         }
     }
 
-    @media (width <= 860px) {
-        .header--toggle:active {
-            transform: scale(0.94);
-        }
+    /* Evita el desplazamiento del fondo con el menú abierto */
+    :root:has(.nav-toggle:checked) {
+        overflow: hidden;
     }
 
-    @media (width <= 860px) {
-        .header--toggle__bar {
-            width: 1.15rem;
-            height: 2px;
-            border-radius: var(--radius-pill);
-            background-color: currentColor;
-        }
-    }
-
-    @media (width <= 860px) {
-        :root:has(.nav-toggle:checked) .header--toggle {
-            background-color: var(--color-primary);
-            border-color: transparent;
-            color: var(--color-on-primary);
-        }
-    }
-
-    @media (width <= 860px) {
-        :root:has(.nav-toggle:checked) .header--toggle__bar--top {
-            transform: translateY(0.4rem) rotate(45deg);
-        }
-    }
-
-    @media (width <= 860px) {
-        :root:has(.nav-toggle:checked) .header--toggle__bar--middle {
-            opacity: 0;
-            transform: scaleX(0.4);
-        }
-    }
-
-    @media (width <= 860px) {
-        :root:has(.nav-toggle:checked) .header--toggle__bar--bottom {
-            transform: translateY(-0.4rem) rotate(-45deg);
-        }
-    }
-
-    @media (width <= 860px) {
-        /* Fondo oscurecido: al pulsarlo también cierra el menú */
-
-        .nav-scrim {
-            display: block;
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            background-color: color-mix(
-                in oklab,
-                var(--color-scrim) 62%,
-                transparent
-            );
-            opacity: 0;
-            visibility: hidden;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-    }
-
-    @media (width <= 860px) {
-        :root:has(.nav-toggle:checked) .nav-scrim {
-            opacity: 1;
-            visibility: visible;
-        }
-    }
-
-    @media (width <= 860px) {
-        /* Panel lateral deslizante */
-
+    /* A partir de escritorio el menú móvil desaparece por completo */
+    @media (min-width: 861px) {
+        .header--toggle,
+        .nav-scrim,
         .header--drawer {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            position: fixed;
-            inset: 0 0 0 auto;
-            z-index: 2;
-            width: min(20rem, 84dvw);
-            height: 100dvh;
-            padding: 6.5rem 1.25rem 2rem;
-            overflow-y: auto;
-            overscroll-behavior: contain;
-            color: var(--color-on-surface);
-            background-color: color-mix(
-                in oklab,
-                var(--color-surface-container) 96%,
-                transparent
-            );
-            -webkit-backdrop-filter: blur(1.5rem);
-            backdrop-filter: blur(1.5rem);
-            border-left: 1px solid
-                color-mix(in oklab, var(--color-primary) 28%, transparent);
-            translate: 100% 0;
-            visibility: hidden;
-        }
-    }
-
-    @media (width <= 860px) {
-        :root:has(.nav-toggle:checked) .header--drawer {
-            translate: 0 0;
-            visibility: visible;
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__eyebrow {
-            margin: 0 0 0.75rem 1rem;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--color-primary);
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__link {
-            display: flex;
-            align-items: center;
-            padding: 0.95rem 1rem;
-            border-radius: var(--radius-sm);
-            color: var(--color-on-surface);
-            font-size: clamp(1.05rem, 4.5vw, 1.2rem);
-            font-weight: 600;
-            text-decoration: none;
-            transition:
-                background-color var(--motion-fast) var(--ease-emphasized),
-                color var(--motion-fast) var(--ease-emphasized);
-
-            &:hover,
-            &:focus-visible {
-                background-color: color-mix(
-                    in oklab,
-                    var(--color-primary) 16%,
-                    transparent
-                );
-                color: var(--color-primary);
-            }
-
-            &:active {
-                background-color: color-mix(
-                    in oklab,
-                    var(--color-primary) 26%,
-                    transparent
-                );
-            }
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__link[aria-current="page"] {
-            background-color: color-mix(
-                in oklab,
-                var(--color-primary) 16%,
-                transparent
-            );
-            color: var(--color-primary);
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__group {
-            display: block;
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__toggle {
-            width: 100%;
-            justify-content: space-between;
-            list-style: none;
-            cursor: pointer;
-            user-select: none;
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__toggle::-webkit-details-marker {
             display: none;
         }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__toggle::after {
-            content: "";
-            width: 0.5rem;
-            height: 0.5rem;
-            right: 0.5rem;
-            top: 50%;
-            border-right: 2px solid currentColor;
-            border-bottom: 2px solid currentColor;
-            transform: rotate(45deg);
-            flex-shrink: 0;
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__group[open] > .header--drawer__toggle {
-            background-color: color-mix(
-                in oklab,
-                var(--color-primary) 16%,
-                transparent
-            );
-            color: var(--color-primary);
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__group[open] > .header--drawer__toggle::after {
-            transform: rotate(-135deg) translateY(-50%) translateX(-20%);
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__submenu {
-            display: grid;
-            gap: 0.15rem;
-            margin: 0.3rem 0 0.4rem 0.9rem;
-            padding-left: 0.6rem;
-            border-left: 1px solid
-                color-mix(in oklab, var(--color-primary) 32%, transparent);
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__sublink {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius-sm);
-            color: var(--color-on-surface-variant);
-            font-size: clamp(0.98rem, 4vw, 1.08rem);
-            font-weight: 500;
-            text-decoration: none;
-            transition:
-                background-color var(--motion-fast) var(--ease-emphasized),
-                color var(--motion-fast) var(--ease-emphasized);
-
-            &:hover,
-            &:focus-visible {
-                background-color: color-mix(
-                    in oklab,
-                    var(--color-primary) 16%,
-                    transparent
-                );
-                color: var(--color-primary);
-            }
-        }
-    }
-
-    @media (width <= 860px) {
-        .header--drawer__contact {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-            margin-top: auto;
-            padding: 1rem 1.1rem;
-            border: 1px solid
-                color-mix(in oklab, var(--color-primary) 30%, transparent);
-            border-radius: var(--radius-md);
-            background-color: color-mix(
-                in oklab,
-                var(--color-primary) 10%,
-                transparent
-            );
-            color: var(--color-on-surface-variant);
-            font-size: 0.85rem;
-            text-decoration: none;
-            overflow-wrap: anywhere;
-            transition:
-                background-color var(--motion-fast) var(--ease-emphasized),
-                border-color var(--motion-fast) var(--ease-emphasized);
-
-            & span {
-                font-size: 0.7rem;
-                font-weight: 700;
-                letter-spacing: 0.12em;
-                text-transform: uppercase;
-                color: var(--color-primary);
-            }
-
-            &:hover {
-                background-color: color-mix(
-                    in oklab,
-                    var(--color-primary) 16%,
-                    transparent
-                );
-                border-color: var(--color-primary);
-            }
-        }
-    }
-
-    @media (width <= 860px) {
-        /* Evita el desplazamiento del fondo con el menú abierto */
 
         :root:has(.nav-toggle:checked) {
-            overflow: hidden;
+            overflow: visible;
         }
     }
 }

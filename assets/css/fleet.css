@@ -3,6 +3,9 @@
    Sección modular de la flota: cuadrícula bento adaptable y
    tarjetas con el contenido en columna.
    Capa: pages
+
+   Mobile-first sin media queries de viewport: auto-fit + minmax
+   parte de una columna y crece según el ancho del contenedor.
    ============================================================ */
 
 @layer pages {
@@ -198,7 +201,7 @@
        celda. Con siete tarjetas, a cuatro columnas el bento llena
        exactamente dos filas (2 + 6 = 8 celdas). */
 
-    @container fleet (width >= 34rem) {
+    @container fleet (min-width: 34rem) {
         .our-fleet--card--hero {
             grid-column: span 2;
         }
@@ -209,7 +212,7 @@
        columnas quedarían dos huecos a la derecha. Se limita el máximo a
        cuatro columnas, donde las 8 celdas llenan dos filas exactas.
        Por debajo de 81.5rem no cambia nada (auto-fit ya daba 4). */
-    @container fleet (width >= 81.5rem) {
+    @container fleet (min-width: 81.5rem) {
         .our-fleet--grid {
             grid-template-columns: repeat(4, minmax(0, 1fr));
         }
