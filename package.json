@@ -12,11 +12,14 @@
         "build": "vite build",
         "preview": "vite preview",
         "preview:share": "vite preview --host",
+        "typecheck": "tsc --noEmit",
         "check": "biome lint .",
         "format": "biome format --write ."
     },
     "devDependencies": {
         "@biomejs/biome": "^2.6.3",
+        "@types/node": "^26.6.5",
+        "typescript": "^7.0.2",
         "vite": "^7.1.12"
     }
 }
