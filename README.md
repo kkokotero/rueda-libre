@@ -37,8 +37,8 @@ Biome revisa JavaScript, TypeScript y los archivos de configuración del proyect
 ## Estructura
 
 - `src/index.html`, `src/tarifas/` y `src/reservas/`: páginas de entrada.
-- `src/assets/css/`: estilos agrupados por página y componentes.
-- `src/assets/js/`: navegación, reservas y utilidades compartidas.
-- `src/assets/img/`: imágenes e iconos.
+- `src/css/`: estilos agrupados por página y componentes.
+- `src/js/`: navegación, reservas y utilidades compartidas.
+- `src/img/`: imágenes e iconos.
 - `vite.config.ts`: raíz de Vite y entradas HTML de la compilación.
 - `biome.json` y `.editorconfig`: reglas de calidad y estilo.
