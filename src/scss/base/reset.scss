@@ -1,0 +1,63 @@
+@layer base {
+
+
+    *,
+    *::after,
+    *::before {
+        box-sizing: border-box;
+        interpolate-size: allow-keywords;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        font-family: "Google Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        font-variation-settings: "GRAD" 0;
+
+        scroll-behavior: smooth;
+    }
+
+    html {
+        scroll-padding-top: 7rem;
+        /* Evita el ajuste automático de tamaño de texto en iOS */
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    ::selection {
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--color-primary);
+        outline-offset: 3px;
+    }
+
+    body {
+        background-color: var(--color-background);
+        background-image:
+            radial-gradient(
+                60rem 40rem at 85% -10%,
+                color-mix(in oklab, var(--color-primary) 12%, transparent),
+                transparent 70%
+            ),
+            radial-gradient(
+                50rem 35rem at 0% 45%,
+                color-mix(in oklab, var(--color-tertiary) 8%, transparent),
+                transparent 70%
+            );
+        background-attachment: scroll;
+        color: var(--color-on-background);
+        /* Fallback para navegadores sin unidades dinámicas */
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow-x: hidden;
+        line-height: 1.5;
+
+        @media (width >= 861px) {
+            background-attachment: fixed;
+        }
+    }
+}

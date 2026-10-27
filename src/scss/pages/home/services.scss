@@ -1,0 +1,219 @@
+@layer pages {
+
+
+    .our-services {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        counter-reset: service;
+
+        @media (width >= 721px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (width >= 1025px) {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    .our-services--title {
+        grid-column: 1 / -1;
+        margin-bottom: 0.5rem;
+    }
+
+    .our-services--card {
+        counter-increment: service;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        min-width: 0;
+        background-color: var(--color-surface-container);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-md);
+        padding: 2rem;
+        overflow: clip;
+        transition:
+            background-color var(--motion-medium) var(--ease-emphasized),
+            border-color var(--motion-medium) var(--ease-emphasized),
+            transform var(--motion-slow) var(--ease-spring);
+
+        /* Distintivo numérico expresivo */
+        &::before {
+            content: counter(service, decimal-leading-zero);
+            position: absolute;
+            top: 1.85rem;
+            right: 1.85rem;
+            z-index: 2;
+            padding: 0.35rem 0.7rem;
+            border-radius: var(--radius-pill);
+            background-color: color-mix(
+                in oklab,
+                var(--color-surface-container-lowest) 78%,
+                transparent
+            );
+            border: 1px solid
+                color-mix(in oklab, var(--color-primary) 25%, transparent);
+            color: var(--color-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1;
+            -webkit-backdrop-filter: blur(0.5rem);
+            backdrop-filter: blur(0.5rem);
+        }
+
+        &:hover {
+            background-color: var(--color-surface-container-high);
+            border-color: color-mix(
+                in oklab,
+                var(--color-primary) 35%,
+                transparent
+            );
+        }
+
+        @media (width >= 861px) {
+            padding: 1.25rem;
+        }
+    }
+
+    .our-services--card__title {
+        font-size: clamp(1.3rem, 2vw, 1.65rem);
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        text-wrap: balance;
+        padding-right: 4.5rem;
+    }
+
+    .our-services--card__image {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: var(--radius-sm) var(--radius-sm) var(--radius-md)
+            var(--radius-sm);
+        transition:
+            border-radius var(--motion-slow) var(--ease-spring),
+            transform var(--motion-slow) var(--ease-spring);
+    }
+
+    .our-services--card__text {
+        margin-top: auto;
+        font-size: 0.98rem;
+        line-height: 1.65;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+    }
+
+    .our-services--card__text :is(strong, em) {
+        color: var(--color-on-surface);
+    }
+
+    .our-services--card__text strong {
+        font-weight: 700;
+    }
+
+    .our-services--card--featured {
+        justify-content: flex-end;
+        isolation: isolate;
+        color: var(--color-on-primary);
+        border-color: transparent;
+        background-image:
+            radial-gradient(
+                circle at 110% 125%,
+                color-mix(in oklab, #ffffff 30%, transparent),
+                transparent 55%
+            ),
+            radial-gradient(
+                circle at -10% -20%,
+                color-mix(in oklab, #ffffff 18%, transparent),
+                transparent 50%
+            ),
+            linear-gradient(
+                155deg,
+                var(--color-primary),
+                var(--color-primary-container)
+            );
+
+        &::before {
+            background-color: color-mix(
+                in oklab,
+                var(--color-on-primary) 14%,
+                transparent
+            );
+            border-color: color-mix(
+                in oklab,
+                var(--color-on-primary) 22%,
+                transparent
+            );
+            color: var(--color-on-primary);
+        }
+
+        & .our-services--card__text {
+            color: color-mix(in oklab, var(--color-on-primary) 82%, transparent);
+            order: 2;
+        }
+
+        & .our-services--card__text :is(strong, em) {
+            color: var(--color-on-primary);
+        }
+
+        &:hover {
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        /* Reloj abstracto: refuerza la idea de alquiler por horas */
+        & .our-services--card__title {
+            order: 0;
+        }
+
+        &::after {
+            content: "";
+            order: 1;
+            align-self: center;
+            flex-shrink: 0;
+            width: clamp(6rem, 45%, 8rem);
+            aspect-ratio: 1;
+            margin: clamp(1rem, 8%, 3rem) 0;
+            border-radius: 50%;
+            border: 0.5rem solid
+                color-mix(in oklab, var(--color-on-primary) 22%, transparent);
+            background:
+                linear-gradient(var(--color-on-primary) 0 0) 50% 22% / 0.25rem 35%
+                    no-repeat,
+                linear-gradient(var(--color-on-primary) 0 0) 50% 50% / 30% 0.25rem
+                    no-repeat,
+                radial-gradient(
+                    circle at 50% 50%,
+                    var(--color-on-primary) 0 7%,
+                    transparent 8%
+                ),
+                color-mix(in oklab, var(--color-on-primary) 8%, transparent);
+            transition: transform var(--motion-slow) var(--ease-spring);
+            transform: scale(1.25) translateY(15%);
+
+            @media (width >= 768px) {
+                transform: scale(2) translateY(20%);
+            }
+        }
+
+        &:hover::after {
+            transform: scale(1.25) translateY(15%) rotate(20deg);
+
+            @media (width >= 768px) {
+                transform: scale(2) translateY(20%) rotate(20deg);
+            }
+        }
+
+        grid-column: auto;
+
+        @media (width >= 721px) {
+            grid-column: 1 / -1;
+        }
+
+        @media (width >= 1025px) {
+            grid-column: auto;
+        }
+    }
+}

@@ -1,0 +1,106 @@
+@layer components {
+
+
+    .reservas-picker.is-mobile-modal .reservas-picker__shell {
+        position: fixed;
+        z-index: 1001;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        display: flex;
+        flex-direction: column;
+
+        width: min(90vw, 42rem);
+        width: min(90dvw, 42rem);
+        max-height: 82vh;
+        max-height: 82dvh;
+        padding: 1rem;
+
+        background-color: var(--color-surface-container-high);
+        border-radius: 1.5rem;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    .reservas-picker.is-mobile-modal[data-picker="time"]
+        .reservas-picker__shell {
+        width: min(98vw, 42rem);
+        width: min(98dvw, 42rem);
+        max-height: 96vh;
+        max-height: 96dvh;
+        padding: 1rem;
+    }
+
+    .reservas-picker.is-mobile-modal .reservas-timepicker__panel {
+        scrollbar-width: none;
+    }
+
+    .reservas-picker.is-mobile-modal
+        .reservas-timepicker__panel::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Excepción de orientación: móvil en horizontal y muy bajo. */
+    @media (width <= 720px) and (height <= 450px) {
+        .reservas-picker.is-mobile-modal[data-picker="time"]
+            .reservas-picker__header {
+            display: none;
+        }
+
+        .reservas-picker.is-mobile-modal[data-picker="time"]
+            .reservas-picker__shell {
+            max-height: 100vh;
+            max-height: 100dvh;
+        }
+
+        .reservas-picker.is-mobile-modal[data-picker="time"]
+            .reservas-timepicker__clock {
+            gap: 2.25rem;
+            margin-top: 0.75rem;
+            padding: 0 0.25rem;
+        }
+    }
+
+    .reservas-picker.is-mobile-modal .reservas-picker__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+        gap: 1rem;
+        padding-bottom: 0.7rem;
+        border-bottom: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+        margin-bottom: 0.7rem;
+    }
+
+    .reservas-picker.is-mobile-modal .reservas-picker__panel {
+        position: static;
+        right: auto;
+        left: auto;
+        width: auto;
+        max-height: none;
+        flex: 1;
+        min-height: 0;
+        padding: 0;
+        overflow-y: auto;
+        background-color: transparent;
+        border: 0;
+        box-shadow: none;
+        animation: none;
+    }
+
+    .reservas-picker.is-mobile-modal .reservas-select__menu {
+        padding: 0;
+    }
+
+    .reservas-picker.is-mobile-modal .reservas-datepicker__panel,
+        .reservas-picker.is-mobile-modal .reservas-timepicker__panel {
+        padding: 0;
+    }
+
+    .reservas-picker.is-mobile-modal .reservas-datepicker__day,
+        .reservas-picker.is-mobile-modal .reservas-datepicker__blank {
+        aspect-ratio: 1;
+    }
+}

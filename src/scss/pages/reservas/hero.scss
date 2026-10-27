@@ -1,0 +1,11 @@
+@layer pages {
+
+
+    .reservas-hero__actions .tarifas-button {
+        width: 100%;
+
+        @media (width >= 521px) {
+            width: auto;
+        }
+    }
+}

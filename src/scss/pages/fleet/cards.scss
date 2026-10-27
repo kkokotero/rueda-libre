@@ -1,0 +1,149 @@
+@layer pages {
+
+
+    /* ---------- Tarjeta ----------
+       Columna con Flexbox; el enlace lleva margin-top: auto para
+       quedar siempre al pie. */
+
+    .our-fleet--card {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 0.4rem;
+        min-width: 0;
+        padding: 0.9rem 1rem 1rem;
+        background-color: var(--color-surface-container);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-md);
+        overflow: clip;
+        transition:
+            background-color var(--motion-medium) var(--ease-emphasized),
+            border-color var(--motion-medium) var(--ease-emphasized),
+            transform var(--motion-slow) var(--ease-spring);
+
+        &:hover {
+            background-color: var(--color-surface-container-high);
+            border-color: color-mix(
+                in oklab,
+                var(--color-primary) 35%,
+                transparent
+            );
+        }
+    }
+
+    /* ---------- Imagen ----------
+       Cuando la tarjeta todavía no tiene foto, el hueco reserva una
+       proporción 16:10 y muestra un marcador con el icono "photo".
+       En cuanto se inserta <img class="our-fleet--card__image">, la
+       proporción pasa a ser la natural de la foto: cada imagen define
+       su altura y se muestra completa, sin recortes. */
+
+    .our-fleet--card__media {
+        position: relative;
+        display: grid;
+        place-items: center;
+        aspect-ratio: 16 / 10;
+        margin-bottom: 0.2rem;
+        border: 1px dashed
+            color-mix(in oklab, var(--color-outline-variant) 70%, transparent);
+        border-radius: var(--radius-sm);
+        background-color: var(--color-surface-container-low);
+        color: var(--color-on-surface-variant);
+        overflow: clip;
+
+        &::after {
+            content: "photo";
+            font-family: "Material Symbols Rounded";
+            font-size: 1.75rem;
+            line-height: 1;
+            letter-spacing: normal;
+            opacity: 0.45;
+        }
+
+        &:has(.our-fleet--card__image) {
+            display: block;
+            aspect-ratio: auto;
+            border-style: solid;
+
+            &::after {
+                content: none;
+            }
+        }
+    }
+
+    .our-fleet--card__image {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: inherit;
+    }
+
+    /* ---------- Texto ---------- */
+
+    .our-fleet--card__title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        text-wrap: balance;
+    }
+
+    .our-fleet--card__description {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+    }
+
+    .our-fleet--card__price {
+        display: flex;
+        align-items: baseline;
+        gap: 0.35rem;
+    }
+
+    .our-fleet--card__amount {
+        font-size: 1.3rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--color-primary);
+    }
+
+    .our-fleet--card__unit {
+        font-size: 0.8rem;
+        color: var(--color-on-surface-variant);
+    }
+
+    .our-fleet--card__link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        align-self: flex-start;
+        margin-top: auto;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-pill);
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+            background-color var(--motion-medium) var(--ease-emphasized),
+            transform var(--motion-slow) var(--ease-spring);
+
+        &:hover {
+            background-color: var(--color-primary-dim);
+        }
+
+        &:focus-visible {
+            outline: 3px solid var(--color-primary);
+            outline-offset: 3px;
+        }
+    }
+
+    .our-fleet--card__arrow {
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+}

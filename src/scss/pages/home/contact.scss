@@ -1,0 +1,114 @@
+@layer pages {
+
+
+    .found-us {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        gap: 1.5rem;
+        margin-top: 1rem;
+        padding: clamp(1.5rem, 4vw, 3.5rem);
+        background-image:
+            radial-gradient(
+                30rem 24rem at 105% -15%,
+                color-mix(in oklab, var(--color-primary) 22%, transparent),
+                transparent 70%
+            ),
+            linear-gradient(
+                150deg,
+                var(--color-surface-container-high),
+                var(--color-surface-container-low)
+            );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
+
+        @media (width >= 521px) {
+            border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 6rem;
+        }
+
+        @media (width >= 861px) {
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            gap: 1.5rem 3rem;
+            border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg)
+                10rem;
+        }
+    }
+
+    .found-us--title {
+        grid-column: 1;
+        align-self: start;
+        margin-bottom: 0.5rem;
+    }
+
+    .found-us--text {
+        max-width: 50ch;
+        font-size: clamp(1rem, 1.4vw, 1.1rem);
+        line-height: 1.7;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+        grid-column: 1;
+
+        @media (width >= 861px) {
+            grid-column: auto;
+        }
+    }
+
+    .found-us--actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        width: 100%;
+        max-width: none;
+        justify-self: stretch;
+        grid-row: span 2;
+        grid-column: 1;
+
+        @media (width >= 861px) {
+            justify-self: end;
+            max-width: 30rem;
+            grid-column: auto;
+        }
+    }
+
+    .mobile-only {
+        display: block;
+
+        @media (width >= 768px) {
+            display: none;
+        }
+    }
+
+    .desktop-only {
+        display: none;
+
+        @media (width >= 768px) {
+            display: block;
+        }
+    }
+
+    .found-us--label {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-on-surface-variant);
+        margin-bottom: 0.1rem;
+    }
+
+    .service-link {
+        color: var(--color-primary);
+        font-weight: 600;
+        text-underline-offset: 0.2em;
+        text-decoration-color: color-mix(
+            in oklab,
+            var(--color-primary) 55%,
+            transparent
+        );
+        transition: color var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .service-link:hover {
+        color: var(--color-on-surface);
+    }
+}

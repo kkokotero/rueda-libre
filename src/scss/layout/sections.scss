@@ -1,0 +1,98 @@
+@layer layout {
+
+
+    .section--title {
+        font-size: clamp(2.1rem, 5vw, 3.75rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        text-wrap: balance;
+        margin-bottom: 1.5rem;
+
+        &::before {
+            content: "";
+            display: block;
+            width: 3rem;
+            height: 0.45rem;
+            border-radius: var(--radius-pill);
+            margin-bottom: 0.9rem;
+            background-color: var(--color-primary);
+        }
+    }
+
+    .section--divider {
+        margin: 2rem 0;
+        border: 0;
+        height: 0.55rem;
+        background-image: radial-gradient(
+            circle,
+            var(--color-outline-variant) 2px,
+            transparent 2.5px
+        );
+        background-size: 1rem 1rem;
+        background-position: center;
+        opacity: 0.7;
+        transform: rotate(-0.5deg) scale(1.1);
+
+        @media (width >= 521px) {
+            margin: 3rem 0;
+        }
+    }
+
+    .site-footer {
+        position: relative;
+        isolation: isolate;
+        overflow: clip;
+        margin-top: 3rem;
+        padding: clamp(2.5rem, 6vw, 5rem) 0 0;
+        color: var(--color-on-surface-variant);
+        background-color: var(--color-surface-container-lowest);
+        background-image:
+            linear-gradient(
+                90deg,
+                transparent,
+                var(--color-primary),
+                var(--color-tertiary),
+                transparent
+            ),
+            radial-gradient(
+                50rem 35rem at 95% -10%,
+                color-mix(in oklab, var(--color-primary) 16%, transparent),
+                transparent 70%
+            ),
+            linear-gradient(
+                180deg,
+                var(--color-surface-container-low),
+                var(--color-surface-container-lowest) 55%
+            );
+        background-size:
+            100% 2px,
+            auto,
+            auto;
+        background-repeat: no-repeat;
+        background-position:
+            top center,
+            center,
+            center;
+        border-top: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+        font-size: 0.95rem;
+    }
+
+    .site-footer::after {
+        content: "Rueda Libre" / "";
+        position: absolute;
+        z-index: 0;
+        left: 50%;
+        bottom: -0.22em;
+        translate: -50% 0;
+        font-size: clamp(5rem, 17vw, 15rem);
+        font-weight: 800;
+        font-style: italic;
+        line-height: 0.8;
+        letter-spacing: -0.06em;
+        white-space: nowrap;
+        color: color-mix(in oklab, var(--color-on-surface) 4%, transparent);
+        pointer-events: none;
+    }
+}

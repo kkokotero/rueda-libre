@@ -1,0 +1,112 @@
+@layer components {
+
+
+    .reservas-quantity {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 0.45rem 0.75rem;
+        min-height: 3.1rem;
+        padding: 0.35rem 0.55rem;
+        background-color: color-mix(
+            in oklab,
+            var(--color-surface-container-highest) 70%,
+            transparent
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 65%, transparent);
+        border-radius: 0.85rem;
+        transition:
+            border-color var(--motion-fast) var(--ease-emphasized),
+            background-color var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .reservas-quantity__stepper {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .reservas-quantity__button {
+        display: grid;
+        width: 2.5rem;
+        height: 2.5rem;
+        place-items: center;
+        padding: 0;
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 10%,
+            transparent
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-primary) 28%, transparent);
+        border-radius: 50%;
+        color: var(--color-primary);
+        cursor: pointer;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            border-color var(--motion-fast) var(--ease-emphasized),
+            opacity var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .reservas-quantity__button:hover:not(:disabled) {
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 20%,
+            transparent
+        );
+        border-color: color-mix(
+            in oklab,
+            var(--color-primary) 55%,
+            transparent
+        );
+    }
+
+    .reservas-quantity__button:focus-visible {
+        outline: 3px solid
+            color-mix(in oklab, var(--color-primary) 45%, transparent);
+        outline-offset: 2px;
+    }
+
+    .reservas-quantity__button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .reservas-quantity__input {
+        width: 3.25rem;
+        min-height: 2.5rem;
+        padding: 0 0.25rem;
+        background: transparent;
+        border: 0;
+        color: var(--color-on-surface);
+        font: inherit;
+        font-size: 1.05rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 800;
+        text-align: center;
+        appearance: textfield;
+    }
+
+    .reservas-quantity__input:focus-visible {
+        border-radius: 0.4rem;
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    .reservas-quantity__input::-webkit-outer-spin-button,
+    .reservas-quantity__input::-webkit-inner-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+    }
+
+    .reservas-quantity__count {
+        justify-self: end;
+        margin: 0;
+        color: var(--color-on-surface-variant);
+        font-size: 0.8rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+}

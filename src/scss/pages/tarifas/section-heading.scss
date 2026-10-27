@@ -1,0 +1,81 @@
+@layer pages {
+
+
+    .tarifas-section {
+        margin-top: 1.5rem;
+        padding: 1.25rem;
+        background-color: var(--color-surface-container-low);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-lg);
+
+        @media (width >= 721px) {
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+        }
+    }
+
+    .tarifas-section__header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+
+        @media (width >= 721px) {
+            gap: 1rem;
+        }
+    }
+
+    .tarifas-section__title {
+        margin-bottom: 0;
+        font-size: clamp(2.1rem, 5vw, 3.75rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        text-wrap: balance;
+    }
+
+    .tarifas-section__icon {
+        display: grid;
+        place-items: center;
+        width: 3rem;
+        height: 3rem;
+        flex-shrink: 0;
+        border-radius: 0.8rem 0.8rem 0.8rem 1.4rem;
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 16%,
+            transparent
+        );
+        border: 1px solid color-mix(in oklab, var(--color-primary) 30%, transparent);
+        color: var(--color-primary);
+
+        @media (width >= 721px) {
+            width: 3.75rem;
+            height: 3.75rem;
+            border-radius: 1rem 1rem 1rem 1.75rem;
+        }
+    }
+
+    .tarifas-section__icon .icon {
+        font-size: 1.55rem;
+
+        @media (width >= 721px) {
+            font-size: 1.9rem;
+        }
+    }
+
+    .tarifas-section__icon--solid {
+        background-color: var(--color-primary);
+        border-color: transparent;
+        color: var(--color-on-primary);
+    }
+
+    .tarifas-section__lead {
+        max-width: 65ch;
+        margin-bottom: 1.5rem;
+        font-size: clamp(1rem, 1.4vw, 1.1rem);
+        line-height: 1.7;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+    }
+}

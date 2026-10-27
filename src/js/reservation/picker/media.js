@@ -1,7 +1,7 @@
 /**
  * Punto de corte móvil de los pickers.
  *
- * Debe coincidir con el breakpoint de `components/pickers.scss` (`min-width: 721px`)
+ * Debe coincidir con el breakpoint de `components/pickers/time.scss` (`width >= 721px`)
  * para que el panel pase de popover a hoja modal en el mismo instante en que
  * cambia el layout. Usamos sintaxis clásica (`max-width`) para que la consulta
  * funcione también en navegadores que no soportan el rango `(width <= …)`.

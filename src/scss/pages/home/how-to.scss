@@ -1,0 +1,103 @@
+@layer pages {
+
+
+    .how-to {
+        margin-top: 1rem;
+        padding: clamp(1.5rem, 4vw, 3.5rem);
+        background-color: var(--color-surface-container-low);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-lg) var(--radius-lg) var(--radius-xl)
+            var(--radius-lg);
+    }
+
+    .how-to--lead {
+        max-width: 60ch;
+        margin-bottom: 2.5rem;
+        font-size: clamp(1rem, 1.4vw, 1.1rem);
+        line-height: 1.7;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+    }
+
+    .how-to--steps {
+        list-style: none;
+        counter-reset: step;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding-bottom: 1.75rem;
+
+        @media (width >= 521px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (width >= 1025px) {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+
+    .how-to--step {
+        counter-increment: step;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        padding: 1.5rem 1.35rem;
+        font-size: 0.98rem;
+        line-height: 1.55;
+        color: var(--color-on-surface-variant);
+        background-color: var(--color-surface-container);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+        border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 3rem;
+        transition:
+            background-color var(--motion-medium) var(--ease-emphasized),
+            border-color var(--motion-medium) var(--ease-emphasized),
+            transform var(--motion-slow) var(--ease-spring);
+
+        &::before {
+            content: counter(step, decimal-leading-zero);
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            color: var(--color-primary);
+        }
+
+        &.how-to--step--secondary::before {
+            color: var(--color-secondary);
+        }
+
+        &.how-to--step--tertiary::before {
+            color: var(--color-tertiary);
+        }
+
+        &.how-to--step--raised {
+            transform: none;
+        }
+
+        &.how-to--step--raised:hover {
+            transform: translateY(-0.4rem);
+        }
+
+        &:hover {
+            background-color: var(--color-surface-container-high);
+            border-color: color-mix(
+                in oklab,
+                var(--color-primary) 35%,
+                transparent
+            );
+        }
+
+        @media (width >= 521px) {
+            border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4rem;
+        }
+
+        @media (width >= 1025px) {
+            &.how-to--step--raised,
+            &.how-to--step--raised:hover {
+                transform: translateY(1.5rem);
+            }
+        }
+    }
+}

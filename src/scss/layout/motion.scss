@@ -1,0 +1,27 @@
+@layer layout {
+
+
+    @keyframes sectionReveal {
+        from {
+            opacity: 0;
+            translate: 0 2.5rem;
+            scale: 0.98;
+        }
+
+        to {
+            opacity: 1;
+            translate: 0 0;
+            scale: 1;
+        }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        @supports (animation-timeline: view()) {
+            .section--reveal {
+                animation: sectionReveal linear both;
+                animation-timeline: view();
+                animation-range: entry 0% entry 35%;
+            }
+        }
+    }
+}

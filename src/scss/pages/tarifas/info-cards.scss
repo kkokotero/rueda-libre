@@ -1,0 +1,294 @@
+@layer pages {
+
+
+    .tarifas-info {
+        margin-top: 1.5rem;
+        padding: 1.25rem;
+        background-color: var(--color-surface-container-low);
+        background-image: radial-gradient(
+            34rem 22rem at 100% -20%,
+            color-mix(in oklab, var(--color-primary) 14%, transparent),
+            transparent 72%
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-lg) var(--radius-lg) var(--radius-xl)
+            var(--radius-lg);
+
+        @media (width >= 721px) {
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+        }
+    }
+
+    .tarifas-info__lead {
+        margin-bottom: 0;
+    }
+
+    .tarifas-info__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 1.75rem;
+
+        @media (width >= 921px) {
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+        }
+    }
+
+    .tarifas-info__card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: clamp(1.25rem, 2.5vw, 1.6rem);
+        background-color: var(--color-surface-container);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+        border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 3rem;
+        transition: border-color var(--motion-medium) var(--ease-emphasized);
+
+        @media (width >= 921px) {
+            border-radius: var(--radius-md) var(--radius-md) var(--radius-md)
+                4rem;
+        }
+    }
+
+    .tarifas-info__card:hover {
+        border-color: color-mix(in oklab, var(--color-primary) 38%, transparent);
+    }
+
+    .tarifas-info__card-head {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+    }
+
+    .tarifas-info__card-title {
+        margin-bottom: 0;
+        font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+    }
+
+    .tarifas-info__card-text {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        color: var(--color-on-surface-variant);
+        text-wrap: pretty;
+    }
+
+    .tarifas-info__card-text strong {
+        color: var(--color-on-surface);
+        font-weight: 600;
+    }
+
+    .tarifas-info__icon {
+        display: grid;
+        place-items: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        flex-shrink: 0;
+        border-radius: 0.8rem 0.8rem 0.8rem 1.35rem;
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 14%,
+            transparent
+        );
+        border: 1px solid color-mix(in oklab, var(--color-primary) 26%, transparent);
+        color: var(--color-primary);
+    }
+
+    .tarifas-info__icon .icon {
+        font-size: 1.45rem;
+    }
+
+    .tarifas-info__chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: auto;
+        padding-top: 0.25rem;
+    }
+
+    .tarifas-info__chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-pill);
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+        font-size: 0.92rem;
+        font-weight: 600;
+    }
+
+    .tarifas-info__chip .icon {
+        font-size: 1.15rem;
+    }
+
+    .tarifas-info__week {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: clamp(0.2rem, 0.6vw, 0.35rem);
+        margin-top: 0.15rem;
+    }
+
+    .tarifas-info__weekday {
+        display: grid;
+        place-items: center;
+        min-width: 0;
+        height: clamp(2.1rem, 3vw, 2.5rem);
+        border-radius: var(--radius-xs);
+        background-color: color-mix(
+            in oklab,
+            var(--color-surface-container-high) 60%,
+            transparent
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 30%, transparent);
+        color: var(--color-on-surface-variant);
+        font-size: clamp(0.64rem, 1.1vw, 0.75rem);
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .tarifas-info__weekday--active {
+        background-color: var(--color-primary);
+        border-color: transparent;
+        color: var(--color-on-primary);
+        font-weight: 700;
+    }
+
+    .tarifas-info__time {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        margin-top: auto;
+        padding-top: 0.9rem;
+        border-top: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 35%, transparent);
+    }
+
+    .tarifas-info__time-label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--color-on-surface-variant);
+    }
+
+    .tarifas-info__time-value {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        color: var(--color-primary);
+        font-size: clamp(2rem, 4.2vw, 3rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        white-space: nowrap;
+    }
+
+    .tarifas-info__time-value .icon {
+        font-size: 0.7em;
+    }
+
+    .packing-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+        list-style: none;
+
+        @media (width >= 501px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (width >= 1101px) {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+
+    .packing-list__item {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        min-width: 0;
+        padding: 0.55rem 1rem 0.55rem 0.55rem;
+        border-radius: var(--radius-pill);
+        background-color: color-mix(
+            in oklab,
+            var(--color-surface-container-high) 70%,
+            transparent
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 40%, transparent);
+        font-size: 0.93rem;
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--color-on-surface);
+    }
+
+    .packing-list__icon {
+        display: grid;
+        place-items: center;
+        width: 2.1rem;
+        height: 2.1rem;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 14%,
+            transparent
+        );
+        color: var(--color-primary);
+    }
+
+    .packing-list__icon .icon {
+        font-size: 1.2rem;
+    }
+
+    .tarifas-info__card--highlight {
+        background-image:
+            radial-gradient(
+                circle at 100% 0%,
+                color-mix(in oklab, var(--color-primary) 22%, transparent),
+                transparent 58%
+            ),
+            linear-gradient(
+                150deg,
+                var(--color-surface-container-high),
+                var(--color-surface-container)
+            );
+        border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
+    }
+
+    .tarifas-info__card--highlight:hover {
+        border-color: color-mix(in oklab, var(--color-primary) 55%, transparent);
+    }
+
+    .tarifas-info__card--highlight .tarifas-info__icon {
+        background-color: var(--color-primary);
+        border-color: transparent;
+        color: var(--color-on-primary);
+    }
+
+    .tarifas-info__card--packing {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 0.9rem;
+        border-radius: var(--radius-md) var(--radius-md) var(--radius-md)
+            var(--radius-lg);
+
+        @media (width >= 921px) {
+            grid-template-columns: auto minmax(0, 1fr);
+            align-items: center;
+            gap: 1rem 1.75rem;
+        }
+    }
+
+    .tarifas-info__card--packing .tarifas-info__card-title {
+        font-size: clamp(1.3rem, 2vw, 1.5rem);
+    }
+}

@@ -1,0 +1,399 @@
+@layer components {
+
+
+    .reservas-timepicker__panel {
+        right: auto;
+        width: min(22rem, 100%);
+        max-height: 30rem;
+        padding: 0.65rem;
+        background-color: var(--color-surface-container-high);
+    }
+
+    .reservas-timepicker__empty[hidden],
+    .reservas-timepicker__clock[hidden],
+    .reservas-timepicker__actions[hidden],
+    .reservas-timepicker__clock-face[hidden] {
+        display: none;
+    }
+
+    .reservas-timepicker__clock {
+        --timepicker-surface: var(--color-surface-container-high);
+        --timepicker-face: var(--color-surface-container);
+        --timepicker-field: var(--color-surface-container-highest);
+        --timepicker-selected: var(--color-primary);
+        --timepicker-period-selected: var(--color-primary-container);
+        --timepicker-accent: var(--color-primary);
+        --timepicker-text: var(--color-on-surface);
+        --timepicker-muted: var(--color-on-surface-variant);
+        --timepicker-outline: var(--color-outline);
+
+        display: grid;
+        justify-items: stretch;
+        gap: 1.25rem;
+        margin-top: 0.75rem;
+        padding: 0.5rem 0.25rem;
+        background-color: var(--timepicker-surface);
+        border-radius: 1rem;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .reservas-timepicker__clock-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        min-width: 0;
+        margin-inline: auto;
+        padding: 0.45rem;
+        border-radius: 0.85rem;
+    }
+
+    .reservas-timepicker__clock-time {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .reservas-timepicker__clock-field {
+        display: grid;
+        justify-items: start;
+        gap: 0.25rem;
+    }
+
+    .reservas-timepicker__clock-label {
+        color: var(--color-on-surface-variant);
+        font-size: 0.75rem;
+        font-weight: 600;
+        line-height: 1.2;
+    }
+
+    .reservas-timepicker__hint {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    .reservas-timepicker__clock-value {
+        width: clamp(3.5rem, 24vw, 6rem);
+        height: 4.9375rem;
+        min-height: 0;
+        padding: 0.25rem;
+        background-color: var(--timepicker-field);
+        border: 1px solid transparent;
+        border-radius: 0.5rem;
+        color: var(--timepicker-text);
+        font: inherit;
+        font-size: clamp(2.5rem, 14vw, 3.5rem);
+        font-variant-numeric: tabular-nums;
+        font-weight: 400;
+        line-height: 1;
+        text-align: center;
+        caret-color: var(--timepicker-accent);
+    }
+
+    .reservas-timepicker__clock-value.is-active {
+        background-color: var(--timepicker-selected);
+        color: var(--color-on-primary);
+        border-color: transparent;
+    }
+
+    .reservas-timepicker__clock-separator {
+        color: var(--timepicker-text);
+        font-size: clamp(2.5rem, 14vw, 3.5rem);
+        font-weight: 400;
+        line-height: 1;
+    }
+
+    .reservas-timepicker__clock-period {
+        display: grid;
+        align-self: stretch;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        height: 4.9375rem;
+        gap: 0;
+        padding: 0;
+        background-color: var(--timepicker-field);
+        border: 1px solid var(--timepicker-outline);
+        border-radius: 0.55rem;
+        overflow: hidden;
+    }
+
+    .reservas-timepicker__clock-period-option {
+        min-width: 3.25rem;
+        min-height: 0;
+        height: 100%;
+        padding: 0.25rem 0.4rem;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        color: var(--timepicker-muted);
+        font: inherit;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        background-color: var(--color-surface-container);
+    }
+
+    .reservas-timepicker__clock-period-option.is-active {
+        background-color: var(--timepicker-period-selected);
+        color: var(--color-on-primary-container);
+    }
+
+    .reservas-timepicker__clock-period-option + .reservas-timepicker__clock-period-option {
+        border-top: 1px solid var(--timepicker-outline);
+    }
+
+    .reservas-timepicker__clock-period-option:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .reservas-timepicker__clock-face {
+        position: relative;
+        width: min(16rem, 85vw);
+        max-width: 100%;
+        justify-self: center;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: var(--timepicker-face);
+        touch-action: none;
+        user-select: none;
+    }
+
+    .reservas-timepicker__clock-face.is-dragging {
+        cursor: grabbing;
+    }
+
+    @media (width >= 721px) {
+        .reservas-timepicker__clock {
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+            padding: 0.35rem;
+        }
+
+        .reservas-timepicker__panel {
+            width: min(20rem, 100%);
+            padding: 0.45rem;
+        }
+
+        .reservas-timepicker__clock-face {
+            width: min(14rem, 60vw);
+        }
+
+        .reservas-timepicker__clock-value {
+            width: 3.5rem;
+            height: 3.4375rem;
+            min-height: 0;
+            font-size: 2.25rem;
+        }
+
+        .reservas-timepicker__clock-separator {
+            font-size: 2.25rem;
+        }
+
+        .reservas-timepicker__clock-period-option {
+            min-height: 2rem;
+        }
+
+        .reservas-timepicker__clock-period {
+            height: 3.4375rem;
+        }
+
+        .reservas-timepicker__actions {
+            margin-top: 0.35rem;
+        }
+    }
+
+    .reservas-timepicker__clock-face::before {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        top: 50%;
+        left: 50%;
+        width: 2px;
+        height: 37%;
+        background-color: var(--timepicker-accent);
+        transform: rotate(
+            calc(var(--clock-hand-angle, 0deg) + 180deg)
+        );
+        transform-origin: top center;
+    }
+
+    .reservas-timepicker__clock-face::after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        width: 0.55rem;
+        height: 0.55rem;
+        background-color: var(--timepicker-accent);
+        border: 2px solid var(--timepicker-face);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .reservas-timepicker__clock-option {
+        position: absolute;
+        z-index: 2;
+        display: grid;
+        width: 3rem;
+        height: 3rem;
+        place-items: center;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+        color: var(--timepicker-text);
+        font: inherit;
+        font-size: 1rem;
+        font-variant-numeric: tabular-nums;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+    }
+
+    .reservas-timepicker__clock-option.is-selected {
+        background-color: var(--timepicker-accent);
+        color: var(--color-on-primary);
+    }
+
+    .reservas-timepicker__clock-option.is-drag-target {
+        background-color: var(--timepicker-period-selected);
+        color: var(--color-on-primary-container);
+    }
+
+    .reservas-timepicker__clock-option:disabled {
+        color: color-mix(
+            in srgb,
+            var(--timepicker-muted) 72%,
+            var(--timepicker-face)
+        );
+        cursor: not-allowed;
+    }
+
+    .reservas-timepicker__clock-option:focus-visible,
+    .reservas-timepicker__clock-value:focus-visible,
+    .reservas-timepicker__clock-period-option:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    .reservas-timepicker__confirm {
+        flex: 1;
+        width: auto;
+        min-height: 2.75rem;
+        margin: 0;
+        background-color: var(--color-primary);
+        border: 1px solid var(--color-primary);
+        border-radius: var(--radius-pill);
+        color: var(--color-on-primary);
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            transform var(--motion-fast) var(--ease-spring);
+    }
+
+    .reservas-timepicker__confirm:hover {
+        background-color: var(--color-primary-dim);
+        transform: translateY(-1px);
+    }
+
+    .reservas-timepicker__confirm:focus-visible {
+        outline: 3px solid
+            color-mix(in oklab, var(--color-primary) 45%, transparent);
+        outline-offset: 2px;
+    }
+
+    .reservas-timepicker__actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.65rem;
+    }
+
+    .reservas-timepicker__toggle {
+        display: grid;
+        flex: 0 0 2.75rem;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        place-items: center;
+        padding: 0;
+        background-color: var(--color-surface-container-highest);
+        border: 1px solid var(--color-outline-variant);
+        border-radius: 50%;
+        color: var(--color-on-surface);
+        cursor: pointer;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            color var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .reservas-timepicker__toggle:hover {
+        background-color: var(--color-primary-container);
+        color: var(--color-on-primary-container);
+    }
+
+    .reservas-timepicker__toggle:focus-visible {
+        outline: 3px solid
+            color-mix(in oklab, var(--color-primary) 45%, transparent);
+        outline-offset: 2px;
+    }
+
+    .reservas-timepicker__toggle .icon {
+        font-size: 1.35rem;
+    }
+
+    .reservas-timepicker__empty {
+        display: grid;
+        justify-items: center;
+        gap: 0.85rem;
+        padding: 1.25rem 0.5rem;
+        color: var(--color-on-surface-variant);
+        text-align: center;
+    }
+
+    .reservas-timepicker__empty p {
+        margin: 0;
+    }
+
+    .reservas-timepicker__choose-date {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        min-height: 2.75rem;
+        padding: 0.5rem 1rem;
+        background-color: var(--color-primary);
+        border: 1px solid var(--color-primary);
+        border-radius: var(--radius-pill);
+        color: var(--color-on-primary);
+        font: inherit;
+        font-size: 0.88rem;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .reservas-timepicker__choose-date:hover {
+        background-color: var(--color-primary-dim);
+    }
+
+    .reservas-timepicker__choose-date:focus-visible {
+        outline: 3px solid
+            color-mix(in oklab, var(--color-primary) 45%, transparent);
+        outline-offset: 2px;
+    }
+
+    body.has-picker-modal .reservas-form-section {
+        animation: none;
+        translate: none;
+        scale: none;
+    }
+}

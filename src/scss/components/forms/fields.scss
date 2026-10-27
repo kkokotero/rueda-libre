@@ -1,0 +1,244 @@
+@layer components {
+
+    .reservas-form-section {
+        margin-top: 1.5rem;
+        padding: clamp(1.5rem, 4vw, 2.5rem);
+        background-color: var(--color-surface-container-low);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg)
+            var(--radius-xl);
+    }
+
+    .reservas-form__header {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+
+        @media (width >= 521px) {
+            gap: 1rem;
+        }
+    }
+
+    .reservas-form__header .reservas-card__icon {
+        margin-top: 0.1rem;
+    }
+
+    .reservas-form__eyebrow {
+        margin-bottom: 0.35rem;
+        color: var(--color-primary);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .reservas-form__title {
+        margin-bottom: 0.5rem;
+        font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.035em;
+        text-wrap: balance;
+    }
+
+    .reservas-form__lead {
+        max-width: 68ch;
+        color: var(--color-on-surface-variant);
+        font-size: 0.98rem;
+        line-height: 1.65;
+        text-wrap: pretty;
+    }
+
+    .reservas-form {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .reservas-form__group {
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .reservas-form__legend {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        gap: 0.45rem;
+        margin-bottom: 0.95rem;
+        padding-bottom: 0.75rem;
+        color: var(--color-on-surface-variant);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-bottom: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 35%, transparent);
+    }
+
+    .reservas-form__legend-icon {
+        color: var(--color-primary);
+        font-size: 1.15rem;
+        line-height: 1;
+    }
+
+    .reservas-form__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem 1.1rem;
+
+        @media (width >= 721px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    .reservas-form__field {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .reservas-form__field[hidden] {
+        display: none;
+    }
+
+    .reservas-form__field--full {
+        grid-column: 1 / -1;
+    }
+
+    .reservas-form__label {
+        color: var(--color-on-surface);
+        font-size: 0.86rem;
+        font-weight: 600;
+    }
+
+    .reservas-form__required {
+        color: var(--color-primary);
+    }
+
+    .reservas-form__optional {
+        color: var(--color-on-surface-variant);
+        font-weight: 400;
+    }
+
+    .reservas-form__control {
+        position: relative;
+        min-width: 0;
+    }
+
+    .reservas-form__control-icon {
+        position: absolute;
+        top: 50%;
+        left: 0.95rem;
+        z-index: 1;
+        color: var(--color-on-surface-variant);
+        font-size: 1.25rem;
+        line-height: 1;
+        pointer-events: none;
+        translate: 0 -50%;
+        transition: color var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .reservas-form__control .reservas-form__input,
+    .reservas-form__control .reservas-form__textarea {
+        padding-left: 2.85rem;
+    }
+
+    .reservas-form__control--textarea .reservas-form__control-icon {
+        top: 0.95rem;
+        translate: 0 0;
+    }
+
+    .reservas-form__control:focus-within .reservas-form__control-icon {
+        color: var(--color-primary);
+    }
+
+    .reservas-form__input,
+    .reservas-form__select,
+    .reservas-form__textarea,
+    .reservas-select__button,
+    .reservas-picker__button {
+        width: 100%;
+        min-height: 3.1rem;
+        padding: 0.8rem 0.95rem;
+        background-color: color-mix(
+            in oklab,
+            var(--color-surface-container-highest) 70%,
+            transparent
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 65%, transparent);
+        border-radius: 0.85rem;
+        color: var(--color-on-surface);
+        font: inherit;
+        transition:
+            border-color var(--motion-fast) var(--ease-emphasized),
+            background-color var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .reservas-form__textarea {
+        min-height: 7.5rem;
+        resize: vertical;
+    }
+
+    .reservas-form__select {
+        cursor: pointer;
+    }
+
+    .reservas-form__input::placeholder,
+    .reservas-form__textarea::placeholder {
+        color: color-mix(
+            in oklab,
+            var(--color-on-surface-variant) 80%,
+            transparent
+        );
+    }
+
+    .reservas-form__input:hover,
+    .reservas-form__select:hover,
+    .reservas-form__textarea:hover,
+    .reservas-select__button:hover,
+    .reservas-picker__button:hover {
+        border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
+    }
+
+    .reservas-form__input:focus-visible,
+    .reservas-form__select:focus-visible,
+    .reservas-form__textarea:focus-visible,
+    .reservas-select__button:focus-visible,
+    .reservas-picker__button:focus-visible {
+        border-color: var(--color-primary);
+        outline: 3px solid
+            color-mix(in oklab, var(--color-primary) 45%, transparent);
+        outline-offset: 1px;
+    }
+
+    .reservas-form__input:user-invalid,
+    .reservas-form__select:user-invalid,
+    .reservas-form__textarea:user-invalid {
+        border-color: var(--color-error);
+    }
+
+    .reservas-form__field.is-invalid .reservas-form__input,
+    .reservas-form__field.is-invalid .reservas-form__textarea,
+    .reservas-form__field.is-invalid .reservas-select__button,
+    .reservas-form__field.is-invalid .reservas-picker__button,
+    .reservas-form__field.is-invalid .reservas-quantity {
+        border-color: var(--color-error);
+    }
+
+    .reservas-form__field.is-invalid .reservas-form__control-icon,
+    .reservas-form__field.is-invalid .reservas-select__icon,
+    .reservas-form__field.is-invalid .reservas-picker__chevron {
+        color: var(--color-error);
+    }
+
+    .reservas-form__field.is-invalid .reservas-form__consent input {
+        outline: 2px solid var(--color-error);
+        outline-offset: 2px;
+    }
+}

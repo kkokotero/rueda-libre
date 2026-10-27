@@ -1,0 +1,77 @@
+@layer pages {
+
+
+    .tarifas-cta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+        padding: clamp(1.5rem, 4vw, 2.75rem);
+        color: var(--color-on-primary);
+        background-image:
+            radial-gradient(
+                circle at 100% 0%,
+                color-mix(in oklab, #ffffff 24%, transparent),
+                transparent 55%
+            ),
+            linear-gradient(
+                140deg,
+                var(--color-primary),
+                var(--color-primary-container)
+            );
+        border-radius: var(--radius-md);
+
+        @media (width >= 721px) {
+            border-radius: var(--radius-lg);
+        }
+    }
+
+    .tarifas-cta__copy {
+        max-width: 42rem;
+    }
+
+    .tarifas-cta__icon {
+        display: grid;
+        place-items: center;
+        width: 3.25rem;
+        height: 3.25rem;
+        margin-bottom: 0.9rem;
+        border-radius: 0.9rem 0.9rem 0.9rem 1.6rem;
+        background-color: var(--color-on-primary);
+        color: var(--color-primary);
+    }
+
+    .tarifas-cta__icon .icon {
+        font-size: 1.6rem;
+    }
+
+    .tarifas-cta__title {
+        margin-bottom: 0.5rem;
+        color: var(--color-on-primary);
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-weight: 800;
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+        text-wrap: balance;
+    }
+
+    .tarifas-cta__text {
+        font-size: 1rem;
+        line-height: 1.65;
+        color: color-mix(in oklab, var(--color-on-primary) 82%, transparent);
+        text-wrap: pretty;
+    }
+
+    .tarifas-cta__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        width: 100%;
+
+        @media (width >= 721px) {
+            width: auto;
+        }
+    }
+}
