@@ -21,5 +21,8 @@
         "@types/node": "^26.6.5",
         "typescript": "^7.0.2",
         "vite": "^7.1.12"
+    },
+    "dependencies": {
+        "bootstrap": "^6.0.0-alpha.1"
     }
 }
