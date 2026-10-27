@@ -15,6 +15,7 @@ export default defineConfig({
                 home: resolve(sourceRoot, 'index.html'),
                 tarifas: resolve(sourceRoot, 'tarifas/index.html'),
                 reservas: resolve(sourceRoot, 'reservas/index.html'),
+                catalogo: resolve(sourceRoot, 'catalogo/index.html'),
             },
         },
     },
