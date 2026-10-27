@@ -1,11 +1,7 @@
 /* ============================================================
-   LAYOUT — layout.css
+   LAYOUT — layout.scss
    Header, menú lateral (drawer), footer, contenedores de sección y movimiento.
    Capa: layout
-
-   Mobile-first: la base describe el móvil; los @media (min-width)
-   añaden la versión de tablet y escritorio sin cambiar el resultado
-   visual de cada ancho.
    ============================================================ */
 
 @layer layout {

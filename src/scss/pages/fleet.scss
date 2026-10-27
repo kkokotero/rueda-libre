@@ -1,11 +1,8 @@
 /* ============================================================
-   NUESTRA FLOTA — fleet.css
+   NUESTRA FLOTA — fleet.scss
    Sección modular de la flota: cuadrícula bento adaptable y
    tarjetas con el contenido en columna.
    Capa: pages
-
-   Mobile-first sin media queries de viewport: auto-fit + minmax
-   parte de una columna y crece según el ancho del contenedor.
    ============================================================ */
 
 @layer pages {

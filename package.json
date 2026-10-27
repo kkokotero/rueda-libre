@@ -19,6 +19,7 @@
     "devDependencies": {
         "@biomejs/biome": "^2.6.3",
         "@types/node": "^26.6.5",
+        "sass": "^1.106.1",
         "typescript": "^7.0.2",
         "vite": "^7.1.12"
     },

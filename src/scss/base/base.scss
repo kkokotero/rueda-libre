@@ -4,15 +4,9 @@
 @layer base, layout, components, pages;
 
 /* ============================================================
-   BASE — base.css
+   BASE — base.scss
    Tokens, reset global, tipografía raíz y estilos de página completa.
    Capa: base
-
-   Estrategia: mobile-first. Todo lo que no está dentro de un
-   @media es el estado móvil (el más pequeño); los @media usan
-   min-width y solo añaden mejoras para pantallas mayores.
-   Breakpoints del proyecto: 381px · 501px · 521px · 721px ·
-   769px · 861px · 921px · 1025px · 1101px.
    ============================================================ */
 
 @layer base {
