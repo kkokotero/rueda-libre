@@ -8,8 +8,10 @@
     },
     "scripts": {
         "dev": "vite",
+        "dev:share": "vite --host",
         "build": "vite build",
         "preview": "vite preview",
+        "preview:share": "vite preview --host",
         "check": "biome lint .",
         "format": "biome format --write ."
     },
