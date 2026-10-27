@@ -10,9 +10,13 @@
 import { getErrorMessage } from "./validation.js";
 
 /** `true` si el elemento es un control de formulario real. */
+/** @param {EventTarget | null} element @returns {element is HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} */
 const isFieldControl = (element) =>
-    element instanceof Element && element.matches("input, select, textarea");
+    element instanceof HTMLInputElement ||
+    element instanceof HTMLSelectElement ||
+    element instanceof HTMLTextAreaElement;
 
+/** @param {HTMLElement} control @returns {HTMLElement | null} */
 const getField = (control) => control.closest("[data-field]");
 
 /**
@@ -20,6 +24,9 @@ const getField = (control) => control.closest("[data-field]");
  *
  * Los campos sustituidos por un picker pierden la apariencia nativa, así que
  * el error se marca sobre el botón que lo reemplaza.
+ *
+ * @param {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} control
+ * @returns {HTMLElement}
  */
 const getDisplayControl = (control) => {
     const field = getField(control);
@@ -33,6 +40,11 @@ const getDisplayControl = (control) => {
     return control;
 };
 
+/**
+ * Renders or clears a field error.
+ * @param {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} control
+ * @param {string} message
+ */
 const showError = (control, message) => {
     const field = getField(control);
 
@@ -65,7 +77,15 @@ const showError = (control, message) => {
     display.setAttribute("aria-invalid", "true");
 };
 
+/**
+ * Wires live validation and mailto submission for the reservation form.
+ * @param {HTMLFormElement} form
+ * @param {HTMLElement} status
+ * @param {() => void} clearStatus
+ * @returns {void}
+ */
 export function initializeReservationForm(form, status, clearStatus) {
+    /** @param {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} control */
     const validateControl = (control) => {
         const message = getErrorMessage(control);
         showError(control, message);
@@ -73,12 +93,21 @@ export function initializeReservationForm(form, status, clearStatus) {
     };
 
     const validateAll = () => {
+        /** @type {HTMLElement | null} */
         let firstInvalid = null;
 
         for (const field of form.querySelectorAll("[data-field]")) {
             const control = field.querySelector("input, select, textarea");
 
-            if (!control) continue;
+            if (
+                !(
+                    control instanceof HTMLInputElement ||
+                    control instanceof HTMLSelectElement ||
+                    control instanceof HTMLTextAreaElement
+                )
+            ) {
+                continue;
+            }
 
             if (!validateControl(control) && !firstInvalid) {
                 firstInvalid = getDisplayControl(control);
@@ -192,13 +221,18 @@ const CONTACT_LABELS = {
 };
 
 /** Asunto, cuerpo y enlace `mailto:` de la solicitud. */
+/** @param {HTMLFormElement} form @returns {{ subject: string, body: string, href: string }} */
 const buildRequest = (form) => {
     const data = new FormData(form);
+    /** @param {string} name @returns {string} */
     const value = (name) => String(data.get(name) || "").trim();
 
     const name = value("nombre");
     const date = value("fecha");
-    const preferredContactLabel = CONTACT_LABELS[value("metodo_contacto")];
+    const preferredContact = /** @type {keyof typeof CONTACT_LABELS} */ (
+        value("metodo_contacto")
+    );
+    const preferredContactLabel = CONTACT_LABELS[preferredContact];
     const subject = `Solicitud de reserva - ${name} - ${date}`;
     const lines = [
         "Hola, quiero reservar una bicicleta.",

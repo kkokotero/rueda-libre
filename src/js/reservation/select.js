@@ -7,6 +7,11 @@
  * formulario no cambian.
  */
 
+/**
+ * Replaces native selects with accessible custom listboxes.
+ * @param {import("./picker-core.js").ReservationPickerCore} pickerCore
+ * @returns {void}
+ */
 export function initializeReservationSelects(pickerCore) {
     const {
         isMobilePicker,
@@ -18,7 +23,10 @@ export function initializeReservationSelects(pickerCore) {
         positionPickerPanel,
     } = pickerCore;
 
+    /** @param {Element} wrapper */
     const enhanceSelect = (wrapper) => {
+        if (!(wrapper instanceof HTMLElement)) return;
+        /** @type {HTMLSelectElement | null} */
         const native = wrapper.querySelector("select");
 
         if (!native || wrapper.classList.contains("is-enhanced")) {
@@ -81,6 +89,7 @@ export function initializeReservationSelects(pickerCore) {
             menu.setAttribute("aria-labelledby", label.id);
         }
 
+        /** @type {HTMLDivElement[]} */
         const optionEls = [];
 
         for (const option of native.options) {
@@ -122,8 +131,7 @@ export function initializeReservationSelects(pickerCore) {
                 ? selected.textContent.trim()
                 : "Selecciona una opción";
             value.classList.toggle("is-placeholder", selectedValue === "");
-            icon.textContent =
-                (selected && selected.dataset.icon) || "circle";
+            icon.textContent = (selected && selected.dataset.icon) || "circle";
 
             for (const option of optionEls) {
                 option.setAttribute(
@@ -133,6 +141,7 @@ export function initializeReservationSelects(pickerCore) {
             }
         };
 
+        /** @param {number} index */
         const setActive = (index) => {
             if (!optionEls.length) return;
 
@@ -160,16 +169,13 @@ export function initializeReservationSelects(pickerCore) {
             }
         };
 
+        /** @param {{ focus?: boolean }} [options] */
         const close = ({ focus = false } = {}) => {
             if (menu.hidden) return;
 
             menu.hidden = true;
             menu.style.maxHeight = "";
-            wrapper.classList.remove(
-                "is-open",
-                "is-up",
-                "is-mobile-modal",
-            );
+            wrapper.classList.remove("is-open", "is-up", "is-mobile-modal");
             button.setAttribute("aria-expanded", "false");
             button.removeAttribute("aria-activedescendant");
 
@@ -208,12 +214,16 @@ export function initializeReservationSelects(pickerCore) {
             setActive(selectedIndex >= 0 ? selectedIndex : 0);
         };
 
+        /** @param {number} index */
         const selectOption = (index) => {
             const option = optionEls[index];
 
             if (!option) return;
 
-            native.value = option.dataset.value;
+            const selectedValue = option.dataset.value;
+            if (selectedValue === undefined) return;
+
+            native.value = selectedValue;
             native.dispatchEvent(new Event("change", { bubbles: true }));
             close({ focus: true });
         };
@@ -288,6 +298,7 @@ export function initializeReservationSelects(pickerCore) {
         });
 
         document.addEventListener("pointerdown", (event) => {
+            if (!(event.target instanceof Node)) return;
             if (!menu.hidden && !wrapper.contains(event.target)) {
                 close();
             }

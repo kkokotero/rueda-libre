@@ -5,6 +5,11 @@
  * componentes locales para que "hoy" no se desplace por la zona horaria.
  */
 
+/**
+ * Parses a local ISO date, returning `null` for incomplete or invalid dates.
+ * @param {string} iso ISO date in `YYYY-MM-DD` format
+ * @returns {Date | null}
+ */
 export const parseISODate = (iso) => {
     if (!iso) return null;
 
@@ -17,6 +22,11 @@ export const parseISODate = (iso) => {
     return Number.isNaN(date.getTime()) ? null : date;
 };
 
+/**
+ * Formats a date using its local calendar fields.
+ * @param {Date} date
+ * @returns {string} Date in `YYYY-MM-DD` format
+ */
 export const toISODate = (date) =>
     [
         date.getFullYear(),
@@ -56,11 +66,18 @@ const monthFormatter = new Intl.DateTimeFormat("es-CO", {
     year: "numeric",
 });
 
+/** @param {Date} date @returns {string} */
 export const formatDate = (date) => dateFormatter.format(date);
 
+/** @param {Date} date @returns {string} */
 export const formatDateLong = (date) => longDateFormatter.format(date);
 
 /** Nombre del mes en mayúscula inicial (p. ej. "Octubre de 2026"). */
+/**
+ * @param {number} year
+ * @param {number} month zero-based month index
+ * @returns {string}
+ */
 export const formatMonth = (year, month) => {
     const text = monthFormatter.format(new Date(year, month, 1));
 

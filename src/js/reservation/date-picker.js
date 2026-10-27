@@ -25,6 +25,7 @@ const SHORTCUT_DATES = [
 ];
 
 /** Fecha de hoy desplazada `offset` días, en formato ISO. */
+/** @param {number} offset @returns {string} */
 const isoAfter = (offset) => {
     const date = new Date();
     date.setDate(date.getDate() + offset);
@@ -32,6 +33,11 @@ const isoAfter = (offset) => {
     return toISODate(date);
 };
 
+/**
+ * Enhances each native date input with an accessible calendar picker.
+ * @param {import("./picker-core.js").ReservationPickerCore} pickerCore
+ * @returns {void}
+ */
 export function initializeReservationDatePicker(pickerCore) {
     const {
         isMobilePicker,
@@ -47,7 +53,10 @@ export function initializeReservationDatePicker(pickerCore) {
         createPickerTrigger,
     } = pickerCore;
 
+    /** @param {Element} wrapper */
     const enhanceDatePicker = (wrapper) => {
+        if (!(wrapper instanceof HTMLElement)) return;
+        /** @type {HTMLInputElement | null} */
         const native = wrapper.querySelector('input[type="date"]');
 
         if (!native || wrapper.classList.contains("is-enhanced")) {
@@ -68,8 +77,7 @@ export function initializeReservationDatePicker(pickerCore) {
 
         const panel = document.createElement("div");
         panel.id = panelId;
-        panel.className =
-            "reservas-picker__panel reservas-datepicker__panel";
+        panel.className = "reservas-picker__panel reservas-datepicker__panel";
         panel.setAttribute("role", "dialog");
         panel.setAttribute("aria-label", titleText);
         panel.hidden = true;
@@ -166,6 +174,7 @@ export function initializeReservationDatePicker(pickerCore) {
             value.classList.toggle("is-placeholder", !date);
         };
 
+        /** @param {string} iso */
         const selectDate = (iso) => {
             native.value = iso;
             updateDisplay();
@@ -173,6 +182,7 @@ export function initializeReservationDatePicker(pickerCore) {
             close({ focus: true });
         };
 
+        /** @param {string} [focusISO] */
         const renderCalendar = (focusISO = "") => {
             monthLabel.textContent = formatMonth(viewYear, viewMonth);
 
@@ -187,11 +197,7 @@ export function initializeReservationDatePicker(pickerCore) {
 
             const firstWeekday = new Date(viewYear, viewMonth, 1).getDay();
             const leadingBlanks = (firstWeekday + 6) % 7;
-            const daysInMonth = new Date(
-                viewYear,
-                viewMonth + 1,
-                0,
-            ).getDate();
+            const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
 
             for (let index = 0; index < leadingBlanks; index += 1) {
                 const blank = document.createElement("span");
@@ -230,12 +236,13 @@ export function initializeReservationDatePicker(pickerCore) {
                 grid.append(dayButton);
             }
 
+            /** @type {HTMLButtonElement | null} */
             const preferred = focusISO
-                ? grid.querySelector(
-                      `[data-date="${focusISO}"]:not(:disabled)`,
-                  )
+                ? grid.querySelector(`[data-date="${focusISO}"]:not(:disabled)`)
                 : null;
+            /** @type {HTMLButtonElement | null} */
             const fallback = grid.querySelector("button:not(:disabled)");
+            /** @type {HTMLButtonElement | null} */
             const target = preferred || fallback;
 
             if (target) {
@@ -244,9 +251,11 @@ export function initializeReservationDatePicker(pickerCore) {
             }
         };
 
+        /** @param {KeyboardEvent} event */
         const handleDayKeydown = (event) => {
+            if (!(event.currentTarget instanceof HTMLButtonElement)) return;
             const currentDate = parseISODate(
-                event.currentTarget.dataset.date,
+                event.currentTarget.dataset.date || "",
             );
 
             if (!currentDate) return;
@@ -326,17 +335,14 @@ export function initializeReservationDatePicker(pickerCore) {
             renderCalendar(nextISO);
         };
 
+        /** @param {{ focus?: boolean }} [options] */
         const close = ({ focus = false } = {}) => {
             if (panel.hidden) return;
 
             panel.hidden = true;
             panel.style.maxHeight = "";
             panel.removeAttribute("aria-modal");
-            wrapper.classList.remove(
-                "is-open",
-                "is-up",
-                "is-mobile-modal",
-            );
+            wrapper.classList.remove("is-open", "is-up", "is-mobile-modal");
             button.setAttribute("aria-expanded", "false");
             deactivatePicker(close);
 
@@ -349,9 +355,7 @@ export function initializeReservationDatePicker(pickerCore) {
             selectedISO = native.value;
 
             const initialDate =
-                parseISODate(selectedISO) ||
-                parseISODate(minISO) ||
-                new Date();
+                parseISODate(selectedISO) || parseISODate(minISO) || new Date();
 
             viewYear = initialDate.getFullYear();
             viewMonth = initialDate.getMonth();
@@ -394,8 +398,7 @@ export function initializeReservationDatePicker(pickerCore) {
         for (const { button: shortcut, offset } of shortcutButtons) {
             const iso = isoAfter(offset);
 
-            shortcut.disabled =
-                iso < minISO || Boolean(maxISO && iso > maxISO);
+            shortcut.disabled = iso < minISO || Boolean(maxISO && iso > maxISO);
         }
 
         button.addEventListener("click", () => {
@@ -427,7 +430,12 @@ export function initializeReservationDatePicker(pickerCore) {
         });
 
         document.addEventListener("pointerdown", (event) => {
-            if (!panel.hidden && !wrapper.contains(event.target)) {
+            const target = event.target;
+            if (
+                target instanceof Node &&
+                !panel.hidden &&
+                !wrapper.contains(target)
+            ) {
                 close();
             }
         });
@@ -453,5 +461,7 @@ export function initializeReservationDatePicker(pickerCore) {
         updateDisplay();
     };
 
-    document.querySelectorAll('[data-picker="date"]').forEach(enhanceDatePicker);
+    document
+        .querySelectorAll('[data-picker="date"]')
+        .forEach(enhanceDatePicker);
 }

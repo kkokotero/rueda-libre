@@ -17,7 +17,7 @@ import { initializeReservationTimePicker } from "./time-picker.js";
 const form = document.getElementById("reservation-form");
 const status = document.getElementById("reservation-status");
 
-if (form && status) {
+if (form instanceof HTMLFormElement && status) {
     const dateField = form.elements.namedItem("fecha");
     const documentNumber = form.elements.namedItem("documento");
     const phoneNumber = form.elements.namedItem("telefono");

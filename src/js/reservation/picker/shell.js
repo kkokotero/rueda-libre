@@ -9,6 +9,11 @@ import { createIcon } from "./icons.js";
 import { isMobilePicker } from "./media.js";
 import { getFieldLabelId } from "./labels.js";
 
+/**
+ * @param {string} titleText
+ * @param {() => void} onClose
+ * @returns {{ header: HTMLDivElement, closeButton: HTMLButtonElement }}
+ */
 const createPickerHeader = (titleText, onClose) => {
     const header = document.createElement("div");
     header.className = "reservas-picker__header";
@@ -29,6 +34,12 @@ const createPickerHeader = (titleText, onClose) => {
     return { header, closeButton };
 };
 
+/**
+ * @param {HTMLElement} panel
+ * @param {string} titleText
+ * @param {() => void} onClose
+ * @returns {{ shell: HTMLDivElement, closeButton: HTMLButtonElement }}
+ */
 export const createPickerShell = (panel, titleText, onClose) => {
     const shell = document.createElement("div");
     shell.className = "reservas-picker__shell";
@@ -40,12 +51,14 @@ export const createPickerShell = (panel, titleText, onClose) => {
     return { shell, closeButton };
 };
 
-export const createPickerTrigger = (
-    native,
-    label,
-    describedBy,
-    titleText,
-) => {
+/**
+ * @param {HTMLInputElement} native
+ * @param {HTMLLabelElement | null} label
+ * @param {string} describedBy
+ * @param {string} titleText
+ * @returns {{ button: HTMLButtonElement, value: HTMLSpanElement, panelId: string }}
+ */
+export const createPickerTrigger = (native, label, describedBy, titleText) => {
     const valueId = `${native.id}-value`;
     const panelId = `${native.id}-panel`;
     const labelId = getFieldLabelId(label, native);
@@ -76,10 +89,7 @@ export const createPickerTrigger = (
     value.className = "reservas-picker__value";
     value.id = valueId;
 
-    const chevron = createIcon(
-        "expand_more",
-        "reservas-picker__chevron",
-    );
+    const chevron = createIcon("expand_more", "reservas-picker__chevron");
 
     button.append(value, chevron);
 
@@ -115,7 +125,8 @@ export const positionPickerPanel = (
     const header = document.querySelector(".site-header");
     const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
     const topLimit = Math.max(16, headerBottom + 12);
-    const spaceBelow = window.innerHeight - triggerRect.bottom - safeMargin - gap;
+    const spaceBelow =
+        window.innerHeight - triggerRect.bottom - safeMargin - gap;
     const spaceAbove = triggerRect.top - topLimit - gap;
     const openUp = spaceBelow < panelHeight && spaceAbove > spaceBelow;
 

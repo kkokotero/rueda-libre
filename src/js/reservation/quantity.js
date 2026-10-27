@@ -6,6 +6,11 @@
  * reaccione igual que si el usuario escribiera en el campo.
  */
 
+/**
+ * Adds bounded increment/decrement controls to the reservation quantity field.
+ * @param {HTMLFormElement} form
+ * @returns {void}
+ */
 export function initializeReservationQuantity(form) {
     const quantity = form.querySelector("[data-quantity]");
 
@@ -16,11 +21,19 @@ export function initializeReservationQuantity(form) {
     const increase = quantity.querySelector("[data-quantity-increase]");
     const label = quantity.querySelector("[data-quantity-label]");
 
-    if (!input || !decrease || !increase || !label) return;
+    if (
+        !(input instanceof HTMLInputElement) ||
+        !(decrease instanceof HTMLButtonElement) ||
+        !(increase instanceof HTMLButtonElement) ||
+        !(label instanceof HTMLElement)
+    ) {
+        return;
+    }
 
     const min = Number(input.min) || 1;
     const max = Number(input.max) || 6;
 
+    /** @param {number} count */
     const render = (count) => {
         const total = Math.min(max, Math.max(min, Math.round(count)));
 
@@ -29,6 +42,7 @@ export function initializeReservationQuantity(form) {
         increase.disabled = total >= max;
     };
 
+    /** @param {string | number} value @param {boolean} [dispatch] */
     const setCount = (value, dispatch = false) => {
         const count = Math.min(
             max,

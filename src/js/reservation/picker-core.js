@@ -21,11 +21,31 @@ import {
     createPickerTrigger,
     positionPickerPanel,
 } from "./picker/shell.js";
-import {
-    keepFocusedInPanel,
-    trapMobilePickerFocus,
-} from "./picker/focus.js";
+import { keepFocusedInPanel, trapMobilePickerFocus } from "./picker/focus.js";
 
+/**
+ * @typedef {{ focus?: boolean }} PickerCloseOptions
+ * @typedef {(options?: PickerCloseOptions) => void} PickerClose
+ * @typedef {object} ReservationPickerCore
+ * @property {() => boolean} isMobilePicker
+ * @property {(close: PickerClose, refresh?: (() => void) | null) => void} activatePicker
+ * @property {(close: PickerClose) => void} deactivatePicker
+ * @property {(name: string, className?: string) => HTMLSpanElement} createIcon
+ * @property {(label: HTMLLabelElement | null) => string} getLabelText
+ * @property {(label: HTMLLabelElement | null, native: HTMLElement) => string} getFieldLabelId
+ * @property {(native: HTMLElement) => string} getDescribedBy
+ * @property {(panel: HTMLElement, titleText: string, onClose: () => void) => { shell: HTMLDivElement, closeButton: HTMLButtonElement }} createPickerShell
+ * @property {(wrapper: HTMLElement, trigger: HTMLElement, panel: HTMLElement, maxHeight?: number) => void} positionPickerPanel
+ * @property {(panel: HTMLElement) => void} keepFocusedInPanel
+ * @property {(shell: HTMLElement) => void} trapMobilePickerFocus
+ * @property {(native: HTMLInputElement, label: HTMLLabelElement | null, describedBy: string, titleText: string) => { button: HTMLButtonElement, value: HTMLSpanElement, panelId: string }} createPickerTrigger
+ * @property {() => void} destroy
+ */
+
+/**
+ * Creates shared lifecycle and accessibility helpers for reservation pickers.
+ * @returns {ReservationPickerCore} Shared picker services consumed by the select, date, and time pickers.
+ */
 export function createReservationPickerCore() {
     const pickerBackdrop = document.createElement("div");
     pickerBackdrop.className = "reservas-picker-backdrop";
@@ -36,10 +56,17 @@ export function createReservationPickerCore() {
     const listeners = new AbortController();
     const signal = { signal: listeners.signal };
 
+    /** @type {((options?: { focus?: boolean }) => void) | null} */
     let activePickerClose = null;
+    /** @type {(() => void) | null} */
     let activePickerRefresh = null;
+    /** @type {((options?: { focus?: boolean }) => void) | null} */
     let modalPickerClose = null;
 
+    /**
+     * @param {(options?: { focus?: boolean }) => void} close
+     * @param {(() => void) | null} [refresh]
+     */
     const activatePicker = (close, refresh = null) => {
         if (activePickerClose && activePickerClose !== close) {
             activePickerClose();
@@ -55,6 +82,7 @@ export function createReservationPickerCore() {
         }
     };
 
+    /** @param {(options?: { focus?: boolean }) => void} close */
     const deactivatePicker = (close) => {
         if (activePickerClose === close) {
             activePickerClose = null;
@@ -86,17 +114,15 @@ export function createReservationPickerCore() {
 
     // El panel va anclado al desencadenante (posición absoluta), así que sigue
     // el layout al redimensionar; lo que hay que recalcular es su alto máximo.
-    window.addEventListener(
-        "resize",
-        () => activePickerRefresh?.(),
-        { passive: true, ...signal },
-    );
+    window.addEventListener("resize", () => activePickerRefresh?.(), {
+        passive: true,
+        ...signal,
+    });
 
-    window.addEventListener(
-        "scroll",
-        () => activePickerRefresh?.(),
-        { passive: true, ...signal },
-    );
+    window.addEventListener("scroll", () => activePickerRefresh?.(), {
+        passive: true,
+        ...signal,
+    });
 
     return {
         isMobilePicker,

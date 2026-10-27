@@ -8,6 +8,7 @@
  */
 
 /** Quita `index.html` y la barra final para poder comparar rutas. */
+/** @param {string} path @returns {string} */
 const normalizePath = (path) => {
     let normalized = path.replace(/\/index\.html$/, "/");
 
@@ -23,10 +24,14 @@ const currentPath = normalizePath(window.location.pathname);
 
 /** Marca como "página actual" los enlaces que apuntan a la ruta activa. */
 const markCurrentLinks = () => {
-    for (const link of document.querySelectorAll(
+    /** @type {NodeListOf<HTMLAnchorElement>} */
+    const links = document.querySelectorAll(
         ".header--menu__link[href], .header--drawer__link[href]",
-    )) {
-        const url = new URL(link.getAttribute("href"), window.location.href);
+    );
+    for (const link of links) {
+        const href = link.getAttribute("href");
+        if (!href) continue;
+        const url = new URL(href, window.location.href);
 
         if (url.origin !== window.location.origin) continue;
 
@@ -39,38 +44,37 @@ const markCurrentLinks = () => {
 const initNavigation = () => {
     const navToggle = document.getElementById("nav-toggle");
 
-    if (!navToggle) return;
+    if (!(navToggle instanceof HTMLInputElement)) return;
 
     markCurrentLinks();
 
+    /** @type {NodeListOf<HTMLDetailsElement>} */
     const dropdowns = document.querySelectorAll("[data-nav-dropdown]");
 
-    document
-        .querySelectorAll(".header--drawer a")
-        .forEach((link) => {
-            link.addEventListener("click", () => {
-                navToggle.checked = false;
-                dropdowns.forEach((dropdown) => {
-                    dropdown.open = false;
-                });
+    document.querySelectorAll(".header--drawer a").forEach((link) => {
+        link.addEventListener("click", () => {
+            navToggle.checked = false;
+            dropdowns.forEach((dropdown) => {
+                dropdown.open = false;
             });
         });
+    });
 
-    document
-        .querySelectorAll("[data-nav-dropdown] a")
-        .forEach((link) => {
-            link.addEventListener("click", () => {
-                const dropdown = link.closest(
-                    "[data-nav-dropdown]",
-                );
+    document.querySelectorAll("[data-nav-dropdown] a").forEach((link) => {
+        link.addEventListener("click", () => {
+            const dropdown = link.closest("[data-nav-dropdown]");
 
-                if (dropdown) dropdown.open = false;
-            });
+            if (dropdown instanceof HTMLDetailsElement) {
+                dropdown.open = false;
+            }
         });
+    });
 
     document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Node)) return;
         dropdowns.forEach((dropdown) => {
-            if (dropdown.open && !dropdown.contains(event.target)) {
+            if (dropdown.open && !dropdown.contains(target)) {
                 dropdown.open = false;
             }
         });
@@ -83,7 +87,7 @@ const initNavigation = () => {
             "[data-nav-dropdown][open]",
         );
 
-        if (openDropdown) {
+        if (openDropdown instanceof HTMLDetailsElement) {
             openDropdown.open = false;
             openDropdown.querySelector("summary")?.focus();
             return;

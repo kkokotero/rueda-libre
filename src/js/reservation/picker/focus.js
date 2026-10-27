@@ -9,6 +9,8 @@ import { isMobilePicker } from "./media.js";
  *
  * Se usa tras cada render o reposicionamiento, porque el panel puede haber
  * cambiado de alto y dejar el foco fuera de vista.
+ *
+ * @param {HTMLElement} panel
  */
 export const keepFocusedInPanel = (panel) => {
     const active = document.activeElement;
@@ -22,8 +24,7 @@ export const keepFocusedInPanel = (panel) => {
     if (activeRect.top < panelRect.top + padding) {
         panel.scrollTop -= panelRect.top + padding - activeRect.top;
     } else if (activeRect.bottom > panelRect.bottom - padding) {
-        panel.scrollTop +=
-            activeRect.bottom - (panelRect.bottom - padding);
+        panel.scrollTop += activeRect.bottom - (panelRect.bottom - padding);
     }
 };
 
@@ -31,16 +32,20 @@ export const keepFocusedInPanel = (panel) => {
  * Bloquea el Tab dentro del shell cuando el picker es una hoja modal móvil.
  *
  * En escritorio el panel es un popover y el Tab debe poder salir de él.
+ *
+ * @param {HTMLElement} shell
  */
 export const trapMobilePickerFocus = (shell) => {
     shell.addEventListener("keydown", (event) => {
         if (event.key !== "Tab" || !isMobilePicker()) return;
 
-        const focusables = [
-            ...shell.querySelectorAll(
-                "button:not(:disabled), input:not(:disabled)",
-            ),
-        ].filter((element) => element.offsetParent !== null);
+        /** @type {NodeListOf<HTMLElement>} */
+        const focusableNodes = shell.querySelectorAll(
+            "button:not(:disabled), input:not(:disabled)",
+        );
+        const focusables = [...focusableNodes].filter(
+            (element) => element.offsetParent !== null,
+        );
 
         if (!focusables.length) return;
 

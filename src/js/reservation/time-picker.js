@@ -6,8 +6,18 @@
  */
 
 import { parseISODate, toISODate } from "../shared/dates.js";
-import { formatTime, getScheduleForDate, parseTime, toTime } from "../shared/time.js";
+import {
+    formatTime,
+    getScheduleForDate,
+    parseTime,
+    toTime,
+} from "../shared/time.js";
 
+/**
+ * Enhances each native time input with an accessible analog-clock picker.
+ * @param {import("./picker-core.js").ReservationPickerCore} pickerCore
+ * @returns {void}
+ */
 export function initializeReservationTimePicker(pickerCore) {
     const {
         isMobilePicker,
@@ -23,13 +33,20 @@ export function initializeReservationTimePicker(pickerCore) {
         createPickerTrigger,
     } = pickerCore;
 
+    /** @param {Element} wrapper */
     const enhanceTimePicker = (wrapper) => {
-        const native = wrapper.querySelector('input[type="time"]');
+        if (!(wrapper instanceof HTMLElement)) return;
+        /** @type {HTMLInputElement | null} */
+        const nativeInput = wrapper.querySelector('input[type="time"]');
 
-        if (!native || wrapper.classList.contains("is-enhanced")) {
+        if (
+            !(nativeInput instanceof HTMLInputElement) ||
+            wrapper.classList.contains("is-enhanced")
+        ) {
             return;
         }
 
+        const native = nativeInput;
         const label = native.labels?.[0] || null;
         const titleText = getLabelText(label) || "Hora de inicio";
         const describedBy = getDescribedBy(native);
@@ -44,8 +61,7 @@ export function initializeReservationTimePicker(pickerCore) {
 
         const panel = document.createElement("div");
         panel.id = panelId;
-        panel.className =
-            "reservas-picker__panel reservas-timepicker__panel";
+        panel.className = "reservas-picker__panel reservas-timepicker__panel";
         panel.setAttribute("role", "dialog");
         panel.setAttribute("aria-label", titleText);
         panel.hidden = true;
@@ -66,11 +82,12 @@ export function initializeReservationTimePicker(pickerCore) {
         );
         chooseDateButton.addEventListener("click", () => {
             close();
-            document
-                .querySelector(
-                    '[data-picker="date"] .reservas-picker__button',
-                )
-                ?.click();
+            const datePickerButton = document.querySelector(
+                '[data-picker="date"] .reservas-picker__button',
+            );
+            if (datePickerButton instanceof HTMLButtonElement) {
+                datePickerButton.click();
+            }
         });
         emptyState.append(emptyMessage, chooseDateButton);
 
@@ -239,14 +256,21 @@ export function initializeReservationTimePicker(pickerCore) {
             5,
             Math.round((Number(native.step) || 900) / 60),
         );
+        const dateControl = wrapper
+            .closest("form")
+            ?.elements.namedItem("fecha");
         const dateNative =
-            wrapper.closest("form")?.elements.namedItem("fecha");
+            dateControl instanceof HTMLInputElement ? dateControl : null;
+        /** @type {string[]} */
         let availableTimes = [];
+        /** @type {"hour" | "minute"} */
         let clockMode = "hour";
 
+        /** @param {string} time @returns {"AM" | "PM"} */
         const getPeriod = (time) =>
             Number(time.slice(0, 2)) < 12 ? "AM" : "PM";
 
+        /** @param {number} minutes @param {"AM" | "PM"} period @returns {string | null} */
         const findNearestTime = (minutes, period) => {
             const periodTimes = availableTimes.filter(
                 (time) => getPeriod(time) === period,
@@ -262,11 +286,13 @@ export function initializeReservationTimePicker(pickerCore) {
             );
         };
 
+        /** @param {string} time */
         const selectTime = (time) => {
             native.value = time;
             native.dispatchEvent(new Event("change", { bubbles: true }));
         };
 
+        /** @param {"AM" | "PM"} period */
         const selectPeriod = (period) => {
             if (!availableTimes.length) return;
 
@@ -276,6 +302,7 @@ export function initializeReservationTimePicker(pickerCore) {
             if (nextTime) selectTime(nextTime);
         };
 
+        /** @param {string | undefined} hour */
         const selectHour = (hour) => {
             const currentMinute = Number(native.value.slice(3));
             const hourTimes = availableTimes.filter((time) =>
@@ -294,22 +321,31 @@ export function initializeReservationTimePicker(pickerCore) {
             selectTime(nextTime);
         };
 
+        /** @param {HTMLButtonElement} dialOption */
         const selectDialOption = (dialOption) => {
             if (clockFace.dataset.mode === "hour") {
                 selectHour(dialOption.dataset.hour);
                 clockMode = "minute";
             } else {
+                const minute = dialOption.dataset.minute;
+                if (!minute) return;
                 selectTime(
-                    `${native.value.slice(0, 2)}:${dialOption.dataset.minute.padStart(2, "0")}`,
+                    `${native.value.slice(0, 2)}:${minute.padStart(2, "0")}`,
                 );
             }
 
             renderClock();
-            clockFace
-                .querySelector(".is-selected")
-                ?.focus({ preventScroll: true });
+            const selectedDialOption = clockFace.querySelector(".is-selected");
+            if (selectedDialOption instanceof HTMLButtonElement) {
+                selectedDialOption.focus({ preventScroll: true });
+            }
         };
 
+        /**
+         * @param {number} clientX
+         * @param {number} clientY
+         * @returns {HTMLButtonElement | null}
+         */
         const findDialOptionAtPoint = (clientX, clientY) => {
             const faceRect = clockFace.getBoundingClientRect();
             const pointerAngle =
@@ -321,33 +357,48 @@ export function initializeReservationTimePicker(pickerCore) {
                     Math.PI * 2) %
                 (Math.PI * 2);
 
-            return [...clockFace.querySelectorAll(
+            /** @type {NodeListOf<HTMLButtonElement>} */
+            const options = clockFace.querySelectorAll(
                 ".reservas-timepicker__clock-option:not(:disabled)",
-            )].reduce((nearest, option) => {
-                const rect = option.getBoundingClientRect();
-                const optionAngle =
-                    (Math.atan2(
-                        rect.top + rect.height / 2 -
-                            (faceRect.top + faceRect.height / 2),
-                        rect.left + rect.width / 2 -
-                            (faceRect.left + faceRect.width / 2),
-                    ) +
-                        Math.PI / 2 +
-                        Math.PI * 2) %
-                    (Math.PI * 2);
-                const angleDistance = Math.abs(pointerAngle - optionAngle);
-                const distance = Math.min(
-                    angleDistance,
-                    Math.PI * 2 - angleDistance,
-                );
+            );
+            return (
+                [...options].reduce(
+                    (nearest, option) => {
+                        const rect = option.getBoundingClientRect();
+                        const optionAngle =
+                            (Math.atan2(
+                                rect.top +
+                                    rect.height / 2 -
+                                    (faceRect.top + faceRect.height / 2),
+                                rect.left +
+                                    rect.width / 2 -
+                                    (faceRect.left + faceRect.width / 2),
+                            ) +
+                                Math.PI / 2 +
+                                Math.PI * 2) %
+                            (Math.PI * 2);
+                        const angleDistance = Math.abs(
+                            pointerAngle - optionAngle,
+                        );
+                        const distance = Math.min(
+                            angleDistance,
+                            Math.PI * 2 - angleDistance,
+                        );
 
-                return !nearest || distance < nearest.distance
-                    ? { option, distance }
-                    : nearest;
-            }, null)?.option;
+                        return !nearest || distance < nearest.distance
+                            ? { option, distance }
+                            : nearest;
+                    },
+                    /** @type {{ option: HTMLButtonElement, distance: number } | null} */ (
+                        null
+                    ),
+                )?.option ?? null
+            );
         };
 
+        /** @type {number | null} */
         let activeDialPointer = null;
+        /** @type {HTMLButtonElement | null} */
         let draggedDialOption = null;
 
         const clearDialDrag = () => {
@@ -358,7 +409,10 @@ export function initializeReservationTimePicker(pickerCore) {
         };
 
         clockFace.addEventListener("pointerdown", (event) => {
-            if (event.button !== 0 || !clockFace.querySelector(".reservas-timepicker__clock-option")) {
+            if (
+                event.button !== 0 ||
+                !clockFace.querySelector(".reservas-timepicker__clock-option")
+            ) {
                 return;
             }
 
@@ -403,6 +457,7 @@ export function initializeReservationTimePicker(pickerCore) {
         clockFace.addEventListener("pointercancel", clearDialDrag);
         clockFace.addEventListener("lostpointercapture", clearDialDrag);
 
+        /** Commits the manually entered hour and minute, clamped to available slots. */
         function commitTypedTime() {
             const hour = Number(clockHourInput.value);
             const minute = Number(clockMinuteInput.value);
@@ -421,16 +476,17 @@ export function initializeReservationTimePicker(pickerCore) {
             }
 
             const period = getPeriod(native.value);
-            const hour24 =
-                period === "AM"
-                    ? hour % 12
-                    : (hour % 12) + 12;
+            const hour24 = period === "AM" ? hour % 12 : (hour % 12) + 12;
             const nextTime = findNearestTime(hour24 * 60 + minute, period);
 
             if (nextTime) selectTime(nextTime);
             else renderClock();
         }
 
+        /**
+         * Renders the analog dial and synchronizes its editable time fields.
+         * @param {{ syncInputs?: boolean }} [options]
+         */
         function renderClock({ syncInputs = true } = {}) {
             const hasSlots = availableTimes.length > 0;
             clock.hidden = !hasSlots;
@@ -456,10 +512,7 @@ export function initializeReservationTimePicker(pickerCore) {
                 clockMinuteInput.value = String(minute).padStart(2, "0");
             }
 
-            clockHourInput.classList.toggle(
-                "is-active",
-                clockMode === "hour",
-            );
+            clockHourInput.classList.toggle("is-active", clockMode === "hour");
             clockMinuteInput.classList.toggle(
                 "is-active",
                 clockMode === "minute",
@@ -475,10 +528,7 @@ export function initializeReservationTimePicker(pickerCore) {
 
                 periodButton.disabled = periodHours.length === 0;
                 periodButton.classList.toggle("is-active", isSelected);
-                periodButton.setAttribute(
-                    "aria-pressed",
-                    String(isSelected),
-                );
+                periodButton.setAttribute("aria-pressed", String(isSelected));
             }
 
             clockFace.dataset.mode = clockMode;
@@ -501,16 +551,12 @@ export function initializeReservationTimePicker(pickerCore) {
                 const minuteValue = dialValue;
                 const dialOption = document.createElement("button");
                 const angle =
-                    (clockMode === "hour"
-                        ? hourIndex / 12
-                        : minuteValue / 60) *
+                    (clockMode === "hour" ? hourIndex / 12 : minuteValue / 60) *
                         Math.PI *
                         2 -
                     Math.PI / 2;
                 const optionHour = String(
-                    period === "AM"
-                        ? number % 12
-                        : (number % 12) + 12,
+                    period === "AM" ? number % 12 : (number % 12) + 12,
                 ).padStart(2, "0");
                 const label =
                     clockMode === "hour"
@@ -526,8 +572,7 @@ export function initializeReservationTimePicker(pickerCore) {
                         : availableMinutes.includes(minuteValue);
 
                 dialOption.type = "button";
-                dialOption.className =
-                    "reservas-timepicker__clock-option";
+                dialOption.className = "reservas-timepicker__clock-option";
                 dialOption.textContent = label;
                 dialOption.style.left = `${50 + Math.cos(angle) * 38}%`;
                 dialOption.style.top = `${50 + Math.sin(angle) * 38}%`;
@@ -557,6 +602,7 @@ export function initializeReservationTimePicker(pickerCore) {
             }
         }
 
+        /** Recalculates available times from the selected date and input step. */
         const updateSlotsForDate = () => {
             const date = parseISODate(dateNative?.value || "");
 
@@ -625,17 +671,14 @@ export function initializeReservationTimePicker(pickerCore) {
             renderClock();
         };
 
+        /** @param {{ focus?: boolean }} [options] */
         const close = ({ focus = false } = {}) => {
             if (panel.hidden) return;
 
             panel.hidden = true;
             panel.style.maxHeight = "";
             panel.removeAttribute("aria-modal");
-            wrapper.classList.remove(
-                "is-open",
-                "is-up",
-                "is-mobile-modal",
-            );
+            wrapper.classList.remove("is-open", "is-up", "is-mobile-modal");
             button.setAttribute("aria-expanded", "false");
             deactivatePicker(close);
 
@@ -676,10 +719,9 @@ export function initializeReservationTimePicker(pickerCore) {
             }
 
             updateDisplay();
-            (availableTimes.length
-                ? clockHourInput
-                : chooseDateButton
-            ).focus({ preventScroll: true });
+            (availableTimes.length ? clockHourInput : chooseDateButton).focus({
+                preventScroll: true,
+            });
             positionPickerPanel(wrapper, button, panel, 480);
 
             if (availableTimes.length) {
@@ -716,7 +758,12 @@ export function initializeReservationTimePicker(pickerCore) {
         });
 
         document.addEventListener("pointerdown", (event) => {
-            if (!panel.hidden && !wrapper.contains(event.target)) {
+            const target = event.target;
+            if (
+                target instanceof Node &&
+                !panel.hidden &&
+                !wrapper.contains(target)
+            ) {
                 close();
             }
         });

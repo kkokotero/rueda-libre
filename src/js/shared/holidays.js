@@ -33,8 +33,10 @@ const MOVED_HOLIDAYS = [
 ];
 
 /** Desplazamiento en días hasta el lunes siguiente (0 si ya es lunes). */
+/** @param {Date} date @returns {number} */
 const untilNextMonday = (date) => (8 - date.getDay()) % 7;
 
+/** @param {number} year @returns {Date} */
 export const getEasterSunday = (year) => {
     const a = year % 19;
     const b = Math.floor(year / 100);
@@ -54,6 +56,7 @@ export const getEasterSunday = (year) => {
     return new Date(year, month - 1, day);
 };
 
+/** @param {Date} date @returns {boolean} */
 export const isColombianHoliday = (date) => {
     const year = date.getFullYear();
     const iso = toISODate(date);
@@ -76,9 +79,7 @@ export const isColombianHoliday = (date) => {
 
         // Los que siguen a la Pascua se mueven al lunes siguiente.
         if (offset > 0) {
-            holiday.setDate(
-                holiday.getDate() + untilNextMonday(holiday),
-            );
+            holiday.setDate(holiday.getDate() + untilNextMonday(holiday));
         }
 
         return toISODate(holiday);

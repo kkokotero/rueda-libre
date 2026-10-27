@@ -5,6 +5,7 @@
  * qué falló; aquí se traducen a mensajes claros y en español para cada campo.
  */
 
+/** @type {Record<string, string>} */
 const REQUIRED_MESSAGES = {
     nombre: "Escribe tu nombre completo.",
     tipo_documento: "Selecciona el tipo de documento.",
@@ -21,6 +22,7 @@ const REQUIRED_MESSAGES = {
 };
 
 /** Mensaje de error para un control, o cadena vacía si es válido. */
+/** @param {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} control @returns {string} */
 export const getErrorMessage = (control) => {
     const validity = control.validity;
 
@@ -60,9 +62,7 @@ export const getErrorMessage = (control) => {
 
     if (
         control.name === "hora" &&
-        (validity.rangeUnderflow ||
-            validity.rangeOverflow ||
-            validity.badInput)
+        (validity.rangeUnderflow || validity.rangeOverflow || validity.badInput)
     ) {
         return "Elige una hora dentro del horario de atención.";
     }
