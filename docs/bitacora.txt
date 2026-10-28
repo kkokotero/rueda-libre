@@ -338,3 +338,102 @@ FOTOS DE LA FLOTA Y AJUSTE A SUS PROPORCIONES
   huecos a la derecha.
 - A 900 px el bento usa tres columnas y queda un hueco en la última fila (8
   celdas de 9); es el único ancho con un hueco.
+
+PRUEBA COMPARATIVA: FLOTA CON BOOTSTRAP 5.3
+
+El líder técnico pidió rehacer la sección de la flota con Bootstrap en una
+página aparte, cronometrar el trabajo y comparar tiempo y cantidad de código
+con la versión en CSS propio. Por indicación del equipo, Bootstrap se instaló
+con npm (5.3.8) y se empaquetó con Vite en lugar de enlazarlo por CDN.
+
+Página de prueba: src/catalogo/index.html (entrada "catalogo" que ya existía
+en vite.config.ts). Rutas relativas a src/catalogo/: imágenes en
+../assets/img/flota/ y reservas en ../reservas/.
+
+Cómo se cargó Bootstrap:
+
+- npm install bootstrap@5.3.8 (quedó en dependencies con ^5.3.8).
+- src/assets/scss/catalogo.scss importa "bootstrap/scss/bootstrap-grid", que
+  aporta container, row, col-*, g-* y las utilidades de la grilla, sin el
+  reboot de Bootstrap. Así se conservan los tokens oscuros, la tipografía y
+  las tarjetas del proyecto, y no compiten dos resets.
+- src/assets/js/catalogo.js importa "bootstrap/dist/js/bootstrap.bundle.min.js".
+  Vite lo incluye en la compilación (80,20 kB, 24,23 kB gzip). La página no
+  usa componentes interactivos, pero el bundle queda cargado y operativo.
+
+Distribución (solo clases, sin CSS de grilla propio):
+
+- .container > .row.g-3 > columnas.
+- Móvil: col-12 (una columna).
+- Desde sm: col-sm-6 (dos columnas).
+- Desde lg: col-lg-4 (tres columnas).
+- Desde xl: col-xl-3 (cuatro columnas).
+- La tarjeta destacada usa col-12 col-lg-6: ocupa dos columnas desde lg, así
+  se conserva el bento original (2 + 6 = 8 celdas en cuatro columnas).
+- Separación con g-3 (gutter de 1rem, igual al gap anterior).
+- No se importó pages/fleet/grid.scss ni pages/fleet/responsive.scss: la
+  página no tiene ni una línea de CSS para decidir columnas o breakpoints.
+- Se reutilizó pages/fleet/cards.scss para que las tarjetas se vean igual
+  (fondo, borde, radio, imagen completa, precio y botón al pie). Solo se
+  añadió height: 100% a la tarjeta para igualar alturas dentro de la fila,
+  más el marco de la página y el ancho del párrafo introductorio.
+
+Comprobación en modo dispositivo (DevTools de Firefox, ventana de 1400 px de
+alto; ancho de contenido de .catalogo-main = 90dvw):
+
+- 500 px: 1 columna, 7 tarjetas apiladas, sin desbordamiento horizontal.
+- 800 px: 2 columnas (destacada a fila completa y luego parejas).
+- 1100 px: 3 columnas (destacada de 2 + una tarjeta en la primera fila).
+- 1200 px: 4 columnas (destacada de 2 + 2 tarjetas; las 4 restantes en la
+  segunda fila).
+- 1300 px: 4 columnas, dos filas exactas de 8 celdas.
+- En todos los anchos las tarjetas de una fila miden lo mismo y el enlace
+  "Reservar" queda alineado al pie. No hubo recursos con estado >= 400.
+
+Tiempo y código:
+
+- Cronómetro: 3 minutos desde la instalación de Bootstrap hasta la
+  verificación en DevTools, con el marcado de las siete tarjetas copiado de
+  src/index.html y las rutas ajustadas.
+- Versión propia: 60 líneas de CSS/SCSS dedicadas a la distribución
+  (pages/fleet/grid.scss 34 + pages/fleet/responsive.scss 26, con comentarios
+  y llaves), 11 declaraciones (display, grid-template-columns,
+  grid-auto-flow, gap, align-items, container-type, container-name,
+  grid-column de la cabecera, grid-column de la destacada, tope de 4
+  columnas y margin de la cabecera).
+- Versión Bootstrap: 0 líneas de CSS de distribución; 8 clases en el HTML
+  (container, row, g-3, col-12, col-sm-6, col-lg-4, col-xl-3, col-lg-6).
+  El CSS propio de las tarjetas (149 líneas) se reutiliza sin cambios.
+- Peso compilado de la página: CSS 60,38 kB (8,55 kB gzip) frente a 38,67 kB
+  (6,94 kB gzip) de la portada; JavaScript 80,20 kB (24,23 kB gzip).
+
+Qué dio Bootstrap sin esfuerzo:
+
+- Los cuatro breakpoints (sm, lg, xl) y los gutters, sin media queries ni
+  container queries propias.
+- El contenedor centrado con máximos por breakpoint y las utilidades de
+  alineación.
+- Columnas de igual alto por fila y un marcado estándar que cualquier
+  persona del equipo reconoce.
+- La posibilidad de cambiar de 3 a 4 columnas tocando solo una clase.
+
+Qué control se perdió:
+
+- El bento automático: auto-fit decidía las columnas y el tope de 4 desde
+  81.5rem evitaba la quinta columna. Ahora los cortes son fijos y el ancho
+  de la destacada (col-lg-6) hay que declararlo a mano.
+- El ancho exacto de la página: el container de Bootstrap llega a 1140 px
+  dentro de .catalogo-main, mientras la versión propia usa hasta 1424 px.
+  Las tarjetas se ven igual, pero la cuadrícula es algo más angosta.
+- La altura uniforme no es automática: hizo falta height: 100% en la
+  tarjeta, porque la utilidad h-100 no viene en bootstrap-grid.
+- Menos control sobre los huecos finos y el orden visual del bento; además
+  entra un framework completo (CSS y JS) para una sección que el CSS propio
+  resolvía con 11 declaraciones.
+- Dependencia de las convenciones de Bootstrap y de su escala de breakpoints
+  (576, 768, 992, 1200), distinta de los cortes por contenedor anteriores.
+
+Conclusión provisional: Bootstrap reduce el código de distribución a cero y
+acelera el armado, pero no reproduce solo el bento ni el ancho exacto. La
+decisión de migrar queda pendiente; esta página permite comparar ambas
+versiones lado a lado.

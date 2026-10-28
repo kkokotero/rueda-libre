@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#151215" />
+        <meta
+            name="description"
+            content="Catálogo de la flota de Rueda Libre construido con la grilla de Bootstrap 5.3."
+        />
+        <title>Catálogo | Rueda Libre</title>
+        <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
+        <link rel="stylesheet" href="../assets/scss/catalogo.scss" />
+    </head>
+
+    <body>
+        <main class="catalogo-main">
+            <div class="catalogo-header">
+                <p class="catalogo-eyebrow">
+                    Prueba de grilla · Bootstrap 5.3
+                </p>
+                <a class="catalogo-back" href="../index.html#our-fleet"
+                    >Volver a la portada</a
+                >
+            </div>
+
+            <!-- Nuestra flota: distribución solo con la grilla de Bootstrap.
+                 Una columna en celulares, dos desde sm, tres desde lg y
+                 cuatro desde xl. La tarjeta destacada ocupa dos columnas
+                 desde lg para conservar el bento de la versión propia. -->
+            <section id="our-fleet" class="our-fleet">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="section--title">Nuestra flota</h1>
+                            <p class="our-fleet--lead">
+                                Elige el modelo que mejor se adapte a tu
+                                recorrido. La flota crece cada temporada, así
+                                que esta cuadrícula se reorganiza sola con cada
+                                bicicleta nueva.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12 col-lg-6">
+                            <article
+                                class="our-fleet--card our-fleet--card--hero"
+                            >
+                                <div class="our-fleet--card__media">
+                                    <img
+                                        class="our-fleet--card__image"
+                                        src="../assets/img/flota/urbana_clasica.png"
+                                        alt="Bicicleta urbana clásica"
+                                        width="600"
+                                        height="337"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+
+                                <h2 class="our-fleet--card__title">
+                                    Urbana Clásica
+                                </h2>
+
+                                <p class="our-fleet--card__description">
+                                    Cómoda y liviana para las ciclorrutas.
+                                </p>
+
+                                <p class="our-fleet--card__price">
+                                    <span class="our-fleet--card__amount"
+                                        >$10.000</span
+                                    >
+                                    <span class="our-fleet--card__unit"
+                                        >por hora</span
+                                    >
+                                </p>
+
+                                <a
+                                    class="our-fleet--card__link"
+                                    href="../reservas/"
+                                    >Reservar<span
+                                        class="icon our-fleet--card__arrow"
+                                        aria-hidden="true"
+                                        >arrow_forward</span
+                                    ></a
+                                >
+                            </article>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <article class="our-fleet--card">
+                                <div class="our-fleet--card__media">
+                                    <img
+                                        class="our-fleet--card__image"
+                                        src="../assets/img/flota/urbana_plegable.png"
+                                        alt="Bicicleta urbana plegable"
+                                        width="320"
+                                        height="240"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+
+                                <h2 class="our-fleet--card__title">
+                                    Urbana Plegable
+                                </h2>
+
+                                <p class="our-fleet--card__description">
+                                    Se dobla en segundos; ideal para combinar
+                                    con el metro.
+                                </p>
+
+                                <p class="our-fleet--card__price">
+                                    <span class="our-fleet--card__amount"
+                                        >$12.000</span
+                                    >
+                                    <span class="our-fleet--card__unit"
+                                        >por hora</span
+                                    >
+                                </p>
+
+                                <a
+                                    class="our-fleet--card__link"
+                                    href="../reservas/"
+                                    >Reservar<span
+                                        class="icon our-fleet--card__arrow"
+                                        aria-hidden="true"
+                                        >arrow_forward</span
+                                    ></a
+                                >
+                            </article>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <article class="our-fleet--card">
+                                <div class="our-fleet--card__media">
+                                    <img
+                                        class="our-fleet--card__image"
+                                        src="../assets/img/flota/montaña_trail.png"
+                                        alt="Bicicleta de montaña trail"
+                                        width="860"
+                                        height="589"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+
+                                <h2 class="our-fleet--card__title">
+                                    Montaña Trail
+                                </h2>
+
+                                <p class="our-fleet--card__description">
+                                    Suspensión delantera y 21 cambios para las
+                                    subidas.
+                                </p>
+
+                                <p class="our-fleet--card__price">
+                                    <span class="our-fleet--card__amount"
+                                        >$15.000</span
+                                    >
+                                    <span class="our-fleet--card__unit"
+                                        >por hora</span
+                                    >
+                                </p>
+
+                                <a
+                                    class="our-fleet--card__link"
+                                    href="../reservas/"
+                                    >Reservar<span
+                                        class="icon our-fleet--card__arrow"
+                                        aria-hidden="true"
+                                        >arrow_forward</span
+                                    ></a
+                                >
+                            </article>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <article class="our-fleet--card">
+                                <div class="our-fleet--card__media">
+                                    <img
+                                        class="our-fleet--card__image"
+                                        src="../assets/img/flota/gravel_aventura.png"
+                                        alt="Bicicleta gravel aventura"
+                                        width="860"
+                                        height="484"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+
+                                <h2 class="our-fleet--card__title">
+                                    Gravel Aventura
+                                </h2>
+
+                                <p class="our-fleet--card__description">
+                                    Para rutas mixtas de asfalto y destapado.
+                                </p>
+
+                                <p class="our-fleet--card__price">
+                                    <span class="our-fleet--card__amount"
+                                        >$18.000</span
+                                    >
+                                    <span class="our-fleet--card__unit"
+                                        >por hora</span
+                                    >
+                                </p>
+
+                                <a
+                                    class="our-fleet--card__link"
+                                    href="../reservas/"
+                                    >Reservar<span
+                                        class="icon our-fleet--card__arrow"
+                                        aria-hidden="true"
+                                        >arrow_forward</span
+                                    ></a
+                                >
+                            </article>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <article class="our-fleet--card">
+                                <div class="our-fleet--card__media">
+                                    <img
+                                        class="our-fleet--card__image"
+                                        src="../assets/img/flota/electrica_urbana.png"
+                                        alt="Bicicleta eléctrica urbana"
+                                        width="860"
+                                        height="645"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+
+                                <h2 class="our-fleet--card__title">
+                                    Eléctrica Urbana
+                                </h2>
+
+                                <p class="our-fleet--card__description">
+                                    Asistencia eléctrica con 45 km de autonomía.
+                                </p>
+
+                                <p class="our-fleet--card__price">
+                                    <span class="our-fleet--card__amount"
+                                        >$25.000</span
+                                    >
+                                    <span class="our-fleet--card__unit"
+                                        >por hora</span
+                                    >
+                                </p>
+
+                                <a
+                                    class="our-fleet--card__link"
+                                    href="../reservas/"
+                                    >Reservar<span
+                                        class="icon our-fleet--card__arrow"
+                                        aria-hidden="true"
+                                        >arrow_forward</span
+                                    ></a
+                                >
+                            </article>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <article class="our-fleet--card">
+                                <div class="our-fleet--card__media">
+                                    <img
+                                        class="our-fleet--card__image"
+                                        src="../assets/img/flota/infantil.png"
+                                        alt="Bicicleta infantil"
+                                        width="860"
+                                        height="860"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+
+                                <h2 class="our-fleet--card__title">
+                                    Infantil
+                                </h2>
+
+                                <p class="our-fleet--card__description">
+                                    Para niños de 6 a 10 años.
+                                </p>
+
+                                <p class="our-fleet--card__price">
+                                    <span class="our-fleet--card__amount"
+                                        >$8.000</span
+                                    >
+                                    <span class="our-fleet--card__unit"
+                                        >por hora</span
+                                    >
+                                </p>
+
+                                <a
+                                    class="our-fleet--card__link"
+                                    href="../reservas/"
+                                    >Reservar<span
+                                        class="icon our-fleet--card__arrow"
+                                        aria-hidden="true"
+                                        >arrow_forward</span
+                                    ></a
+                                >
+                            </article>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <article class="our-fleet--card">
+                                <div class="our-fleet--card__media">
+                                    <img
+                                        class="our-fleet--card__image"
+                                        src="../assets/img/flota/tandem.png"
+                                        alt="Bicicleta tandem para dos personas"
+                                        width="860"
+                                        height="442"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+
+                                <h2 class="our-fleet--card__title">Tándem</h2>
+
+                                <p class="our-fleet--card__description">
+                                    Para dos personas; perfecta para pasear en
+                                    pareja.
+                                </p>
+
+                                <p class="our-fleet--card__price">
+                                    <span class="our-fleet--card__amount"
+                                        >$20.000</span
+                                    >
+                                    <span class="our-fleet--card__unit"
+                                        >por hora</span
+                                    >
+                                </p>
+
+                                <a
+                                    class="our-fleet--card__link"
+                                    href="../reservas/"
+                                    >Reservar<span
+                                        class="icon our-fleet--card__arrow"
+                                        aria-hidden="true"
+                                        >arrow_forward</span
+                                    ></a
+                                >
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <script type="module" src="../assets/js/catalogo.js"></script>
+    </body>
+</html>

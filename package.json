@@ -24,6 +24,6 @@
         "vite": "^7.1.12"
     },
     "dependencies": {
-        "bootstrap": "^6.0.0-alpha.1"
+        "bootstrap": "^5.3.8"
     }
 }
