@@ -1,5 +1,9 @@
 @layer layout {
 
+    .content-container {
+        width: min(calc(100% - 2rem), 89rem);
+        margin-inline: auto;
+    }
 
     .section--title {
         font-size: clamp(2.1rem, 5vw, 3.75rem);

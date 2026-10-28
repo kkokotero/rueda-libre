@@ -589,3 +589,15 @@ utilidades, sin escribir reglas CSS para la sección:
 
 Sigue sin haber style="", <style> ni clases propias en las secciones nuevas:
 los cambios son configuración de Bootstrap y clases de su documentación.
+
+MIGRACIÓN DE LA DISTRIBUCIÓN A SCSS PROPIO
+
+- Se quitó la dependencia del framework, su bundle JavaScript y la hoja de
+  utilidades; también se eliminaron sus clases del marcado.
+- El catálogo volvió a usar pages/fleet/grid.scss y
+  pages/fleet/responsive.scss para la cuadrícula bento con auto-fit y consultas
+  de contenedor.
+- Las tarjetas de beneficios usan .why-us__grid y .why-us__item, con una,
+  dos o cuatro columnas responsive y separación definida en SCSS.
+- Las secciones comparten .content-container para ancho máximo y centrado.
+- Los archivos package.json y package-lock.json ya no incluyen la dependencia.
