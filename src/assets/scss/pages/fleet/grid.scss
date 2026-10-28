@@ -1,16 +1,4 @@
 @layer pages {
-
-    /* ---------- Cuadrícula ----------
-       El número de columnas lo decide el navegador con auto-fit +
-       minmax, sin media queries. Los "spans" que forman el bento se
-       activan con container queries según el ancho del propio grid,
-       de modo que en una sola columna ninguna tarjeta intenta ocupar
-       más espacio del que hay.
-
-       No se usan spans de fila: la imagen tiene una altura máxima, así
-       que una tarjeta ancha (2 columnas) no duplica su alto y la
-       cuadrícula se mantiene compacta. */
-
     .our-fleet--grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr));
@@ -19,14 +7,11 @@
         align-items: stretch;
     }
 
-    /* El contenedor de consulta es la sección, no el grid: un elemento
-       no puede responder a sus propias container queries. */
     .our-fleet {
         container-type: inline-size;
         container-name: fleet;
     }
 
-    /* Cabecera de la sección: ocupa la fila completa del grid. */
     .our-fleet--header {
         grid-column: 1 / -1;
         margin-bottom: 0.25rem;

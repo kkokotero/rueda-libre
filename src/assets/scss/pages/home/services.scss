@@ -38,7 +38,6 @@
             border-color var(--motion-medium) var(--ease-emphasized),
             transform var(--motion-slow) var(--ease-spring);
 
-        /* Distintivo numérico expresivo */
         &::before {
             content: counter(service, decimal-leading-zero);
             position: absolute;
@@ -163,7 +162,6 @@
             border-color: transparent;
         }
 
-        /* Reloj abstracto: refuerza la idea de alquiler por horas */
         & .our-services--card__title {
             order: 0;
         }

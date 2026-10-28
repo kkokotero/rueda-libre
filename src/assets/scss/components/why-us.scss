@@ -119,7 +119,6 @@
         letter-spacing: -0.01em;
     }
 
-    /* ---------- Franja de llamada a la acción ---------- */
     .why-us__cta {
         position: relative;
         display: flex;
@@ -214,8 +213,7 @@
             font-size: 1.1rem;
         }
     }
-
-    /* ---------- Variante compacta del catálogo ---------- */
+    
     .why-us--compact {
         .why-us__grid {
             gap: 1rem;
