@@ -11,6 +11,10 @@
         .our-fleet--item--hero {
             grid-column: span 2;
         }
+
+        .our-fleet--card__title {
+            font-size: clamp(1.25rem, 2vw, 3rem);
+        }
     }
 
     /* Desde 81.5rem de contenedor, auto-fit abriría una quinta columna:
