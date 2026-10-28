@@ -437,3 +437,53 @@ Conclusión provisional: Bootstrap reduce el código de distribución a cero y
 acelera el armado, pero no reproduce solo el bento ni el ancho exacto. La
 decisión de migrar queda pendiente; esta página permite comparar ambas
 versiones lado a lado.
+
+CATÁLOGO COMPLETO: MENÚ, PIE Y NAVEGACIÓN
+
+La página de prueba se convirtió en la página definitiva del catálogo. Ahora
+incluye el encabezado y el pie completos del sitio, y la grilla de Bootstrap
+sigue siendo la única responsable de la distribución.
+
+Cambios realizados:
+
+- src/catalogo/index.html reutiliza el header y el footer de la portada, con
+  rutas relativas desde catalogo/: ../assets/, ../tarifas/, ../reservas/,
+  ../#top-app, ../#about-us, etc.
+- El catálogo carga navigation.js (a través de catalogo.js), por lo que el
+  cajón móvil, los desplegables y el aria-current funcionan igual que en el
+  resto del sitio. Catálogo queda marcado como página actual.
+- catalogo.scss importa layout/layout para traer navegación, pie, títulos y
+  movimiento, y mantiene bootstrap-grid para container, row, g-3 y col-*.
+- El título de la sección pasa a "Catálogo de la flota".
+- Se añadió "Catálogo" al menú de escritorio, al cajón móvil y al pie de las
+  cuatro páginas (inicio, tarifas, reservas y catálogo).
+- Se retiró "Nuestra flota" del desplegable "Nosotros" en las cuatro páginas,
+  porque el ancla #our-fleet del inicio ya no existe.
+- Se eliminó la sección #our-fleet de src/index.html y el @use "pages/fleet"
+  de home.scss. Los módulos de la flota se conservan porque el catálogo
+  reutiliza pages/fleet/cards.scss.
+- README actualizado con la cuarta página.
+
+Comprobaciones:
+
+- Catálogo a 1300 px: cuatro columnas; a 500 px: una columna; sin
+  desbordamiento horizontal.
+- El menú de escritorio entra completo a 870 px; por debajo de 860 px pasa al
+  cajón móvil, donde Catálogo aparece con aria-current.
+- El pie del catálogo muestra Catálogo como página actual y sus enlaces
+  relativos apuntan a inicio, tarifas, reservas y encuentro.
+- Las cuatro páginas tienen el enlace Catálogo en el menú y en el pie.
+- La portada ya no contiene la sección Nuestra flota.
+- La distribución del catálogo sigue sin CSS propio: solo clases de la grilla
+  de Bootstrap. El CSS propio se limita a la apariencia de las tarjetas y al
+  ancho del párrafo introductorio.
+
+Peso compilado del catálogo tras integrar navegación y pie: CSS 76,54 kB
+(11,05 kB gzip) y JavaScript 80,19 kB (24,21 kB gzip). El aumento de CSS
+respecto a la página de prueba (60,38 kB) corresponde al encabezado, el pie
+y sus estados interactivos, no a la grilla de la flota.
+
+Nota de herramientas: al importar el bundle de Bootstrap desde npm, tsc
+intentaba revisar también el JavaScript de node_modules. Se añadió
+"maxNodeModuleJsDepth": 0 a jsconfig.json para que el chequeo de tipos siga
+cubriendo solo el código de src/; npm run typecheck vuelve a pasar.

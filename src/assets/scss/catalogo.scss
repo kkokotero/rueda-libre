@@ -1,60 +1,18 @@
 /* ============================================================
-   CATÁLOGO — PRUEBA CON BOOTSTRAP 5.3
+   CATÁLOGO — BOOTSTRAP 5.3
    Bootstrap se instala con npm y Vite lo empaqueta: no hay CDN.
    De Bootstrap se importa solo el sistema de grillas y sus
-   utilidades (container, row, col-*, g-*). La apariencia de las
-   tarjetas se reutiliza del módulo propio de la flota.
+   utilidades (container, row, col-*, g-*). La navegación, el pie
+   y la apariencia de las tarjetas se reutilizan del sitio.
    ============================================================ */
 
 @use "bootstrap/scss/bootstrap-grid";
 @use "base/base";
 @use "components/icons";
-@use "layout/sections";
+@use "layout/layout";
 @use "pages/fleet/cards";
 
 @layer pages {
-    /* Marco de la página de prueba. No participa en la
-       distribución de la flota: eso lo resuelve la grilla. */
-    .catalogo-main {
-        max-width: 92dvw;
-        margin: 2rem auto 5rem;
-        padding-bottom: 4rem;
-
-        @media (width >= 521px) {
-            max-width: clamp(20rem, 90dvw, 1424px);
-            margin-top: 3rem;
-        }
-    }
-
-    .catalogo-header {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 0.75rem 2rem;
-        margin-bottom: 1rem;
-    }
-
-    .catalogo-eyebrow {
-        margin: 0;
-        font-size: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--color-on-surface-variant);
-    }
-
-    .catalogo-back {
-        color: var(--color-primary);
-        font-size: 0.9rem;
-        font-weight: 700;
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
     /* Las columnas de Bootstrap estiran su contenido; la tarjeta
        ocupa todo el alto para que los enlaces queden alineados. */
     .our-fleet--card {

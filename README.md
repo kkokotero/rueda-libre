@@ -14,7 +14,7 @@ npm install
 npm run dev
 ```
 
-Vite muestra en la terminal la dirección local para abrir el sitio. Las páginas disponibles son `index.html`, `tarifas/index.html` y `reservas/index.html`.
+Vite muestra en la terminal la dirección local para abrir el sitio. Las páginas disponibles son `index.html`, `tarifas/index.html`, `reservas/index.html` y `catalogo/index.html`.
 
 ## Compilación y previsualización
 
@@ -36,7 +36,7 @@ Biome revisa JavaScript, TypeScript y los archivos de configuración del proyect
 
 ## Estructura
 
-- `src/index.html`, `src/tarifas/` y `src/reservas/`: páginas de entrada.
+- `src/index.html`, `src/tarifas/`, `src/reservas/` y `src/catalogo/`: páginas de entrada.
 - `src/scss/`: cada HTML carga una única entrada de página (`home.scss`, `tarifas.scss` o `reservas.scss`). Estas reúnen módulos compartidos de `base/`, `components/` y `layout/`, además de módulos específicos en `pages/`, divididos por secciones y componentes.
 - `src/js/`: navegación, reservas y utilidades compartidas.
 - `src/img/`: imágenes e iconos.
