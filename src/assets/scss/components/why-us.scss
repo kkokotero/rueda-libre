@@ -1,0 +1,234 @@
+/* ============================================================
+   ¿POR QUÉ RUEDA LIBRE? — why-us.scss
+   Sección de beneficios y franja de llamada a la acción.
+   Compartida por el inicio y el catálogo.
+   Capa: components
+   ============================================================ */
+
+@layer components {
+    .why-us {
+        padding-block: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    /* ---------- Cabecera ----------
+       Reutiliza .section--title y centra su barra decorativa. */
+    .why-us__header {
+        max-width: 52rem;
+        margin: 0 auto clamp(1.75rem, 4vw, 2.75rem);
+        text-align: center;
+    }
+
+    .why-us__title::before {
+        margin-inline: auto;
+    }
+
+    .why-us__lead {
+        max-width: 52ch;
+        margin: 0 auto;
+        color: var(--color-on-surface-variant);
+        font-size: 1rem;
+        line-height: 1.55;
+        text-wrap: pretty;
+    }
+
+    /* ---------- Tarjetas ----------
+       Mismo lenguaje que las tarjetas de la flota: superficie,
+       contorno suave, radio grande y hover con acento primario. */
+    .why-us__card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        height: 100%;
+        padding: 1rem;
+        background-color: var(--color-surface-container);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-md);
+        overflow: clip;
+        transition:
+            background-color var(--motion-medium) var(--ease-emphasized),
+            border-color var(--motion-medium) var(--ease-emphasized),
+            transform var(--motion-slow) var(--ease-spring);
+
+        &:hover {
+            background-color: var(--color-surface-container-high);
+            border-color: color-mix(
+                in oklab,
+                var(--color-primary) 35%,
+                transparent
+            );
+        }
+    }
+
+    .why-us__icon {
+        display: inline-grid;
+        place-items: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: 0.55rem;
+        border-radius: var(--radius-pill);
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 14%,
+            transparent
+        );
+        color: var(--color-primary);
+        font-size: 1.45rem;
+        line-height: 1;
+    }
+
+    .why-us__card-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        text-wrap: balance;
+    }
+
+    .why-us__card-text {
+        color: var(--color-on-surface-variant);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        text-wrap: pretty;
+    }
+
+    .why-us__card-stat {
+        margin-top: auto;
+        padding-top: 0.5rem;
+        color: var(--color-primary);
+        font-size: 1.05rem;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+    }
+
+    /* ---------- Franja de llamada a la acción ---------- */
+    .why-us__cta {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        margin-top: clamp(2rem, 4vw, 3rem);
+        padding: clamp(1.5rem, 4vw, 3rem);
+        text-align: center;
+        background-color: var(--color-surface-container);
+        background-image: radial-gradient(
+            36rem 18rem at 100% 0%,
+            color-mix(in oklab, var(--color-primary) 15%, transparent),
+            transparent 70%
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-lg);
+        overflow: clip;
+        isolation: isolate;
+
+        @media (width >= 768px) {
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: start;
+        }
+    }
+
+    .why-us__cta-copy {
+        max-width: 34rem;
+    }
+
+    .why-us__cta-title {
+        margin-bottom: 0.4rem;
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+    }
+
+    .why-us__cta-text {
+        color: var(--color-on-surface-variant);
+        font-size: 1rem;
+        line-height: 1.5;
+        text-wrap: pretty;
+    }
+
+    .why-us__cta-image {
+        display: none;
+        width: clamp(10rem, 18vw, 14rem);
+        height: auto;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        object-position: 50% 68%;
+        flex-shrink: 0;
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
+        border-radius: var(--radius-sm);
+
+        @media (width >= 768px) {
+            display: block;
+        }
+    }
+
+    .why-us__cta-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex-shrink: 0;
+        padding: 0.8rem 1.4rem;
+        border-radius: var(--radius-pill);
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+            background-color var(--motion-medium) var(--ease-emphasized),
+            transform var(--motion-slow) var(--ease-spring);
+
+        &:hover {
+            background-color: var(--color-primary-dim);
+        }
+
+        &:focus-visible {
+            outline: 3px solid var(--color-primary);
+            outline-offset: 3px;
+        }
+
+        .icon {
+            font-size: 1.1rem;
+        }
+    }
+
+    /* ---------- Variante compacta del catálogo ---------- */
+    .why-us--compact {
+        .why-us__header {
+            margin-bottom: 1.5rem;
+        }
+
+        .why-us__card {
+            padding: 1.2rem;
+        }
+
+        .why-us__icon {
+            width: 2.25rem;
+            height: 2.25rem;
+            font-size: 1.2rem;
+        }
+
+        .why-us__card-title {
+            font-size: 1.05rem;
+        }
+
+        .why-us__card-text {
+            font-size: 0.85rem;
+        }
+
+        .why-us__card-stat {
+            font-size: 0.95rem;
+        }
+
+        .why-us__cta {
+            margin-top: 2rem;
+            padding: clamp(1.25rem, 3vw, 2rem);
+        }
+    }
+}

@@ -487,3 +487,105 @@ Nota de herramientas: al importar el bundle de Bootstrap desde npm, tsc
 intentaba revisar también el JavaScript de node_modules. Se añadió
 "maxNodeModuleJsDepth": 0 a jsconfig.json para que el chequeo de tipos siga
 cubriendo solo el código de src/; npm run typecheck vuelve a pasar.
+
+SECCIÓN "¿POR QUÉ RUEDA LIBRE?" SOLO CON UTILIDADES DE BOOTSTRAP
+
+Se añadió la sección de beneficios y la franja "¿Listo para rodar?" al inicio
+(versión completa) y al catálogo (versión resumida). No se escribió CSS para
+la sección: todo el marcado nuevo usa grilla y utilidades de Bootstrap 5.3.
+
+Preparación:
+
+- Se creó src/assets/scss/bootstrap-utilities.scss, que configura los colores
+  de Bootstrap con la paleta del sitio (#b39bb7 como primary, #151215 como
+  body-bg, #2a2a2a como body-tertiary, #bcbcbc como texto secundario) e
+  importa solo grilla, imágenes y las familias de utilidades necesarias.
+  No incluye reboot ni componentes, para no pisar la base del proyecto.
+- home.scss y catalogo.scss usan ese módulo compartido. Así las clases
+  utilitarias son las de Bootstrap 5.3, no una imitación propia.
+
+Inicio (versión completa):
+
+- Título centrado con fs-1, fw-bold y text-center; introducción con fs-5 y
+  text-body-secondary.
+- Cuatro beneficios en fila: col-12 col-sm-6 col-lg-3, con g-4.
+- Cada tarjeta usa h-100, p-4, rounded-4, bg-body-tertiary, d-flex,
+  flex-column. El número va en fs-2 fw-bold text-primary; el título en fs-5
+  fw-semibold; la descripción en text-body-secondary; el dato destacado en
+  fs-4 fw-bold text-primary y mt-auto para quedar al pie.
+- Franja: d-flex flex-column en celulares y flex-md-row desde md, con
+  align-items-center, justify-content-md-between, gap-4, p-4 p-md-5,
+  rounded-4 y bg-body-tertiary.
+- Enlace: text-bg-primary, text-decoration-none, fw-semibold, px-4, py-3,
+  rounded-pill y flex-shrink-0. Sin componente button.
+- Elemento decorativo: imagen de bicicleta con d-none d-md-block, w-25,
+  h-auto y rounded-4. Se oculta en celulares y aparece desde md.
+- La imagen tenía atributos width/height; se añadió h-auto para que la altura
+  no quedara fija al reducir el ancho con w-25.
+
+Catálogo (versión resumida):
+
+- Mismos cuatro beneficios en col-12 col-sm-6 col-lg-3 con g-3, tarjetas
+  p-3, títulos fs-6 y descripciones fs-6, sin párrafo introductorio.
+- La franja conserva el patrón flex-md-row, el enlace destacado y la imagen
+  decorativa, con menos texto.
+
+Comprobaciones con DevTools (Firefox, modo dispositivo):
+
+- Inicio a 1300 px: 4 columnas de 285 px; a 500 px: 1 columna.
+- Catálogo a 1300 px: 4 columnas; a 800 px: 2 columnas; a 500 px: 1 columna.
+- Franja: flexDirection column a 500 px y row a 800/1300 px.
+- Imagen decorativa: display none a 500 px y block a 800/1300 px.
+- No hay style="" ni etiquetas <style> dentro de #why-us.
+- Las 52 clases distintas usadas en el inicio y las 49 del catálogo existen en
+  el CSS compilado; no se inventó ninguna.
+- Sin desbordamiento horizontal en 500, 800 y 1300 px.
+- Colores calculados: tarjetas rgb(42, 42, 42), enlace rgb(179, 155, 183)
+  con texto rgb(48, 31, 53).
+
+Cinco clases consultadas en la documentación oficial:
+
+1. d-md-block — display: block desde el breakpoint md; con d-none oculta el
+   elemento en móvil y lo muestra en escritorio.
+   https://getbootstrap.com/docs/5.3/utilities/display/
+2. flex-md-row — cambia flex-direction a row desde md; por debajo se mantiene
+   la columna definida con flex-column.
+   https://getbootstrap.com/docs/5.3/utilities/flex/#direction
+3. gap-4 — separación uniforme entre los hijos de un contenedor flex o grid
+   usando la escala de espaciado (1.5rem en este caso).
+   https://getbootstrap.com/docs/5.3/utilities/spacing/#gap
+4. text-bg-primary — helper que aplica a la vez el fondo primary y un color
+   de texto con contraste calculado; sirve para el enlace destacado.
+   https://getbootstrap.com/docs/5.3/helpers/color-background/
+5. mt-auto — margin-top: auto; empuja el dato destacado al pie de cada
+   tarjeta flex y mantiene alineados los cuatro beneficios.
+   https://getbootstrap.com/docs/5.3/utilities/flex/#auto-margins
+
+Peso compilado tras incorporar las utilidades: inicio 100,33 kB de CSS
+(15,44 kB gzip) y catálogo 89,69 kB (14,03 kB gzip). El aumento corresponde a
+las utilidades de Bootstrap y a sus variables de tema, no a CSS escrito para
+esta sección.
+
+AJUSTE DE ESTÉTICA: UTILIDADES CON LA IDENTIDAD DEL SITIO
+
+La primera versión de la sección usaba los valores por defecto de Bootstrap y
+se veía más plana que el resto de la página. Se ajustó el tema de las
+utilidades, sin escribir reglas CSS para la sección:
+
+- Tipografía: el mapa $font-sizes de Bootstrap usa la escala del sitio. fs-1
+  llega a 3.75rem con clamp, como .section--title; fs-2 a 2.5rem, fs-5 a
+  1.125rem y fs-6 a 0.9rem. fw-bold pasa a 800 para igualar los títulos.
+- Superficies: bg-body-tertiary usa #1f1f1f, el mismo surface-container de las
+  tarjetas de la flota. Las tarjetas y la franja llevan la clase border, con
+  --bs-border-color en rgba(84, 84, 84, .55), el mismo contorno suave.
+- Radio: $border-radius-xl pasa a 2rem, así rounded-4 coincide con las
+  esquinas de las tarjetas existentes.
+- Detalle de marca: se añadió la barra lavanda sobre el título con
+  d-inline-block bg-primary rounded-pill px-4 py-1, el mismo recurso visual
+  del ::before de .section--title, pero construido solo con utilidades.
+- Jerarquía de las tarjetas: número en fs-3 fw-bold text-primary, título en
+  fs-5 fw-semibold, descripción en fs-6 text-body-secondary y dato en
+  fs-4 fw-bold text-primary con mt-auto.
+
+Sigue sin haber style="", <style> ni clases propias en las secciones nuevas:
+los cambios son configuración de Bootstrap y clases de su documentación.
