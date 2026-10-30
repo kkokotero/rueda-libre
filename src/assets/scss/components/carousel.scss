@@ -1,0 +1,84 @@
+@layer components {
+    .carousel {
+      position: relative;
+      margin-inline: auto;
+      width: 100%;
+      outline: none;
+      border-radius: 28px
+    }
+
+    .carousel.narrow {
+      max-width: 420px
+    }
+
+    .carousel:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 4px
+    }
+
+    .viewport {
+      position: relative;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    .viewport.v {
+      touch-action: pan-x
+    }
+
+    .viewport.dragging {
+      cursor: grabbing
+    }
+
+    .carousel-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--c1);
+      will-change: transform, width, height
+    }
+
+    .h .carousel-item {
+      height: 100%
+    }
+
+    .v .carousel-item {
+      width: 100%
+    }
+
+    .inner {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, var(--c1), var(--c2))
+    }
+
+    .inner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none
+    }
+
+    .h .inner {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    .v .inner {
+      left: 0;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%)
+    }
+}

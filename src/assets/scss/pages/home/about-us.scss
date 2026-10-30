@@ -30,6 +30,15 @@
         }
     }
 
+    .about-us > .carousel {
+        @media (width >= 861px) {
+            flex: 2;
+            min-width: 0;
+            width: auto;
+            align-self: stretch;
+        }
+    }
+
     .about-us--image {
         flex: none;
         display: none;
