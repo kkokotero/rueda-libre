@@ -1,12 +1,5 @@
 @layer pages {
 
-
-    /* ---------- Bento ----------
-       La única tarjeta que ocupa dos columnas es la destacada: las
-       fotos restantes son 4:3, cuadradas o 2:1 y se ven mejor en una
-       celda. Con siete tarjetas, a cuatro columnas el bento llena
-       exactamente dos filas (2 + 6 = 8 celdas). */
-
     @container fleet (min-width: 34rem) {
         .our-fleet--item--hero {
             grid-column: span 2;
@@ -17,11 +10,6 @@
         }
     }
 
-    /* Desde 81.5rem de contenedor, auto-fit abriría una quinta columna:
-       la destacada (2) más seis tarjetas (6) suman 8 celdas y en cinco
-       columnas quedarían dos huecos a la derecha. Se limita el máximo a
-       cuatro columnas, donde las 8 celdas llenan dos filas exactas.
-       Por debajo de 81.5rem no cambia nada (auto-fit ya daba 4). */
     @container fleet (min-width: 81.5rem) {
         .our-fleet--grid {
             grid-template-columns: repeat(4, minmax(0, 1fr));
