@@ -11,6 +11,7 @@
  * selección.
  */
 
+import { element } from "../shared/html.js";
 import { createPickerBehavior } from "./picker/behavior.js";
 
 /**
@@ -40,18 +41,20 @@ export function initializeReservationSelects(pickerCore) {
         const buttonId = `${native.id}-button`;
         const menuId = `${native.id}-listbox`;
 
-        const button = document.createElement("button");
-        button.type = "button";
-        button.id = buttonId;
-        button.className = "reservas-select__button reservas-picker__button";
-        button.setAttribute("role", "combobox");
-        button.setAttribute("aria-haspopup", "listbox");
-        button.setAttribute("aria-expanded", "false");
-        button.setAttribute("aria-controls", menuId);
+        const icon = element`<span class="icon reservas-select__icon" aria-hidden="true"></span>`;
+        const value = element`<span class="reservas-select__value" id="${valueId}"></span>`;
+        const chevron = element`<span class="icon reservas-select__chevron" aria-hidden="true">expand_more</span>`;
 
-        if (native.required) {
-            button.setAttribute("aria-required", "true");
-        }
+        /** @type {HTMLButtonElement} */
+        const button = element`<button
+            type="button"
+            id="${buttonId}"
+            class="reservas-select__button reservas-picker__button"
+            role="combobox"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-controls="${menuId}"
+            aria-required="${native.required}">${icon}${value}${chevron}</button>`;
 
         if (describedBy) {
             button.setAttribute("aria-describedby", describedBy);
@@ -63,26 +66,12 @@ export function initializeReservationSelects(pickerCore) {
             button.setAttribute("aria-labelledby", `${label.id} ${valueId}`);
         }
 
-        const icon = document.createElement("span");
-        icon.className = "icon reservas-select__icon";
-        icon.setAttribute("aria-hidden", "true");
-
-        const value = document.createElement("span");
-        value.className = "reservas-select__value";
-        value.id = valueId;
-
-        const chevron = document.createElement("span");
-        chevron.className = "icon reservas-select__chevron";
-        chevron.setAttribute("aria-hidden", "true");
-        chevron.textContent = "expand_more";
-
-        button.append(icon, value, chevron);
-
-        const menu = document.createElement("div");
-        menu.className = "reservas-select__menu reservas-picker__panel";
-        menu.id = menuId;
-        menu.setAttribute("role", "listbox");
-        menu.hidden = true;
+        /** @type {HTMLDivElement} */
+        const menu = element`<div
+            class="reservas-select__menu reservas-picker__panel"
+            id="${menuId}"
+            role="listbox"
+            hidden></div>`;
 
         if (label) {
             menu.setAttribute("aria-labelledby", label.id);
@@ -94,28 +83,18 @@ export function initializeReservationSelects(pickerCore) {
         for (const option of native.options) {
             if (option.disabled) continue;
 
-            const item = document.createElement("div");
-            item.className = "reservas-select__option";
-            item.id = `${native.id}-option-${optionEls.length}`;
-            item.setAttribute("role", "option");
-            item.dataset.value = option.value;
-            item.tabIndex = -1;
+            /** @type {HTMLDivElement} */
+            const item = element`<div
+                class="reservas-select__option"
+                id="${native.id}-option-${optionEls.length}"
+                role="option"
+                data-value="${option.value}"
+                tabindex="-1">
+                <span class="icon reservas-select__option-icon" aria-hidden="true">${option.dataset.icon || "circle"}</span>
+                <span class="reservas-select__option-label">${option.textContent.trim()}</span>
+                <span class="icon reservas-select__check" aria-hidden="true">check</span>
+            </div>`;
 
-            const optionIcon = document.createElement("span");
-            optionIcon.className = "icon reservas-select__option-icon";
-            optionIcon.setAttribute("aria-hidden", "true");
-            optionIcon.textContent = option.dataset.icon || "circle";
-
-            const optionLabel = document.createElement("span");
-            optionLabel.className = "reservas-select__option-label";
-            optionLabel.textContent = option.textContent.trim();
-
-            const check = document.createElement("span");
-            check.className = "icon reservas-select__check";
-            check.setAttribute("aria-hidden", "true");
-            check.textContent = "check";
-
-            item.append(optionIcon, optionLabel, check);
             menu.append(item);
             optionEls.push(item);
         }
@@ -221,7 +200,10 @@ export function initializeReservationSelects(pickerCore) {
             },
             // Teclado propio del combobox: flechas, Inicio/Fin, Enter/Espacio,
             // Escape y Tab. Devuelve `true` para que no actúe el handler base.
-            onTriggerKeydown: (event, { open: openPicker, close: closePicker, isOpen }) => {
+            onTriggerKeydown: (
+                event,
+                { open: openPicker, close: closePicker, isOpen },
+            ) => {
                 if (event.key === "ArrowDown") {
                     event.preventDefault();
 

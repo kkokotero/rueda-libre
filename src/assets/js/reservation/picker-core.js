@@ -9,6 +9,7 @@
  * aquí solo queda el ciclo de vida que los tres comparten.
  */
 
+import { element } from "../shared/html.js";
 import { isMobilePicker, onMobilePickerChange } from "./picker/media.js";
 import { createIcon } from "./picker/icons.js";
 import {
@@ -47,9 +48,11 @@ import { keepFocusedInPanel, trapMobilePickerFocus } from "./picker/focus.js";
  * @returns {ReservationPickerCore} Shared picker services consumed by the select, date, and time pickers.
  */
 export function createReservationPickerCore() {
-    const pickerBackdrop = document.createElement("div");
-    pickerBackdrop.className = "reservas-picker-backdrop";
-    pickerBackdrop.hidden = true;
+    /** @type {HTMLDivElement} */
+    const pickerBackdrop = element`<div
+        class="reservas-picker-backdrop"
+        hidden
+    ></div>`;
     document.body.append(pickerBackdrop);
 
     // Reúne los listeners de documento y ventana para poder retirarlos juntos.

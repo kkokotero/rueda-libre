@@ -5,6 +5,7 @@
  * el espacio disponible); en móvil la hoja lo ocupa todo y no necesita cálculo.
  */
 
+import { element } from "../../shared/html.js";
 import { createIcon } from "./icons.js";
 import { isMobilePicker } from "./media.js";
 import { getFieldLabelId } from "./labels.js";
@@ -15,21 +16,19 @@ import { getFieldLabelId } from "./labels.js";
  * @returns {{ header: HTMLDivElement, closeButton: HTMLButtonElement }}
  */
 const createPickerHeader = (titleText, onClose) => {
-    const header = document.createElement("div");
-    header.className = "reservas-picker__header";
+    /** @type {HTMLButtonElement} */
+    const closeButton = element`<button
+        type="button"
+        class="reservas-picker__close"
+        aria-label="Cerrar">${createIcon("close")}</button>`;
 
-    const title = document.createElement("p");
-    title.className = "reservas-picker__title";
-    title.textContent = titleText;
-
-    const closeButton = document.createElement("button");
-    closeButton.type = "button";
-    closeButton.className = "reservas-picker__close";
-    closeButton.setAttribute("aria-label", "Cerrar");
-    closeButton.append(createIcon("close"));
     closeButton.addEventListener("click", onClose);
 
-    header.append(title, closeButton);
+    /** @type {HTMLDivElement} */
+    const header = element`<div class="reservas-picker__header">
+        <p class="reservas-picker__title">${titleText}</p>
+        ${closeButton}
+    </div>`;
 
     return { header, closeButton };
 };
@@ -41,12 +40,13 @@ const createPickerHeader = (titleText, onClose) => {
  * @returns {{ shell: HTMLDivElement, closeButton: HTMLButtonElement }}
  */
 export const createPickerShell = (panel, titleText, onClose) => {
-    const shell = document.createElement("div");
-    shell.className = "reservas-picker__shell";
-
     const { header, closeButton } = createPickerHeader(titleText, onClose);
 
-    shell.append(header, panel);
+    /** @type {HTMLDivElement} */
+    const shell = element`<div class="reservas-picker__shell">
+        ${header}
+        ${panel}
+    </div>`;
 
     return { shell, closeButton };
 };
@@ -63,17 +63,20 @@ export const createPickerTrigger = (native, label, describedBy, titleText) => {
     const panelId = `${native.id}-panel`;
     const labelId = getFieldLabelId(label, native);
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.id = `${native.id}-button`;
-    button.className = "reservas-form__input reservas-picker__button";
-    button.setAttribute("aria-haspopup", "dialog");
-    button.setAttribute("aria-expanded", "false");
-    button.setAttribute("aria-controls", panelId);
+    const chevron = createIcon("expand_more", "reservas-picker__chevron");
 
-    if (native.required) {
-        button.setAttribute("aria-required", "true");
-    }
+    /** @type {HTMLSpanElement} */
+    const value = element`<span class="reservas-picker__value" id="${valueId}"></span>`;
+
+    /** @type {HTMLButtonElement} */
+    const button = element`<button
+        type="button"
+        id="${native.id}-button"
+        class="reservas-form__input reservas-picker__button"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="${panelId}"
+        aria-required="${native.required}">${value}${chevron}</button>`;
 
     if (describedBy) {
         button.setAttribute("aria-describedby", describedBy);
@@ -84,14 +87,6 @@ export const createPickerTrigger = (native, label, describedBy, titleText) => {
     } else {
         button.setAttribute("aria-label", titleText);
     }
-
-    const value = document.createElement("span");
-    value.className = "reservas-picker__value";
-    value.id = valueId;
-
-    const chevron = createIcon("expand_more", "reservas-picker__chevron");
-
-    button.append(value, chevron);
 
     return { button, value, panelId };
 };

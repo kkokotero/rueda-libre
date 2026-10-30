@@ -8,6 +8,7 @@
  */
 
 import { formatDateLong, parseISODate } from "../shared/dates.js";
+import { html } from "../shared/html.js";
 import { createIcon } from "./picker/icons.js";
 
 /**
@@ -59,7 +60,7 @@ const formatBikes = (quantity) =>
  * Filas del resumen: una por dato, con su glifo de Material Symbols.
  *
  * @param {ReservationSummary} summary
- * @returns {HTMLDivElement[]}
+ * @returns {DocumentFragment[]}
  */
 const buildSummaryRows = (summary) => {
     const date = parseISODate(summary.isoDate);
@@ -82,22 +83,14 @@ const buildSummaryRows = (summary) => {
 
     return rows
         .filter(([, , value]) => value !== "")
-        .map(([iconName, label, value]) => {
-            const row = document.createElement("div");
-            row.className = "reservas-modal__row";
-
-            const term = document.createElement("dt");
-            term.className = "reservas-modal__term";
-            term.append(createIcon(iconName), document.createTextNode(label));
-
-            const description = document.createElement("dd");
-            description.className = "reservas-modal__value";
-            description.textContent = value;
-
-            row.append(term, description);
-
-            return row;
-        });
+        .map(
+            ([iconName, label, value]) => html`
+            <div class="reservas-modal__row">
+                <dt class="reservas-modal__term">${createIcon(iconName)}${label}</dt>
+                <dd class="reservas-modal__value">${value}</dd>
+            </div>
+        `,
+        );
 };
 
 /**

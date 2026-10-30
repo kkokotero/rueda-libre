@@ -16,6 +16,7 @@ import {
     parseTime,
     toTime,
 } from "../shared/time.js";
+import { element } from "../shared/html.js";
 import { createPickerBehavior } from "./picker/behavior.js";
 
 /**
@@ -53,27 +54,13 @@ export function initializeReservationTimePicker(pickerCore) {
 
         button.classList.add("reservas-timepicker__button");
 
-        const panel = document.createElement("div");
-        panel.id = panelId;
-        panel.className = "reservas-picker__panel reservas-timepicker__panel";
-        panel.setAttribute("role", "dialog");
-        panel.setAttribute("aria-label", titleText);
-        panel.hidden = true;
+        const emptyMessage = element`<p>Primero elige la fecha para ver los horarios disponibles.</p>`;
 
-        const emptyState = document.createElement("div");
-        emptyState.className = "reservas-timepicker__empty";
+        /** @type {HTMLButtonElement} */
+        const chooseDateButton = element`<button
+            type="button"
+            class="reservas-timepicker__choose-date">${createIcon("calendar_month")}Elegir fecha</button>`;
 
-        const emptyMessage = document.createElement("p");
-        emptyMessage.textContent =
-            "Primero elige la fecha para ver los horarios disponibles.";
-
-        const chooseDateButton = document.createElement("button");
-        chooseDateButton.type = "button";
-        chooseDateButton.className = "reservas-timepicker__choose-date";
-        chooseDateButton.append(
-            createIcon("calendar_month"),
-            document.createTextNode("Elegir fecha"),
-        );
         chooseDateButton.addEventListener("click", () => {
             close();
             const datePickerButton = document.querySelector(
@@ -83,35 +70,25 @@ export function initializeReservationTimePicker(pickerCore) {
                 datePickerButton.click();
             }
         });
-        emptyState.append(emptyMessage, chooseDateButton);
 
-        const clock = document.createElement("section");
-        clock.className = "reservas-timepicker__clock";
-        clock.setAttribute("aria-label", "Reloj visual");
+        /** @type {HTMLDivElement} */
+        const emptyState = element`<div class="reservas-timepicker__empty">
+            ${emptyMessage}
+            ${chooseDateButton}
+        </div>`;
 
-        const clockHeader = document.createElement("div");
-        clockHeader.className = "reservas-timepicker__clock-header";
+        /** @type {HTMLInputElement} */
+        const clockHourInput = element`<input
+            type="text"
+            id="${panelId}-hour"
+            class="reservas-timepicker__clock-value reservas-timepicker__clock-hour"
+            inputmode="numeric"
+            maxlength="2"
+            autocomplete="off"
+            placeholder="--"
+            aria-label="Hora, de 1 a 12"
+            aria-describedby="${panelId}-hint">`;
 
-        const clockTime = document.createElement("div");
-        clockTime.className = "reservas-timepicker__clock-time";
-
-        const clockHint = document.createElement("span");
-        clockHint.id = `${panelId}-hint`;
-        clockHint.className = "reservas-timepicker__hint";
-        clockHint.textContent =
-            "Escribe una hora y minutos entre los horarios disponibles.";
-
-        const clockHourInput = document.createElement("input");
-        clockHourInput.type = "text";
-        clockHourInput.id = `${panelId}-hour`;
-        clockHourInput.inputMode = "numeric";
-        clockHourInput.maxLength = 2;
-        clockHourInput.autocomplete = "off";
-        clockHourInput.className =
-            "reservas-timepicker__clock-value reservas-timepicker__clock-hour";
-        clockHourInput.setAttribute("aria-label", "Hora, de 1 a 12");
-        clockHourInput.setAttribute("aria-describedby", `${panelId}-hint`);
-        clockHourInput.placeholder = "--";
         clockHourInput.addEventListener("focus", () => {
             clockMode = "hour";
             renderClock({ syncInputs: false });
@@ -123,26 +100,18 @@ export function initializeReservationTimePicker(pickerCore) {
         });
         clockHourInput.addEventListener("change", commitTypedTime);
 
-        const clockHourLabel = document.createElement("label");
-        clockHourLabel.className = "reservas-timepicker__clock-label";
-        clockHourLabel.htmlFor = clockHourInput.id;
-        clockHourLabel.textContent = "Hora";
+        /** @type {HTMLInputElement} */
+        const clockMinuteInput = element`<input
+            type="text"
+            id="${panelId}-minute"
+            class="reservas-timepicker__clock-value reservas-timepicker__clock-minute"
+            inputmode="numeric"
+            maxlength="2"
+            autocomplete="off"
+            placeholder="--"
+            aria-label="Minutos, de 00 a 59"
+            aria-describedby="${panelId}-hint">`;
 
-        const clockHourField = document.createElement("div");
-        clockHourField.className = "reservas-timepicker__clock-field";
-        clockHourField.append(clockHourInput, clockHourLabel);
-
-        const clockMinuteInput = document.createElement("input");
-        clockMinuteInput.type = "text";
-        clockMinuteInput.id = `${panelId}-minute`;
-        clockMinuteInput.inputMode = "numeric";
-        clockMinuteInput.maxLength = 2;
-        clockMinuteInput.autocomplete = "off";
-        clockMinuteInput.className =
-            "reservas-timepicker__clock-value reservas-timepicker__clock-minute";
-        clockMinuteInput.setAttribute("aria-label", "Minutos, de 00 a 59");
-        clockMinuteInput.setAttribute("aria-describedby", `${panelId}-hint`);
-        clockMinuteInput.placeholder = "--";
         clockMinuteInput.addEventListener("focus", () => {
             clockMode = "minute";
             renderClock({ syncInputs: false });
@@ -154,68 +123,76 @@ export function initializeReservationTimePicker(pickerCore) {
         });
         clockMinuteInput.addEventListener("change", commitTypedTime);
 
-        const clockMinuteLabel = document.createElement("label");
-        clockMinuteLabel.className = "reservas-timepicker__clock-label";
-        clockMinuteLabel.htmlFor = clockMinuteInput.id;
-        clockMinuteLabel.textContent = "Minuto";
+        const clockHourField = element`<div class="reservas-timepicker__clock-field">
+            ${clockHourInput}
+            <label class="reservas-timepicker__clock-label" for="${clockHourInput.id}">Hora</label>
+        </div>`;
 
-        const clockMinuteField = document.createElement("div");
-        clockMinuteField.className = "reservas-timepicker__clock-field";
-        clockMinuteField.append(clockMinuteInput, clockMinuteLabel);
+        const clockMinuteField = element`<div class="reservas-timepicker__clock-field">
+            ${clockMinuteInput}
+            <label class="reservas-timepicker__clock-label" for="${clockMinuteInput.id}">Minuto</label>
+        </div>`;
 
-        const clockSeparator = document.createElement("span");
-        clockSeparator.className = "reservas-timepicker__clock-separator";
-        clockSeparator.textContent = ":";
-        clockSeparator.setAttribute("aria-hidden", "true");
+        const clockTime = element`<div class="reservas-timepicker__clock-time">
+            ${clockHourField}
+            <span class="reservas-timepicker__clock-separator" aria-hidden="true">:</span>
+            ${clockMinuteField}
+            <span id="${panelId}-hint" class="reservas-timepicker__hint">Escribe una hora y minutos entre los horarios disponibles.</span>
+        </div>`;
 
-        clockTime.append(
-            clockHourField,
-            clockSeparator,
-            clockMinuteField,
-            clockHint,
-        );
+        /** @type {HTMLButtonElement} */
+        const amButton = element`<button
+            type="button"
+            class="reservas-timepicker__clock-period-option"
+            data-period="AM"
+            aria-label="a. m.">AM</button>`;
 
-        const clockPeriod = document.createElement("div");
-        clockPeriod.className = "reservas-timepicker__clock-period";
-        clockPeriod.setAttribute("role", "group");
-        clockPeriod.setAttribute("aria-label", "Período del día");
-
-        const amButton = document.createElement("button");
-        amButton.type = "button";
-        amButton.className = "reservas-timepicker__clock-period-option";
-        amButton.dataset.period = "AM";
-        amButton.textContent = "AM";
-        amButton.setAttribute("aria-label", "a. m.");
         amButton.addEventListener("click", () => selectPeriod("AM"));
 
-        const pmButton = document.createElement("button");
-        pmButton.type = "button";
-        pmButton.className = "reservas-timepicker__clock-period-option";
-        pmButton.dataset.period = "PM";
-        pmButton.textContent = "PM";
-        pmButton.setAttribute("aria-label", "p. m.");
+        /** @type {HTMLButtonElement} */
+        const pmButton = element`<button
+            type="button"
+            class="reservas-timepicker__clock-period-option"
+            data-period="PM"
+            aria-label="p. m.">PM</button>`;
+
         pmButton.addEventListener("click", () => selectPeriod("PM"));
-        clockPeriod.append(amButton, pmButton);
 
-        const clockFace = document.createElement("div");
-        clockFace.className = "reservas-timepicker__clock-face";
-        clockFace.id = `${panelId}-clock`;
-        clockFace.setAttribute("role", "group");
-        clockFace.setAttribute("aria-label", "Selecciona la hora en el reloj");
+        const clockPeriod = element`<div
+            class="reservas-timepicker__clock-period"
+            role="group"
+            aria-label="Período del día">
+            ${amButton}
+            ${pmButton}
+        </div>`;
 
-        clockHeader.append(clockTime, clockPeriod);
-        clock.append(clockHeader, clockFace);
+        /** @type {HTMLDivElement} */
+        const clockFace = element`<div
+            id="${panelId}-clock"
+            class="reservas-timepicker__clock-face"
+            role="group"
+            aria-label="Selecciona la hora en el reloj"></div>`;
 
-        const timePickerActions = document.createElement("div");
-        timePickerActions.className = "reservas-timepicker__actions";
+        const clockHeader = element`<div class="reservas-timepicker__clock-header">
+            ${clockTime}
+            ${clockPeriod}
+        </div>`;
 
-        const toggleClockButton = document.createElement("button");
-        toggleClockButton.type = "button";
-        toggleClockButton.className = "reservas-timepicker__toggle";
-        toggleClockButton.setAttribute("aria-controls", clockFace.id);
-        toggleClockButton.setAttribute("aria-expanded", "true");
-        toggleClockButton.setAttribute("aria-label", "Ocultar reloj visual");
-        toggleClockButton.append(createIcon("keyboard"));
+        /** @type {HTMLElement} */
+        const clock = element`<section
+            class="reservas-timepicker__clock"
+            aria-label="Reloj visual">
+            ${clockHeader}
+            ${clockFace}
+        </section>`;
+
+        const toggleClockButton = element`<button
+            type="button"
+            class="reservas-timepicker__toggle"
+            aria-controls="${clockFace.id}"
+            aria-expanded="true"
+            aria-label="Ocultar reloj visual">${createIcon("keyboard")}</button>`;
+
         toggleClockButton.addEventListener("click", () => {
             const isClockVisible = !clockFace.hidden;
             clockFace.hidden = isClockVisible;
@@ -234,16 +211,31 @@ export function initializeReservationTimePicker(pickerCore) {
             );
         });
 
-        const confirmTimeButton = document.createElement("button");
-        confirmTimeButton.type = "button";
-        confirmTimeButton.className = "reservas-timepicker__confirm";
-        confirmTimeButton.textContent = "Listo";
+        const confirmTimeButton = element`<button
+            type="button"
+            class="reservas-timepicker__confirm">Listo</button>`;
+
         confirmTimeButton.addEventListener("click", () => {
             if (native.value) close({ focus: true });
         });
-        timePickerActions.append(toggleClockButton, confirmTimeButton);
 
-        panel.append(emptyState, clock, timePickerActions);
+        /** @type {HTMLDivElement} */
+        const timePickerActions = element`<div class="reservas-timepicker__actions">
+            ${toggleClockButton}
+            ${confirmTimeButton}
+        </div>`;
+
+        /** @type {HTMLDivElement} */
+        const panel = element`<div
+            id="${panelId}"
+            class="reservas-picker__panel reservas-timepicker__panel"
+            role="dialog"
+            aria-label="${titleText}"
+            hidden>
+            ${emptyState}
+            ${clock}
+            ${timePickerActions}
+        </div>`;
 
         // El atributo `step` del input fija el intervalo entre horarios.
         const stepMinutes = Math.max(
@@ -360,9 +352,7 @@ export function initializeReservationTimePicker(pickerCore) {
                         const rect = option.getBoundingClientRect();
                         const optionAngle =
                             (Math.atan2(
-                                rect.top +
-                                    rect.height / 2 -
-                                    faceCenterY,
+                                rect.top + rect.height / 2 - faceCenterY,
                                 rect.left + rect.width / 2 - faceCenterX,
                             ) +
                                 Math.PI / 2 +
@@ -479,7 +469,6 @@ export function initializeReservationTimePicker(pickerCore) {
                 const number = dialValue;
                 const hourIndex = number % 12;
                 const minuteValue = dialValue;
-                const dialOption = document.createElement("button");
                 const angle =
                     (clockMode === "hour" ? hourIndex / 12 : minuteValue / 60) *
                         Math.PI *
@@ -500,28 +489,24 @@ export function initializeReservationTimePicker(pickerCore) {
                     clockMode === "hour"
                         ? availableHours.includes(optionHour)
                         : availableMinutes.includes(minuteValue);
+                const ariaLabel =
+                    clockMode === "hour"
+                        ? `${number} ${period === "AM" ? "a. m." : "p. m."}`
+                        : `${label} ${minuteValue === 1 ? "minuto" : "minutos"}`;
 
-                dialOption.type = "button";
-                dialOption.className = "reservas-timepicker__clock-option";
-                dialOption.textContent = label;
-                dialOption.style.left = `${50 + Math.cos(angle) * 38}%`;
-                dialOption.style.top = `${50 + Math.sin(angle) * 38}%`;
+                /** @type {HTMLButtonElement} */
+                const dialOption = element`<button
+                    type="button"
+                    class="reservas-timepicker__clock-option${isSelected ? " is-selected" : ""}"
+                    style="left: ${50 + Math.cos(angle) * 38}%; top: ${50 + Math.sin(angle) * 38}%"
+                    aria-pressed="${isSelected}"
+                    aria-label="${ariaLabel}"
+                    ${isAvailable ? "" : "disabled"}>${label}</button>`;
+
                 if (clockMode === "hour") {
                     dialOption.dataset.hour = optionHour;
                 } else {
                     dialOption.dataset.minute = String(minuteValue);
-                }
-                dialOption.disabled = !isAvailable;
-                dialOption.setAttribute("aria-pressed", String(isSelected));
-                dialOption.setAttribute(
-                    "aria-label",
-                    clockMode === "hour"
-                        ? `${number} ${period === "AM" ? "a. m." : "p. m."}`
-                        : `${label} ${minuteValue === 1 ? "minuto" : "minutos"}`,
-                );
-
-                if (isSelected) {
-                    dialOption.classList.add("is-selected");
                 }
 
                 dialOption.addEventListener("click", () => {
@@ -690,8 +675,9 @@ export function initializeReservationTimePicker(pickerCore) {
             },
             onShown: () => {
                 updateDisplay();
-                (
-                    availableTimes.length ? clockHourInput : chooseDateButton
+                (availableTimes.length
+                    ? clockHourInput
+                    : chooseDateButton
                 ).focus({ preventScroll: true });
             },
         });

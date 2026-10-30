@@ -8,6 +8,7 @@
  * modal de confirmación con el resumen de la reserva.
  */
 
+import { html } from "../shared/html.js";
 import { getErrorMessage } from "./validation.js";
 
 /**
@@ -71,15 +72,10 @@ const showError = (control, message) => {
 
     field.classList.add("is-invalid");
 
-    const icon = document.createElement("span");
-    icon.className = "icon reservas-form__error-icon";
-    icon.setAttribute("aria-hidden", "true");
-    icon.textContent = "error";
-
-    const text = document.createElement("span");
-    text.textContent = message;
-
-    error.replaceChildren(icon, text);
+    error.replaceChildren(html`
+        <span class="icon reservas-form__error-icon" aria-hidden="true">error</span>
+        <span>${message}</span>
+    `);
     display.setAttribute("aria-invalid", "true");
 };
 
@@ -181,22 +177,14 @@ export function initializeReservationForm(
         }
 
         const { subject, body, href } = buildRequest(form);
-        const copy = buildStatusCopy();
 
-        const link = document.createElement("a");
-        link.className = "reservas-form__status-link";
-        link.href = href;
-
-        const linkIcon = document.createElement("span");
-        linkIcon.className = "icon";
-        linkIcon.setAttribute("aria-hidden", "true");
-        linkIcon.textContent = "mail";
-
-        const linkText = document.createElement("span");
-        linkText.textContent = "Abrir correo con mi solicitud";
-
-        link.append(linkIcon, linkText);
-        status.replaceChildren(copy, link);
+        status.replaceChildren(
+            buildStatusCopy(),
+            html`<a class="reservas-form__status-link" href="${href}">
+                <span class="icon" aria-hidden="true">mail</span>
+                <span>Abrir correo con mi solicitud</span>
+            </a>`,
+        );
         status.classList.add("is-visible");
         status.focus({ preventScroll: true });
 
@@ -243,23 +231,12 @@ const buildSummary = (form) => {
 };
 
 /** Aviso que se muestra junto al enlace de correo. */
-const buildStatusCopy = () => {
-    const copy = document.createElement("span");
-    copy.className = "reservas-form__status-copy";
-
-    const icon = document.createElement("span");
-    icon.className = "icon reservas-form__status-icon";
-    icon.setAttribute("aria-hidden", "true");
-    icon.textContent = "mark_email_read";
-
-    const message = document.createElement("span");
-    message.textContent =
-        "Tu solicitud está lista. Abre tu aplicación de correo y envíala; te confirmaremos la disponibilidad lo antes posible.";
-
-    copy.append(icon, message);
-
-    return copy;
-};
+const buildStatusCopy = () => html`
+    <span class="reservas-form__status-copy">
+        <span class="icon reservas-form__status-icon" aria-hidden="true">mark_email_read</span>
+        <span>Tu solicitud está lista. Abre tu aplicación de correo y envíala; te confirmaremos la disponibilidad lo antes posible.</span>
+    </span>
+`;
 
 const CONTACT_LABELS = {
     cualquiera: "Cualquier medio",

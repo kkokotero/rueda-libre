@@ -17,6 +17,7 @@ import {
     formatDateLong,
     formatMonth,
 } from "../shared/dates.js";
+import { element, html } from "../shared/html.js";
 import { createPickerBehavior } from "./picker/behavior.js";
 
 const WEEKDAYS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
@@ -77,54 +78,53 @@ export function initializeReservationDatePicker(pickerCore) {
 
         button.classList.add("reservas-datepicker__button");
 
-        const panel = document.createElement("div");
-        panel.id = panelId;
-        panel.className = "reservas-picker__panel reservas-datepicker__panel";
-        panel.setAttribute("role", "dialog");
-        panel.setAttribute("aria-label", titleText);
-        panel.hidden = true;
+        /** @type {HTMLButtonElement} */
+        const previousMonth = element`<button
+            type="button"
+            class="reservas-datepicker__nav"
+            aria-label="Mes anterior">${createIcon("chevron_left")}</button>`;
 
-        const calendarHeader = document.createElement("div");
-        calendarHeader.className = "reservas-datepicker__header";
+        /** @type {HTMLParagraphElement} */
+        const monthLabel = element`<p
+            class="reservas-datepicker__month"
+            id="${native.id}-month"
+            aria-live="polite"></p>`;
 
-        const previousMonth = document.createElement("button");
-        previousMonth.type = "button";
-        previousMonth.className = "reservas-datepicker__nav";
-        previousMonth.setAttribute("aria-label", "Mes anterior");
-        previousMonth.append(createIcon("chevron_left"));
+        /** @type {HTMLButtonElement} */
+        const nextMonth = element`<button
+            type="button"
+            class="reservas-datepicker__nav"
+            aria-label="Mes siguiente">${createIcon("chevron_right")}</button>`;
 
-        const monthLabel = document.createElement("p");
-        monthLabel.className = "reservas-datepicker__month";
-        monthLabel.id = `${native.id}-month`;
-        monthLabel.setAttribute("aria-live", "polite");
+        const weekdays = html`<div
+            class="reservas-datepicker__weekdays"
+            aria-hidden="true">${WEEKDAYS.map((day) => html`<span>${day}</span>`)}</div>`;
 
-        const nextMonth = document.createElement("button");
-        nextMonth.type = "button";
-        nextMonth.className = "reservas-datepicker__nav";
-        nextMonth.setAttribute("aria-label", "Mes siguiente");
-        nextMonth.append(createIcon("chevron_right"));
+        /** @type {HTMLDivElement} */
+        const grid = element`<div
+            class="reservas-datepicker__grid"
+            role="group"
+            aria-labelledby="${monthLabel.id}"></div>`;
 
-        calendarHeader.append(previousMonth, monthLabel, nextMonth);
+        /** @type {HTMLDivElement} */
+        const footer = element`<div class="reservas-datepicker__footer"></div>`;
 
-        const weekdays = document.createElement("div");
-        weekdays.className = "reservas-datepicker__weekdays";
-        weekdays.setAttribute("aria-hidden", "true");
-
-        for (const day of WEEKDAYS) {
-            const weekday = document.createElement("span");
-            weekday.textContent = day;
-            weekdays.append(weekday);
-        }
-
-        const grid = document.createElement("div");
-        grid.className = "reservas-datepicker__grid";
-        grid.setAttribute("role", "group");
-        grid.setAttribute("aria-labelledby", monthLabel.id);
-
-        const footer = document.createElement("div");
-        footer.className = "reservas-datepicker__footer";
-
-        panel.append(calendarHeader, weekdays, grid, footer);
+        /** @type {HTMLDivElement} */
+        const panel = element`<div
+            id="${panelId}"
+            class="reservas-picker__panel reservas-datepicker__panel"
+            role="dialog"
+            aria-label="${titleText}"
+            hidden>
+            <div class="reservas-datepicker__header">
+                ${previousMonth}
+                ${monthLabel}
+                ${nextMonth}
+            </div>
+            ${weekdays}
+            ${grid}
+            ${footer}
+        </div>`;
 
         const todayISO = toISODate(new Date());
         const minISO = native.min || todayISO;
@@ -171,40 +171,38 @@ export function initializeReservationDatePicker(pickerCore) {
             );
             const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
 
-            for (let index = 0; index < leadingBlanks; index += 1) {
-                const blank = document.createElement("span");
-                blank.className = "reservas-datepicker__blank";
-                blank.setAttribute("aria-hidden", "true");
-                grid.append(blank);
-            }
+            const blanks = Array.from(
+                { length: leadingBlanks },
+                () =>
+                    html`<span
+                    class="reservas-datepicker__blank"
+                    aria-hidden="true"></span>`,
+            );
+
+            const dayButtons = [];
 
             for (let day = 1; day <= daysInMonth; day += 1) {
                 const date = new Date(viewYear, viewMonth, day);
                 const iso = toISODate(date);
-                const dayButton = document.createElement("button");
+                const isUnavailable =
+                    iso < minISO || Boolean(maxISO && iso > maxISO);
 
-                dayButton.type = "button";
-                dayButton.className = "reservas-datepicker__day";
-                dayButton.dataset.date = iso;
-                dayButton.textContent = String(day);
-                dayButton.setAttribute("aria-label", formatDateLong(date));
-                dayButton.setAttribute(
-                    "aria-pressed",
-                    String(iso === selectedISO),
-                );
-
-                if (iso === todayISO) {
-                    dayButton.setAttribute("aria-current", "date");
-                }
-
-                if (iso < minISO || (maxISO && iso > maxISO)) {
-                    dayButton.disabled = true;
-                }
+                /** @type {HTMLButtonElement} */
+                const dayButton = element`<button
+                    type="button"
+                    class="reservas-datepicker__day"
+                    data-date="${iso}"
+                    aria-label="${formatDateLong(date)}"
+                    aria-pressed="${iso === selectedISO}"
+                    aria-current="${iso === todayISO ? "date" : "false"}"
+                    ${isUnavailable ? "disabled" : ""}>${day}</button>`;
 
                 dayButton.addEventListener("click", () => selectDate(iso));
                 dayButton.addEventListener("keydown", handleDayKeydown);
-                grid.append(dayButton);
+                dayButtons.push(dayButton);
             }
+
+            grid.replaceChildren(...blanks, ...dayButtons);
 
             /** @type {HTMLButtonElement | null} */
             const preferred = focusISO
@@ -350,20 +348,16 @@ export function initializeReservationDatePicker(pickerCore) {
         nextMonth.addEventListener("click", () => goToMonth(1));
 
         for (const { label: shortcutLabel, offset } of SHORTCUT_DATES) {
-            const shortcut = document.createElement("button");
             const iso = isoAfter(offset);
-
-            shortcut.type = "button";
-            shortcut.className = "reservas-datepicker__today";
-            shortcut.textContent = shortcutLabel;
-            shortcut.setAttribute(
-                "aria-label",
-                offset === 0
-                    ? "Seleccionar hoy"
-                    : `Seleccionar fecha en ${offset} días`,
-            );
-            shortcut.disabled =
+            const isUnavailable =
                 iso < minISO || Boolean(maxISO && iso > maxISO);
+
+            const shortcut = element`<button
+                type="button"
+                class="reservas-datepicker__today"
+                aria-label="${offset === 0 ? "Seleccionar hoy" : `Seleccionar fecha en ${offset} días`}"
+                ${isUnavailable ? "disabled" : ""}>${shortcutLabel}</button>`;
+
             shortcut.addEventListener("click", () => {
                 if (iso >= minISO && (!maxISO || iso <= maxISO)) {
                     selectDate(iso);

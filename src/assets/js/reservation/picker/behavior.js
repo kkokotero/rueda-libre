@@ -153,7 +153,11 @@ export function createPickerBehavior(pickerCore, config) {
 
     document.addEventListener("pointerdown", (event) => {
         const target = event.target;
-        if (target instanceof Node && !panel.hidden && !wrapper.contains(target)) {
+        if (
+            target instanceof Node &&
+            !panel.hidden &&
+            !wrapper.contains(target)
+        ) {
             close();
         }
     });
