@@ -3,6 +3,10 @@
  *
  * Reemplaza un `input[type="time"]` por un botón que abre un panel con campos
  * visuales y un reloj analógico, usando los horarios disponibles para la fecha.
+ *
+ * El ciclo de vida del panel (abrir, cerrar, Escape, clic fuera, foco) vive
+ * en `./picker/behavior.js`; aquí solo queda la lógica del reloj y de los
+ * horarios disponibles.
  */
 
 import { parseISODate, toISODate } from "../shared/dates.js";
@@ -12,6 +16,7 @@ import {
     parseTime,
     toTime,
 } from "../shared/time.js";
+import { createPickerBehavior } from "./picker/behavior.js";
 
 /**
  * Enhances each native time input with an accessible analog-clock picker.
@@ -19,19 +24,8 @@ import {
  * @returns {void}
  */
 export function initializeReservationTimePicker(pickerCore) {
-    const {
-        isMobilePicker,
-        activatePicker,
-        deactivatePicker,
-        createIcon,
-        getLabelText,
-        getDescribedBy,
-        createPickerShell,
-        positionPickerPanel,
-        keepFocusedInPanel,
-        trapMobilePickerFocus,
-        createPickerTrigger,
-    } = pickerCore;
+    const { createIcon, getLabelText, getDescribedBy, createPickerTrigger } =
+        pickerCore;
 
     /** @param {Element} wrapper */
     const enhanceTimePicker = (wrapper) => {
@@ -101,8 +95,11 @@ export function initializeReservationTimePicker(pickerCore) {
         const clockTime = document.createElement("div");
         clockTime.className = "reservas-timepicker__clock-time";
 
-        const clockHourField = document.createElement("div");
-        clockHourField.className = "reservas-timepicker__clock-field";
+        const clockHint = document.createElement("span");
+        clockHint.id = `${panelId}-hint`;
+        clockHint.className = "reservas-timepicker__hint";
+        clockHint.textContent =
+            "Escribe una hora y minutos entre los horarios disponibles.";
 
         const clockHourInput = document.createElement("input");
         clockHourInput.type = "text";
@@ -130,13 +127,10 @@ export function initializeReservationTimePicker(pickerCore) {
         clockHourLabel.className = "reservas-timepicker__clock-label";
         clockHourLabel.htmlFor = clockHourInput.id;
         clockHourLabel.textContent = "Hora";
-        clockHourField.append(clockHourInput, clockHourLabel);
 
-        const clockHint = document.createElement("span");
-        clockHint.id = `${panelId}-hint`;
-        clockHint.className = "reservas-timepicker__hint";
-        clockHint.textContent =
-            "Escribe una hora y minutos entre los horarios disponibles.";
+        const clockHourField = document.createElement("div");
+        clockHourField.className = "reservas-timepicker__clock-field";
+        clockHourField.append(clockHourInput, clockHourLabel);
 
         const clockMinuteInput = document.createElement("input");
         clockMinuteInput.type = "text";
@@ -160,13 +154,13 @@ export function initializeReservationTimePicker(pickerCore) {
         });
         clockMinuteInput.addEventListener("change", commitTypedTime);
 
-        const clockMinuteField = document.createElement("div");
-        clockMinuteField.className = "reservas-timepicker__clock-field";
-
         const clockMinuteLabel = document.createElement("label");
         clockMinuteLabel.className = "reservas-timepicker__clock-label";
         clockMinuteLabel.htmlFor = clockMinuteInput.id;
         clockMinuteLabel.textContent = "Minuto";
+
+        const clockMinuteField = document.createElement("div");
+        clockMinuteField.className = "reservas-timepicker__clock-field";
         clockMinuteField.append(clockMinuteInput, clockMinuteLabel);
 
         const clockSeparator = document.createElement("span");
@@ -222,14 +216,6 @@ export function initializeReservationTimePicker(pickerCore) {
         toggleClockButton.setAttribute("aria-expanded", "true");
         toggleClockButton.setAttribute("aria-label", "Ocultar reloj visual");
         toggleClockButton.append(createIcon("keyboard"));
-
-        const confirmTimeButton = document.createElement("button");
-        confirmTimeButton.type = "button";
-        confirmTimeButton.className = "reservas-timepicker__confirm";
-        confirmTimeButton.textContent = "Listo";
-        confirmTimeButton.addEventListener("click", () => {
-            if (native.value) close({ focus: true });
-        });
         toggleClockButton.addEventListener("click", () => {
             const isClockVisible = !clockFace.hidden;
             clockFace.hidden = isClockVisible;
@@ -246,6 +232,14 @@ export function initializeReservationTimePicker(pickerCore) {
             toggleClockButton.replaceChildren(
                 createIcon(isClockVisible ? "schedule" : "keyboard"),
             );
+        });
+
+        const confirmTimeButton = document.createElement("button");
+        confirmTimeButton.type = "button";
+        confirmTimeButton.className = "reservas-timepicker__confirm";
+        confirmTimeButton.textContent = "Listo";
+        confirmTimeButton.addEventListener("click", () => {
+            if (native.value) close({ focus: true });
         });
         timePickerActions.append(toggleClockButton, confirmTimeButton);
 
@@ -348,11 +342,10 @@ export function initializeReservationTimePicker(pickerCore) {
          */
         const findDialOptionAtPoint = (clientX, clientY) => {
             const faceRect = clockFace.getBoundingClientRect();
+            const faceCenterX = faceRect.left + faceRect.width / 2;
+            const faceCenterY = faceRect.top + faceRect.height / 2;
             const pointerAngle =
-                (Math.atan2(
-                    clientY - (faceRect.top + faceRect.height / 2),
-                    clientX - (faceRect.left + faceRect.width / 2),
-                ) +
+                (Math.atan2(clientY - faceCenterY, clientX - faceCenterX) +
                     Math.PI / 2 +
                     Math.PI * 2) %
                 (Math.PI * 2);
@@ -369,10 +362,8 @@ export function initializeReservationTimePicker(pickerCore) {
                             (Math.atan2(
                                 rect.top +
                                     rect.height / 2 -
-                                    (faceRect.top + faceRect.height / 2),
-                                rect.left +
-                                    rect.width / 2 -
-                                    (faceRect.left + faceRect.width / 2),
+                                    faceCenterY,
+                                rect.left + rect.width / 2 - faceCenterX,
                             ) +
                                 Math.PI / 2 +
                                 Math.PI * 2) %
@@ -395,67 +386,6 @@ export function initializeReservationTimePicker(pickerCore) {
                 )?.option ?? null
             );
         };
-
-        /** @type {number | null} */
-        let activeDialPointer = null;
-        /** @type {HTMLButtonElement | null} */
-        let draggedDialOption = null;
-
-        const clearDialDrag = () => {
-            draggedDialOption?.classList.remove("is-drag-target");
-            draggedDialOption = null;
-            activeDialPointer = null;
-            clockFace.classList.remove("is-dragging");
-        };
-
-        clockFace.addEventListener("pointerdown", (event) => {
-            if (
-                event.button !== 0 ||
-                !clockFace.querySelector(".reservas-timepicker__clock-option")
-            ) {
-                return;
-            }
-
-            const option = findDialOptionAtPoint(event.clientX, event.clientY);
-
-            if (!option) return;
-
-            event.preventDefault();
-            activeDialPointer = event.pointerId;
-            draggedDialOption = option;
-            draggedDialOption.classList.add("is-drag-target");
-            clockFace.classList.add("is-dragging");
-            clockFace.setPointerCapture(event.pointerId);
-        });
-
-        clockFace.addEventListener("pointermove", (event) => {
-            if (event.pointerId !== activeDialPointer) return;
-
-            const option = findDialOptionAtPoint(event.clientX, event.clientY);
-
-            if (option === draggedDialOption) return;
-
-            draggedDialOption?.classList.remove("is-drag-target");
-            draggedDialOption = option;
-            draggedDialOption?.classList.add("is-drag-target");
-        });
-
-        clockFace.addEventListener("pointerup", (event) => {
-            if (event.pointerId !== activeDialPointer) return;
-
-            const option = findDialOptionAtPoint(event.clientX, event.clientY);
-
-            clearDialDrag();
-
-            if (clockFace.hasPointerCapture(event.pointerId)) {
-                clockFace.releasePointerCapture(event.pointerId);
-            }
-
-            if (option) selectDialOption(option);
-        });
-
-        clockFace.addEventListener("pointercancel", clearDialDrag);
-        clockFace.addEventListener("lostpointercapture", clearDialDrag);
 
         /** Commits the manually entered hour and minute, clamped to available slots. */
         function commitTypedTime() {
@@ -671,121 +601,102 @@ export function initializeReservationTimePicker(pickerCore) {
             renderClock();
         };
 
-        /** @param {{ focus?: boolean }} [options] */
-        const close = ({ focus = false } = {}) => {
-            if (panel.hidden) return;
-
-            panel.hidden = true;
-            panel.style.maxHeight = "";
-            panel.removeAttribute("aria-modal");
-            wrapper.classList.remove("is-open", "is-up", "is-mobile-modal");
-            button.setAttribute("aria-expanded", "false");
-            deactivatePicker(close);
-
-            if (focus) button.focus();
-        };
-
         dateNative?.addEventListener("change", updateSlotsForDate);
-
-        const open = () => {
-            if (!panel.hidden) return;
-
-            // Sin fecha no hay horarios: se preselecciona hoy si está permitido.
-            if (dateNative && !dateNative.value) {
-                const today = toISODate(new Date());
-
-                if (!dateNative.min || today >= dateNative.min) {
-                    dateNative.value = today;
-                    dateNative.dispatchEvent(
-                        new Event("change", { bubbles: true }),
-                    );
-                }
-            }
-
-            updateSlotsForDate();
-            activatePicker(close, () => {
-                if (panel.hidden) return;
-
-                positionPickerPanel(wrapper, button, panel, 480);
-                keepFocusedInPanel(panel);
-            });
-            panel.hidden = false;
-            wrapper.classList.add("is-open");
-            button.setAttribute("aria-expanded", "true");
-
-            if (isMobilePicker()) {
-                wrapper.classList.add("is-mobile-modal");
-                panel.setAttribute("aria-modal", "true");
-            }
-
-            updateDisplay();
-            (availableTimes.length ? clockHourInput : chooseDateButton).focus({
-                preventScroll: true,
-            });
-            positionPickerPanel(wrapper, button, panel, 480);
-
-            if (availableTimes.length) {
-                keepFocusedInPanel(panel);
-            }
-        };
-
-        button.addEventListener("click", () => {
-            if (panel.hidden) {
-                open();
-            } else {
-                close({ focus: true });
-            }
-        });
-
-        button.addEventListener("keydown", (event) => {
-            if (
-                panel.hidden &&
-                (event.key === "ArrowDown" || event.key === "ArrowUp")
-            ) {
-                event.preventDefault();
-                open();
-            } else if (event.key === "Escape" && !panel.hidden) {
-                event.preventDefault();
-                close({ focus: true });
-            }
-        });
-
-        panel.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                event.preventDefault();
-                close({ focus: true });
-            }
-        });
-
-        document.addEventListener("pointerdown", (event) => {
-            const target = event.target;
-            if (
-                target instanceof Node &&
-                !panel.hidden &&
-                !wrapper.contains(target)
-            ) {
-                close();
-            }
-        });
-
-        if (label) {
-            label.addEventListener("click", (event) => {
-                event.preventDefault();
-                button.focus();
-            });
-        }
-
         native.addEventListener("change", updateDisplay);
 
-        const { shell } = createPickerShell(panel, titleText, () =>
-            close({ focus: true }),
-        );
+        /** @type {number | null} */
+        let activeDialPointer = null;
+        /** @type {HTMLButtonElement | null} */
+        let draggedDialOption = null;
 
-        trapMobilePickerFocus(shell);
-        wrapper.append(button, shell);
-        wrapper.classList.add("is-enhanced");
-        native.tabIndex = -1;
-        native.setAttribute("aria-hidden", "true");
+        const clearDialDrag = () => {
+            draggedDialOption?.classList.remove("is-drag-target");
+            draggedDialOption = null;
+            activeDialPointer = null;
+            clockFace.classList.remove("is-dragging");
+        };
+
+        clockFace.addEventListener("pointerdown", (event) => {
+            if (
+                event.button !== 0 ||
+                !clockFace.querySelector(".reservas-timepicker__clock-option")
+            ) {
+                return;
+            }
+
+            const option = findDialOptionAtPoint(event.clientX, event.clientY);
+
+            if (!option) return;
+
+            event.preventDefault();
+            activeDialPointer = event.pointerId;
+            draggedDialOption = option;
+            draggedDialOption.classList.add("is-drag-target");
+            clockFace.classList.add("is-dragging");
+            clockFace.setPointerCapture(event.pointerId);
+        });
+
+        clockFace.addEventListener("pointermove", (event) => {
+            if (event.pointerId !== activeDialPointer) return;
+
+            const option = findDialOptionAtPoint(event.clientX, event.clientY);
+
+            if (option === draggedDialOption) return;
+
+            draggedDialOption?.classList.remove("is-drag-target");
+            draggedDialOption = option;
+            draggedDialOption?.classList.add("is-drag-target");
+        });
+
+        clockFace.addEventListener("pointerup", (event) => {
+            if (event.pointerId !== activeDialPointer) return;
+
+            const option = findDialOptionAtPoint(event.clientX, event.clientY);
+
+            clearDialDrag();
+
+            if (clockFace.hasPointerCapture(event.pointerId)) {
+                clockFace.releasePointerCapture(event.pointerId);
+            }
+
+            if (option) selectDialOption(option);
+        });
+
+        clockFace.addEventListener("pointercancel", clearDialDrag);
+        clockFace.addEventListener("lostpointercapture", clearDialDrag);
+
+        const { close, finalize } = createPickerBehavior(pickerCore, {
+            wrapper,
+            button,
+            panel,
+            native,
+            label,
+            titleText,
+            panelHeight: 480,
+            onOpen: () => {
+                // Sin fecha no hay horarios: se preselecciona hoy si está permitido.
+                if (dateNative && !dateNative.value) {
+                    const today = toISODate(new Date());
+
+                    if (!dateNative.min || today >= dateNative.min) {
+                        dateNative.value = today;
+                        dateNative.dispatchEvent(
+                            new Event("change", { bubbles: true }),
+                        );
+                    }
+                }
+
+                updateSlotsForDate();
+            },
+            onShown: () => {
+                updateDisplay();
+                (
+                    availableTimes.length ? clockHourInput : chooseDateButton
+                ).focus({ preventScroll: true });
+            },
+        });
+
+        finalize();
         updateSlotsForDate();
         updateDisplay();
     };

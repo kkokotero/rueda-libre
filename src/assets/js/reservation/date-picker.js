@@ -5,6 +5,9 @@
  * rejilla de días, navegación por mes y atajos (hoy, mañana, +7 y +14 días).
  * El input nativo se conserva oculto como fuente de verdad y sigue emitiendo
  * sus eventos `change` para que el resto del formulario reaccione igual.
+ *
+ * El ciclo de vida del panel (abrir, cerrar, Escape, clic fuera, foco) vive
+ * en `./picker/behavior.js`; aquí solo queda la lógica del calendario.
  */
 
 import {
@@ -14,6 +17,7 @@ import {
     formatDateLong,
     formatMonth,
 } from "../shared/dates.js";
+import { createPickerBehavior } from "./picker/behavior.js";
 
 const WEEKDAYS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 
@@ -33,6 +37,10 @@ const isoAfter = (offset) => {
     return toISODate(date);
 };
 
+/** Índice de día de la semana empezando en lunes (0 = lunes). */
+/** @param {number} weekday @returns {number} */
+const mondayIndex = (weekday) => (weekday + 6) % 7;
+
 /**
  * Enhances each native date input with an accessible calendar picker.
  * @param {import("./picker-core.js").ReservationPickerCore} pickerCore
@@ -40,17 +48,11 @@ const isoAfter = (offset) => {
  */
 export function initializeReservationDatePicker(pickerCore) {
     const {
-        isMobilePicker,
-        activatePicker,
-        deactivatePicker,
         createIcon,
         getLabelText,
         getDescribedBy,
-        createPickerShell,
-        positionPickerPanel,
-        keepFocusedInPanel,
-        trapMobilePickerFocus,
         createPickerTrigger,
+        keepFocusedInPanel,
     } = pickerCore;
 
     /** @param {Element} wrapper */
@@ -122,29 +124,6 @@ export function initializeReservationDatePicker(pickerCore) {
         const footer = document.createElement("div");
         footer.className = "reservas-datepicker__footer";
 
-        const shortcutButtons = SHORTCUT_DATES.map(({ label, offset }) => {
-            const shortcut = document.createElement("button");
-            shortcut.type = "button";
-            shortcut.className = "reservas-datepicker__today";
-            shortcut.textContent = label;
-            shortcut.setAttribute(
-                "aria-label",
-                offset === 0
-                    ? "Seleccionar hoy"
-                    : `Seleccionar fecha en ${offset} días`,
-            );
-            shortcut.addEventListener("click", () => {
-                const iso = isoAfter(offset);
-
-                if (iso >= minISO && (!maxISO || iso <= maxISO)) {
-                    selectDate(iso);
-                }
-            });
-            footer.append(shortcut);
-
-            return { button: shortcut, offset };
-        });
-
         panel.append(calendarHeader, weekdays, grid, footer);
 
         const todayISO = toISODate(new Date());
@@ -174,14 +153,6 @@ export function initializeReservationDatePicker(pickerCore) {
             value.classList.toggle("is-placeholder", !date);
         };
 
-        /** @param {string} iso */
-        const selectDate = (iso) => {
-            native.value = iso;
-            updateDisplay();
-            native.dispatchEvent(new Event("change", { bubbles: true }));
-            close({ focus: true });
-        };
-
         /** @param {string} [focusISO] */
         const renderCalendar = (focusISO = "") => {
             monthLabel.textContent = formatMonth(viewYear, viewMonth);
@@ -195,8 +166,9 @@ export function initializeReservationDatePicker(pickerCore) {
 
             grid.replaceChildren();
 
-            const firstWeekday = new Date(viewYear, viewMonth, 1).getDay();
-            const leadingBlanks = (firstWeekday + 6) % 7;
+            const leadingBlanks = mondayIndex(
+                new Date(viewYear, viewMonth, 1).getDay(),
+            );
             const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
 
             for (let index = 0; index < leadingBlanks; index += 1) {
@@ -229,9 +201,7 @@ export function initializeReservationDatePicker(pickerCore) {
                     dayButton.disabled = true;
                 }
 
-                dayButton.addEventListener("click", () => {
-                    selectDate(iso);
-                });
+                dayButton.addEventListener("click", () => selectDate(iso));
                 dayButton.addEventListener("keydown", handleDayKeydown);
                 grid.append(dayButton);
             }
@@ -254,6 +224,7 @@ export function initializeReservationDatePicker(pickerCore) {
         /** @param {KeyboardEvent} event */
         const handleDayKeydown = (event) => {
             if (!(event.currentTarget instanceof HTMLButtonElement)) return;
+
             const currentDate = parseISODate(
                 event.currentTarget.dataset.date || "",
             );
@@ -261,7 +232,8 @@ export function initializeReservationDatePicker(pickerCore) {
             if (!currentDate) return;
 
             const currentDay = currentDate.getDate();
-            const currentWeekday = (currentDate.getDay() + 6) % 7;
+            const currentWeekday = mondayIndex(currentDate.getDay());
+            /** @type {Date | null} */
             let nextDate = null;
 
             if (event.key === "ArrowLeft") {
@@ -335,129 +307,74 @@ export function initializeReservationDatePicker(pickerCore) {
             renderCalendar(nextISO);
         };
 
-        /** @param {{ focus?: boolean }} [options] */
-        const close = ({ focus = false } = {}) => {
-            if (panel.hidden) return;
-
-            panel.hidden = true;
-            panel.style.maxHeight = "";
-            panel.removeAttribute("aria-modal");
-            wrapper.classList.remove("is-open", "is-up", "is-mobile-modal");
-            button.setAttribute("aria-expanded", "false");
-            deactivatePicker(close);
-
-            if (focus) button.focus();
+        /** @param {string} iso */
+        const selectDate = (iso) => {
+            native.value = iso;
+            updateDisplay();
+            native.dispatchEvent(new Event("change", { bubbles: true }));
+            close({ focus: true });
         };
 
-        const open = () => {
-            if (!panel.hidden) return;
-
-            selectedISO = native.value;
-
-            const initialDate =
-                parseISODate(selectedISO) || parseISODate(minISO) || new Date();
-
-            viewYear = initialDate.getFullYear();
-            viewMonth = initialDate.getMonth();
-            activatePicker(close, () => {
-                if (panel.hidden) return;
-
-                positionPickerPanel(wrapper, button, panel, 420);
-                keepFocusedInPanel(panel);
-            });
-            panel.hidden = false;
-            wrapper.classList.add("is-open");
-            button.setAttribute("aria-expanded", "true");
-
-            if (isMobilePicker()) {
-                wrapper.classList.add("is-mobile-modal");
-                panel.setAttribute("aria-modal", "true");
-            }
-
-            renderCalendar(selectedISO || minISO);
-            positionPickerPanel(wrapper, button, panel, 420);
-            keepFocusedInPanel(panel);
-        };
-
-        previousMonth.addEventListener("click", () => {
-            const target = new Date(viewYear, viewMonth - 1, 1);
+        /** @param {number} monthDelta */
+        const goToMonth = (monthDelta) => {
+            const target = new Date(viewYear, viewMonth + monthDelta, 1);
 
             viewYear = target.getFullYear();
             viewMonth = target.getMonth();
             renderCalendar(toISODate(target));
+        };
+
+        const { close, finalize } = createPickerBehavior(pickerCore, {
+            wrapper,
+            button,
+            panel,
+            native,
+            label,
+            titleText,
+            panelHeight: 420,
+            onOpen: () => {
+                selectedISO = native.value;
+
+                const initialDate =
+                    parseISODate(selectedISO) ||
+                    parseISODate(minISO) ||
+                    new Date();
+
+                viewYear = initialDate.getFullYear();
+                viewMonth = initialDate.getMonth();
+            },
+            onShown: () => renderCalendar(selectedISO || minISO),
         });
 
-        nextMonth.addEventListener("click", () => {
-            const target = new Date(viewYear, viewMonth + 1, 1);
+        previousMonth.addEventListener("click", () => goToMonth(-1));
+        nextMonth.addEventListener("click", () => goToMonth(1));
 
-            viewYear = target.getFullYear();
-            viewMonth = target.getMonth();
-            renderCalendar(toISODate(target));
-        });
-
-        for (const { button: shortcut, offset } of shortcutButtons) {
+        for (const { label: shortcutLabel, offset } of SHORTCUT_DATES) {
+            const shortcut = document.createElement("button");
             const iso = isoAfter(offset);
 
-            shortcut.disabled = iso < minISO || Boolean(maxISO && iso > maxISO);
-        }
-
-        button.addEventListener("click", () => {
-            if (panel.hidden) {
-                open();
-            } else {
-                close({ focus: true });
-            }
-        });
-
-        button.addEventListener("keydown", (event) => {
-            if (
-                panel.hidden &&
-                (event.key === "ArrowDown" || event.key === "ArrowUp")
-            ) {
-                event.preventDefault();
-                open();
-            } else if (event.key === "Escape" && !panel.hidden) {
-                event.preventDefault();
-                close({ focus: true });
-            }
-        });
-
-        panel.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                event.preventDefault();
-                close({ focus: true });
-            }
-        });
-
-        document.addEventListener("pointerdown", (event) => {
-            const target = event.target;
-            if (
-                target instanceof Node &&
-                !panel.hidden &&
-                !wrapper.contains(target)
-            ) {
-                close();
-            }
-        });
-
-        if (label) {
-            label.addEventListener("click", (event) => {
-                event.preventDefault();
-                button.focus();
+            shortcut.type = "button";
+            shortcut.className = "reservas-datepicker__today";
+            shortcut.textContent = shortcutLabel;
+            shortcut.setAttribute(
+                "aria-label",
+                offset === 0
+                    ? "Seleccionar hoy"
+                    : `Seleccionar fecha en ${offset} días`,
+            );
+            shortcut.disabled =
+                iso < minISO || Boolean(maxISO && iso > maxISO);
+            shortcut.addEventListener("click", () => {
+                if (iso >= minISO && (!maxISO || iso <= maxISO)) {
+                    selectDate(iso);
+                }
             });
+            footer.append(shortcut);
         }
 
         native.addEventListener("change", updateDisplay);
 
-        const { shell } = createPickerShell(panel, titleText, () =>
-            close({ focus: true }),
-        );
-
-        trapMobilePickerFocus(shell);
-        wrapper.append(button, shell);
-        wrapper.classList.add("is-enhanced");
-        native.tabIndex = -1;
-        native.setAttribute("aria-hidden", "true");
+        finalize();
         updateDisplay();
     };
 

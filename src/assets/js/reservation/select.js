@@ -5,7 +5,13 @@
  * lista de opciones. El select original se conserva oculto como fuente de
  * verdad y sigue emitiendo `change`, así la validación y el envío del
  * formulario no cambian.
+ *
+ * El ciclo de vida del panel (abrir, cerrar, Escape, clic fuera) vive en
+ * `./picker/behavior.js`; aquí queda el combobox: opciones, teclado y
+ * selección.
  */
+
+import { createPickerBehavior } from "./picker/behavior.js";
 
 /**
  * Replaces native selects with accessible custom listboxes.
@@ -13,15 +19,7 @@
  * @returns {void}
  */
 export function initializeReservationSelects(pickerCore) {
-    const {
-        isMobilePicker,
-        activatePicker,
-        deactivatePicker,
-        getDescribedBy,
-        getLabelText,
-        createPickerShell,
-        positionPickerPanel,
-    } = pickerCore;
+    const { getDescribedBy, getLabelText } = pickerCore;
 
     /** @param {Element} wrapper */
     const enhanceSelect = (wrapper) => {
@@ -37,6 +35,7 @@ export function initializeReservationSelects(pickerCore) {
 
         const label = native.labels?.[0] || null;
         const describedBy = getDescribedBy(native);
+        const titleText = getLabelText(label) || "Selecciona una opción";
         const valueId = `${native.id}-value`;
         const buttonId = `${native.id}-button`;
         const menuId = `${native.id}-listbox`;
@@ -131,7 +130,7 @@ export function initializeReservationSelects(pickerCore) {
                 ? selected.textContent.trim()
                 : "Selecciona una opción";
             value.classList.toggle("is-placeholder", selectedValue === "");
-            icon.textContent = (selected && selected.dataset.icon) || "circle";
+            icon.textContent = selected?.dataset.icon || "circle";
 
             for (const option of optionEls) {
                 option.setAttribute(
@@ -169,51 +168,6 @@ export function initializeReservationSelects(pickerCore) {
             }
         };
 
-        /** @param {{ focus?: boolean }} [options] */
-        const close = ({ focus = false } = {}) => {
-            if (menu.hidden) return;
-
-            menu.hidden = true;
-            menu.style.maxHeight = "";
-            wrapper.classList.remove("is-open", "is-up", "is-mobile-modal");
-            button.setAttribute("aria-expanded", "false");
-            button.removeAttribute("aria-activedescendant");
-
-            for (const option of optionEls) {
-                option.classList.remove("is-active");
-            }
-
-            activeIndex = -1;
-            deactivatePicker(close);
-
-            if (focus) button.focus();
-        };
-
-        const open = () => {
-            if (!menu.hidden) return;
-
-            activatePicker(close, () => {
-                if (!menu.hidden) {
-                    positionPickerPanel(wrapper, button, menu, 256);
-                }
-            });
-            menu.hidden = false;
-            wrapper.classList.add("is-open");
-
-            if (isMobilePicker()) {
-                wrapper.classList.add("is-mobile-modal");
-            }
-
-            button.setAttribute("aria-expanded", "true");
-            positionPickerPanel(wrapper, button, menu, 256);
-
-            const selectedIndex = optionEls.findIndex(
-                (option) => option.dataset.value === native.value,
-            );
-
-            setActive(selectedIndex >= 0 ? selectedIndex : 0);
-        };
-
         /** @param {number} index */
         const selectOption = (index) => {
             const option = optionEls[index];
@@ -228,104 +182,96 @@ export function initializeReservationSelects(pickerCore) {
             close({ focus: true });
         };
 
-        button.addEventListener("click", () => {
-            if (menu.hidden) {
-                open();
-            } else {
-                close();
-            }
-        });
-
-        button.addEventListener("keydown", (event) => {
-            if (event.key === "ArrowDown") {
-                event.preventDefault();
-                if (menu.hidden) {
-                    open();
-                } else {
-                    setActive(activeIndex + 1);
-                }
-            } else if (event.key === "ArrowUp") {
-                event.preventDefault();
-                if (menu.hidden) {
-                    open();
-                } else {
-                    setActive(activeIndex - 1);
-                }
-            } else if (event.key === "Home") {
-                if (!menu.hidden) {
-                    event.preventDefault();
-                    setActive(0);
-                }
-            } else if (event.key === "End") {
-                if (!menu.hidden) {
-                    event.preventDefault();
-                    setActive(optionEls.length - 1);
-                }
-            } else if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                if (menu.hidden) {
-                    open();
-                } else {
-                    selectOption(activeIndex);
-                }
-            } else if (event.key === "Escape") {
-                if (!menu.hidden) {
-                    event.preventDefault();
-                    close({ focus: true });
-                }
-            } else if (event.key === "Tab") {
-                close();
-            }
-        });
-
         optionEls.forEach((option, index) => {
-            option.addEventListener("mouseenter", () => {
-                setActive(index);
-            });
+            option.addEventListener("mouseenter", () => setActive(index));
             option.addEventListener("mousedown", (event) => {
                 event.preventDefault();
             });
-            option.addEventListener("click", () => {
-                selectOption(index);
-            });
+            option.addEventListener("click", () => selectOption(index));
         });
-
-        menu.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                event.preventDefault();
-                close({ focus: true });
-            }
-        });
-
-        document.addEventListener("pointerdown", (event) => {
-            if (!(event.target instanceof Node)) return;
-            if (!menu.hidden && !wrapper.contains(event.target)) {
-                close();
-            }
-        });
-
-        if (label) {
-            label.addEventListener("click", (event) => {
-                if (!wrapper.classList.contains("is-enhanced")) {
-                    return;
-                }
-
-                event.preventDefault();
-                button.focus();
-            });
-        }
 
         native.addEventListener("change", updateDisplay);
 
-        const titleText = getLabelText(label) || "Selecciona una opción";
-        const { shell } = createPickerShell(menu, titleText, () =>
-            close({ focus: true }),
-        );
+        const { close, finalize } = createPickerBehavior(pickerCore, {
+            wrapper,
+            button,
+            panel: menu,
+            native,
+            label,
+            titleText,
+            panelHeight: 256,
+            // El listbox no atrapa el Tab ni ajusta el scroll al foco: la
+            // navegación con Tab cierra el menú.
+            keepFocus: false,
+            onShown: () => {
+                const selectedIndex = optionEls.findIndex(
+                    (option) => option.dataset.value === native.value,
+                );
 
-        wrapper.append(button, shell);
-        wrapper.classList.add("is-enhanced");
-        native.tabIndex = -1;
-        native.setAttribute("aria-hidden", "true");
+                setActive(Math.max(selectedIndex, 0));
+            },
+            onClosed: () => {
+                button.removeAttribute("aria-activedescendant");
+
+                for (const option of optionEls) {
+                    option.classList.remove("is-active");
+                }
+
+                activeIndex = -1;
+            },
+            // Teclado propio del combobox: flechas, Inicio/Fin, Enter/Espacio,
+            // Escape y Tab. Devuelve `true` para que no actúe el handler base.
+            onTriggerKeydown: (event, { open: openPicker, close: closePicker, isOpen }) => {
+                if (event.key === "ArrowDown") {
+                    event.preventDefault();
+
+                    if (isOpen()) {
+                        setActive(activeIndex + 1);
+                    } else {
+                        openPicker();
+                    }
+                } else if (event.key === "ArrowUp") {
+                    event.preventDefault();
+
+                    if (isOpen()) {
+                        setActive(activeIndex - 1);
+                    } else {
+                        openPicker();
+                    }
+                } else if (event.key === "Home") {
+                    if (isOpen()) {
+                        event.preventDefault();
+                        setActive(0);
+                    }
+                } else if (event.key === "End") {
+                    if (isOpen()) {
+                        event.preventDefault();
+                        setActive(optionEls.length - 1);
+                    }
+                } else if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+
+                    if (isOpen()) {
+                        selectOption(activeIndex);
+                    } else {
+                        openPicker();
+                    }
+                } else if (event.key === "Escape") {
+                    if (isOpen()) {
+                        event.preventDefault();
+                        closePicker({ focus: true });
+                    }
+                } else if (event.key === "Tab") {
+                    closePicker();
+                } else {
+                    return false;
+                }
+
+                return true;
+            },
+        });
+
+        finalize();
         updateDisplay();
     };
 
