@@ -1,8 +1,15 @@
 @layer components {
 
     /* Hoja de confirmación tras enviar la reserva: misma estética que las
-       hojas modales de los pickers (fondo desenfocado y panel centrado). */
+       hojas modales de los pickers (fondo desenfocado y panel centrado).
+
+       El reset global (`* { margin: 0; position: relative }`) anula el
+       `position: fixed` y el `margin: auto` que el navegador aplica a los
+       `<dialog>` modales, así que el centrado se declara aquí a mano. */
     .reservas-modal {
+        position: fixed;
+        inset: 0;
+        margin: auto;
         width: min(92vw, 42rem);
         max-height: 82vh;
         max-height: 82dvh;
