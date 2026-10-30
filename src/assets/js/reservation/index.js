@@ -10,6 +10,7 @@ import { localTodayISO } from "../shared/dates.js";
 import { initializeReservationForm } from "./form.js";
 import { initializeReservationQuantity } from "./quantity.js";
 import { createReservationPickerCore } from "./picker-core.js";
+import { createReservationConfirmation } from "./confirmation.js";
 import { initializeReservationSelects } from "./select.js";
 import { initializeReservationDatePicker } from "./date-picker.js";
 import { initializeReservationTimePicker } from "./time-picker.js";
@@ -68,5 +69,10 @@ if (form instanceof HTMLFormElement && status) {
     initializeReservationDatePicker(pickerCore);
     initializeReservationTimePicker(pickerCore);
     initializeReservationQuantity(form);
-    initializeReservationForm(form, status, clearStatus);
+    initializeReservationForm(
+        form,
+        status,
+        clearStatus,
+        createReservationConfirmation(),
+    );
 }

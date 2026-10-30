@@ -1,0 +1,267 @@
+@layer components {
+
+    /* Hoja de confirmación tras enviar la reserva: misma estética que las
+       hojas modales de los pickers (fondo desenfocado y panel centrado). */
+    .reservas-modal {
+        width: min(92vw, 42rem);
+        max-height: 82vh;
+        max-height: 82dvh;
+        padding: 0;
+        background-color: var(--color-surface-container-high);
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+        border-radius: 1.5rem;
+        box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 45%);
+        color: var(--color-on-surface);
+        overflow: hidden;
+        animation: reservasModalIn var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .reservas-modal::backdrop {
+        background-color: rgb(0 0 0 / 55%);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        animation: reservasModalBackdropIn var(--motion-fast)
+            var(--ease-emphasized);
+    }
+
+    body:has(.reservas-modal:modal) {
+        overflow: hidden;
+    }
+
+    .reservas-modal__shell {
+        display: flex;
+        flex-direction: column;
+        max-height: inherit;
+    }
+
+    .reservas-modal__header {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        gap: 0.85rem;
+        padding: 1.15rem 1.15rem 0.85rem;
+        border-bottom: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+    }
+
+    .reservas-modal__badge {
+        display: grid;
+        place-items: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        flex-shrink: 0;
+        border-radius: 0.8rem 0.8rem 0.8rem 1.35rem;
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 14%,
+            transparent
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-primary) 26%, transparent);
+        color: var(--color-primary);
+    }
+
+    .reservas-modal__badge .icon {
+        font-size: 1.45rem;
+    }
+
+    .reservas-modal__heading {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .reservas-modal__eyebrow {
+        margin-bottom: 0.25rem;
+        color: var(--color-primary);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .reservas-modal__title {
+        margin: 0;
+        font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        overflow-wrap: anywhere;
+        text-wrap: balance;
+    }
+
+    .reservas-modal__close {
+        display: grid;
+        width: 2.5rem;
+        height: 2.5rem;
+        flex-shrink: 0;
+        place-items: center;
+        padding: 0;
+        background-color: color-mix(
+            in oklab,
+            var(--color-surface-container-highest) 75%,
+            transparent
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 65%, transparent);
+        border-radius: 50%;
+        color: var(--color-on-surface-variant);
+        cursor: pointer;
+        transition:
+            background-color var(--motion-fast) var(--ease-emphasized),
+            color var(--motion-fast) var(--ease-emphasized);
+    }
+
+    .reservas-modal__close:hover {
+        background-color: color-mix(
+            in oklab,
+            var(--color-primary) 16%,
+            transparent
+        );
+        color: var(--color-primary);
+    }
+
+    .reservas-modal__close:focus-visible {
+        outline: 3px solid
+            color-mix(in oklab, var(--color-primary) 45%, transparent);
+        outline-offset: 2px;
+    }
+
+    .reservas-modal__body {
+        flex: 1;
+        min-height: 0;
+        padding: 0.95rem 1.15rem;
+        overflow-y: auto;
+    }
+
+    .reservas-modal__lead {
+        margin: 0;
+        color: var(--color-on-surface-variant);
+        font-size: 0.95rem;
+        line-height: 1.65;
+        text-wrap: pretty;
+    }
+
+    .reservas-modal__summary {
+        display: grid;
+        margin: 1rem 0 0;
+        padding: 0.25rem 0.95rem;
+        background-color: color-mix(
+            in oklab,
+            var(--color-surface-container-highest) 55%,
+            transparent
+        );
+        border: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 45%, transparent);
+        border-radius: 0.9rem;
+    }
+
+    .reservas-modal__row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid
+            color-mix(in oklab, var(--color-outline-variant) 35%, transparent);
+    }
+
+    .reservas-modal__row:last-child {
+        border-bottom: 0;
+    }
+
+    .reservas-modal__term {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--color-on-surface-variant);
+        font-size: 0.85rem;
+    }
+
+    .reservas-modal__term .icon {
+        color: var(--color-primary);
+        font-size: 1.15rem;
+        line-height: 1;
+    }
+
+    .reservas-modal__value {
+        margin: 0;
+        color: var(--color-on-surface);
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-align: right;
+        text-wrap: pretty;
+    }
+
+    .reservas-modal__actions {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        gap: 0.65rem;
+        padding: 0.25rem 1.15rem 1.15rem;
+    }
+
+    .reservas-modal__actions .tarifas-button {
+        width: 100%;
+    }
+
+    @media (width >= 521px) {
+        .reservas-modal__actions {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .reservas-modal__actions .tarifas-button {
+            width: auto;
+        }
+    }
+
+    /* En móvil la hoja se ancla al pie, como las hojas modales de los pickers. */
+    @media (width <= 720px) {
+        .reservas-modal {
+            width: 100%;
+            max-width: none;
+            margin: auto 0 0;
+            max-height: 92vh;
+            max-height: 92dvh;
+            border-right: 0;
+            border-bottom: 0;
+            border-left: 0;
+            border-radius: 1.5rem 1.5rem 0 0;
+            animation-name: reservasModalSheetIn;
+        }
+    }
+
+    @media (width <= 520px) {
+        .reservas-modal__row {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .reservas-modal__value {
+            text-align: left;
+        }
+    }
+
+    @keyframes reservasModalIn {
+        from {
+            opacity: 0;
+            transform: translateY(1.5rem);
+        }
+    }
+
+    @keyframes reservasModalSheetIn {
+        from {
+            opacity: 0;
+            transform: translateY(2.5rem);
+        }
+    }
+
+    @keyframes reservasModalBackdropIn {
+        from {
+            opacity: 0;
+        }
+    }
+}

@@ -1358,7 +1358,74 @@
                 </div>
             </div>
         </footer>
-        
+
+        <dialog
+            id="reservation-confirmation"
+            class="reservas-modal"
+            aria-labelledby="reservation-confirmation-title"
+        >
+            <div class="reservas-modal__shell">
+                <header class="reservas-modal__header">
+                    <span
+                        class="reservas-modal__badge"
+                        aria-hidden="true"
+                    >
+                        <span class="icon">check_circle</span>
+                    </span>
+                    <div class="reservas-modal__heading">
+                        <p class="reservas-modal__eyebrow">
+                            Solicitud lista
+                        </p>
+                        <h2
+                            id="reservation-confirmation-title"
+                            class="reservas-modal__title"
+                        >
+                            ¡Listo, <span data-confirmation-name></span>!
+                        </h2>
+                    </div>
+                    <button
+                        class="reservas-modal__close"
+                        type="button"
+                        aria-label="Cerrar confirmación"
+                        data-confirmation-dismiss
+                    >
+                        <span class="icon" aria-hidden="true">close</span>
+                    </button>
+                </header>
+
+                <div class="reservas-modal__body">
+                    <p class="reservas-modal__lead">
+                        Tu solicitud está lista. Abre tu aplicación de correo
+                        y envíanos el mensaje: revisaremos la disponibilidad y
+                        te confirmaremos la reserva lo antes posible.
+                    </p>
+                    <dl
+                        class="reservas-modal__summary"
+                        data-confirmation-summary
+                    ></dl>
+                </div>
+
+                <footer class="reservas-modal__actions">
+                    <a
+                        class="tarifas-button tarifas-button--primary reservas-modal__mail"
+                        href="#formulario"
+                        data-confirmation-mail
+                    >
+                        <span class="icon" aria-hidden="true">mail</span>
+                        Abrir correo con mi solicitud
+                    </a>
+                    <button
+                        class="tarifas-button tarifas-button--ghost"
+                        type="button"
+                        data-confirmation-dismiss
+                    >
+                        <span class="icon" aria-hidden="true">edit</span>
+                        Editar solicitud
+                    </button>
+                </footer>
+            </div>
+        </dialog>
+
         <script type="module" src="../assets/js/navigation.js"></script>
         <script
             type="module"

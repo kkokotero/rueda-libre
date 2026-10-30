@@ -4,10 +4,16 @@
  * No usa la validación nativa del navegador (`noValidate`): cada campo se
  * valida con la API de Constraint Validation y los errores se pintan dentro
  * del propio bloque `[data-field]`. El envío no viaja por red: arma un
- * `mailto:` con los datos y ofrece un enlace para abrirlo.
+ * `mailto:` con los datos, lo muestra en el estado del formulario y abre el
+ * modal de confirmación con el resumen de la reserva.
  */
 
 import { getErrorMessage } from "./validation.js";
+
+/**
+ * @typedef {import("./confirmation.js").ReservationSummary} ReservationSummary
+ * @typedef {{ open: (summary: ReservationSummary, request: { href: string }) => void }} ConfirmationOpener
+ */
 
 /** `true` si el elemento es un control de formulario real. */
 /** @param {EventTarget | null} element @returns {element is HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} */
@@ -78,13 +84,19 @@ const showError = (control, message) => {
 };
 
 /**
- * Wires live validation and mailto submission for the reservation form.
+ * Wires live validation, mailto submission, and the confirmation dialog.
  * @param {HTMLFormElement} form
  * @param {HTMLElement} status
  * @param {() => void} clearStatus
+ * @param {ConfirmationOpener | null} [confirmation] modal que se abre al enviar
  * @returns {void}
  */
-export function initializeReservationForm(form, status, clearStatus) {
+export function initializeReservationForm(
+    form,
+    status,
+    clearStatus,
+    confirmation = null,
+) {
     /** @param {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} control */
     const validateControl = (control) => {
         const message = getErrorMessage(control);
@@ -188,12 +200,47 @@ export function initializeReservationForm(form, status, clearStatus) {
         status.classList.add("is-visible");
         status.focus({ preventScroll: true });
 
+        confirmation?.open(buildSummary(form), { href });
+
         // `subject` y `body` ya están incrustados en `href`; se quedan como
         // valores explícitos para que el mensaje sea fácil de depurar.
         void subject;
         void body;
     });
 }
+
+/**
+ * Datos de la reserva que resume el modal de confirmación.
+ *
+ * Los select se leen del DOM para reflejar el texto (y el icono) que ve el
+ * usuario, en vez de duplicar aquí sus etiquetas.
+ *
+ * @param {HTMLFormElement} form
+ * @returns {ReservationSummary}
+ */
+const buildSummary = (form) => {
+    const data = new FormData(form);
+    /** @param {string} name @returns {string} */
+    const value = (name) => String(data.get(name) || "").trim();
+
+    const contact = form.elements.namedItem("metodo_contacto");
+    const contactOption =
+        contact instanceof HTMLSelectElement
+            ? contact.selectedOptions[0]
+            : undefined;
+
+    return {
+        name: value("nombre"),
+        bikeType: value("tipo"),
+        quantity: value("cantidad"),
+        isoDate: value("fecha"),
+        time: value("hora"),
+        duration: value("duracion"),
+        route: value("recorrido"),
+        contactLabel: contactOption?.text.trim() || "",
+        contactIcon: contactOption?.dataset.icon || "swap_horiz",
+    };
+};
 
 /** Aviso que se muestra junto al enlace de correo. */
 const buildStatusCopy = () => {
