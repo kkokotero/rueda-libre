@@ -1,3 +1,7 @@
+/**
+ * Mide el espacio disponible y calcula el tamaño y la posición de cada ítem.
+ */
+
 import { clampValue, getWidthAtSlot, positiveModulo } from "./utils.js";
 
 /** @typedef {{i: number, j: number, x: number, w: number}} ItemPlacement */

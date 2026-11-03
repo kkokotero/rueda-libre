@@ -1,4 +1,8 @@
 /**
+ * Funciones matemáticas pequeñas que reutiliza el cálculo del carrusel.
+ */
+
+/**
  * Limita un valor numérico entre un rango mínimo y máximo.
  * @param {number} value - Valor a limitar.
  * @param {number} min - Límite inferior.

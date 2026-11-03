@@ -44,7 +44,7 @@ import { keepFocusedInPanel, trapMobilePickerFocus } from "./picker/focus.js";
  */
 
 /**
- * Creates shared lifecycle and accessibility helpers for reservation pickers.
+ * Crea los servicios compartidos del ciclo de vida y la accesibilidad de los selectores.
  * @returns {ReservationPickerCore} Shared picker services consumed by the select, date, and time pickers.
  */
 export function createReservationPickerCore() {

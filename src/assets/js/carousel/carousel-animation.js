@@ -1,3 +1,7 @@
+/**
+ * Avanza la animación, el movimiento con resorte y el autoplay del carrusel.
+ */
+
 import { CarouselState } from "./carousel-state.js";
 
 /**

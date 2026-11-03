@@ -179,6 +179,7 @@ export function initializeReservationSelects(pickerCore) {
             label,
             titleText,
             panelHeight: 256,
+            safeZone: true,
             // El listbox no atrapa el Tab ni ajusta el scroll al foco: la
             // navegación con Tab cierra el menú.
             keepFocus: false,

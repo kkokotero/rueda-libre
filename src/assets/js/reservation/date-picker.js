@@ -195,7 +195,7 @@ export function initializeReservationDatePicker(pickerCore) {
                     aria-label="${formatDateLong(date)}"
                     aria-pressed="${iso === selectedISO}"
                     aria-current="${iso === todayISO ? "date" : "false"}"
-                    ${isUnavailable ? "disabled" : ""}>${day}</button>`;
+                    ?disabled=${isUnavailable}>${day}</button>`;
 
                 dayButton.addEventListener("click", () => selectDate(iso));
                 dayButton.addEventListener("keydown", handleDayKeydown);
@@ -356,7 +356,7 @@ export function initializeReservationDatePicker(pickerCore) {
                 type="button"
                 class="reservas-datepicker__today"
                 aria-label="${offset === 0 ? "Seleccionar hoy" : `Seleccionar fecha en ${offset} días`}"
-                ${isUnavailable ? "disabled" : ""}>${shortcutLabel}</button>`;
+                ?disabled=${isUnavailable}>${shortcutLabel}</button>`;
 
             shortcut.addEventListener("click", () => {
                 if (iso >= minISO && (!maxISO || iso <= maxISO)) {

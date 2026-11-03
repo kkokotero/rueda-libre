@@ -1,3 +1,7 @@
+/**
+ * Conecta los controles del carrusel con mouse, teclado, rueda y pantalla táctil.
+ */
+
 import { CarouselState } from "./carousel-state.js";
 import { clampValue } from "./utils.js";
 

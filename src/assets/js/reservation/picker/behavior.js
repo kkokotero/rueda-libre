@@ -1,3 +1,5 @@
+import { SafeZone } from "html-box/safe-zone";
+
 /**
  * Ciclo de vida compartido por los tres pickers (fecha, hora y select).
  *
@@ -26,6 +28,8 @@
  * @property {number} panelHeight alto máximo usado para posicionar el panel
  * @property {boolean} [keepFocus] gestiona Tab-trapping y scroll al foco
  *   (paneles tipo diálogo); los listbox lo desactivan
+ * @property {boolean} [safeZone] conserva el dropdown abierto mientras el
+ *   puntero se mueve entre el botón y el menú en escritorio
  * @property {() => void} [onOpen] estado previo a mostrarse (p. ej. regenerar el contenido)
  * @property {() => void} [onShown] render y foco iniciales tras mostrarse
  * @property {() => void} [onClosed] limpieza específica tras ocultar
@@ -50,6 +54,7 @@ export function createPickerBehavior(pickerCore, config) {
         titleText,
         panelHeight,
         keepFocus = true,
+        safeZone: useSafeZone = false,
         onOpen,
         onShown,
         onClosed,
@@ -65,6 +70,8 @@ export function createPickerBehavior(pickerCore, config) {
         keepFocusedInPanel,
         trapMobilePickerFocus,
     } = pickerCore;
+    /** @type {SafeZone | null} */
+    let dropdownSafeZone = null;
 
     /** @returns {boolean} */
     const isOpen = () => !panel.hidden;
@@ -153,13 +160,19 @@ export function createPickerBehavior(pickerCore, config) {
 
     document.addEventListener("pointerdown", (event) => {
         const target = event.target;
-        if (
-            target instanceof Node &&
-            !panel.hidden &&
-            !wrapper.contains(target)
-        ) {
-            close();
+        if (!(target instanceof Node) || panel.hidden || wrapper.contains(target)) {
+            return;
         }
+
+        if (
+            useSafeZone &&
+            !isMobilePicker() &&
+            dropdownSafeZone?.contains(event.clientX, event.clientY)
+        ) {
+            return;
+        }
+
+        close();
     });
 
     if (label) {
@@ -181,6 +194,16 @@ export function createPickerBehavior(pickerCore, config) {
         wrapper.classList.add("is-enhanced");
         native.tabIndex = -1;
         native.setAttribute("aria-hidden", "true");
+
+        if (useSafeZone) {
+            dropdownSafeZone = new SafeZone("pointer", [button, panel], {
+                padding: 8,
+                leaveDelay: 180,
+            });
+            dropdownSafeZone.on("leave", () => {
+                if (!isMobilePicker()) close();
+            });
+        }
     };
 
     return { open, close, finalize };

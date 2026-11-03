@@ -1,3 +1,5 @@
+/** Configura el carrusel principal de la página de inicio. */
+
 import { CAROUSEL_ITEMS } from "./carousel/carousel-item.js";
 import { Carousel } from "./carousel/carousel.js";
 

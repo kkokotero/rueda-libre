@@ -1,3 +1,11 @@
+/**
+ * Controlador principal del carrusel.
+ *
+ * Conserva su estado y API pública; el cálculo visual, la animación y los
+ * eventos viven en módulos separados para que cada responsabilidad sea fácil
+ * de seguir.
+ */
+
 import {
     measureCarouselLayout,
     calculateCarouselItemPlacements,

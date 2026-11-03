@@ -1,3 +1,7 @@
+/**
+ * Define los datos y la representación HTML de cada imagen del carrusel.
+ */
+
 import img1 from "../../img/carrusel/img-1.jpg";
 import img2 from "../../img/carrusel/img-2.png";
 import img3 from "../../img/carrusel/img-3.png";

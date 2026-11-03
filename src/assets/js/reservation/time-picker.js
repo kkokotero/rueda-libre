@@ -404,7 +404,7 @@ export function initializeReservationTimePicker(pickerCore) {
         }
 
         /**
-         * Renders the analog dial and synchronizes its editable time fields.
+         * Dibuja el reloj analógico y sincroniza los campos editables de hora.
          * @param {{ syncInputs?: boolean }} [options]
          */
         function renderClock({ syncInputs = true } = {}) {
@@ -501,7 +501,7 @@ export function initializeReservationTimePicker(pickerCore) {
                     style="left: ${50 + Math.cos(angle) * 38}%; top: ${50 + Math.sin(angle) * 38}%"
                     aria-pressed="${isSelected}"
                     aria-label="${ariaLabel}"
-                    ${isAvailable ? "" : "disabled"}>${label}</button>`;
+                    ?disabled=${!isAvailable}>${label}</button>`;
 
                 if (clockMode === "hour") {
                     dialOption.dataset.hour = optionHour;

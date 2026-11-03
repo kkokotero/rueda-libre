@@ -48,7 +48,7 @@ const getDisplayControl = (control) => {
 };
 
 /**
- * Renders or clears a field error.
+ * Muestra o limpia el error de un campo.
  * @param {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} control
  * @param {string} message
  */
@@ -80,7 +80,7 @@ const showError = (control, message) => {
 };
 
 /**
- * Wires live validation, mailto submission, and the confirmation dialog.
+ * Conecta la validación en vivo, el envío por `mailto:` y el diálogo de confirmación.
  * @param {HTMLFormElement} form
  * @param {HTMLElement} status
  * @param {() => void} clearStatus
