@@ -53,3 +53,4 @@ desktop.ini
 *.db
 *.tsbuildinfo
 vite.svg.timestamp-*
+*.lock
