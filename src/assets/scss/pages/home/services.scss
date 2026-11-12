@@ -1,23 +1,15 @@
 @layer pages {
 
 
+    /* La grilla la define Bootstrap (`.row` + `.col-*`); aqui solo se
+       ajusta el canal para que coincida con el diseno original. */
     .our-services {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1rem;
         counter-reset: service;
-
-        @media (width >= 721px) {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        @media (width >= 1025px) {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
     }
 
     .our-services--title {
-        grid-column: 1 / -1;
         margin-bottom: 0.5rem;
     }
 
@@ -27,6 +19,7 @@
         flex-direction: column;
         gap: 1rem;
         min-width: 0;
+        height: 100%;
         background-color: var(--color-surface-container);
         border: 1px solid
             color-mix(in oklab, var(--color-outline-variant) 55%, transparent);
@@ -202,16 +195,6 @@
             @media (width >= 768px) {
                 transform: scale(2) translateY(20%) rotate(20deg);
             }
-        }
-
-        grid-column: auto;
-
-        @media (width >= 721px) {
-            grid-column: 1 / -1;
-        }
-
-        @media (width >= 1025px) {
-            grid-column: auto;
         }
     }
 }

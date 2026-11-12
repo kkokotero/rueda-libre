@@ -1,11 +1,13 @@
 /**
- * Navegación del sitio: cajón móvil, desplegables y página activa.
+ * Navegación del sitio: desplegable, cajón lateral y página activa.
  *
- * Se carga como módulo en las tres páginas. El `aria-current` de la página
- * activa se marca aquí en vez de escribirlo a mano en el HTML, de modo que
- * el marcado de navegación es idéntico en todas las páginas y no puede
- * desincronizarse.
+ * Se carga como módulo en las cuatro páginas. Los componentes interactivos
+ * (desplegable y cajón) los aporta Bootstrap; este archivo se encarga de lo
+ * propio del sitio: marcar la página activa y cerrar el cajón al navegar.
  */
+
+import Offcanvas from "bootstrap/js/src/offcanvas.js";
+import "./bootstrap.js";
 
 /** Quita `index.html` y la barra final para poder comparar rutas. */
 /** @param {string} path @returns {string} */
@@ -26,7 +28,7 @@ const currentPath = normalizePath(window.location.pathname);
 const markCurrentLinks = () => {
     /** @type {NodeListOf<HTMLAnchorElement>} */
     const links = document.querySelectorAll(
-        ".header--menu__link[href], .header--drawer__link[href]",
+        ".header--menu__link, .header--drawer__link",
     );
     for (const link of links) {
         const href = link.getAttribute("href");
@@ -42,61 +44,18 @@ const markCurrentLinks = () => {
 };
 
 const initNavigation = () => {
-    const navToggle = document.getElementById("nav-toggle");
-
-    if (!(navToggle instanceof HTMLInputElement)) return;
-
     markCurrentLinks();
 
-    /** @type {NodeListOf<HTMLDetailsElement>} */
-    const dropdowns = document.querySelectorAll("[data-nav-dropdown]");
+    // Al elegir una entrada del cajón, este se cierra para no tapar el
+    // contenido al que se acaba de ir.
+    const drawer = document.getElementById("navDrawer");
 
-    document.querySelectorAll(".header--drawer a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navToggle.checked = false;
-            dropdowns.forEach((dropdown) => {
-                dropdown.open = false;
-            });
-        });
-    });
-
-    document.querySelectorAll("[data-nav-dropdown] a").forEach((link) => {
-        link.addEventListener("click", () => {
-            const dropdown = link.closest("[data-nav-dropdown]");
-
-            if (dropdown instanceof HTMLDetailsElement) {
-                dropdown.open = false;
-            }
-        });
-    });
-
-    document.addEventListener("click", (event) => {
+    drawer?.addEventListener("click", (event) => {
         const target = event.target;
-        if (!(target instanceof Node)) return;
-        dropdowns.forEach((dropdown) => {
-            if (dropdown.open && !dropdown.contains(target)) {
-                dropdown.open = false;
-            }
-        });
-    });
+        if (!(target instanceof Element)) return;
+        if (!target.closest("a")) return;
 
-    document.addEventListener("keydown", (event) => {
-        if (event.key !== "Escape") return;
-
-        const openDropdown = document.querySelector(
-            "[data-nav-dropdown][open]",
-        );
-
-        if (openDropdown instanceof HTMLDetailsElement) {
-            openDropdown.open = false;
-            openDropdown.querySelector("summary")?.focus();
-            return;
-        }
-
-        if (navToggle.checked) {
-            navToggle.checked = false;
-            navToggle.focus();
-        }
+        Offcanvas.getInstance(drawer)?.hide();
     });
 };
 

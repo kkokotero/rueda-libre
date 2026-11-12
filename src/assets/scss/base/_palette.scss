@@ -1,0 +1,139 @@
+/* ============================================================
+   PALETA — palette.scss
+   Única fuente de color del sitio.
+
+   Estos mapas alimentan dos cosas:
+   - `base/tokens.scss`, que publica los tokens `--color-*` en CSS.
+   - `base/_bootstrap-core.scss`, que configura Bootstrap con los
+     mismos valores para que sus componentes usen la paleta.
+   ============================================================ */
+
+/* ---------- Tema claro ---------- */
+$light: (
+    primary: #684e7d,
+    primary-dim: #5b4270,
+    on-primary: #f8e8ff,
+    primary-container: #745a8a,
+    on-primary-container: #ffffff,
+    primary-fixed: #745a8a,
+    primary-fixed-dim: #684e7d,
+    on-primary-fixed: #ffffff,
+    on-primary-fixed-variant: #f1daff,
+    secondary: #675a6f,
+    secondary-dim: #5b4f63,
+    on-secondary: #fff6fe,
+    secondary-container: #eeddf6,
+    on-secondary-container: #594d61,
+    secondary-fixed: #eeddf6,
+    secondary-fixed-dim: #dfcfe7,
+    on-secondary-fixed: #463b4e,
+    on-secondary-fixed-variant: #63576c,
+    tertiary: #794a60,
+    tertiary-dim: #6c3e54,
+    on-tertiary: #ffe7ef,
+    tertiary-container: #87566c,
+    on-tertiary-container: #ffffff,
+    tertiary-fixed: #87566c,
+    tertiary-fixed-dim: #794a60,
+    on-tertiary-fixed: #ffffff,
+    on-tertiary-fixed-variant: #ffd8e7,
+    error: #a8364b,
+    error-dim: #98293f,
+    on-error: #fff7f7,
+    error-container: #f97386,
+    on-error-container: #490013,
+    background: #fff7fd,
+    on-background: #323232,
+    surface: #fff7fd,
+    surface-dim: #dadada,
+    surface-bright: #f9f9f9,
+    surface-container-lowest: #ffffff,
+    surface-container-low: #f3f3f3,
+    surface-container: #eeeeee,
+    surface-container-high: #e8e8e8,
+    surface-container-highest: #e2e2e2,
+    surface-variant: #e2e2e2,
+    on-surface: #323232,
+    on-surface-variant: #5f5f5f,
+    outline: #7b7b7b,
+    outline-variant: #b2b2b2,
+    shadow: #000000,
+    scrim: #000000,
+    surface-tint: #684e7d,
+    inverse-surface: #0e0e0e,
+    inverse-on-surface: #a19ba1,
+    inverse-primary: #ddbdf4,
+);
+
+/* ---------- Tema oscuro ---------- */
+$dark: (
+    primary: #b29ac3,
+    primary-dim: #a48db5,
+    on-primary: #2f1d3e,
+    primary-container: #715c82,
+    on-primary-container: #ffffff,
+    primary-fixed: #715c82,
+    primary-fixed-dim: #655075,
+    on-primary-fixed: #ffffff,
+    on-primary-fixed-variant: #f1daff,
+    secondary: #ad9eb5,
+    secondary-dim: #9f91a7,
+    on-secondary: #2b2133,
+    secondary-container: #372c3f,
+    on-secondary-container: #baabc3,
+    secondary-fixed: #eeddf6,
+    secondary-fixed-dim: #dfcfe7,
+    on-secondary-fixed: #463b4e,
+    on-secondary-fixed-variant: #63576c,
+    tertiary: #cc93ab,
+    tertiary-dim: #bd869e,
+    on-tertiary: #3e172b,
+    tertiary-container: #87566c,
+    on-tertiary-container: #ffffff,
+    tertiary-fixed: #87566c,
+    tertiary-fixed-dim: #794a60,
+    on-tertiary-fixed: #ffffff,
+    on-tertiary-fixed-variant: #ffd8e7,
+    error: #ff788b,
+    error-dim: #ee6b7e,
+    on-error: #520017,
+    error-container: #6b0221,
+    on-error-container: #ff94a1,
+    background: #151217,
+    on-background: #fbfbfb,
+    surface: #151217,
+    surface-dim: #0e0e0e,
+    surface-bright: #393939,
+    surface-container-lowest: #000000,
+    surface-container-low: #1b1b1b,
+    surface-container: #1f1f1f,
+    surface-container-high: #2a2a2a,
+    surface-container-highest: #353535,
+    surface-variant: #353535,
+    on-surface: #fbfbfb,
+    on-surface-variant: #bcbcbc,
+    outline: #838383,
+    outline-variant: #545454,
+    shadow: #000000,
+    scrim: #000000,
+    surface-tint: #b29ac3,
+    inverse-surface: #f9f9f9,
+    inverse-on-surface: #585459,
+    inverse-primary: #6c577c,
+);
+
+/// Devuelve el valor de un color del mapa de paleta.
+/// @param {Map} $palette - Mapa de paleta.
+/// @param {String} $name - Nombre del color.
+/// @return {Color}
+@function color($palette, $name) {
+    @return map-get($palette, $name);
+}
+
+/// Publica un mapa de paleta como tokens CSS `--color-*`.
+/// @param {Map} $palette - Mapa de paleta.
+@mixin emit-tokens($palette) {
+    @each $name, $value in $palette {
+        --color-#{$name}: #{$value};
+    }
+}

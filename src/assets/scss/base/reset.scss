@@ -1,4 +1,8 @@
-@layer base {
+/* Capa `reset`: normaliza los elementos base. Va por debajo de la capa
+   `bootstrap` para que los componentes de Bootstrap conserven su propio
+   espaciado y tipografía. */
+
+@layer reset {
 
 
     *,

@@ -24,6 +24,7 @@
         "vite": "^7.1.12"
     },
     "dependencies": {
+        "bootstrap": "^5.3.8",
         "html-box": "^0.3.3"
     }
 }

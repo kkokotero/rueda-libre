@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-bs-theme="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,64 +14,104 @@
         <link rel="stylesheet" href="./assets/scss/home.scss" />
     </head>
 
-    <body data-theme="dark">
+    <body>
         <span id="top-app"></span>
         <header class="site-header">
-            <input
-                type="checkbox"
-                id="nav-toggle"
-                class="nav-toggle"
-                aria-label="Menú de navegación"
-            />
+            <nav class="navbar header" aria-label="Navegación principal">
+                <a
+                    class="navbar-brand header--logo__link"
+                    href="./#top-app"
+                    aria-label="Rueda Libre, volver al inicio"
+                >
+                    <img
+                        class="header--logo__image"
+                        src="./assets/img/logo.svg"
+                        alt="Rueda Libre"
+                        width="128"
+                        height="103"
+                    />
+                </a>
 
-            <div class="header">
-                <nav class="header--logo">
-                    <a
-                        class="header--logo__link"
-                        href="./#top-app"
-                        aria-label="Rueda Libre, volver al inicio"
-                    >
-                        <img
-                            class="header--logo__image"
-                            src="./assets/img/logo.svg"
-                            alt="Rueda Libre"
-                            width="128"
-                            height="103"
-                        />
-                    </a>
-                </nav>
-                <nav class="header--menu" aria-label="Navegación principal">
-                    <ul class="header--menu__list">
-                        <li>
-                            <a href="./#top-app" class="header--menu__link" aria-current="page">Inicio</a>
-                        </li>
-                        <li>
-                            <a href="./tarifas/" class="header--menu__link">Tarifas y rutas</a>
-                        </li>
-                        <li>
-                            <a href="./reservas/" class="header--menu__link">Reservas</a>
-                        </li>
-                        <li>
-                            <a href="./catalogo/" class="header--menu__link">Catálogo</a>
-                        </li>
-                        <li>
-                            <details class="header--menu__item" data-nav-dropdown>
-                                <summary class="header--menu__link header--menu__toggle">Nosotros</summary>
-                                <div class="header--menu__submenu">
-                                    <a href="#about-us" class="header--menu__sublink">¿Quiénes somos?</a>
-                                    <a href="#our-services" class="header--menu__sublink">Nuestros servicios</a>
-                                    <a href="#why" class="header--menu__sublink">¿Cómo alquilar?</a>
-                                    <a href="#found-us" class="header--menu__sublink">Encuéntranos</a>
-                                </div>
-                            </details>
-                        </li>
-                    </ul>
-                </nav>
+                <ul class="navbar-nav header--menu__list">
+                    <li class="nav-item">
+                        <a
+                            href="./#top-app"
+                            class="nav-link header--menu__link"
+                            aria-current="page"
+                            >Inicio</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="./tarifas/"
+                            class="nav-link header--menu__link"
+                            >Tarifas y rutas</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="./reservas/"
+                            class="nav-link header--menu__link"
+                            >Reservas</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="./catalogo/"
+                            class="nav-link header--menu__link"
+                            >Catálogo</a
+                        >
+                    </li>
+                    <li class="nav-item dropdown header--menu__item">
+                        <button
+                            class="nav-link dropdown-toggle header--menu__link header--menu__toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Nosotros
+                        </button>
+                        <ul class="dropdown-menu header--menu__submenu">
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="#about-us"
+                                    >¿Quiénes somos?</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="#our-services"
+                                    >Nuestros servicios</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="#why"
+                                    >¿Cómo alquilar?</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="#found-us"
+                                    >Encuéntranos</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
-                <label
-                    for="nav-toggle"
-                    class="header--toggle"
-                    aria-hidden="true"
+                <button
+                    class="navbar-toggler header--toggle"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#navDrawer"
+                    aria-controls="navDrawer"
+                    aria-expanded="false"
+                    aria-label="Menú de navegación"
                 >
                     <span
                         class="header--toggle__bar header--toggle__bar--top"
@@ -82,43 +122,87 @@
                     <span
                         class="header--toggle__bar header--toggle__bar--bottom"
                     ></span>
-                </label>
-            </div>
+                </button>
+            </nav>
 
-            <label
-                for="nav-toggle"
-                class="nav-scrim"
-                aria-hidden="true"
-            ></label>
-
-            <nav class="header--drawer" aria-label="Navegación móvil">
-                <p class="header--drawer__eyebrow">Menú</p>
-                <ul class="header--drawer__list">
-                    <li>
-                        <a href="./#top-app" class="header--drawer__link" aria-current="page">Inicio</a>
+            <div
+                class="offcanvas offcanvas-end header--drawer"
+                tabindex="-1"
+                id="navDrawer"
+                aria-labelledby="navDrawerLabel"
+            >
+                <p class="header--drawer__eyebrow" id="navDrawerLabel">
+                    Menú
+                </p>
+                <ul class="navbar-nav header--drawer__list">
+                    <li class="nav-item">
+                        <a
+                            href="./#top-app"
+                            class="nav-link header--drawer__link"
+                            aria-current="page"
+                            >Inicio</a
+                        >
                     </li>
-                    <li>
-                        <a href="./tarifas/" class="header--drawer__link">Tarifas y rutas</a>
+                    <li class="nav-item">
+                        <a
+                            href="./tarifas/"
+                            class="nav-link header--drawer__link"
+                            >Tarifas y rutas</a
+                        >
                     </li>
-                    <li>
-                        <a href="./reservas/" class="header--drawer__link">Reservas</a>
+                    <li class="nav-item">
+                        <a
+                            href="./reservas/"
+                            class="nav-link header--drawer__link"
+                            >Reservas</a
+                        >
                     </li>
-                    <li>
-                        <a href="./catalogo/" class="header--drawer__link">Catálogo</a>
+                    <li class="nav-item">
+                        <a
+                            href="./catalogo/"
+                            class="nav-link header--drawer__link"
+                            >Catálogo</a
+                        >
                     </li>
-                    <li>
-                        <details class="header--drawer__group" data-nav-dropdown>
-                            <summary class="header--drawer__link header--drawer__toggle">Nosotros</summary>
-                            <div class="header--drawer__submenu">
-                                <a href="#about-us" class="header--drawer__sublink">¿Quiénes somos?</a>
-                                <a href="#our-services" class="header--drawer__sublink">Nuestros servicios</a>
-                                <a href="#why" class="header--drawer__sublink">¿Cómo alquilar?</a>
-                                <a href="#found-us" class="header--drawer__sublink">Encuéntranos</a>
-                            </div>
-                        </details>
+                    <li class="nav-item">
+                        <button
+                            class="nav-link header--drawer__link header--drawer__toggle"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navDrawerNosotros"
+                            aria-expanded="false"
+                            aria-controls="navDrawerNosotros"
+                        >
+                            Nosotros
+                        </button>
+                        <div
+                            class="collapse header--drawer__submenu"
+                            id="navDrawerNosotros"
+                        >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="#about-us"
+                                >¿Quiénes somos?</a
+                            >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="#our-services"
+                                >Nuestros servicios</a
+                            >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="#why"
+                                >¿Cómo alquilar?</a
+                            >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="#found-us"
+                                >Encuéntranos</a
+                            >
+                        </div>
                     </li>
                 </ul>
-            </nav>
+            </div>
         </header>
 
         <main class="site-main">
@@ -174,86 +258,92 @@
             <hr class="section--divider" />
 
             <!-- Nuestros servicios -->
-            <section id="our-services" class="our-services section--reveal">
+            <section id="our-services" class="our-services section--reveal row">
                 <h2 class="section--title our-services--title">
                     Nuestros servicios
                 </h2>
 
-                <article class="our-services--card">
-                    <img
-                        class="our-services--card__image"
-                        src="./assets/img/bicicleta.jpg"
-                        alt="Bicicleta urbana disponible para alquilar"
-                        width="500"
-                        loading="lazy"
-                        decoding="async"
-                    />
+                <div class="col-12 col-md-6 col-xxl-4">
+                    <article class="our-services--card">
+                        <img
+                            class="our-services--card__image"
+                            src="./assets/img/bicicleta.jpg"
+                            alt="Bicicleta urbana disponible para alquilar"
+                            width="500"
+                            loading="lazy"
+                            decoding="async"
+                        />
 
-                    <h3 class="our-services--card__title">
-                        Alquiler de bicicletas urbanas
-                    </h3>
+                        <h3 class="our-services--card__title">
+                            Alquiler de bicicletas urbanas
+                        </h3>
 
-                    <p class="our-services--card__text">
-                        Recorre Medellín cómodamente con nuestras bicicletas
-                        urbanas. El alquiler
-                        <strong>incluye casco y candado</strong> para que
-                        disfrutes tu experiencia con mayor tranquilidad.
-                        <em
-                            >Ideal para paseos cortos y desplazamientos por la
-                            ciudad.</em
-                        >
-                    </p>
-                </article>
+                        <p class="our-services--card__text">
+                            Recorre Medellín cómodamente con nuestras bicicletas
+                            urbanas. El alquiler
+                            <strong>incluye casco y candado</strong> para que
+                            disfrutes tu experiencia con mayor tranquilidad.
+                            <em
+                                >Ideal para paseos cortos y desplazamientos por la
+                                ciudad.</em
+                            >
+                        </p>
+                    </article>
+                </div>
 
-                <article class="our-services--card">
-                    <img
-                        class="our-services--card__image"
-                        src="./assets/img/ruta.png"
-                        alt="Ruta en bicicleta entre paisajes de Medellín y Antioquia"
-                        width="500"
-                        loading="lazy"
-                        decoding="async"
-                    />
+                <div class="col-12 col-md-6 col-xxl-4">
+                    <article class="our-services--card">
+                        <img
+                            class="our-services--card__image"
+                            src="./assets/img/ruta.png"
+                            alt="Ruta en bicicleta entre paisajes de Medellín y Antioquia"
+                            width="500"
+                            loading="lazy"
+                            decoding="async"
+                        />
 
-                    <h3 class="our-services--card__title">
-                        Rutas turísticas en bicicleta
-                    </h3>
+                        <h3 class="our-services--card__title">
+                            Rutas turísticas en bicicleta
+                        </h3>
 
-                    <p class="our-services--card__text">
-                        Descubre parques, barrios y paisajes de Medellín
-                        mediante recorridos pensados para disfrutar la ciudad
-                        sobre dos ruedas.
-                        <a
-                            class="service-link"
-                            href="./tarifas/#recorridos"
-                            >Consulta los recorridos guiados y sus precios</a
-                        >
-                        antes de salir y elige el que mejor se adapte a ti.
-                        <em>Una forma diferente de conocer cada rincón.</em>
-                    </p>
-                </article>
+                        <p class="our-services--card__text">
+                            Descubre parques, barrios y paisajes de Medellín
+                            mediante recorridos pensados para disfrutar la ciudad
+                            sobre dos ruedas.
+                            <a
+                                class="service-link"
+                                href="./tarifas/#recorridos"
+                                >Consulta los recorridos guiados y sus precios</a
+                            >
+                            antes de salir y elige el que mejor se adapte a ti.
+                            <em>Una forma diferente de conocer cada rincón.</em>
+                        </p>
+                    </article>
+                </div>
 
-                <article
-                    class="our-services--card our-services--card--featured"
-                >
-                    <h3 class="our-services--card__title">
-                        Alquiler por horas o por día
-                    </h3>
+                <div class="col-12 col-md-6 col-xxl-4">
+                    <article
+                        class="our-services--card our-services--card--featured"
+                    >
+                        <h3 class="our-services--card__title">
+                            Alquiler por horas o por día
+                        </h3>
 
-                    <p class="our-services--card__text">
-                        Elige el tiempo de alquiler que necesites, desde unas
-                        horas hasta una jornada completa. Te ofrecemos opciones
-                        flexibles para que organices tu recorrido según tus
-                        planes.
-                        <a
-                            class="service-link"
-                            href="./tarifas/#tarifas-alquiler"
-                            >Consulta las tarifas y la disponibilidad</a
-                        >
-                        antes de realizar tu reserva.
-                        <em>Tú eliges el ritmo de tu aventura.</em>
-                    </p>
-                </article>
+                        <p class="our-services--card__text">
+                            Elige el tiempo de alquiler que necesites, desde unas
+                            horas hasta una jornada completa. Te ofrecemos opciones
+                            flexibles para que organices tu recorrido según tus
+                            planes.
+                            <a
+                                class="service-link"
+                                href="./tarifas/#tarifas-alquiler"
+                                >Consulta las tarifas y la disponibilidad</a
+                            >
+                            antes de realizar tu reserva.
+                            <em>Tú eliges el ritmo de tu aventura.</em>
+                        </p>
+                    </article>
+                </div>
             </section>
 
             <hr class="section--divider" />
@@ -267,21 +357,29 @@
                     cuatro pasos:
                 </p>
 
-                <ol class="how-to--steps">
-                    <li class="how-to--step">
-                        Elige el tipo de bicicleta que necesitas.
-                    </li>
-                    <li
-                        class="how-to--step how-to--step--raised how-to--step--secondary"
-                    >
-                        Selecciona la duración de tu alquiler.
-                    </li>
-                    <li class="how-to--step how-to--step--tertiary">
-                        Contacta con nosotros para confirmar la disponibilidad.
-                    </li>
-                    <li class="how-to--step how-to--step--raised">
-                        Recoge tu bicicleta y disfruta del recorrido.
-                    </li>
+                <ol class="how-to--steps row">
+                    <div class="col-12 col-sm-6 col-xxl-3">
+                        <li class="how-to--step">
+                            Elige el tipo de bicicleta que necesitas.
+                        </li>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xxl-3">
+                        <li
+                            class="how-to--step how-to--step--raised how-to--step--secondary"
+                        >
+                            Selecciona la duración de tu alquiler.
+                        </li>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xxl-3">
+                        <li class="how-to--step how-to--step--tertiary">
+                            Contacta con nosotros para confirmar la disponibilidad.
+                        </li>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xxl-3">
+                        <li class="how-to--step how-to--step--raised">
+                            Recoge tu bicicleta y disfruta del recorrido.
+                        </li>
+                    </div>
                 </ol>
             </section>
 
@@ -299,83 +397,91 @@
                         </p>
                     </header>
 
-                    <div class="why-us__grid">
-                        <div class="why-us__item">
-                            <article class="why-us__card">
-                                <span
-                                    class="icon why-us__icon"
-                                    aria-hidden="true"
-                                    >verified</span
-                                >
-                                <h3 class="why-us__card-title">
-                                    Bicicletas revisadas
-                                </h3>
-                                <p class="why-us__card-text">
-                                    Revisamos cada bicicleta antes de
-                                    entregarla.
-                                </p>
-                                <p class="why-us__card-stat">
-                                    En cada alquiler
-                                </p>
-                            </article>
+                    <div class="why-us__grid row">
+                        <div class="col-12 col-sm2-6 col-xl2-3">
+                            <div class="why-us__item">
+                                <article class="why-us__card card">
+                                    <span
+                                        class="icon why-us__icon"
+                                        aria-hidden="true"
+                                        >verified</span
+                                    >
+                                    <h3 class="why-us__card-title">
+                                        Bicicletas revisadas
+                                    </h3>
+                                    <p class="why-us__card-text">
+                                        Revisamos cada bicicleta antes de
+                                        entregarla.
+                                    </p>
+                                    <p class="why-us__card-stat">
+                                        En cada alquiler
+                                    </p>
+                                </article>
+                            </div>
                         </div>
 
-                        <div class="why-us__item">
-                            <article class="why-us__card">
-                                <span
-                                    class="icon why-us__icon"
-                                    aria-hidden="true"
-                                    >health_and_safety</span
-                                >
-                                <h3 class="why-us__card-title">
-                                    Casco y candado incluidos
-                                </h3>
-                                <p class="why-us__card-text">
-                                    Vas con lo esencial desde el primer
-                                    pedaleo.
-                                </p>
-                                <p class="why-us__card-stat">
-                                    Sin costo extra
-                                </p>
-                            </article>
+                        <div class="col-12 col-sm2-6 col-xl2-3">
+                            <div class="why-us__item">
+                                <article class="why-us__card card">
+                                    <span
+                                        class="icon why-us__icon"
+                                        aria-hidden="true"
+                                        >health_and_safety</span
+                                    >
+                                    <h3 class="why-us__card-title">
+                                        Casco y candado incluidos
+                                    </h3>
+                                    <p class="why-us__card-text">
+                                        Vas con lo esencial desde el primer
+                                        pedaleo.
+                                    </p>
+                                    <p class="why-us__card-stat">
+                                        Sin costo extra
+                                    </p>
+                                </article>
+                            </div>
                         </div>
 
-                        <div class="why-us__item">
-                            <article class="why-us__card">
-                                <span
-                                    class="icon why-us__icon"
-                                    aria-hidden="true"
-                                    >tour</span
-                                >
-                                <h3 class="why-us__card-title">
-                                    Guías certificados
-                                </h3>
-                                <p class="why-us__card-text">
-                                    Rutas acompañadas por personas que conocen
-                                    Medellín.
-                                </p>
-                                <p class="why-us__card-stat">
-                                    Rutas guiadas
-                                </p>
-                            </article>
+                        <div class="col-12 col-sm2-6 col-xl2-3">
+                            <div class="why-us__item">
+                                <article class="why-us__card card">
+                                    <span
+                                        class="icon why-us__icon"
+                                        aria-hidden="true"
+                                        >tour</span
+                                    >
+                                    <h3 class="why-us__card-title">
+                                        Guías certificados
+                                    </h3>
+                                    <p class="why-us__card-text">
+                                        Rutas acompañadas por personas que conocen
+                                        Medellín.
+                                    </p>
+                                    <p class="why-us__card-stat">
+                                        Rutas guiadas
+                                    </p>
+                                </article>
+                            </div>
                         </div>
 
-                        <div class="why-us__item">
-                            <article class="why-us__card">
-                                <span
-                                    class="icon why-us__icon"
-                                    aria-hidden="true"
-                                    >location_on</span
-                                >
-                                <h3 class="why-us__card-title">
-                                    Tres puntos de devolución
-                                </h3>
-                                <p class="why-us__card-text">
-                                    Entrega y devuelve en la sede que te quede
-                                    más cerca.
-                                </p>
-                                <p class="why-us__card-stat">3 sedes</p>
-                            </article>
+                        <div class="col-12 col-sm2-6 col-xl2-3">
+                            <div class="why-us__item">
+                                <article class="why-us__card card">
+                                    <span
+                                        class="icon why-us__icon"
+                                        aria-hidden="true"
+                                        >location_on</span
+                                    >
+                                    <h3 class="why-us__card-title">
+                                        Tres puntos de devolución
+                                    </h3>
+                                    <p class="why-us__card-text">
+                                        Entrega y devuelve en la sede que te quede
+                                        más cerca.
+                                    </p>
+                                    <p class="why-us__card-stat">3 sedes</p>
+                                </article>
+                            </div>
                         </div>
                     </div>
 
@@ -414,7 +520,7 @@
                     <p class="found-us--label">Reserva y contacto</p>
 
                     <a
-                        class="found-us--button found-us--button__primary"
+                        class="found-us--button found-us--button__primary btn"
                         href="./reservas/"
                     >
                         <span
@@ -433,7 +539,7 @@
                     </a>
 
                     <a
-                        class="found-us--button found-us--button__secondary"
+                        class="found-us--button found-us--button__secondary btn"
                         href="mailto:hola@ruedalibre.example"
                     >
                         <span
@@ -452,7 +558,7 @@
                     </a>
 
                     <a
-                        class="found-us--button found-us--button__secondary"
+                        class="found-us--button found-us--button__secondary btn"
                         href="https://wa.me/573000000000"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -480,7 +586,7 @@
                     </a>
 
                     <a
-                        class="found-us--button found-us--button__secondary"
+                        class="found-us--button found-us--button__secondary btn"
                         href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -523,13 +629,13 @@
 
                     <div class="footer__cta-actions">
                         <a
-                            class="footer__button footer__button--filled"
+                            class="footer__button footer__button--filled btn"
                             href="#contacto"
                         >
                             Reservar una bicicleta
                         </a>
                         <a
-                            class="footer__button footer__button--outlined"
+                            class="footer__button footer__button--outlined btn"
                             href="../tarifas/"
                         >
                             Ver tarifas y rutas

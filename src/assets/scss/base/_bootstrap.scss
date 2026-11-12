@@ -1,0 +1,12 @@
+@use "sass:meta";
+
+/* ============================================================
+   BOOTSTRAP — bootstrap.scss
+   Trae el CSS de Bootstrap 5.3 configurado con la paleta del
+   sitio (`base/_bootstrap-core.scss`) dentro de la capa
+   `bootstrap`, que va por debajo de las capas del proyecto.
+   ============================================================ */
+
+@layer bootstrap {
+    @include meta.load-css("bootstrap-core");
+}

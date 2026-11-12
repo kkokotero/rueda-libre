@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-bs-theme="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,104 +18,104 @@
         <link rel="stylesheet" href="../assets/scss/reservas.scss" />
     </head>
 
-    <body data-theme="dark">
+    <body>
         <span id="top-app"></span>
         <header class="site-header">
-            <input
-                type="checkbox"
-                id="nav-toggle"
-                class="nav-toggle"
-                aria-label="Menú de navegación"
-            />
+            <nav class="navbar header" aria-label="Navegación principal">
+                <a
+                    class="navbar-brand header--logo__link"
+                    href="../#top-app"
+                    aria-label="Rueda Libre, volver al inicio"
+                >
+                    <img
+                        class="header--logo__image"
+                        src="../assets/img/logo.svg"
+                        alt="Rueda Libre"
+                        width="128"
+                        height="103"
+                    />
+                </a>
 
-            <div class="header">
-                <nav class="header--logo">
-                    <a
-                        class="header--logo__link"
-                        href="../#top-app"
-                        aria-label="Rueda Libre, volver al inicio"
-                    >
-                        <img
-                            class="header--logo__image"
-                            src="../assets/img/logo.svg"
-                            alt="Rueda Libre"
-                            width="128"
-                            height="103"
-                        />
-                    </a>
-                </nav>
-
-                <nav class="header--menu" aria-label="Navegación principal">
-                    <ul class="header--menu__list">
-                        <li>
-                            <a
-                                href="../#top-app"
-                                class="header--menu__link"
-                                >Inicio</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="../tarifas/"
-                                class="header--menu__link"
-                                >Tarifas y rutas</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="./#top-app"
-                                class="header--menu__link"
-                                aria-current="page"
-                                >Reservas</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="../catalogo/"
-                                class="header--menu__link"
-                                >Catálogo</a
-                            >
-                        </li>
-                        <li>
-                            <details
-                                class="header--menu__item"
-                                data-nav-dropdown
-                            >
-                                <summary
-                                    class="header--menu__link header--menu__toggle"
-                                    >Nosotros</summary
+                <ul class="navbar-nav header--menu__list">
+                    <li class="nav-item">
+                        <a
+                            href="../#top-app"
+                            class="nav-link header--menu__link"
+                            >Inicio</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="../tarifas/"
+                            class="nav-link header--menu__link"
+                            >Tarifas y rutas</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="./#top-app"
+                            class="nav-link header--menu__link"
+                            aria-current="page"
+                            >Reservas</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="../catalogo/"
+                            class="nav-link header--menu__link"
+                            >Catálogo</a
+                        >
+                    </li>
+                    <li class="nav-item dropdown header--menu__item">
+                        <button
+                            class="nav-link dropdown-toggle header--menu__link header--menu__toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Nosotros
+                        </button>
+                        <ul class="dropdown-menu header--menu__submenu">
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="../#about-us"
+                                    >¿Quiénes somos?</a
                                 >
-                                <div class="header--menu__submenu">
-                                    <a
-                                        href="../#about-us"
-                                        class="header--menu__sublink"
-                                        >¿Quiénes somos?</a
-                                    >
-                                    <a
-                                        href="../#our-services"
-                                        class="header--menu__sublink"
-                                        >Nuestros servicios</a
-                                    >
-                                    <a
-                                        href="../#why"
-                                        class="header--menu__sublink"
-                                        >¿Cómo alquilar?</a
-                                    >
-                                    <a
-                                        href="../#found-us"
-                                        class="header--menu__sublink"
-                                        >Encuéntranos</a
-                                    >
-                                </div>
-                            </details>
-                        </li>
-                    </ul>
-                </nav>
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="../#our-services"
+                                    >Nuestros servicios</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="../#why"
+                                    >¿Cómo alquilar?</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="../#found-us"
+                                    >Encuéntranos</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
-                <label
-                    for="nav-toggle"
-                    class="header--toggle"
-                    aria-hidden="true"
+                <button
+                    class="navbar-toggler header--toggle"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#navDrawer"
+                    aria-controls="navDrawer"
+                    aria-expanded="false"
+                    aria-label="Menú de navegación"
                 >
                     <span
                         class="header--toggle__bar header--toggle__bar--top"
@@ -126,82 +126,87 @@
                     <span
                         class="header--toggle__bar header--toggle__bar--bottom"
                     ></span>
-                </label>
-            </div>
+                </button>
+            </nav>
 
-            <label
-                for="nav-toggle"
-                class="nav-scrim"
-                aria-hidden="true"
-            ></label>
-
-            <nav class="header--drawer" aria-label="Navegación móvil">
-                <p class="header--drawer__eyebrow">Menú</p>
-                <ul class="header--drawer__list">
-                    <li>
+            <div
+                class="offcanvas offcanvas-end header--drawer"
+                tabindex="-1"
+                id="navDrawer"
+                aria-labelledby="navDrawerLabel"
+            >
+                <p class="header--drawer__eyebrow" id="navDrawerLabel">
+                    Menú
+                </p>
+                <ul class="navbar-nav header--drawer__list">
+                    <li class="nav-item">
                         <a
                             href="../#top-app"
-                            class="header--drawer__link"
+                            class="nav-link header--drawer__link"
                             >Inicio</a
                         >
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a
                             href="../tarifas/"
-                            class="header--drawer__link"
+                            class="nav-link header--drawer__link"
                             >Tarifas y rutas</a
                         >
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a
                             href="./#top-app"
-                            class="header--drawer__link"
+                            class="nav-link header--drawer__link"
                             aria-current="page"
                             >Reservas</a
                         >
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a
                             href="../catalogo/"
-                            class="header--drawer__link"
+                            class="nav-link header--drawer__link"
                             >Catálogo</a
                         >
                     </li>
-                    <li>
-                        <details
-                            class="header--drawer__group"
-                            data-nav-dropdown
+                    <li class="nav-item">
+                        <button
+                            class="nav-link header--drawer__link header--drawer__toggle"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navDrawerNosotros"
+                            aria-expanded="false"
+                            aria-controls="navDrawerNosotros"
                         >
-                            <summary
-                                class="header--drawer__link header--drawer__toggle"
-                                >Nosotros</summary
+                            Nosotros
+                        </button>
+                        <div
+                            class="collapse header--drawer__submenu"
+                            id="navDrawerNosotros"
+                        >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="../#about-us"
+                                >¿Quiénes somos?</a
                             >
-                            <div class="header--drawer__submenu">
-                                <a
-                                    href="../#about-us"
-                                    class="header--drawer__sublink"
-                                    >¿Quiénes somos?</a
-                                >
-                                <a
-                                    href="../#our-services"
-                                    class="header--drawer__sublink"
-                                    >Nuestros servicios</a
-                                >
-                                <a
-                                    href="../#why"
-                                    class="header--drawer__sublink"
-                                    >¿Cómo alquilar?</a
-                                >
-                                <a
-                                    href="../#found-us"
-                                    class="header--drawer__sublink"
-                                    >Encuéntranos</a
-                                >
-                            </div>
-                        </details>
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="../#our-services"
+                                >Nuestros servicios</a
+                            >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="../#why"
+                                >¿Cómo alquilar?</a
+                            >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="../#found-us"
+                                >Encuéntranos</a
+                            >
+                        </div>
                     </li>
                 </ul>
-            </nav>
+            </div>
         </header>
 
         <main class="site-main">
@@ -222,7 +227,7 @@
 
                 <div class="reservas-hero__actions">
                     <a
-                        class="tarifas-button tarifas-button--primary"
+                        class="btn tarifas-button tarifas-button--primary"
                         href="#formulario"
                     >
                         <span class="icon" aria-hidden="true"
@@ -231,7 +236,7 @@
                         Reservar ahora
                     </a>
                     <a
-                        class="tarifas-button tarifas-button--ghost"
+                        class="btn tarifas-button tarifas-button--ghost"
                         href="../tarifas/"
                     >
                         <span class="icon" aria-hidden="true">sell</span>
@@ -256,86 +261,90 @@
                             </h2>
                         </div>
 
-                        <div class="reservas-info__schedules">
-                            <article
-                                class="tarifas-info__card tarifas-info__card--schedule"
-                            >
-                                <div
-                                    class="tarifas-info__week"
-                                    role="img"
-                                    aria-label="Los recorridos salen de lunes a viernes"
+                        <div class="reservas-info__schedules row">
+                            <div class="col-12 col-xl-6">
+                                <article
+                                    class="tarifas-info__card tarifas-info__card--schedule"
                                 >
-                                    <span class="tarifas-info__weekday tarifas-info__weekday--active">Lun</span>
-                                    <span class="tarifas-info__weekday tarifas-info__weekday--active">Mar</span>
-                                    <span class="tarifas-info__weekday tarifas-info__weekday--active">Mié</span>
-                                    <span class="tarifas-info__weekday tarifas-info__weekday--active">Jue</span>
-                                    <span class="tarifas-info__weekday tarifas-info__weekday--active">Vie</span>
-                                    <span class="tarifas-info__weekday">Sáb</span>
-                                    <span class="tarifas-info__weekday">Dom</span>
-                                </div>
+                                    <div
+                                        class="tarifas-info__week"
+                                        role="img"
+                                        aria-label="Los recorridos salen de lunes a viernes"
+                                    >
+                                        <span class="tarifas-info__weekday tarifas-info__weekday--active">Lun</span>
+                                        <span class="tarifas-info__weekday tarifas-info__weekday--active">Mar</span>
+                                        <span class="tarifas-info__weekday tarifas-info__weekday--active">Mié</span>
+                                        <span class="tarifas-info__weekday tarifas-info__weekday--active">Jue</span>
+                                        <span class="tarifas-info__weekday tarifas-info__weekday--active">Vie</span>
+                                        <span class="tarifas-info__weekday">Sáb</span>
+                                        <span class="tarifas-info__weekday">Dom</span>
+                                    </div>
 
-                                <div class="tarifas-info__times">
-                                    <p class="tarifas-info__time">
-                                        <span class="tarifas-info__time-label"
-                                            >Las salidas comienzan a las</span
-                                        >
-                                        <span class="tarifas-info__time-value">
-                                            <span class="icon" aria-hidden="true">schedule</span>
-                                            7:00 a. m.
-                                        </span>
-                                    </p>
+                                    <div class="tarifas-info__times">
+                                        <p class="tarifas-info__time">
+                                            <span class="tarifas-info__time-label"
+                                                >Las salidas comienzan a las</span
+                                            >
+                                            <span class="tarifas-info__time-value">
+                                                <span class="icon" aria-hidden="true">schedule</span>
+                                                7:00 a. m.
+                                            </span>
+                                        </p>
 
-                                    <p class="tarifas-info__time">
-                                        <span class="tarifas-info__time-label"
-                                            >Y terminan a las</span
-                                        >
-                                        <span class="tarifas-info__time-value">
-                                            <span class="icon" aria-hidden="true">schedule</span>
-                                            7:00 p. m.
-                                        </span>
-                                    </p>
-                                </div>
-                            </article>
+                                        <p class="tarifas-info__time">
+                                            <span class="tarifas-info__time-label"
+                                                >Y terminan a las</span
+                                            >
+                                            <span class="tarifas-info__time-value">
+                                                <span class="icon" aria-hidden="true">schedule</span>
+                                                7:00 p. m.
+                                            </span>
+                                        </p>
+                                    </div>
+                                </article>
+                            </div>
 
-                            <article
-                                class="tarifas-info__card tarifas-info__card--schedule"
-                            >
-                                <div
-                                    class="tarifas-info__week"
-                                    role="img"
-                                    aria-label="Los recorridos salen los sábados y domingos"
+                            <div class="col-12 col-xl-6">
+                                <article
+                                    class="tarifas-info__card tarifas-info__card--schedule"
                                 >
-                                    <span class="tarifas-info__weekday">Lun</span>
-                                    <span class="tarifas-info__weekday">Mar</span>
-                                    <span class="tarifas-info__weekday">Mié</span>
-                                    <span class="tarifas-info__weekday">Jue</span>
-                                    <span class="tarifas-info__weekday">Vie</span>
-                                    <span class="tarifas-info__weekday tarifas-info__weekday--active">Sáb</span>
-                                    <span class="tarifas-info__weekday tarifas-info__weekday--active">Dom</span>
-                                </div>
+                                    <div
+                                        class="tarifas-info__week"
+                                        role="img"
+                                        aria-label="Los recorridos salen los sábados y domingos"
+                                    >
+                                        <span class="tarifas-info__weekday">Lun</span>
+                                        <span class="tarifas-info__weekday">Mar</span>
+                                        <span class="tarifas-info__weekday">Mié</span>
+                                        <span class="tarifas-info__weekday">Jue</span>
+                                        <span class="tarifas-info__weekday">Vie</span>
+                                        <span class="tarifas-info__weekday tarifas-info__weekday--active">Sáb</span>
+                                        <span class="tarifas-info__weekday tarifas-info__weekday--active">Dom</span>
+                                    </div>
 
-                                <div class="tarifas-info__times">
-                                    <p class="tarifas-info__time">
-                                        <span class="tarifas-info__time-label"
-                                            >Las salidas comienzan a las</span
-                                        >
-                                        <span class="tarifas-info__time-value">
-                                            <span class="icon" aria-hidden="true">schedule</span>
-                                            6:00 a. m.
-                                        </span>
-                                    </p>
+                                    <div class="tarifas-info__times">
+                                        <p class="tarifas-info__time">
+                                            <span class="tarifas-info__time-label"
+                                                >Las salidas comienzan a las</span
+                                            >
+                                            <span class="tarifas-info__time-value">
+                                                <span class="icon" aria-hidden="true">schedule</span>
+                                                6:00 a. m.
+                                            </span>
+                                        </p>
 
-                                    <p class="tarifas-info__time">
-                                        <span class="tarifas-info__time-label"
-                                            >Y terminan a las</span
-                                        >
-                                        <span class="tarifas-info__time-value">
-                                            <span class="icon" aria-hidden="true">schedule</span>
-                                            2:00 p. m.
-                                        </span>
-                                    </p>
-                                </div>
-                            </article>
+                                        <p class="tarifas-info__time">
+                                            <span class="tarifas-info__time-label"
+                                                >Y terminan a las</span
+                                            >
+                                            <span class="tarifas-info__time-value">
+                                                <span class="icon" aria-hidden="true">schedule</span>
+                                                2:00 p. m.
+                                            </span>
+                                        </p>
+                                    </div>
+                                </article>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -380,13 +389,13 @@
                             >
                             Tus datos
                         </legend>
-                        <div class="reservas-form__grid">
+                        <div class="reservas-form__grid row">
                             <div
                                 class="reservas-form__field reservas-form__field--full"
                                 data-field="nombre"
                             >
                                 <label
-                                    class="reservas-form__label"
+                                    class="reservas-form__label form-label"
                                     for="reserva-nombre"
                                 >
                                     Nombre completo
@@ -403,7 +412,7 @@
                                         >person</span
                                     >
                                     <input
-                                        class="reservas-form__input"
+                                        class="reservas-form__input form-control"
                                         id="reserva-nombre"
                                         name="nombre"
                                         type="text"
@@ -415,206 +424,214 @@
                                     />
                                 </div>
                                 <p
-                                    class="reservas-form__error"
+                                    class="reservas-form__error form-text"
                                     id="reserva-nombre-error"
                                     aria-live="polite"
                                 ></p>
                             </div>
 
-                            <div
-                                class="reservas-form__field"
-                                data-field="tipo_documento"
-                            >
-                                <label
-                                    class="reservas-form__label"
-                                    id="reserva-tipo-documento-label"
-                                    for="reserva-tipo-documento"
+                            <div class="col-12 col-md-6">
+                                <div
+                                    class="reservas-form__field"
+                                    data-field="tipo_documento"
                                 >
-                                    Tipo de documento
-                                    <span
-                                        class="reservas-form__required"
-                                        aria-hidden="true"
-                                        >*</span
+                                    <label
+                                        class="reservas-form__label form-label"
+                                        id="reserva-tipo-documento-label"
+                                        for="reserva-tipo-documento"
                                     >
-                                </label>
-                                <div class="reservas-select" data-select>
-                                    <select
-                                        class="reservas-form__select reservas-select__native"
-                                        id="reserva-tipo-documento"
-                                        name="tipo_documento"
-                                        aria-describedby="reserva-tipo-documento-error"
-                                        required
-                                    >
-                                        <option value="" disabled selected>
-                                            Selecciona el tipo de documento
-                                        </option>
-                                        <option
-                                            value="Cédula de ciudadanía"
-                                            data-icon="badge"
+                                        Tipo de documento
+                                        <span
+                                            class="reservas-form__required"
+                                            aria-hidden="true"
+                                            >*</span
                                         >
-                                            Cédula de ciudadanía
-                                        </option>
-                                        <option
-                                            value="Cédula de extranjería"
-                                            data-icon="badge"
+                                    </label>
+                                    <div class="reservas-select" data-select>
+                                        <select
+                                            class="reservas-form__select reservas-select__native form-select"
+                                            id="reserva-tipo-documento"
+                                            name="tipo_documento"
+                                            aria-describedby="reserva-tipo-documento-error"
+                                            required
                                         >
-                                            Cédula de extranjería
-                                        </option>
-                                        <option
-                                            value="Tarjeta de Identidad"
-                                            data-icon="id_card"
-                                        >
-                                            Tarjeta de Identidad
-                                        </option>
-                                        <option
-                                            value="Pasaporte"
-                                            data-icon="passport"
-                                        >
-                                            Pasaporte
-                                        </option>
-                                        <option value="Otro" data-icon="id_card">
-                                            Otro
-                                        </option>
-                                    </select>
+                                            <option value="" disabled selected>
+                                                Selecciona el tipo de documento
+                                            </option>
+                                            <option
+                                                value="Cédula de ciudadanía"
+                                                data-icon="badge"
+                                            >
+                                                Cédula de ciudadanía
+                                            </option>
+                                            <option
+                                                value="Cédula de extranjería"
+                                                data-icon="badge"
+                                            >
+                                                Cédula de extranjería
+                                            </option>
+                                            <option
+                                                value="Tarjeta de Identidad"
+                                                data-icon="id_card"
+                                            >
+                                                Tarjeta de Identidad
+                                            </option>
+                                            <option
+                                                value="Pasaporte"
+                                                data-icon="passport"
+                                            >
+                                                Pasaporte
+                                            </option>
+                                            <option value="Otro" data-icon="id_card">
+                                                Otro
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <p
+                                        class="reservas-form__error form-text"
+                                        id="reserva-tipo-documento-error"
+                                        aria-live="polite"
+                                    ></p>
                                 </div>
-                                <p
-                                    class="reservas-form__error"
-                                    id="reserva-tipo-documento-error"
-                                    aria-live="polite"
-                                ></p>
                             </div>
 
-                            <div
-                                class="reservas-form__field"
-                                data-field="documento"
-                            >
-                                <label
-                                    class="reservas-form__label"
-                                    for="reserva-documento"
+                            <div class="col-12 col-md-6">
+                                <div
+                                    class="reservas-form__field"
+                                    data-field="documento"
                                 >
-                                    Número de documento
-                                    <span
-                                        class="reservas-form__required"
-                                        aria-hidden="true"
-                                        >*</span
+                                    <label
+                                        class="reservas-form__label form-label"
+                                        for="reserva-documento"
                                     >
-                                </label>
-                                <div class="reservas-form__control">
-                                    <span
-                                        class="icon reservas-form__control-icon"
-                                        aria-hidden="true"
-                                        >badge</span
-                                    >
-                                    <input
-                                        class="reservas-form__input"
-                                        id="reserva-documento"
-                                        name="documento"
-                                        type="text"
-                                        inputmode="numeric"
-                                        pattern="[0-9]{6,10}"
-                                        minlength="6"
-                                        maxlength="10"
-                                        autocomplete="off"
-                                        placeholder="1234567890"
-                                        aria-describedby="reserva-documento-error"
-                                        required
-                                    />
+                                        Número de documento
+                                        <span
+                                            class="reservas-form__required"
+                                            aria-hidden="true"
+                                            >*</span
+                                        >
+                                    </label>
+                                    <div class="reservas-form__control">
+                                        <span
+                                            class="icon reservas-form__control-icon"
+                                            aria-hidden="true"
+                                            >badge</span
+                                        >
+                                        <input
+                                            class="reservas-form__input form-control"
+                                            id="reserva-documento"
+                                            name="documento"
+                                            type="text"
+                                            inputmode="numeric"
+                                            pattern="[0-9]{6,10}"
+                                            minlength="6"
+                                            maxlength="10"
+                                            autocomplete="off"
+                                            placeholder="1234567890"
+                                            aria-describedby="reserva-documento-error"
+                                            required
+                                        />
+                                    </div>
+                                    <p
+                                        class="reservas-form__error form-text"
+                                        id="reserva-documento-error"
+                                        aria-live="polite"
+                                    ></p>
                                 </div>
-                                <p
-                                    class="reservas-form__error"
-                                    id="reserva-documento-error"
-                                    aria-live="polite"
-                                ></p>
                             </div>
 
-                            <div
-                                class="reservas-form__field"
-                                data-field="telefono"
-                            >
-                                <label
-                                    class="reservas-form__label"
-                                    for="reserva-telefono"
+                            <div class="col-12 col-md-6">
+                                <div
+                                    class="reservas-form__field"
+                                    data-field="telefono"
                                 >
-                                    Celular
-                                    <span
-                                        class="reservas-form__required"
-                                        aria-hidden="true"
-                                        >*</span
+                                    <label
+                                        class="reservas-form__label form-label"
+                                        for="reserva-telefono"
                                     >
-                                </label>
-                                <div class="reservas-form__control">
-                                    <span
-                                        class="icon reservas-form__control-icon"
-                                        aria-hidden="true"
-                                        >call</span
+                                        Celular
+                                        <span
+                                            class="reservas-form__required"
+                                            aria-hidden="true"
+                                            >*</span
+                                        >
+                                    </label>
+                                    <div class="reservas-form__control">
+                                        <span
+                                            class="icon reservas-form__control-icon"
+                                            aria-hidden="true"
+                                            >call</span
+                                        >
+                                        <input
+                                            class="reservas-form__input form-control"
+                                            id="reserva-telefono"
+                                            name="telefono"
+                                            type="tel"
+                                            autocomplete="tel"
+                                            inputmode="numeric"
+                                            pattern="3[0-9]{9}"
+                                            minlength="10"
+                                            maxlength="10"
+                                            placeholder="3001234567"
+                                            aria-describedby="reserva-telefono-hint reserva-telefono-error"
+                                            required
+                                        />
+                                    </div>
+                                    <p
+                                        class="reservas-form__hint form-text"
+                                        id="reserva-telefono-hint"
                                     >
-                                    <input
-                                        class="reservas-form__input"
-                                        id="reserva-telefono"
-                                        name="telefono"
-                                        type="tel"
-                                        autocomplete="tel"
-                                        inputmode="numeric"
-                                        pattern="3[0-9]{9}"
-                                        minlength="10"
-                                        maxlength="10"
-                                        placeholder="3001234567"
-                                        aria-describedby="reserva-telefono-hint reserva-telefono-error"
-                                        required
-                                    />
+                                        Celular colombiano de 10 dígitos, debe
+                                        comenzar por 3.
+                                    </p>
+                                    <p
+                                        class="reservas-form__error form-text"
+                                        id="reserva-telefono-error"
+                                        aria-live="polite"
+                                    ></p>
                                 </div>
-                                <p
-                                    class="reservas-form__hint"
-                                    id="reserva-telefono-hint"
-                                >
-                                    Celular colombiano de 10 dígitos, debe
-                                    comenzar por 3.
-                                </p>
-                                <p
-                                    class="reservas-form__error"
-                                    id="reserva-telefono-error"
-                                    aria-live="polite"
-                                ></p>
                             </div>
 
-                            <div
-                                class="reservas-form__field"
-                                data-field="email"
-                            >
-                                <label
-                                    class="reservas-form__label"
-                                    for="reserva-email"
+                            <div class="col-12 col-md-6">
+                                <div
+                                    class="reservas-form__field"
+                                    data-field="email"
                                 >
-                                    Correo electrónico
-                                    <span
-                                        class="reservas-form__required"
-                                        aria-hidden="true"
-                                        >*</span
+                                    <label
+                                        class="reservas-form__label form-label"
+                                        for="reserva-email"
                                     >
-                                </label>
-                                <div class="reservas-form__control">
-                                    <span
-                                        class="icon reservas-form__control-icon"
-                                        aria-hidden="true"
-                                        >alternate_email</span
-                                    >
-                                    <input
-                                        class="reservas-form__input"
-                                        id="reserva-email"
-                                        name="email"
-                                        type="email"
-                                        autocomplete="email"
-                                        inputmode="email"
-                                        placeholder="tu@correo.com"
-                                        aria-describedby="reserva-email-error"
-                                        required
-                                    />
+                                        Correo electrónico
+                                        <span
+                                            class="reservas-form__required"
+                                            aria-hidden="true"
+                                            >*</span
+                                        >
+                                    </label>
+                                    <div class="reservas-form__control">
+                                        <span
+                                            class="icon reservas-form__control-icon"
+                                            aria-hidden="true"
+                                            >alternate_email</span
+                                        >
+                                        <input
+                                            class="reservas-form__input form-control"
+                                            id="reserva-email"
+                                            name="email"
+                                            type="email"
+                                            autocomplete="email"
+                                            inputmode="email"
+                                            placeholder="tu@correo.com"
+                                            aria-describedby="reserva-email-error"
+                                            required
+                                        />
+                                    </div>
+                                    <p
+                                        class="reservas-form__error form-text"
+                                        id="reserva-email-error"
+                                        aria-live="polite"
+                                    ></p>
                                 </div>
-                                <p
-                                    class="reservas-form__error"
-                                    id="reserva-email-error"
-                                    aria-live="polite"
-                                ></p>
                             </div>
                         </div>
                     </fieldset>
@@ -634,7 +651,7 @@
                                 data-field="fecha"
                             >
                                 <label
-                                    class="reservas-form__label"
+                                    class="reservas-form__label form-label"
                                     for="reserva-fecha"
                                 >
                                     Fecha de inicio
@@ -655,7 +672,7 @@
                                         data-picker="date"
                                     >
                                         <input
-                                            class="reservas-form__input reservas-picker__native"
+                                            class="reservas-form__input reservas-picker__native form-control"
                                             id="reserva-fecha"
                                             name="fecha"
                                             type="date"
@@ -665,7 +682,7 @@
                                     </div>
                                 </div>
                                 <p
-                                    class="reservas-form__error"
+                                    class="reservas-form__error form-text"
                                     id="reserva-fecha-error"
                                     aria-live="polite"
                                 ></p>
@@ -673,7 +690,7 @@
 
                             <div class="reservas-form__field" data-field="hora">
                                 <label
-                                    class="reservas-form__label"
+                                    class="reservas-form__label form-label"
                                     for="reserva-hora"
                                 >
                                     Hora de inicio
@@ -694,7 +711,7 @@
                                         data-picker="time"
                                     >
                                         <input
-                                            class="reservas-form__input reservas-picker__native"
+                                            class="reservas-form__input reservas-picker__native form-control"
                                             id="reserva-hora"
                                             name="hora"
                                             type="time"
@@ -707,7 +724,7 @@
                                     </div>
                                 </div>
                                 <p
-                                    class="reservas-form__error"
+                                    class="reservas-form__error form-text"
                                     id="reserva-hora-error"
                                     aria-live="polite"
                                 ></p>
@@ -715,7 +732,7 @@
 
                             <div class="reservas-form__field" data-field="tipo">
                                 <label
-                                    class="reservas-form__label"
+                                    class="reservas-form__label form-label"
                                     id="reserva-tipo-label"
                                     for="reserva-tipo"
                                 >
@@ -728,7 +745,7 @@
                                 </label>
                                 <div class="reservas-select" data-select>
                                     <select
-                                        class="reservas-form__select reservas-select__native"
+                                        class="reservas-form__select reservas-select__native form-select"
                                         id="reserva-tipo"
                                         name="tipo"
                                         aria-describedby="reserva-tipo-error"
@@ -793,7 +810,7 @@
                                     </select>
                                 </div>
                                 <p
-                                    class="reservas-form__error"
+                                    class="reservas-form__error form-text"
                                     id="reserva-tipo-error"
                                     aria-live="polite"
                                 ></p>
@@ -804,7 +821,7 @@
                                 data-field="cantidad"
                             >
                                 <label
-                                    class="reservas-form__label"
+                                    class="reservas-form__label form-label"
                                     for="reserva-cantidad"
                                 >
                                     Cantidad de bicicletas
@@ -830,7 +847,7 @@
                                             >
                                         </button>
                                         <input
-                                            class="reservas-quantity__input"
+                                            class="reservas-quantity__input form-control"
                                             id="reserva-cantidad"
                                             name="cantidad"
                                             type="number"
@@ -864,7 +881,7 @@
                                     </p>
                                 </div>
                                 <p
-                                    class="reservas-form__error"
+                                    class="reservas-form__error form-text"
                                     id="reserva-cantidad-error"
                                     aria-live="polite"
                                 ></p>
@@ -875,7 +892,7 @@
                                 data-field="duracion"
                             >
                                 <label
-                                    class="reservas-form__label"
+                                    class="reservas-form__label form-label"
                                     id="reserva-duracion-label"
                                     for="reserva-duracion"
                                 >
@@ -888,7 +905,7 @@
                                 </label>
                                 <div class="reservas-select" data-select>
                                     <select
-                                        class="reservas-form__select reservas-select__native"
+                                        class="reservas-form__select reservas-select__native form-select"
                                         id="reserva-duracion"
                                         name="duracion"
                                         aria-describedby="reserva-duracion-error"
@@ -926,7 +943,7 @@
                                     </select>
                                 </div>
                                 <p
-                                    class="reservas-form__error"
+                                    class="reservas-form__error form-text"
                                     id="reserva-duracion-error"
                                     aria-live="polite"
                                 ></p>
@@ -937,7 +954,7 @@
                                 data-field="recorrido"
                             >
                                 <label
-                                    class="reservas-form__label"
+                                    class="reservas-form__label form-label"
                                     id="reserva-recorrido-label"
                                     for="reserva-recorrido"
                                 >
@@ -948,7 +965,7 @@
                                 </label>
                                 <div class="reservas-select" data-select>
                                     <select
-                                        class="reservas-form__select reservas-select__native"
+                                        class="reservas-form__select reservas-select__native form-select"
                                         id="reserva-recorrido"
                                         name="recorrido"
                                     >
@@ -1000,7 +1017,7 @@
                         </legend>
                         <div class="reservas-form__field" data-field="mensaje">
                             <label
-                                class="reservas-form__label"
+                                class="reservas-form__label form-label"
                                 for="reserva-mensaje"
                             >
                                 ¿Algo que debamos saber?
@@ -1017,7 +1034,7 @@
                                     >chat</span
                                 >
                                 <textarea
-                                    class="reservas-form__textarea"
+                                    class="reservas-form__textarea form-control"
                                     id="reserva-mensaje"
                                     name="mensaje"
                                     rows="4"
@@ -1041,14 +1058,14 @@
                             data-field="metodo_contacto"
                         >
                             <label
-                                class="reservas-form__label"
+                                class="reservas-form__label form-label"
                                 for="reserva-metodo-contacto"
                             >
                                 ¿Cómo prefieres que te contactemos?
                             </label>
                             <div class="reservas-select" data-select>
                                 <select
-                                    class="reservas-form__select reservas-select__native"
+                                    class="reservas-form__select reservas-select__native form-select"
                                     id="reserva-metodo-contacto"
                                     name="metodo_contacto"
                                     aria-describedby="reserva-metodo-contacto-error"
@@ -1073,7 +1090,7 @@
                                 </select>
                             </div>
                             <p
-                                class="reservas-form__error"
+                                class="reservas-form__error form-text"
                                 id="reserva-metodo-contacto-error"
                                 aria-live="polite"
                             ></p>
@@ -1089,6 +1106,7 @@
                             >
                                 <input
                                     id="reserva-consentimiento"
+                                    class="form-check-input"
                                     name="consentimiento"
                                     type="checkbox"
                                     aria-describedby="reserva-consentimiento-error"
@@ -1110,7 +1128,7 @@
                                 </span>
                             </label>
                             <p
-                                class="reservas-form__error"
+                                class="reservas-form__error form-text"
                                 id="reserva-consentimiento-error"
                                 aria-live="polite"
                             ></p>
@@ -1118,7 +1136,7 @@
 
                         <div class="reservas-form__actions">
                             <button
-                                class="tarifas-button tarifas-button--primary reservas-form__submit"
+                                class="btn tarifas-button tarifas-button--primary reservas-form__submit"
                                 type="submit"
                             >
                                 <span class="icon" aria-hidden="true">send</span>
@@ -1156,7 +1174,7 @@
 
                         <div class="found-us--buttons">
                         <a
-                            class="found-us--button found-us--button__primary"
+                            class="found-us--button found-us--button__primary btn"
                             href="mailto:hola@ruedalibre.example"
                         >
                             <span
@@ -1174,7 +1192,7 @@
                             >
                         </a>
                         <a
-                            class="found-us--button found-us--button__secondary"
+                            class="found-us--button found-us--button__secondary btn"
                             href="https://wa.me/573000000000"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -1203,7 +1221,7 @@
                             >
                         </a>
                                             <a
-                        class="found-us--button found-us--button__secondary"
+                        class="found-us--button found-us--button__secondary btn"
                         href="https://www.google.com/maps/search/?api=1&query=Medellin%2C%20Colombia"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -1242,13 +1260,13 @@
 
                     <div class="footer__cta-actions">
                         <a
-                            class="footer__button footer__button--filled"
+                            class="footer__button footer__button--filled btn"
                             href="#contacto"
                         >
                             Reservar una bicicleta
                         </a>
                         <a
-                            class="footer__button footer__button--outlined"
+                            class="footer__button footer__button--outlined btn"
                             href="../tarifas/"
                         >
                             Ver tarifas y rutas
@@ -1458,7 +1476,7 @@
 
                 <footer class="reservas-modal__actions">
                     <a
-                        class="tarifas-button tarifas-button--primary reservas-modal__mail"
+                        class="btn tarifas-button tarifas-button--primary reservas-modal__mail"
                         href="#formulario"
                         data-confirmation-mail
                     >
@@ -1466,7 +1484,7 @@
                         Abrir correo con mi solicitud
                     </a>
                     <button
-                        class="tarifas-button tarifas-button--ghost"
+                        class="btn tarifas-button tarifas-button--ghost"
                         type="button"
                         data-confirmation-dismiss
                     >

@@ -86,13 +86,8 @@
     }
 
     .reservas-form__grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem 1.1rem;
-
-        @media (width >= 721px) {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+        --bs-gutter-x: 1.1rem;
+        --bs-gutter-y: 1rem;
     }
 
     .reservas-form__field {
@@ -114,6 +109,9 @@
         color: var(--color-on-surface);
         font-size: 0.86rem;
         font-weight: 600;
+        /* Bootstrap anade un margen inferior a `.form-label`; aqui las
+           etiquetas se apoyan en el `gap` de la rejilla. */
+        margin-bottom: 0;
     }
 
     .reservas-form__required {
@@ -162,6 +160,7 @@
     .reservas-form__textarea,
     .reservas-select__button,
     .reservas-picker__button {
+        display: inline-block;
         width: 100%;
         min-height: 3.1rem;
         padding: 0.8rem 0.95rem;
@@ -170,11 +169,15 @@
             var(--color-surface-container-highest) 70%,
             transparent
         );
+        /* El fondo llega hasta el borde, como en el diseno original: con
+           `padding-box` de Bootstrap el borde se veria mas oscuro. */
+        background-clip: border-box;
         border: 1px solid
             color-mix(in oklab, var(--color-outline-variant) 65%, transparent);
         border-radius: 0.85rem;
         color: var(--color-on-surface);
         font: inherit;
+        appearance: auto;
         transition:
             border-color var(--motion-fast) var(--ease-emphasized),
             background-color var(--motion-fast) var(--ease-emphasized);
