@@ -41,7 +41,10 @@ El repositorio ya incluye `vercel.json`, de modo que Vercel puede compilar y pub
    | Install Command     | `npm ci`         |
    | Build Command       | `npm run build`  |
    | Output Directory    | `dist`           |
-   | Node.js Version     | 22.x             |
+
+   La versión de Node se define en **Project Settings → Node.js Version** (o
+   con el campo `engines` de `package.json`, que Vercel también lee). No se
+   puede fijar en `vercel.json`, porque esa propiedad no está permitida ahí.
 
 4. Pulsa **Deploy**. Cada `push` a la rama principal republica el sitio.
 

@@ -611,7 +611,6 @@ que Vercel lo compile y lo sirva se añadió vercel.json:
   la carpeta donde vite.config.ts deja la compilación.
 - installCommand: "npm ci", para instalar exactamente las versiones del
   package-lock.json.
-- engines.node: 22.x, la versión de Node con la que se valida el proyecto.
 - trailingSlash: true, necesario porque las páginas se enlazan entre sí con
   rutas relativas (../tarifas/): la barra final mantiene la resolución
   correcta de esos enlaces en el navegador.
