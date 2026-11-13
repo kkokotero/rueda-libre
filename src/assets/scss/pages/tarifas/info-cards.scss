@@ -25,14 +25,9 @@
     }
 
     .tarifas-info__grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1rem;
         margin-top: 1.75rem;
-
-        @media (width >= 921px) {
-            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-        }
     }
 
     .tarifas-info__card {

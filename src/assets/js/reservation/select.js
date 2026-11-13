@@ -49,7 +49,7 @@ export function initializeReservationSelects(pickerCore) {
         const button = element`<button
             type="button"
             id="${buttonId}"
-            class="reservas-select__button reservas-picker__button"
+            class="reservas-select__button reservas-picker__button form-control"
             role="combobox"
             aria-haspopup="listbox"
             aria-expanded="false"

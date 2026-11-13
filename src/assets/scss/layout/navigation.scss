@@ -3,11 +3,14 @@
     .site-header {
         position: sticky;
         top: 1rem;
-        z-index: 1000;
+        /* Por encima del velo del cajón (1040) para que la barra siga
+           visible, como antes de migrar a `offcanvas`. */
+        z-index: 1046;
     }
 
     .header {
         display: flex;
+        flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
         gap: 1rem;
@@ -64,22 +67,16 @@
         }
     }
 
-    .header--logo {
-        margin-left: 0.25rem;
+    .header--logo__link {
         display: flex;
-        justify-content: center;
         align-items: center;
         flex-shrink: 0;
+        margin: 0 0 0 0.25rem;
+        padding: 0;
 
         @media (width >= 861px) {
             margin-left: 1rem;
         }
-    }
-
-    .header--logo__icon {
-        color: var(--color-on-surface);
-        font-size: 8rem;
-        transform: translateY(5%);
     }
 
     .header--logo__image {
@@ -95,44 +92,31 @@
         }
     }
 
-    .header--menu {
-        display: none;
-
-        @media (width >= 861px) {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            justify-content: flex-start;
-            margin-left: auto;
-            min-width: 0;
-        }
-    }
-
     .header--menu__list {
-        display: flex;
+        display: none;
+        flex-direction: row;
         align-items: center;
         gap: 0.3rem;
         margin: 0;
         padding: 0;
         list-style: none;
-    }
 
-    .header--drawer__list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        margin: 0;
-        padding: 0;
-        list-style: none;
+        @media (width >= 861px) {
+            display: flex;
+            margin-left: auto;
+        }
     }
 
     .header--menu__link {
-        text-decoration: none;
+        display: inline;
+        padding: 0.7rem 0.85rem;
+        border: 0;
+        background: none;
         color: var(--color-on-surface);
         font-size: 0.9rem;
         font-weight: 500;
         white-space: nowrap;
-        padding: 0.7rem 0.85rem;
+        text-decoration: none;
         border-radius: var(--radius-pill);
         transition:
             background-color var(--motion-fast) var(--ease-emphasized),
@@ -164,6 +148,7 @@
     }
 
     .header--menu__item {
+        position: relative;
         list-style: none;
     }
 
@@ -174,25 +159,29 @@
         list-style: none;
         cursor: pointer;
         user-select: none;
+        /* Los botones no heredan el interlineado del documento. */
+        line-height: inherit;
     }
 
-    .header--menu__toggle::-webkit-details-marker {
-        display: none;
-    }
-
+    /* El caret de Bootstrap se sustituye por la flecha del diseño. */
     .header--menu__toggle::after {
         content: "";
+        display: block;
         width: 0.45rem;
         height: 0.45rem;
+        margin-left: 0;
         right: 0.5rem;
         top: 50%;
+        flex-shrink: 0;
+        border: 0;
         border-right: 2px solid currentColor;
         border-bottom: 2px solid currentColor;
+        background: none;
         transform: rotate(45deg);
-        flex-shrink: 0;
+        transition: transform var(--motion-fast) var(--ease-emphasized);
     }
 
-    .header--menu__item[open] > .header--menu__toggle {
+    .header--menu__toggle.show {
         background-color: color-mix(
             in oklab,
             var(--color-primary) 14%,
@@ -201,7 +190,7 @@
         color: var(--color-primary);
     }
 
-    .header--menu__item[open] > .header--menu__toggle::after {
+    .header--menu__toggle.show::after {
         transform: rotate(-135deg) translateY(-50%) translateX(-20%);
     }
 
@@ -209,10 +198,14 @@
         position: absolute;
         top: calc(100% + 1rem);
         right: 0;
+        /* Bootstrap anade `left: 0` al desplegable; se descarta para que
+           quede pegado al borde derecho del boton. */
+        left: auto;
         z-index: 10;
-        display: grid;
+        display: none;
         gap: 0.15rem;
         min-width: 15rem;
+        margin: 0;
         padding: 0.5rem;
         border: 1px solid
             color-mix(in oklab, var(--color-outline-variant) 60%, transparent);
@@ -222,18 +215,26 @@
             var(--color-surface-container) 96%,
             transparent
         );
+        box-shadow: none;
         -webkit-backdrop-filter: blur(1rem);
         backdrop-filter: blur(1rem);
     }
 
+    .header--menu__submenu.show {
+        display: grid;
+    }
+
     .header--menu__sublink {
         display: flex;
-        align-items: center;
+        width: 100%;
         padding: 0.7rem 0.9rem;
+        border: 0;
         border-radius: var(--radius-sm);
+        background-color: transparent;
         color: var(--color-on-surface);
         font-size: 0.95rem;
         font-weight: 500;
+        text-align: left;
         text-decoration: none;
         white-space: nowrap;
         transition:
@@ -251,28 +252,7 @@
         }
     }
 
-    .nav-toggle {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        opacity: 0;
-        pointer-events: none;
-        clip-path: inset(50%);
-
-        @media (width >= 861px) {
-            display: none;
-        }
-    }
-
-    :root:has(.nav-toggle:focus-visible) .header--toggle {
-        outline: 3px solid var(--color-primary);
-        outline-offset: 3px;
-    }
-
+    /* Contenido principal: ancho maximo y centrado. */
     .site-main {
         max-width: 92vw;
         max-width: 92dvw;

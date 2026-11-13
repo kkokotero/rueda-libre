@@ -11,13 +11,8 @@
     }
 
     .reservas-info__schedules {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-
-        @media (width >= 921px) {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1rem;
     }
 
     .reservas-info__schedules .tarifas-info__card,

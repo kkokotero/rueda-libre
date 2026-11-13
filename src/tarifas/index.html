@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-bs-theme="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,65 +18,104 @@
         <link rel="stylesheet" href="../assets/scss/tarifas.scss" />
     </head>
 
-    <body data-theme="dark">
+    <body>
         <span id="top-app"></span>
         <header class="site-header">
-            <input
-                type="checkbox"
-                id="nav-toggle"
-                class="nav-toggle"
-                aria-label="Menú de navegación"
-            />
+            <nav class="navbar header" aria-label="Navegación principal">
+                <a
+                    class="navbar-brand header--logo__link"
+                    href="../#top-app"
+                    aria-label="Rueda Libre, volver al inicio"
+                >
+                    <img
+                        class="header--logo__image"
+                        src="../assets/img/logo.svg"
+                        alt="Rueda Libre"
+                        width="128"
+                        height="103"
+                    />
+                </a>
 
-            <div class="header">
-                <nav class="header--logo">
-                    <a
-                        class="header--logo__link"
-                        href="../#top-app"
-                        aria-label="Rueda Libre, volver al inicio"
-                    >
-                        <img
-                            class="header--logo__image"
-                            src="../assets/img/logo.svg"
-                            alt="Rueda Libre"
-                            width="128"
-                            height="103"
-                        />
-                    </a>
-                </nav>
+                <ul class="navbar-nav header--menu__list">
+                    <li class="nav-item">
+                        <a
+                            href="../#top-app"
+                            class="nav-link header--menu__link"
+                            >Inicio</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="./#top-app"
+                            class="nav-link header--menu__link"
+                            aria-current="page"
+                            >Tarifas y rutas</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="../reservas/"
+                            class="nav-link header--menu__link"
+                            >Reservas</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="../catalogo/"
+                            class="nav-link header--menu__link"
+                            >Catálogo</a
+                        >
+                    </li>
+                    <li class="nav-item dropdown header--menu__item">
+                        <button
+                            class="nav-link dropdown-toggle header--menu__link header--menu__toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Nosotros
+                        </button>
+                        <ul class="dropdown-menu header--menu__submenu">
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="../#about-us"
+                                    >¿Quiénes somos?</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="../#our-services"
+                                    >Nuestros servicios</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="../#why"
+                                    >¿Cómo alquilar?</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item header--menu__sublink"
+                                    href="../#found-us"
+                                    >Encuéntranos</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
-                <nav class="header--menu" aria-label="Navegación principal">
-                    <ul class="header--menu__list">
-                        <li>
-                            <a href="../#top-app" class="header--menu__link">Inicio</a>
-                        </li>
-                        <li>
-                            <a href="./#top-app" class="header--menu__link" aria-current="page">Tarifas y rutas</a>
-                        </li>
-                        <li>
-                            <a href="../reservas/" class="header--menu__link">Reservas</a>
-                        </li>
-                        <li>
-                            <a href="../catalogo/" class="header--menu__link">Catálogo</a>
-                        </li>
-                        <li>
-                            <details class="header--menu__item" data-nav-dropdown>
-                                <summary class="header--menu__link header--menu__toggle">Nosotros</summary>
-                                <div class="header--menu__submenu">
-                                    <a href="../#about-us" class="header--menu__sublink">¿Quiénes somos?</a>
-                                    <a href="../#our-services" class="header--menu__sublink">Nuestros servicios</a>
-                                    <a href="../#why" class="header--menu__sublink">¿Cómo alquilar?</a>
-                                    <a href="../#found-us" class="header--menu__sublink">Encuéntranos</a>
-                                </div>
-                            </details>
-                        </li>
-                    </ul>
-                </nav>
-
-                <label
-                    for="nav-toggle"
-                    class="header--toggle"
-                    aria-hidden="true"
+                <button
+                    class="navbar-toggler header--toggle"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#navDrawer"
+                    aria-controls="navDrawer"
+                    aria-expanded="false"
+                    aria-label="Menú de navegación"
                 >
                     <span
                         class="header--toggle__bar header--toggle__bar--top"
@@ -87,43 +126,87 @@
                     <span
                         class="header--toggle__bar header--toggle__bar--bottom"
                     ></span>
-                </label>
-            </div>
+                </button>
+            </nav>
 
-            <label
-                for="nav-toggle"
-                class="nav-scrim"
-                aria-hidden="true"
-            ></label>
-
-            <nav class="header--drawer" aria-label="Navegación móvil">
-                <p class="header--drawer__eyebrow">Menú</p>
-                <ul class="header--drawer__list">
-                    <li>
-                        <a href="../#top-app" class="header--drawer__link">Inicio</a>
+            <div
+                class="offcanvas offcanvas-end header--drawer"
+                tabindex="-1"
+                id="navDrawer"
+                aria-labelledby="navDrawerLabel"
+            >
+                <p class="header--drawer__eyebrow" id="navDrawerLabel">
+                    Menú
+                </p>
+                <ul class="navbar-nav header--drawer__list">
+                    <li class="nav-item">
+                        <a
+                            href="../#top-app"
+                            class="nav-link header--drawer__link"
+                            >Inicio</a
+                        >
                     </li>
-                    <li>
-                        <a href="./#top-app" class="header--drawer__link" aria-current="page">Tarifas y rutas</a>
+                    <li class="nav-item">
+                        <a
+                            href="./#top-app"
+                            class="nav-link header--drawer__link"
+                            aria-current="page"
+                            >Tarifas y rutas</a
+                        >
                     </li>
-                    <li>
-                        <a href="../reservas/" class="header--drawer__link">Reservas</a>
+                    <li class="nav-item">
+                        <a
+                            href="../reservas/"
+                            class="nav-link header--drawer__link"
+                            >Reservas</a
+                        >
                     </li>
-                    <li>
-                        <a href="../catalogo/" class="header--drawer__link">Catálogo</a>
+                    <li class="nav-item">
+                        <a
+                            href="../catalogo/"
+                            class="nav-link header--drawer__link"
+                            >Catálogo</a
+                        >
                     </li>
-                    <li>
-                        <details class="header--drawer__group" data-nav-dropdown>
-                            <summary class="header--drawer__link header--drawer__toggle">Nosotros</summary>
-                            <div class="header--drawer__submenu">
-                                <a href="../#about-us" class="header--drawer__sublink">¿Quiénes somos?</a>
-                                <a href="../#our-services" class="header--drawer__sublink">Nuestros servicios</a>
-                                <a href="../#why" class="header--drawer__sublink">¿Cómo alquilar?</a>
-                                <a href="../#found-us" class="header--drawer__sublink">Encuéntranos</a>
-                            </div>
-                        </details>
+                    <li class="nav-item">
+                        <button
+                            class="nav-link header--drawer__link header--drawer__toggle"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navDrawerNosotros"
+                            aria-expanded="false"
+                            aria-controls="navDrawerNosotros"
+                        >
+                            Nosotros
+                        </button>
+                        <div
+                            class="collapse header--drawer__submenu"
+                            id="navDrawerNosotros"
+                        >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="../#about-us"
+                                >¿Quiénes somos?</a
+                            >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="../#our-services"
+                                >Nuestros servicios</a
+                            >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="../#why"
+                                >¿Cómo alquilar?</a
+                            >
+                            <a
+                                class="nav-link header--drawer__sublink"
+                                href="../#found-us"
+                                >Encuéntranos</a
+                            >
+                        </div>
                     </li>
                 </ul>
-            </nav>
+            </div>
         </header>
 
         <main class="site-main">
@@ -143,14 +226,14 @@
 
                 <div class="tarifas-hero__actions">
                     <a
-                        class="tarifas-button tarifas-button--primary"
+                        class="btn tarifas-button tarifas-button--primary"
                         href="#tarifas-alquiler"
                     >
                         <span class="icon" aria-hidden="true">sell</span>
                         Ver tarifas de alquiler
                     </a>
                     <a
-                        class="tarifas-button tarifas-button--ghost"
+                        class="btn tarifas-button tarifas-button--ghost"
                         href="#recorridos"
                     >
                         <span class="icon" aria-hidden="true">map</span>
@@ -186,7 +269,7 @@
                     aria-labelledby="alquiler-title"
                     tabindex="0"
                 >
-                    <table class="tarifas-table">
+                    <table class="tarifas-table table">
 
                         <thead>
                             <tr class="tarifas-table__row">
@@ -466,7 +549,7 @@
                     aria-labelledby="recorridos-title"
                     tabindex="0"
                 >
-                    <table class="tarifas-table">
+                    <table class="tarifas-table table">
 
                         <thead>
                             <tr class="tarifas-table__row">
@@ -624,7 +707,7 @@
                         ¿Quieres pedalear alguno de estos recorridos?
                     </p>
                     <a
-                        class="tarifas-button tarifas-button--primary"
+                        class="btn tarifas-button tarifas-button--primary"
                         href="../reservas/"
                     >
                         <span class="icon" aria-hidden="true"
@@ -658,139 +741,145 @@
                     llevar.
                 </p>
 
-                <div class="tarifas-info__grid">
-                    <article
-                        class="tarifas-info__card tarifas-info__card--highlight"
-                    >
-                        <div class="tarifas-info__card-head">
-                            <span class="tarifas-info__icon" aria-hidden="true">
-                                <span class="icon">verified_user</span>
-                            </span>
-                            <h3 class="tarifas-info__card-title">
-                                Incluido en todas las tarifas
-                            </h3>
-                        </div>
-
-                        <p class="tarifas-info__card-text">
-                            Todas las tarifas incluyen
-                            <strong>casco y candado</strong>. Así solo te
-                            preocupas por pedalear.
-                        </p>
-
-                        <div class="tarifas-info__chips">
-                            <span class="tarifas-info__chip">
-                                <span
-                                    class="icon"
-                                    aria-hidden="true"
-                                    >sports_motorsports</span
-                                >
-                                Casco
-                            </span>
-                            <span class="tarifas-info__chip">
-                                <span
-                                    class="icon"
-                                    aria-hidden="true"
-                                    >lock</span
-                                >
-                                Candado
-                            </span>
-                        </div>
-                    </article>
-
-                    <article
-                        class="tarifas-info__card tarifas-info__card--schedule"
-                    >
-                        <div class="tarifas-info__card-head">
-                            <span class="tarifas-info__icon" aria-hidden="true">
-                                <span class="icon">calendar_month</span>
-                            </span>
-                            <h3 class="tarifas-info__card-title">
-                                Salidas de los recorridos
-                            </h3>
-                        </div>
-
-                        <div
-                            class="tarifas-info__week"
-                            role="img"
-                            aria-label="Los recorridos salen los sábados y domingos"
+                <div class="tarifas-info__grid row">
+                    <div class="col-12 col-xl-6">
+                        <article
+                            class="tarifas-info__card tarifas-info__card--highlight"
                         >
-                            <span class="tarifas-info__weekday">Lun</span>
-                            <span class="tarifas-info__weekday">Mar</span>
-                            <span class="tarifas-info__weekday">Mié</span>
-                            <span class="tarifas-info__weekday">Jue</span>
-                            <span class="tarifas-info__weekday">Vie</span>
-                            <span
-                                class="tarifas-info__weekday tarifas-info__weekday--active"
-                                >Sáb</span
-                            >
-                            <span
-                                class="tarifas-info__weekday tarifas-info__weekday--active"
-                                >Dom</span
-                            >
-                        </div>
+                            <div class="tarifas-info__card-head">
+                                <span class="tarifas-info__icon" aria-hidden="true">
+                                    <span class="icon">verified_user</span>
+                                </span>
+                                <h3 class="tarifas-info__card-title">
+                                    Incluido en todas las tarifas
+                                </h3>
+                            </div>
 
-                        <p class="tarifas-info__time">
-                            <span class="tarifas-info__time-label"
-                                >Las salidas comienzan a las</span
+                            <p class="tarifas-info__card-text">
+                                Todas las tarifas incluyen
+                                <strong>casco y candado</strong>. Así solo te
+                                preocupas por pedalear.
+                            </p>
+
+                            <div class="tarifas-info__chips">
+                                <span class="tarifas-info__chip badge">
+                                    <span
+                                        class="icon"
+                                        aria-hidden="true"
+                                        >sports_motorsports</span
+                                    >
+                                    Casco
+                                </span>
+                                <span class="tarifas-info__chip badge">
+                                    <span
+                                        class="icon"
+                                        aria-hidden="true"
+                                        >lock</span
+                                    >
+                                    Candado
+                                </span>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-12 col-xl-6">
+                        <article
+                            class="tarifas-info__card tarifas-info__card--schedule"
+                        >
+                            <div class="tarifas-info__card-head">
+                                <span class="tarifas-info__icon" aria-hidden="true">
+                                    <span class="icon">calendar_month</span>
+                                </span>
+                                <h3 class="tarifas-info__card-title">
+                                    Salidas de los recorridos
+                                </h3>
+                            </div>
+
+                            <div
+                                class="tarifas-info__week"
+                                role="img"
+                                aria-label="Los recorridos salen los sábados y domingos"
                             >
-                            <span class="tarifas-info__time-value">
-                                <span class="icon" aria-hidden="true"
-                                    >schedule</span
+                                <span class="tarifas-info__weekday">Lun</span>
+                                <span class="tarifas-info__weekday">Mar</span>
+                                <span class="tarifas-info__weekday">Mié</span>
+                                <span class="tarifas-info__weekday">Jue</span>
+                                <span class="tarifas-info__weekday">Vie</span>
+                                <span
+                                    class="tarifas-info__weekday tarifas-info__weekday--active"
+                                    >Sáb</span
                                 >
-                                7:00 a. m.
-                            </span>
-                        </p>
-                    </article>
+                                <span
+                                    class="tarifas-info__weekday tarifas-info__weekday--active"
+                                    >Dom</span
+                                >
+                            </div>
 
-                    <article
-                        class="tarifas-info__card tarifas-info__card--packing"
-                    >
-                        <div class="tarifas-info__card-head">
-                            <span class="tarifas-info__icon" aria-hidden="true">
-                                <span class="icon">backpack</span>
-                            </span>
-                            <h3 class="tarifas-info__card-title">Qué llevar</h3>
-                        </div>
+                            <p class="tarifas-info__time">
+                                <span class="tarifas-info__time-label"
+                                    >Las salidas comienzan a las</span
+                                >
+                                <span class="tarifas-info__time-value">
+                                    <span class="icon" aria-hidden="true"
+                                        >schedule</span
+                                    >
+                                    7:00 a. m.
+                                </span>
+                            </p>
+                        </article>
+                    </div>
 
-                        <ul class="packing-list">
-                            <li class="packing-list__item">
-                                <span
-                                    class="packing-list__icon"
-                                    aria-hidden="true"
-                                >
-                                    <span class="icon">checkroom</span>
+                    <div class="col-12 col-xl-6">
+                        <article
+                            class="tarifas-info__card tarifas-info__card--packing"
+                        >
+                            <div class="tarifas-info__card-head">
+                                <span class="tarifas-info__icon" aria-hidden="true">
+                                    <span class="icon">backpack</span>
                                 </span>
-                                <span>Ropa cómoda</span>
-                            </li>
-                            <li class="packing-list__item">
-                                <span
-                                    class="packing-list__icon"
-                                    aria-hidden="true"
-                                >
-                                    <span class="icon">water_drop</span>
-                                </span>
-                                <span>Agua</span>
-                            </li>
-                            <li class="packing-list__item">
-                                <span
-                                    class="packing-list__icon"
-                                    aria-hidden="true"
-                                >
-                                    <span class="icon">sunny</span>
-                                </span>
-                                <span>Protector solar</span>
-                            </li>
-                            <li class="packing-list__item">
-                                <span
-                                    class="packing-list__icon"
-                                    aria-hidden="true"
-                                >
-                                    <span class="icon">id_card</span>
-                                </span>
-                                <span>Documento de identidad</span>
-                            </li>
-                        </ul>
-                    </article>
+                                <h3 class="tarifas-info__card-title">Qué llevar</h3>
+                            </div>
+
+                            <ul class="packing-list">
+                                <li class="packing-list__item">
+                                    <span
+                                        class="packing-list__icon"
+                                        aria-hidden="true"
+                                    >
+                                        <span class="icon">checkroom</span>
+                                    </span>
+                                    <span>Ropa cómoda</span>
+                                </li>
+                                <li class="packing-list__item">
+                                    <span
+                                        class="packing-list__icon"
+                                        aria-hidden="true"
+                                    >
+                                        <span class="icon">water_drop</span>
+                                    </span>
+                                    <span>Agua</span>
+                                </li>
+                                <li class="packing-list__item">
+                                    <span
+                                        class="packing-list__icon"
+                                        aria-hidden="true"
+                                    >
+                                        <span class="icon">sunny</span>
+                                    </span>
+                                    <span>Protector solar</span>
+                                </li>
+                                <li class="packing-list__item">
+                                    <span
+                                        class="packing-list__icon"
+                                        aria-hidden="true"
+                                    >
+                                        <span class="icon">id_card</span>
+                                    </span>
+                                    <span>Documento de identidad</span>
+                                </li>
+                            </ul>
+                        </article>
+                    </div>
                 </div>
             </section>
 
@@ -814,7 +903,7 @@
 
                 <div class="tarifas-cta__actions">
                     <a
-                        class="tarifas-button tarifas-button--light"
+                        class="btn tarifas-button tarifas-button--light"
                         href="https://wa.me/573000000000"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -832,14 +921,14 @@
                         Reservar por WhatsApp
                     </a>
                     <a
-                        class="tarifas-button tarifas-button--light"
+                        class="btn tarifas-button tarifas-button--light"
                         href="mailto:hola@ruedalibre.example"
                     >
                         <span class="icon" aria-hidden="true">mail</span>
                         Reservar por correo
                     </a>
                     <a
-                        class="tarifas-button tarifas-button--outline"
+                        class="btn tarifas-button tarifas-button--outline"
                         href="../#found-us"
                     >
                         <span class="icon" aria-hidden="true">location_on</span>
@@ -863,13 +952,13 @@
 
                     <div class="footer__cta-actions">
                         <a
-                            class="footer__button footer__button--filled"
+                            class="footer__button footer__button--filled btn"
                             href="#contacto"
                         >
                             Reservar una bicicleta
                         </a>
                         <a
-                            class="footer__button footer__button--outlined"
+                            class="footer__button footer__button--outlined btn"
                             href="../tarifas/"
                         >
                             Ver tarifas y rutas

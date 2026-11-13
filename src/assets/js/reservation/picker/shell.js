@@ -72,7 +72,7 @@ export const createPickerTrigger = (native, label, describedBy, titleText) => {
     const button = element`<button
         type="button"
         id="${native.id}-button"
-        class="reservas-form__input reservas-picker__button"
+        class="reservas-form__input reservas-picker__button form-control"
         aria-haspopup="dialog"
         aria-expanded="false"
         aria-controls="${panelId}"

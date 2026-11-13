@@ -1,0 +1,228 @@
+@use "palette" as palette;
+
+/* ============================================================
+   BOOTSTRAP — bootstrap-core.scss
+   Bootstrap 5.3 es la base del diseño: grilla, utilidades y
+   componentes. Este archivo trae su CSS con los valores del
+   sitio (paleta, tipografía, radios y puntos de corte) para que
+   los componentes de Bootstrap se vean como el resto del sitio.
+
+   La paleta sale de `base/_palette.scss`, la misma que alimenta
+   los tokens `--color-*`, así que no hay dos fuentes de color.
+
+   Se importan las partes una por una en lugar de
+   `bootstrap/scss/bootstrap` completo, porque hay dos que
+   estorbarían:
+
+   - `reboot`: el proyecto ya tiene su propio reset en
+     `base/reset.scss` y los dos resets se pisarían entre sí.
+   - `carousel`: el carrusel del sitio es propio y usa las mismas
+     clases que el de Bootstrap (`.carousel`, `.carousel-item`).
+
+   `type` tampoco se importa: sus clases `.h1`–`.h6` extienden
+   `h1`–`h6`, que sin `reboot` no existen. La tipografía del
+   sitio es propia y ya está definida en sus clases.
+   ============================================================ */
+
+@import "bootstrap/scss/functions";
+
+/* ---------- Color ---------- */
+$primary: palette.color(palette.$dark, primary);
+$secondary: palette.color(palette.$dark, secondary);
+$success: #7fb069;
+$info: #6ea8d8;
+$warning: #e0a75e;
+$danger: palette.color(palette.$dark, error);
+$light: palette.color(palette.$dark, on-background);
+$dark: #0e0e0e;
+
+$theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "tertiary": palette.color(palette.$dark, tertiary),
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
+);
+
+/* ---------- Superficies y texto ---------- */
+$body-bg: palette.color(palette.$dark, background);
+$body-color: palette.color(palette.$dark, on-background);
+$body-secondary-color: palette.color(palette.$dark, on-surface-variant);
+$body-tertiary-color: palette.color(palette.$dark, on-surface-variant);
+$body-tertiary-bg: palette.color(palette.$dark, surface-container);
+$body-emphasis-color: palette.color(palette.$dark, on-surface);
+$border-color: palette.color(palette.$dark, outline-variant);
+$border-color-translucent: rgba(84, 84, 84, 0.55);
+$link-color: $primary;
+$link-hover-color: #c9b6d6;
+$headings-color: palette.color(palette.$dark, on-surface);
+
+/* ---------- Modo oscuro ----------
+   Equivalen a los tokens `--color-*` del tema `dark`. */
+$body-bg-dark: palette.color(palette.$dark, background);
+$body-color-dark: palette.color(palette.$dark, on-background);
+$body-secondary-color-dark: palette.color(palette.$dark, on-surface-variant);
+$body-secondary-bg-dark: palette.color(palette.$dark, surface-container);
+$body-tertiary-color-dark: palette.color(palette.$dark, on-surface-variant);
+$body-tertiary-bg-dark: palette.color(palette.$dark, surface-container);
+$body-emphasis-color-dark: palette.color(palette.$dark, on-surface);
+$border-color-dark: palette.color(palette.$dark, outline-variant);
+$border-color-translucent-dark: rgba(84, 84, 84, 0.55);
+$headings-color-dark: palette.color(palette.$dark, on-surface);
+$link-color-dark: $primary;
+$link-hover-color-dark: #c9b6d6;
+
+/* ---------- Tipografía ---------- */
+$font-family-sans-serif: ("Google Sans", sans-serif);
+$font-weight-base: 400;
+$headings-font-weight: 400;
+$headings-margin-bottom: 0;
+$paragraph-margin-bottom: 0;
+
+/* ---------- Radios ----------
+   Traducen los tokens `--radius-*` del sitio. */
+$border-radius: 1.25rem;
+$border-radius-sm: 0.75rem;
+$border-radius-lg: 2rem;
+$border-radius-xl: 3rem;
+$border-radius-2xl: 4.5rem;
+
+/* ---------- Puntos de corte ----------
+   Los mismos anchos que usaba el CSS propio, para que la grilla
+   de Bootstrap caiga donde caía la grilla anterior.
+
+   `sm2` y `xl2` cubren los dos anchos intermedios en los que la
+   sección "¿Por qué Rueda Libre?" cambia de número de columnas. */
+$grid-breakpoints: (
+    xs: 0,
+    sm: 32.5625rem,
+    sm2: 36rem,
+    md: 45.0625rem,
+    lg: 53.8125rem,
+    xl: 57.5625rem,
+    xl2: 62rem,
+    xxl: 64.0625rem,
+);
+
+$container-max-widths: (
+    sm: 540px,
+    sm2: 600px,
+    md: 720px,
+    lg: 960px,
+    xl: 1200px,
+    xl2: 1320px,
+    xxl: 1424px,
+);
+
+/* ---------- Componentes ---------- */
+$btn-font-weight: 700;
+$btn-border-radius: 50rem;
+$btn-border-radius-sm: 50rem;
+$btn-border-radius-lg: 50rem;
+$btn-padding-y: 0.9rem;
+$btn-padding-x: 1.5rem;
+$btn-padding-y-sm: 0.5rem;
+$btn-padding-x-sm: 1rem;
+$btn-padding-y-lg: 1rem;
+$btn-padding-x-lg: 1.8rem;
+$btn-focus-width: 0;
+$btn-focus-box-shadow: 0 0 0 0.2rem rgba(178, 154, 195, 0.35);
+
+$input-btn-padding-y: 0.8rem;
+$input-btn-padding-x: 0.95rem;
+$input-border-radius: 0.85rem;
+$input-btn-focus-width: 0;
+$input-btn-focus-color: rgba(178, 154, 195, 0.45);
+$input-bg: palette.color(palette.$dark, surface-container);
+$input-color: palette.color(palette.$dark, on-surface);
+$input-border-color: palette.color(palette.$dark, outline-variant);
+$input-placeholder-color: #9a9a9a;
+$input-focus-bg: palette.color(palette.$dark, surface-container);
+$input-focus-border-color: $primary;
+$form-check-input-bg: palette.color(palette.$dark, surface-container);
+$form-check-input-border: 1px solid palette.color(palette.$dark, outline-variant);
+$form-check-input-checked-bg-color: $primary;
+$form-check-input-checked-border-color: $primary;
+
+$card-spacer-y: 1rem;
+$card-spacer-x: 1.25rem;
+$card-border-radius: 2rem;
+$card-border-width: 1px;
+$card-bg: palette.color(palette.$dark, surface-container);
+$card-cap-bg: transparent;
+
+$badge-font-weight: 600;
+$badge-padding-y: 0.4em;
+$badge-padding-x: 0.8em;
+$badge-border-radius: 50rem;
+$badge-font-size: 0.85rem;
+
+$table-cell-padding-y: 0.9rem;
+$table-cell-padding-x: 1.25rem;
+$table-cell-padding-y-sm: 0.5rem;
+$table-cell-padding-x-sm: 0.75rem;
+$table-border-color: palette.color(palette.$dark, outline-variant);
+$table-bg: palette.color(palette.$dark, surface-container);
+$table-color: palette.color(palette.$dark, on-surface);
+$table-striped-bg: palette.color(palette.$dark, surface-container-high);
+$table-hover-bg: rgba(178, 154, 195, 0.08);
+
+$dropdown-bg: palette.color(palette.$dark, surface-container);
+$dropdown-border-color: palette.color(palette.$dark, outline-variant);
+$dropdown-border-radius: 2rem;
+$dropdown-link-color: palette.color(palette.$dark, on-surface);
+$dropdown-link-hover-bg: rgba(178, 154, 195, 0.16);
+$dropdown-link-active-bg: palette.color(palette.$dark, primary-container);
+$dropdown-padding-y: 0.5rem;
+$dropdown-padding-x: 0.5rem;
+$dropdown-spacer: 0.15rem;
+
+$offcanvas-bg-color: palette.color(palette.$dark, surface-container);
+$offcanvas-border-color: rgba(178, 154, 195, 0.28);
+$offcanvas-padding-y: 6.5rem;
+$offcanvas-padding-x: 1.25rem;
+
+$modal-content-bg: palette.color(palette.$dark, surface-container-high);
+$modal-content-border-color: palette.color(palette.$dark, outline-variant);
+$modal-content-border-radius: 1.5rem;
+$modal-backdrop-opacity: 0.62;
+
+$focus-ring-width: 0;
+$focus-ring-opacity: 0.35;
+$focus-ring-color: rgba(178, 154, 195, 0.35);
+
+/* Las utilidades de Bootstrap no se marcan como `!important`: así las
+   capas del proyecto (que van después) siguen mandando sobre ellas. */
+$enable-important-utilities: false;
+
+/* ---------- Importación de Bootstrap ---------- */
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";

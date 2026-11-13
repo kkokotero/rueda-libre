@@ -1,1 +1,10 @@
-@layer base, layout, components, pages;
+/* Orden de las capas de cascada.
+
+   - `reset` va primero: es el reset del sitio (`* { margin: 0; padding: 0 }`
+     y similares) y cualquier clase de componente debe poder ganarle.
+   - `bootstrap` va justo después: sus componentes y utilidades se
+     apoyan en el reset, pero las capas del proyecto están por encima
+     y pueden ajustarlos sin `!important`.
+   - `base`, `layout`, `components` y `pages` son las capas propias
+     del proyecto, de más general a más específica. */
+@layer reset, bootstrap, base, layout, components, pages;
