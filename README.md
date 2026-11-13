@@ -25,6 +25,44 @@ npm run preview
 
 La compilación genera el sitio listo para publicar en `dist/`. El comando de previsualización sirve esa compilación localmente.
 
+## Despliegue en Vercel
+
+El repositorio ya incluye `vercel.json`, de modo que Vercel puede compilar y publicar el sitio sin configuración adicional.
+
+### Desde la interfaz de Vercel (recomendado)
+
+1. Sube el proyecto a GitHub, GitLab o Bitbucket.
+2. En Vercel, abre **Add New → Project** y selecciona el repositorio.
+3. Vercel detecta el proyecto como **Vite**. Verifica estos valores:
+
+   | Ajuste              | Valor            |
+   | ------------------- | ---------------- |
+   | Framework Preset    | Vite             |
+   | Install Command     | `npm ci`         |
+   | Build Command       | `npm run build`  |
+   | Output Directory    | `dist`           |
+   | Node.js Version     | 22.x             |
+
+4. Pulsa **Deploy**. Cada `push` a la rama principal republica el sitio.
+
+### Desde la terminal
+
+```sh
+npx vercel            # despliegue de vista previa
+npx vercel --prod     # despliegue a producción
+```
+
+El primer comando pide iniciar sesión y vincular el proyecto a una cuenta de Vercel.
+
+### Configuración de `vercel.json`
+
+- `outputDirectory: "dist"` indica a Vercel que el sitio publicado es la carpeta que genera `npm run build`.
+- `trailingSlash: true` hace que las rutas `/tarifas/`, `/reservas/` y `/catalogo/` se sirvan siempre con barra final. Las páginas enlazan entre sí con rutas relativas (`../tarifas/`), y esa barra final es necesaria para que el navegador resuelva bien esos enlaces.
+- `installCommand: "npm ci"` instala exactamente las versiones de `package-lock.json`.
+- Los bloqueos de `Cache-Control` para `/assets/` aprovechan que los archivos llevan hash en el nombre y no cambian entre despliegues.
+
+El archivo `.vercelignore` evita subir `node_modules/`, `dist/` y `docs/` al proyecto de Vercel.
+
 ## Calidad de código
 
 ```sh
@@ -41,6 +79,7 @@ Biome revisa JavaScript, TypeScript y los archivos de configuración del proyect
 - `src/assets/js/`: navegación, carrusel, reservas y utilidades compartidas.
 - `src/img/`: imágenes e iconos.
 - `vite.config.ts`: raíz de Vite y entradas HTML de la compilación.
+- `vercel.json` y `.vercelignore`: configuración de publicación en Vercel.
 - `biome.json` y `.editorconfig`: reglas de calidad y estilo.
 
 ## JavaScript

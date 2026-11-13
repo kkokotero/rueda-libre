@@ -26,5 +26,9 @@
     "dependencies": {
         "bootstrap": "^5.3.8",
         "html-box": "^0.3.3"
+    },
+    "allowScripts": {
+        "@parcel/watcher": true,
+        "esbuild": true
     }
 }

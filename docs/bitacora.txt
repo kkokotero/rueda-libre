@@ -601,3 +601,29 @@ MIGRACIÓN DE LA DISTRIBUCIÓN A SCSS PROPIO
   dos o cuatro columnas responsive y separación definida en SCSS.
 - Las secciones comparten .content-container para ancho máximo y centrado.
 - Los archivos package.json y package-lock.json ya no incluyen la dependencia.
+
+DESPLIEGUE EN VERCEL
+
+El sitio es estático, así que se publica como una aplicación multipágina. Para
+que Vercel lo compile y lo sirva se añadió vercel.json:
+
+- Framework: vite, con buildCommand "npm run build" y outputDirectory "dist",
+  la carpeta donde vite.config.ts deja la compilación.
+- installCommand: "npm ci", para instalar exactamente las versiones del
+  package-lock.json.
+- engines.node: 22.x, la versión de Node con la que se valida el proyecto.
+- trailingSlash: true, necesario porque las páginas se enlazan entre sí con
+  rutas relativas (../tarifas/): la barra final mantiene la resolución
+  correcta de esos enlaces en el navegador.
+- cleanUrls: false, para conservar las rutas con carpeta y su index.html.
+- Cabeceras: Cache-Control inmutable para /assets/, cuyos nombres llevan hash,
+  más X-Content-Type-Options, Referrer-Policy y X-Frame-Options para el resto
+  de rutas.
+
+También se añadió .vercelignore para no subir node_modules/, dist/ y docs/ al
+proyecto, y el campo allowScripts en package.json para que npm autorice de
+forma explícita los scripts de instalación de esbuild y @parcel/watcher.
+
+La verificación local reproducjo lo que hace Vercel: npm ci seguido de
+npm run build, y la comprobación de que /, /tarifas/, /reservas/ y /catalogo/
+responden 200 sobre la carpeta dist.
